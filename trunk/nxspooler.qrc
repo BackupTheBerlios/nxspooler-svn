@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/" >
+        <file>img/nxspooler.png</file>
+    </qresource>
+</RCC>
