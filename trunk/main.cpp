@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
       a.setOrganizationName(t("Creación y Diseño Ibense"));
       a.setOrganizationDomain(t("cdi-ibense.com"));
       a.setApplicationName(t("NxSpooler"));
-      a.setApplicationVersion(t("0.1"));
+      a.setApplicationVersion(t("0.2"));
 
       // Comprobamos si se le han pasado parámetros al programa
       if (argc - 1 != 0)

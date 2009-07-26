@@ -54,6 +54,12 @@ TOpciones::TOpciones(QSettings *ajustes, QWidget *padre)
    // Poner en los campos de opciones los ajustes actuales del programa
    actualizarCamposOpciones();
 
+   // La última columna (la de la ruta del programa) ocupará todo el espacio horizontal sobrante
+   m_exts_apps->horizontalHeader()->setStretchLastSection(true);
+
+   // Dejar el cursor de la tabla de extensiones en su primer elemento
+   m_exts_apps->selectRow(0);
+
    qDebug() << "FIN" << metaObject()->className() << ":: TOpciones";
 }
 
@@ -77,7 +83,20 @@ void TOpciones::actualizarCamposOpciones()
    qDebug() << "___" << metaObject()->className() << ":: actualizarCamposOpciones";
 
    m_seconds->setValue(m_ajustes->value("segundos").toInt());
-   m_app->setText(m_ajustes->value("app").toString());
+
+   QStringList exts = m_ajustes->value("exts").toStringList();
+   QStringList apps = m_ajustes->value("apps").toStringList();
+   int elementos = exts.count();
+   m_exts_apps->model()->removeRows(0, m_exts_apps->rowCount());
+
+   for(int i = 0; i < elementos; i++)
+   {
+      m_exts_apps->insertRow(m_exts_apps->rowCount());
+      m_exts_apps->setItem(i, 0, new QTableWidgetItem(exts.value(i)));
+      qDebug()<<apps.value(i);
+      m_exts_apps->setItem(i, 1, new QTableWidgetItem(apps.value(i)));
+   }
+
    m_path->setText(m_ajustes->value("ruta").toString());
    m_shared->setText(m_ajustes->value("recurso").toString());
 
@@ -92,7 +111,21 @@ void TOpciones::actualizarAjustes()
 {
    qDebug() << "___" << metaObject()->className() << ":: actualizarAjustes";
 
-   m_ajustes->setValue("app", m_app->text());
+   QStringList exts;
+   QStringList apps;
+
+   // Recorrer las filas del control tabla para tomar las extensiones y sus aplicaciones
+   const int filas = m_exts_apps->rowCount();
+   for(int i = 0; i < filas; i++)
+   {
+      exts.append(m_exts_apps->item(i, 0)->text());
+      apps.append(m_exts_apps->item(i, 1)->text());
+   }
+   m_ajustes->remove("exts");
+   m_ajustes->remove("apps");
+   m_ajustes->setValue("exts", exts);
+   m_ajustes->setValue("apps", apps);
+
    m_ajustes->setValue("recurso", m_shared->text());
    m_ajustes->setValue("ruta", m_path->text());
    m_ajustes->setValue("segundos", m_seconds->value());
@@ -119,7 +152,9 @@ void TOpciones::seleccionarPrograma()
    // Si el usuario acepta el diálogo, tomar la ruta del fichero seleccionado
    if (dialog_fichero.exec() == 1)
    {
-      m_app->setText(QDir::toNativeSeparators((dialog_fichero.selectedFiles().first())));
+      QTableWidgetItem *nuevo_campo_app = new QTableWidgetItem(QDir::toNativeSeparators((dialog_fichero.selectedFiles().first())));
+      m_exts_apps->setItem(m_exts_apps->currentRow(), 1, nuevo_campo_app);
+      qDebug()<<m_exts_apps->currentRow()<<" "<<nuevo_campo_app;
    }
 
    qDebug() << "FIN" << metaObject()->className() << ":: seleccionarPrograma";

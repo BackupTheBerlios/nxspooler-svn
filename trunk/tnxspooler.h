@@ -68,6 +68,7 @@ private:
    QSettings m_ajustes; //!< Objeto gestor de la configuración del programa (carga y guarda automáticamente)
    TIconoBandeja m_icono_bandeja; //!< Gestor del icono de bandeja
    int m_intervalo_predeterminado; //!< Número de segundos del intervalo por defecto
+   QStringList m_formatos_predeterminados; //!< Lista de extensiones a incluir en la detección
    QString m_recurso_predeterminado; //!< Cadena que se mantendrá constante con el nombre de recurso por defecto
    QString m_ruta_predeterminada; //!< Cadena que se mantendrá constante con la ruta por defecto
    QTimer m_temporizador; //!< Objeto que llamará a abrir() a intervalos de tiempo regulares

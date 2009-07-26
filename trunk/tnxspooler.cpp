@@ -59,6 +59,8 @@ TNxSpooler::TNxSpooler(QWidget *padre)
 
    // Definir los valores predeterminados "constantes"
    m_intervalo_predeterminado = 3;
+   m_formatos_predeterminados.append("pdf");
+   m_formatos_predeterminados.append("ods");
    m_recurso_predeterminado = t("bulmages$");
    m_ruta_predeterminada = QDir::toNativeSeparators(QDir::homePath().append(QDir::separator()).append(".bulmages"));
 
@@ -132,7 +134,7 @@ void TNxSpooler::abrir()
       argumentos.clear();
 
 #ifdef Q_WS_WIN
-      argumentos << "/C" << "start" << "/wait" << m_ajustes.value("app").toString();
+      argumentos << "/C" << "start" << "/wait" << m_ajustes.value("apps").toString();
 #endif
 
       argumentos << QDir::toNativeSeparators(archivo.absoluteFilePath());
@@ -143,13 +145,13 @@ void TNxSpooler::abrir()
 #else
       // Si estamos en Linux y el usuario ha dejado en blanco el nombre de la aplicación PDF,
       // usar la que se encuentre en este momento respetando ese ajuste vacío
-      if (m_ajustes.value("app").toString().isEmpty())
+      if (m_ajustes.value("apps").toString().isEmpty())
       {
          resultado = proceso.execute(programaPredeterminadoLinux(), argumentos);
       }
       else
       {
-         resultado = proceso.execute(m_ajustes.value("app").toString(), argumentos);
+         resultado = proceso.execute(m_ajustes.value("apps").toString(), argumentos);
       }
 #endif
 
@@ -215,7 +217,7 @@ void TNxSpooler::abrirOpciones()
       prepararRutaLocal();
       prepararTemporizador();
    }
-   while(!sist.existePrograma(m_ajustes.value("app").toString()));
+   while(!sist.existePrograma(m_ajustes.value("apps").toString()));
 
    qDebug() << "FIN" << metaObject()->className() << ":: abrirOpciones";
 }
@@ -234,7 +236,11 @@ void TNxSpooler::filtrarOrdenarDir(QDir &ruta)
    // Tratar sólo ciertos tipos de ficheros mediante un filtro.
    // Tanto en Windows como en Linux no diferenciará mayúsculas de minúsculas.
    QStringList filtros;
-   filtros<<"*.pdf";
+   QStringList exts = m_ajustes.value("exts").toStringList();
+   for(int i = 0; i < exts.count(); i++)
+   {
+      filtros<<t("*.%1").arg(exts.value(i));
+   }
    ruta.setNameFilters(filtros);
 
    ruta.setSorting(QDir::Time|QDir::Reversed);
@@ -243,7 +249,7 @@ void TNxSpooler::filtrarOrdenarDir(QDir &ruta)
 }
 
 
-//! Inicializa los ajustes de la aplicación PDF.
+//! Inicializa los ajustes de la aplicación.
 /*!
    Asigna su valor por defecto a los ajustes que no hayan obtenido su contenido almacenado.
    Normalmente, cuando los ajustes no tienen valor es por que estamos en la primera ejecución
@@ -259,20 +265,39 @@ void TNxSpooler::inicializarAjustes()
       m_ajustes.setValue("segundos", m_intervalo_predeterminado);
    }
 
-   // Se permite dejar la ruta de aplicación PDF como una cadena vacía,
-   // sólo ponemos la predeterminada si el parámetro está nulo (todavía no es ni una cadena)
-   if (m_ajustes.value("app").isNull())
+   if (m_ajustes.value("exts").isNull())
    {
-      m_ajustes.setValue("app", programaPredeterminado());
+      m_ajustes.setValue("exts", m_formatos_predeterminados);
+   }
+
+   QStringList apps;
+   QStringList exts = m_ajustes.value("exts").toStringList();
+   int elementos = exts.count();
+
+   // Se permite dejar la ruta de aplicación como una cadena vacía,
+   // sólo ponemos la predeterminada si el ajuste está nulo (todavía no es ni una lista de cadenas)
+   if (m_ajustes.value("apps").isNull())
+   {
+      for(int i = 0; i < elementos; i++)
+      {
+         apps.append(programaPredeterminado());
+      }
    }
    else
    {
-      if (!sist.existePrograma(m_ajustes.value("app").toString()))
+      QString app;
+      for(int i = 0; i < elementos; i++)
       {
-         QString mensaje = t("0707091 - No se encuentra el programa especificado para abrir ficheros PDF");
-         throw runtime_error(mensaje.toStdString());
+         app = m_ajustes.value("apps").toStringList().value(i);
+         if (!sist.existePrograma(m_ajustes.value("apps").toStringList().value(i)))
+         {
+            QString mensaje = t("0707091 - No se encuentra el programa especificado: \"%1\"").arg(app);
+            throw runtime_error(mensaje.toStdString());
+         }
       }
+      m_ajustes.remove("apps");
    }
+   m_ajustes.setValue("apps", apps);
 
    if (m_ajustes.value("ruta").isNull() || m_ajustes.value("ruta").toString().isEmpty())
    {
@@ -536,7 +561,19 @@ void TNxSpooler::restaurarAjustes()
 {
    qDebug() << "___" << metaObject()->className() << ":: restaurarAjustes";
 
-   m_ajustes.setValue("app", programaPredeterminado());
+   m_ajustes.remove("exts");
+   m_ajustes.setValue("exts", m_formatos_predeterminados);
+
+   QStringList apps;
+   int elementos = m_formatos_predeterminados.count();
+
+   for(int i = 0; i < elementos; i++)
+   {
+      apps.append(programaPredeterminado());
+   }
+   m_ajustes.remove("apps");
+   m_ajustes.setValue("apps", apps);
+
    m_ajustes.setValue("recurso", m_recurso_predeterminado);
    m_ajustes.setValue("ruta", m_ruta_predeterminada);
    m_ajustes.setValue("segundos", m_intervalo_predeterminado);
