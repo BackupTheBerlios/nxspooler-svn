@@ -270,34 +270,19 @@ void TNxSpooler::inicializarAjustes()
       m_ajustes.setValue("exts", m_formatos_predeterminados);
    }
 
-   QStringList apps;
-   QStringList exts = m_ajustes.value("exts").toStringList();
-   int elementos = exts.count();
-
    // Se permite dejar la ruta de aplicación como una cadena vacía,
-   // sólo ponemos la predeterminada si el ajuste está nulo (todavía no es ni una lista de cadenas)
+   // sólo ponemos las predeterminadas si el ajuste está nulo (todavía no es ni una lista de cadenas)
    if (m_ajustes.value("apps").isNull())
    {
+      const int elementos = m_ajustes.value("exts").toStringList().count();
+      QStringList apps;
+
       for(int i = 0; i < elementos; i++)
       {
          apps.append(programaPredeterminado());
       }
+      m_ajustes.setValue("apps", apps);
    }
-   else
-   {
-      QString app;
-      for(int i = 0; i < elementos; i++)
-      {
-         app = m_ajustes.value("apps").toStringList().value(i);
-         if (!sist.existePrograma(m_ajustes.value("apps").toStringList().value(i)))
-         {
-            QString mensaje = t("0707091 - No se encuentra el programa especificado: \"%1\"").arg(app);
-            throw runtime_error(mensaje.toStdString());
-         }
-      }
-      m_ajustes.remove("apps");
-   }
-   m_ajustes.setValue("apps", apps);
 
    if (m_ajustes.value("ruta").isNull() || m_ajustes.value("ruta").toString().isEmpty())
    {

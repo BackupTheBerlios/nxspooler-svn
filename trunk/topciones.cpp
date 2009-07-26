@@ -35,14 +35,6 @@ TOpciones::TOpciones(QSettings *ajustes, QWidget *padre)
 
    setupUi(this);
 
-   // Botón para la exploración de la aplicación visualizadora
-   connect(m_find_app, SIGNAL(clicked()),
-    (TOpciones *)this, SLOT(seleccionarPrograma()));
-
-   // Botón para la exploración de la ruta
-   connect(m_find_path, SIGNAL(clicked()),
-                  this, SLOT(seleccionarRuta()));
-
    // Botón para dejar los valores predeterminados en los campos de opciones
    connect((QObject *)m_buttonBox->button(QDialogButtonBox::RestoreDefaults), SIGNAL(clicked()),
                                                                         this, SIGNAL(restaurarPulsado()));
@@ -118,8 +110,22 @@ void TOpciones::actualizarAjustes()
    const int filas = m_exts_apps->rowCount();
    for(int i = 0; i < filas; i++)
    {
-      exts.append(m_exts_apps->item(i, 0)->text());
-      apps.append(m_exts_apps->item(i, 1)->text());
+      // Evitar agregar una extensión nula o vacía
+      if(not m_exts_apps->item(i, 0)->text().isNull() && not m_exts_apps->item(i, 0)->text().isEmpty())
+      {
+         exts.append(m_exts_apps->item(i, 0)->text());
+
+         // Evitar tener una ruta nula (sí se puede tener vacía)
+         if(m_exts_apps->item(i, 1)->text().isNull())
+         {
+            apps.append(t(""));
+         }
+         else
+         {
+            apps.append(m_exts_apps->item(i, 1)->text());
+
+         }
+      }
    }
    m_ajustes->remove("exts");
    m_ajustes->remove("apps");
@@ -139,12 +145,30 @@ void TOpciones::actualizarAjustes()
 }
 
 
+//! Inserta al final de la tabla una nueva línea
+/*
+*/
+void TOpciones::on_m_nueva_ext_clicked()
+{
+   m_exts_apps->insertRow(m_exts_apps->rowCount());
+   m_exts_apps->setCurrentCell(m_exts_apps->rowCount() - 1, 0);
+}
+
+//! Borra la línea seleccionada
+/*
+*/
+void TOpciones::on_m_eliminar_ext_clicked()
+{
+    m_exts_apps->removeRow(m_exts_apps->currentRow());
+}
+
+
 //! Abre un diálogo para que el usuario seleccione el fichero del ejecutable del programa
 /*
 */
-void TOpciones::seleccionarPrograma()
+void TOpciones::on_m_find_app_clicked()
 {
-   qDebug() << "___" << metaObject()->className() << ":: seleccionarPrograma";
+   qDebug() << "___" << metaObject()->className() << ":: on_m_find_app_clicked";
 
    QFileDialog dialog_fichero(this, t("Seleccione el visor de PDF"), "/");
    dialog_fichero.setFileMode(QFileDialog::ExistingFile);
@@ -154,19 +178,18 @@ void TOpciones::seleccionarPrograma()
    {
       QTableWidgetItem *nuevo_campo_app = new QTableWidgetItem(QDir::toNativeSeparators((dialog_fichero.selectedFiles().first())));
       m_exts_apps->setItem(m_exts_apps->currentRow(), 1, nuevo_campo_app);
-      qDebug()<<m_exts_apps->currentRow()<<" "<<nuevo_campo_app;
    }
 
-   qDebug() << "FIN" << metaObject()->className() << ":: seleccionarPrograma";
+   qDebug() << "FIN" << metaObject()->className() << ":: on_m_find_app_clicked";
 }
 
 
 //! Abre un diálogo para que el usuario seleccione la ruta local compartida
 /*
 */
-void TOpciones::seleccionarRuta()
+void TOpciones::on_m_find_path_clicked()
 {
-   qDebug() << "___" << metaObject()->className() << ":: seleccionarRuta";
+   qDebug() << "___" << metaObject()->className() << ":: on_m_find_path_clicked";
 
    QFileDialog dialog_ruta(this, t("Seleccione la ruta local compartida"));
 
@@ -187,5 +210,5 @@ void TOpciones::seleccionarRuta()
       m_path->setText(QDir::toNativeSeparators(dialog_ruta.selectedFiles().first()));
    }
 
-   qDebug() << "FIN" << metaObject()->className() << ":: seleccionarRuta";
+   qDebug() << "FIN" << metaObject()->className() << ":: on_m_find_path_clicked";
 }

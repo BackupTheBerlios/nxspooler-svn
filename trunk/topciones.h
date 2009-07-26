@@ -39,8 +39,10 @@ public slots:
    void actualizarCamposOpciones();
 
 private slots:
-   void seleccionarPrograma();
-   void seleccionarRuta();
+   void on_m_find_path_clicked();
+   void on_m_find_app_clicked();
+   void on_m_eliminar_ext_clicked();
+   void on_m_nueva_ext_clicked();
 
 private:
    QSettings *m_ajustes; //!< Objeto gestor de la configuración del programa (carga y guarda automáticamente)
