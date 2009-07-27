@@ -71,7 +71,7 @@
       <item row="1" column="0">
        <widget class="QLabel" name="label_path">
         <property name="text">
-         <string>&amp;Ruta:</string>
+         <string>C&amp;arpeta compartida:</string>
         </property>
         <property name="buddy">
          <cstring>m_path</cstring>
@@ -93,10 +93,10 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Ruta compartida</string>
+         <string>Carpeta compartida</string>
         </property>
         <property name="whatsThis">
-         <string>Ruta compartida mediante el nombre de recurso indicado debajo.</string>
+         <string>Carpeta compartida mediante el nombre de recurso indicado debajo.</string>
         </property>
        </widget>
       </item>
@@ -106,7 +106,7 @@
          <string>Buscar directorio</string>
         </property>
         <property name="whatsThis">
-         <string>Explorar el disco en busca del directorio compartido.</string>
+         <string>Explorar el disco en busca de la carpeta compartida.</string>
         </property>
         <property name="text">
          <string>...</string>
@@ -148,7 +148,7 @@
       <item row="3" column="0" rowspan="2" colspan="3">
        <widget class="QGroupBox" name="groupBox_2">
         <property name="title">
-         <string>Ex&amp;tensiones y la aplicación a utilizar con cada una</string>
+         <string>Ex&amp;tensiones a reconocer y la aplicación a utilizar con cada una</string>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="0">
@@ -163,6 +163,9 @@
          </item>
          <item row="0" column="1">
           <widget class="QPushButton" name="m_eliminar_ext">
+           <property name="toolTip">
+            <string>Eliminar extensión</string>
+           </property>
            <property name="text">
             <string>&amp;Eliminar</string>
            </property>

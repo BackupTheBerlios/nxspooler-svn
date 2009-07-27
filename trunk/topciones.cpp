@@ -170,7 +170,7 @@ void TOpciones::on_m_find_app_clicked()
 {
    qDebug() << "___" << metaObject()->className() << ":: on_m_find_app_clicked";
 
-   QFileDialog dialog_fichero(this, t("Seleccione el visor de PDF"), "/");
+   QFileDialog dialog_fichero(this, t("Seleccione el programa visor"), "/");
    dialog_fichero.setFileMode(QFileDialog::ExistingFile);
 
    // Si el usuario acepta el diálogo, tomar la ruta del fichero seleccionado

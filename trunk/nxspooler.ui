@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>405</width>
     <height>265</height>
    </rect>
   </property>
@@ -27,7 +27,7 @@
    <item>
     <widget class="QLabel" name="m_label_2">
      <property name="text">
-      <string>Documentos PDF abiertos y borrados hasta ahora:</string>
+      <string>Documentos abiertos y borrados por NxSpooler hasta ahora</string>
      </property>
     </widget>
    </item>

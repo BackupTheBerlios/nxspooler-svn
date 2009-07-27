@@ -249,12 +249,12 @@ void TNxSpooler::filtrarOrdenarDir(QDir &ruta)
 }
 
 
-//! Inicializa los ajustes de la aplicación.
+//! Inicializa los ajustes de NxSpooler.
 /*!
    Asigna su valor por defecto a los ajustes que no hayan obtenido su contenido almacenado.
    Normalmente, cuando los ajustes no tienen valor es por que estamos en la primera ejecución
    del programa en el ordenador y no había ajustes guardados en el registro de Windows o los
-   ficheros de configuración de nuestro home de Linux.
+   ficheros de configuración en nuestro "home" de Linux.
 */
 void TNxSpooler::inicializarAjustes()
 {
@@ -270,7 +270,7 @@ void TNxSpooler::inicializarAjustes()
       m_ajustes.setValue("exts", m_formatos_predeterminados);
    }
 
-   // Se permite dejar la ruta de aplicación como una cadena vacía,
+   // Nota: se permite dejar una ruta de aplicación como una cadena vacía,
    // sólo ponemos las predeterminadas si el ajuste está nulo (todavía no es ni una lista de cadenas)
    if (m_ajustes.value("apps").isNull())
    {
