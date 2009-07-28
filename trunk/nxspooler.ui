@@ -46,10 +46,10 @@
       </size>
      </property>
      <property name="toolTip">
-      <string>Histórico de documentos PDF</string>
+      <string>Histórico de archivos detectados</string>
      </property>
      <property name="whatsThis">
-      <string>Documentos PDF abiertos y eliminados durante la ejecución de NxSpooler.</string>
+      <string>Archivos abiertos y eliminados durante la ejecución de NxSpooler.</string>
      </property>
     </widget>
    </item>

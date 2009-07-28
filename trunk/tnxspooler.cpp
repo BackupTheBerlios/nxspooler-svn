@@ -19,24 +19,25 @@
 
 /*!
    \class TNxSpooler
-   \brief Abre y borra regularmente los PDFs que aparecen en cierta ruta.
+   \brief Abre y borra regularmente los archivos de ciertas extensiones que aparecen en una ruta.
 
    La clase TNxSpooler se encarga de comprobar cada cierto intervalo de tiempo si
-   existen ficheros PDF en una ruta indicada para abrirlos y borrarlos.
+   existen archivos en una ruta indicada para abrirlos y borrarlos.
    Dicha ruta se encuentra compartida por red para que la use una conexión FreeNX.
    De este modo, basta con que funcione la compartición de ficheros por Samba
    en la sesión FreeNX para que se abra automáticamente en nuestra sesión local
-   cualquier fichero PDF que se genere en la ruta.
+   cualquier fichero con la extensión deseada que se genere en la ruta.
 
    CASO PARTICULAR: BulmaGés
    Hay que compartir nuestra carpeta personal ".bulmages" como "bulmages$".
    El cliente de FreeNX debe ser configurado para que monte dicho recurso
    como carpeta personal "~/.bulmages" en la sesión remota.
-   Cuando BulmaGés imprime algo, se genera un PDF en dicha ruta compartida.
+   Cuando BulmaGés imprime algo, se genera un archivo PDF, ODS o SXC en
+   dicha ruta compartida.
    NxSpooler detectará ese fichero y lo abrirá localmente.
    Para evitar que se abra también en la sesión remota,
    editar el fichero "/etc/bulmages/bulmages.conf" y
-   reemplazar "konqueror" por "echo" en el parámetro "CONF_PDF".
+   reemplazar por "echo" los parámetros "CONF_PDF", "CONF_ODS" y "CONF_SXC".
 */
 
 #include "tnxspooler.h"
@@ -107,7 +108,7 @@ TNxSpooler::~TNxSpooler()
 }
 
 
-//! Abre y borra los PDFs que se encuentra.
+//! Abre y borra los archivos con extensión deseada que se encuentra.
 /*!
 */
 void TNxSpooler::abrir()
@@ -147,7 +148,7 @@ void TNxSpooler::abrir()
 #ifdef Q_WS_WIN
       resultado = proceso.execute("cmd", argumentos);
 #else
-      // Si estamos en Linux y el usuario ha dejado en blanco el nombre de la aplicación PDF,
+      // Si estamos en Linux y el usuario ha dejado en blanco el nombre de la aplicación de apertura,
       // usar la que se encuentre en este momento respetando ese ajuste vacío
       if (app.isEmpty())
       {
@@ -227,7 +228,7 @@ void TNxSpooler::abrirOpciones()
 }
 
 
-//! Reduce el listado a los ficheros PDF y ordena por hora de modificación.
+//! Reduce el listado a los ficheros con las extensiones deseadas y ordena por hora de modificación.
 /*!
    Con esta manera de ordenar nos aseguramos de que el documento que lleva más tiempo esperando es el primero
    en ser abierto.
@@ -486,9 +487,9 @@ void TNxSpooler::prepararTemporizador()
 }
 
 
-//! Decide qué programa usar para ver los ficheros PDF.
+//! Decide qué programa usar para abrir archivos.
 /*!
-   En Windows, dejamos en manos del sistema la selección de la aplicación PDF por defecto.
+   En Windows, dejamos en manos del sistema la selección de la aplicación visora por defecto.
    En Linux, se realiza una búsqueda priorizando ciertas aplicaciones.
   \return Nombre o ruta del programa a utilizar de forma predeterminada
 */
@@ -506,11 +507,11 @@ QString TNxSpooler::programaPredeterminado() const
 }
 
 
-//! Decide qué programa usar en Linux para ver los ficheros PDF.
+//! Decide qué programa usar en Linux para ver los archivos.
 /*!
    Como último recurso se usa xdg-open, pero tiene el inconveniente de que no espera a que
    el usuario cierre el fichero abierto y por tanto se ejecuta toda la cola de ficheros al mismo tiempo.
-   \return Nombre del ejecutable de la aplicación PDF que se encuentre en Linux
+   \return Nombre del ejecutable de la aplicación que se encuentre en Linux
 */
 QString TNxSpooler::programaPredeterminadoLinux() const
 {

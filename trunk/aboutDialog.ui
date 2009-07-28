@@ -49,7 +49,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>NxSpooler monitoriza si aparecen archivos PDF en determinado recurso compartido. Por cada archivo nuevo que encuentra NxSpooler: lo abre para que el usuario lo vea y pueda imprimirlo; cuando el usuario ha cerrado la ventana del visor PDF, NxSpooler intentará borrar el archivo PDF. NxSpooler está pensado para ser usado conjuntamente con una sesión FreeNX donde un programa remoto crea archivos PDF y se guardan en el recurso compartido para su posterior impresión en el ordenador del usuario.</string>
+      <string>NxSpooler monitoriza si aparecen archivos con las extensiones que se especifiquen en determinado recurso compartido. Por cada archivo nuevo que encuentra NxSpooler: lo abre para que el usuario lo vea y pueda imprimirlo o guardarlo; cuando el usuario ha cerrado la aplicación que muestra el archivo, NxSpooler lo borrará. NxSpooler está pensado para ser usado conjuntamente con una sesión FreeNX donde un programa remoto crea archivos y se guardan en el recurso compartido para su posterior uso en el ordenador del usuario.</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignJustify|Qt::AlignVCenter</set>
