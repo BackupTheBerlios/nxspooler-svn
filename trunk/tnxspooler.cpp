@@ -61,6 +61,7 @@ TNxSpooler::TNxSpooler(QWidget *padre)
    m_intervalo_predeterminado = 3;
    m_formatos_predeterminados.append("pdf");
    m_formatos_predeterminados.append("ods");
+   m_formatos_predeterminados.append("sxc");
    m_recurso_predeterminado = t("bulmages$");
    m_ruta_predeterminada = QDir::toNativeSeparators(QDir::homePath().append(QDir::separator()).append(".bulmages"));
 
@@ -133,8 +134,11 @@ void TNxSpooler::abrir()
    {
       argumentos.clear();
 
+      int i = m_ajustes.value("exts").toStringList().indexOf(archivo.completeSuffix());
+      QString app = m_ajustes.value("apps").toStringList().value(i);
+
 #ifdef Q_WS_WIN
-      argumentos << "/C" << "start" << "/wait" << m_ajustes.value("apps").toString();
+      argumentos << "/C" << "start" << "/wait" << app;
 #endif
 
       argumentos << QDir::toNativeSeparators(archivo.absoluteFilePath());
@@ -145,13 +149,13 @@ void TNxSpooler::abrir()
 #else
       // Si estamos en Linux y el usuario ha dejado en blanco el nombre de la aplicación PDF,
       // usar la que se encuentre en este momento respetando ese ajuste vacío
-      if (m_ajustes.value("apps").toString().isEmpty())
+      if (app.isEmpty())
       {
          resultado = proceso.execute(programaPredeterminadoLinux(), argumentos);
       }
       else
       {
-         resultado = proceso.execute(m_ajustes.value("apps").toString(), argumentos);
+         resultado = proceso.execute(app, argumentos);
       }
 #endif
 
