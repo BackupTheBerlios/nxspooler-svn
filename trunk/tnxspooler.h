@@ -27,6 +27,8 @@
 #include <QtGui/QMenu>
 #include <QtGui/QDialog>
 
+#include <QTranslator>
+
 #include "ticonobandeja.h"
 #include "topciones.h"
 #include "tsistema.h"

@@ -32,9 +32,9 @@
 */
 TIconoBandeja::TIconoBandeja()
 {
-   qDebug()<<"___ TIconoBandeja::TIconoBandeja()";
+   qDebug() << "___ TIconoBandeja::TIconoBandeja()";
 
-   qDebug()<<"FIN TIconoBandeja::TIconoBandeja()";
+   qDebug() << "END TIconoBandeja::TIconoBandeja()";
 }
 
 
@@ -44,12 +44,12 @@ TIconoBandeja::TIconoBandeja()
 */
 TIconoBandeja::~TIconoBandeja()
 {
-   qDebug()<<"___ TIconoBandeja::~TIconoBandeja()";
+   qDebug() << "___ TIconoBandeja::~TIconoBandeja()";
 
    if (isSystemTrayAvailable())
    {
       hide();
    }
 
-   qDebug()<<"FIN TIconoBandeja::~TIconoBandeja()";
+   qDebug() << "END TIconoBandeja::~TIconoBandeja()";
 }

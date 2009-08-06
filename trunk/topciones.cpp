@@ -52,7 +52,7 @@ TOpciones::TOpciones(QSettings *ajustes, QWidget *padre)
    // Dejar el cursor de la tabla de extensiones en su primer elemento
    m_exts_apps->selectRow(0);
 
-   qDebug() << "FIN" << metaObject()->className() << ":: TOpciones";
+   qDebug() << "END" << metaObject()->className() << ":: TOpciones";
 }
 
 
@@ -63,7 +63,7 @@ TOpciones::~TOpciones()
 {
    qDebug() << "___" << metaObject()->className() << ":: ~TOpciones";
 
-   qDebug() << "FIN" << metaObject()->className() << ":: ~TOpciones";
+   qDebug() << "END" << metaObject()->className() << ":: ~TOpciones";
 }
 
 
@@ -92,7 +92,7 @@ void TOpciones::actualizarCamposOpciones()
    m_path->setText(m_ajustes->value("ruta").toString());
    m_shared->setText(m_ajustes->value("recurso").toString());
 
-   qDebug() << "FIN" << metaObject()->className() << ":: actualizarCamposOpciones";
+   qDebug() << "END" << metaObject()->className() << ":: actualizarCamposOpciones";
 }
 
 
@@ -118,12 +118,11 @@ void TOpciones::actualizarAjustes()
          // Evitar tener una ruta nula (sí se puede tener vacía)
          if(m_exts_apps->item(i, 1)->text().isNull())
          {
-            apps.append(t(""));
+            apps.append("");
          }
          else
          {
             apps.append(m_exts_apps->item(i, 1)->text());
-
          }
       }
    }
@@ -138,10 +137,10 @@ void TOpciones::actualizarAjustes()
 
    if(!sist.existePrograma(m_ajustes->value("app").toString()))
    {
-      sist.mostrarAviso(t("No se puede acceder a la aplicación indicada. Seleccione otra o deje el valor predeterminado."));
+      sist.mostrarAviso(tr("No se puede acceder a la aplicación indicada. Seleccione otra o deje el valor predeterminado."));
    }
 
-   qDebug() << "FIN" << metaObject()->className() << ":: actualizarAjustes";
+   qDebug() << "END" << metaObject()->className() << ":: actualizarAjustes";
 }
 
 
@@ -170,7 +169,7 @@ void TOpciones::on_m_find_app_clicked()
 {
    qDebug() << "___" << metaObject()->className() << ":: on_m_find_app_clicked";
 
-   QFileDialog dialog_fichero(this, t("Seleccione el programa visor"), "/");
+   QFileDialog dialog_fichero(this, tr("Seleccione el programa visor"), "/");
    dialog_fichero.setFileMode(QFileDialog::ExistingFile);
 
    // Si el usuario acepta el diálogo, tomar la ruta del fichero seleccionado
@@ -180,7 +179,7 @@ void TOpciones::on_m_find_app_clicked()
       m_exts_apps->setItem(m_exts_apps->currentRow(), 1, nuevo_campo_app);
    }
 
-   qDebug() << "FIN" << metaObject()->className() << ":: on_m_find_app_clicked";
+   qDebug() << "END" << metaObject()->className() << ":: on_m_find_app_clicked";
 }
 
 
@@ -191,7 +190,7 @@ void TOpciones::on_m_find_path_clicked()
 {
    qDebug() << "___" << metaObject()->className() << ":: on_m_find_path_clicked";
 
-   QFileDialog dialog_ruta(this, t("Seleccione la ruta local compartida"));
+   QFileDialog dialog_ruta(this, tr("Seleccione la ruta local compartida"));
 
    // Configurar para que sea un selector de directorios
    dialog_ruta.setFileMode(QFileDialog::Directory);
@@ -210,5 +209,5 @@ void TOpciones::on_m_find_path_clicked()
       m_path->setText(QDir::toNativeSeparators(dialog_ruta.selectedFiles().first()));
    }
 
-   qDebug() << "FIN" << metaObject()->className() << ":: on_m_find_path_clicked";
+   qDebug() << "END" << metaObject()->className() << ":: on_m_find_path_clicked";
 }

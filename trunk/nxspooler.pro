@@ -46,3 +46,5 @@ CONFIG(release, debug|release):DEFINES += QT_NO_DEBUG_OUTPUT
 
 # El QtSingleApllication usa indirectamente la librería de red
 QT *= network
+
+TRANSLATIONS = nxspooler_es_ES.ts

@@ -32,7 +32,7 @@ TSistema::TSistema()
 {
    qDebug() << "___" << metaObject()->className() << ":: TSistema()";
 
-   qDebug() << "FIN" << metaObject()->className() << ":: TSistema()";
+   qDebug() << "END" << metaObject()->className() << ":: TSistema()";
 }
 
 
@@ -43,7 +43,7 @@ TSistema::~TSistema()
 {
    qDebug() << "___" << metaObject()->className() << ":: ~TSistema()";
 
-   qDebug() << "FIN" << metaObject()->className() << ":: ~TSistema()";
+   qDebug() << "END" << metaObject()->className() << ":: ~TSistema()";
 }
 
 
@@ -56,12 +56,12 @@ bool TSistema::confirmar(const QString &mensaje) const
 {
    qDebug() << "___" << metaObject()->className() << ":: confirmar()";
 
-   // De esta manera aparecían los botones en inglés al no usar todavía ficheros de traducciones globales (ver QTranslator)
-   QMessageBox msgBox(QMessageBox::Question, t("Confirmación"), mensaje, QMessageBox::Ok|QMessageBox::Cancel);
+   // Nota: de esta manera aparecían los botones en inglés (ver archivos de traducción, QTranslator, Qt Linguist y demás)
+   QMessageBox msgBox(QMessageBox::Question, tr("Confirmación"), mensaje, QMessageBox::Ok|QMessageBox::Cancel);
 
    int bt = msgBox.exec();
 
-   qDebug() << "FIN" << metaObject()->className() << ":: confirmar()";
+   qDebug() << "END" << metaObject()->className() << ":: confirmar()";
    return (bt == QMessageBox::Ok);
 }
 
@@ -81,16 +81,16 @@ bool TSistema::existePrograma(const QString &nombre) const
 
    if (nombre.isEmpty())
    {
-      qDebug() << "FIN" << metaObject()->className() << ":: existePrograma ADELANTADO";
+      qDebug() << "END" << metaObject()->className() << ":: existePrograma AHEAD";
       return true;
    }
 
    // Según la plataforma, usar un comando u otro para realizar la detección
    QString comando;
 #ifdef Q_WS_WIN
-   comando = t("dir \"%1\" >nul").arg(nombre);
+   comando = QString("dir \"%1\" >nul").arg(nombre);
 #else
-   comando = t("which \"%1\" >/dev/null").arg(nombre);
+   comando = QString("which \"%1\" >/dev/null").arg(nombre);
 #endif
 
    int resultado;
@@ -101,7 +101,7 @@ bool TSistema::existePrograma(const QString &nombre) const
    resultado = system(comando.toUtf8());
 #endif
 
-   qDebug() << "FIN" << metaObject()->className() << ":: existePrograma";
+   qDebug() << "END" << metaObject()->className() << ":: existePrograma";
    return (resultado == 0);
 }
 
@@ -116,14 +116,13 @@ void TSistema::mostrarAviso(const QString &mensaje, const QString &titVentana) c
 
    QMessageBox msgBox;
 
-   msgBox.setWindowTitle(titVentana == "" ? t("Aviso"):titVentana);
-	msgBox.setText(mensaje);
-	msgBox.setIcon(QMessageBox::Warning);
+   msgBox.setWindowTitle(titVentana == "" ? tr("Aviso"):titVentana);
+   msgBox.setText(mensaje);
+   msgBox.setIcon(QMessageBox::Warning);
+   qDebug() << tr("Aviso: ") << mensaje;
+   msgBox.exec();
 
-   qDebug() << "Aviso: "<<mensaje;
-	msgBox.exec();
-
-   qDebug() << "FIN" << metaObject()->className() << ":: mostrarAviso";
+   qDebug() << "END" << metaObject()->className() << ":: mostrarAviso";
 }
 
 
@@ -137,13 +136,13 @@ void TSistema::mostrarError(const QString &mensaje, const QString &titVentana) c
 
    QMessageBox msgBox;
 
-   msgBox.setWindowTitle(titVentana == "" ? t("Error"):titVentana);
+   msgBox.setWindowTitle(titVentana == "" ? tr("Error"):titVentana);
    msgBox.setText(mensaje);
    msgBox.setIcon(QMessageBox::Critical);
 
    QTextStream cerr(stderr);
-   cerr << "Error: " << mensaje << endl;
+   cerr << tr("Error: ") << mensaje << endl;
    msgBox.exec();
 
-   qDebug() << "FIN" << metaObject()->className() << ":: mostrarError()";
+   qDebug() << "END" << metaObject()->className() << ":: mostrarError()";
 }

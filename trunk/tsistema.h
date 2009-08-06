@@ -31,16 +31,9 @@
 #include <stdexcept>
 using std::runtime_error;
 
-// Convertir a la codificación UTF8 la cadena de texto especificada
-#ifndef _T_TR_UFT8_
-#define _T_TR_UTF8_
-#define t(cadena) (QObject::trUtf8(cadena))
-#endif
-
-class TSistema
-			: public QObject
+class TSistema : public QObject
 {
-	Q_OBJECT
+   Q_OBJECT
 
 public:
    TSistema();

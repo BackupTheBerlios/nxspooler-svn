@@ -25,6 +25,8 @@
 
 class TIconoBandeja : public QSystemTrayIcon
 {
+   Q_OBJECT
+
 public:
    TIconoBandeja();
    ~TIconoBandeja();

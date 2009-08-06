@@ -17,6 +17,8 @@
 *  along with NxSpooler. If not, see http://www.gnu.org/copyleft/gpl.html.
 *****************************************************************************/
 
+#include <QTranslator>
+
 #include "tnxspooler.h"
 #include "qtsingleapplication/qtsingleapplication.h"
 #include "tsistema.h"
@@ -35,41 +37,56 @@ int main(int argc, char *argv[])
 
       if (a.isRunning())
       {
-         qDebug() << t("FIN main Se ha hallado proceso de NxSpooler ya en ejecución");
+         qDebug() << "END main. NxSpooler was already running";
          return EXIT_FAILURE;
       }
 
-      a.setOrganizationName(t("Creación y Diseño Ibense"));
-      a.setOrganizationDomain(t("cdi-ibense.com"));
-      a.setApplicationName(t("NxSpooler"));
-      a.setApplicationVersion(t("0.2"));
+      // Nota: estas cadenas no se traducirán
+      a.setOrganizationName("Creación y Diseño Ibense");
+      a.setOrganizationDomain("cdi-ibense.com");
+      a.setApplicationName("NxSpooler");
+      a.setApplicationVersion("0.2");
 
       // Comprobamos si se le han pasado parámetros al programa
       if (argc - 1 != 0)
       {
-         sist.mostrarError(t("El programa NxSpooler no usa parámetros y se le han pasado: ")
-             + QString::number(argc - 1) + ".", t("Error - NxSpooler"));
-         qDebug() << t("FIN main Se han pasado parámetros a NxSpooler.");
+         sist.mostrarError(a.tr("El programa NxSpooler no usa parámetros y se le han pasado: ")
+             + QString::number(argc - 1) + ".", a.tr("Error - NxSpooler"));
+         qDebug() << "END main. NxSpooler was provided one or several parameters, but none was expected.";
          return EXIT_FAILURE;
       }
-   
+
+      // Ponemos en marcha un QTranslator para que vea si se pueden traducir los mensajes al usuario
+      QTranslator translator;
+
+      // The language and country of this locale as a string of the form "language_country", where language is a
+      // lowercase, two-letter ISO 639 language code, and country is an uppercase, two-letter ISO 3166 country code.
+      QString locale = QLocale::system().name();
+
+      // Tries to load a file that contains translations for the source texts used in the program. No error will occur if the
+      // file is not found.
+      translator.load(QString("nxspooler_") + locale );
+
+      a.installTranslator(&translator);
+
       TNxSpooler w;
+
       int resultado = a.exec();
 
-      qDebug() << "FIN main";
+      qDebug() << "END main";
       return resultado;
    }
    catch(std::exception &excep)
    {
-      sist.mostrarError(t(excep.what()) + ".");
-      qDebug() << "FIN main Error " << excep.what();
+      sist.mostrarError(QString(excep.what()) + ".");
+      qDebug() << "END main. Error " << excep.what();
       return EXIT_FAILURE;
    }
    catch(...)
    {
-      sist.mostrarError(t("Ha ocurrido un error no identificado en NxSpooler y debe cerrarse."));
+      sist.mostrarError(QT_TR_NOOP("Ha ocurrido un error no identificado en NxSpooler y debe cerrarse."));
 
-      qDebug() << "FIN main Error desconocido";
+      qDebug() << "END main. Unknown error";
       return EXIT_FAILURE;
    }
 }
