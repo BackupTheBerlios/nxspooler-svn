@@ -56,8 +56,8 @@ bool TSistema::confirmar(const QString &mensaje) const
 {
    qDebug() << "___" << metaObject()->className() << ":: confirmar()";
 
-   // Nota: de esta manera aparecían los botones en inglés (ver archivos de traducción, QTranslator, Qt Linguist y demás)
-   QMessageBox msgBox(QMessageBox::Question, tr("Confirmación"), mensaje, QMessageBox::Ok|QMessageBox::Cancel);
+   // Nota: de esta manera aparecían los botones en inglés (para intentar solucionarlo podemos ver los archivos de traducción, QTranslator, Qt Linguist y demás)
+   QMessageBox msgBox(QMessageBox::Question, tr("Confirm"), mensaje, QMessageBox::Ok|QMessageBox::Cancel);
 
    int bt = msgBox.exec();
 
@@ -116,10 +116,10 @@ void TSistema::mostrarAviso(const QString &mensaje, const QString &titVentana) c
 
    QMessageBox msgBox;
 
-   msgBox.setWindowTitle(titVentana == "" ? tr("Aviso"):titVentana);
+   msgBox.setWindowTitle(titVentana == "" ? tr("Warning"):titVentana);
    msgBox.setText(mensaje);
    msgBox.setIcon(QMessageBox::Warning);
-   qDebug() << tr("Aviso: ") << mensaje;
+   qDebug() << tr("Warning: ") << mensaje;
    msgBox.exec();
 
    qDebug() << "END" << metaObject()->className() << ":: mostrarAviso";

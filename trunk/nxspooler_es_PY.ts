@@ -1,0 +1,1 @@
+nxspooler_es_ES.ts

@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>NxSpooler</string>
+   <string notr="true">NxSpooler</string>
   </property>
   <property name="windowIcon">
    <iconset resource="nxspooler.qrc">
@@ -27,7 +27,7 @@
    <item>
     <widget class="QLabel" name="m_label_2">
      <property name="text">
-      <string>Documentos abiertos y borrados por NxSpooler hasta ahora</string>
+      <string>Files opened and deleted by NxSpooler until now</string>
      </property>
     </widget>
    </item>
@@ -46,10 +46,10 @@
       </size>
      </property>
      <property name="toolTip">
-      <string>Histórico de archivos detectados</string>
+      <string>Files that have been opened and deleted during the execution of NxSpooler</string>
      </property>
      <property name="whatsThis">
-      <string>Archivos abiertos y eliminados durante la ejecución de NxSpooler.</string>
+      <string>Files that have been opened and deleted during the execution of NxSpooler.</string>
      </property>
     </widget>
    </item>
@@ -71,107 +71,96 @@
      <item>
       <widget class="QPushButton" name="m_options">
        <property name="toolTip">
-        <string>Opciones de NxSpooler</string>
+        <string>NxSpooler options</string>
        </property>
        <property name="whatsThis">
-        <string>Ver y modificar la configuración de NxSpooler.</string>
+        <string>See and modify the configuration of NxSpooler.</string>
        </property>
        <property name="text">
-        <string>&amp;Opciones</string>
+        <string>&amp;Options</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="m_about">
        <property name="toolTip">
-        <string>Acerca de NxSpooler</string>
+        <string>About NxSpooler</string>
        </property>
        <property name="whatsThis">
-        <string>Información sobre NxSpooler y su licencia.</string>
+        <string>Information about NxSpooler and its license.</string>
        </property>
        <property name="text">
-        <string>Acerca &amp;de</string>
+        <string>&amp;About</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="m_hide">
        <property name="toolTip">
-        <string>Ocultar esta ventana</string>
+        <string>Hide this window</string>
        </property>
        <property name="whatsThis">
-        <string>Esconder esta ventana y dejar un icono en la bandeja del sistema para poder restaurar o salir de NxSpooler.</string>
+        <string>Hide this window and set an icon in the notification area to let the user restore or exit from NxSpooler.</string>
        </property>
        <property name="text">
-        <string>Oc&amp;ultar</string>
+        <string>&amp;Hide</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="m_exit">
        <property name="toolTip">
-        <string>Salir de NxSpooler</string>
+        <string>Exit from NxSpooler</string>
        </property>
        <property name="whatsThis">
-        <string>Salir de NxSpooler.</string>
+        <string>Exit from NxSpooler.</string>
        </property>
        <property name="text">
-        <string>&amp;Salir</string>
+        <string>&amp;Exit</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
   </layout>
-  <action name="m_action_open">
-   <property name="text">
-    <string>&amp;Abrir</string>
-   </property>
-   <property name="toolTip">
-    <string>Abrir y eliminar ficheros existentes</string>
-   </property>
-   <property name="shortcut">
-    <string>Alt+A</string>
-   </property>
-  </action>
   <action name="m_action_exit">
    <property name="text">
-    <string>&amp;Salir de NxSpooler</string>
+    <string>&amp;Exit from NxSpooler</string>
    </property>
    <property name="toolTip">
-    <string>Salir de NxSpooler</string>
+    <string>Exit from NxSpooler</string>
    </property>
   </action>
   <action name="m_action_options">
    <property name="text">
-    <string>&amp;Opciones</string>
+    <string>&amp;Options</string>
    </property>
    <property name="toolTip">
-    <string>Abrir el diálogo de opciones</string>
+    <string>Open the options dialog</string>
    </property>
   </action>
   <action name="m_action_about">
    <property name="text">
-    <string>Acerca &amp;de NxSpooler</string>
+    <string>&amp;About NxSpooler</string>
    </property>
    <property name="toolTip">
-    <string>Ver información sobre NxSpooler</string>
+    <string>See information about NxSpooler</string>
    </property>
   </action>
   <action name="m_action_hide">
    <property name="text">
-    <string>Oc&amp;ultar NxSpooler</string>
+    <string>&amp;Hide NxSpooler</string>
    </property>
    <property name="toolTip">
-    <string>Esconder la ventana de NxSpooler</string>
+    <string>Hide the window of NxSpooler</string>
    </property>
   </action>
   <action name="m_action_show">
    <property name="text">
-    <string>&amp;Restaurar NxSpooler</string>
+    <string>&amp;Restore NxSpooler</string>
    </property>
    <property name="toolTip">
-    <string>Hace visible la ventana de NxSpooler</string>
+    <string>Makes visible the window of NxSpooler</string>
    </property>
   </action>
  </widget>
@@ -256,22 +245,6 @@
     <hint type="destinationlabel">
      <x>242</x>
      <y>56</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>m_action_open</sender>
-   <signal>triggered()</signal>
-   <receiver>NxSpooler</receiver>
-   <slot>abrir()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>242</x>
-     <y>132</y>
     </hint>
    </hints>
   </connection>

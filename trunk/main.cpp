@@ -50,8 +50,8 @@ int main(int argc, char *argv[])
       // Comprobamos si se le han pasado parámetros al programa
       if (argc - 1 != 0)
       {
-         sist.mostrarError(a.tr("El programa NxSpooler no usa parámetros y se le han pasado: ")
-             + QString::number(argc - 1) + ".", a.tr("Error - NxSpooler"));
+	 sist.mostrarError(a.tr("NxSpooler does not expect parameters and has been provided with: ") 
+                       + QString::number(argc - 1) + ".", a.tr("Error - NxSpooler"));
          qDebug() << "END main. NxSpooler was provided one or several parameters, but none was expected.";
          return EXIT_FAILURE;
       }
@@ -84,8 +84,7 @@ int main(int argc, char *argv[])
    }
    catch(...)
    {
-      sist.mostrarError(QT_TR_NOOP("Ha ocurrido un error no identificado en NxSpooler y debe cerrarse."));
-
+      sist.mostrarError(QT_TR_NOOP("An unidentified problem has happened and NxSpooler must be closed."));
       qDebug() << "END main. Unknown error";
       return EXIT_FAILURE;
    }

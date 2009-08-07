@@ -171,7 +171,7 @@ void TNxSpooler::abrir()
       borrado = ruta.remove(archivo.fileName());
       if (!borrado)
       {
-         QString mensaje = tr("2805096 - No se pudo borrar el archivo \"%1\"").arg(archivo.absoluteFilePath());
+         QString mensaje = tr("2805096 - The file \"%1\" could not be deleted").arg(archivo.absoluteFilePath()); 
          throw runtime_error(mensaje.toStdString());
       }
 
@@ -392,7 +392,8 @@ void TNxSpooler::prepararIconoBandejaOMostrarPrograma()
       if (!conectado)
       {
          // Si no se ha podido establecer la conexión, lanzar una excepción
-         QString mensaje = tr("2805099 - No se pudo activar el icono de la bandeja del sistema");
+         QString mensaje = tr("2805099 - The icon of the notification area could not be activated");
+
          throw runtime_error(mensaje.toStdString());
       }
 
@@ -435,7 +436,7 @@ void TNxSpooler::prepararRutaLocal()
    // Crear el directorio si no existe
    if (!ruta.exists())
    {
-      QString pregunta = tr("El directorio \"%1\" no existe. ¿Quiere crearlo?").arg(m_ajustes.value("ruta").toString());
+      QString pregunta = tr("The folder \"%1\" does not exist. Do you want to create it?").arg(m_ajustes.value("ruta").toString());
       bool aceptado = sist.confirmar(pregunta);
 
       if(!aceptado)
@@ -446,14 +447,14 @@ void TNxSpooler::prepararRutaLocal()
 
       if(ruta.mkdir(ruta.path()))
       {
-         QString aviso = tr("Directorio \"%1\" creado con éxito. Ahora debe compartirlo con el nombre \"%2\".")
+         QString aviso = tr("The folder \"%1\" was successfully created. Now it must be shared with the name \"%2\".") 
                          .arg(m_ajustes.value("ruta").toString(), m_ajustes.value("recurso").toString());
          sist.mostrarAviso(aviso);
       }
       else
       {
          // Si no se ha podido crear el directorio inexistente, lanzar una excepción
-         QString mensaje = tr("2805093 - No se pudo crear el directorio \"%1\"").arg(m_ajustes.value("ruta").toString());
+         QString mensaje = tr("2805093 - The folder \"%1\" could not be created").arg(m_ajustes.value("ruta").toString());
          throw runtime_error(mensaje.toStdString());
       }
    }
@@ -479,7 +480,7 @@ void TNxSpooler::prepararTemporizador()
    if (conectado == false)
    {
       // Si no se ha podido establecer la conexión, lanzar una excepción
-      QString mensaje = tr("2805094 - No se pudo activar el temporizador");
+      QString mensaje = tr("2805094 - The timer could not be activated");
       throw runtime_error(mensaje.toStdString());
    }
 
@@ -535,7 +536,7 @@ QString TNxSpooler::programaPredeterminadoLinux() const
    // Si no se ha podido encontrar un programa adecuado, lanzar una excepción
    if (!sist.existePrograma(comando))
    {
-      QString mensaje = tr("2805095 - No se encuentra un programa adecuado para abrir los ficheros");
+      QString mensaje = tr("2805095 - A valid program to open the files could not be found");
       throw runtime_error(mensaje.toStdString());
    }
 

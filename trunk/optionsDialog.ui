@@ -9,12 +9,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>446</width>
+    <width>450</width>
     <height>449</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Opciones</string>
+   <string>Options</string>
   </property>
   <property name="windowIcon">
    <iconset resource="nxspooler.qrc">
@@ -24,13 +24,13 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Opciones de NxSpooler</string>
+      <string>NxSpooler options</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="label_seconds">
         <property name="text">
-         <string>&amp;Intervalo:</string>
+         <string>&amp;Interval:</string>
         </property>
         <property name="buddy">
          <cstring>m_seconds</cstring>
@@ -52,10 +52,10 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Intervalo de tiempo en segundos para la búsqueda de documentos.</string>
+         <string>Time interval, in seconds, between searches of files</string>
         </property>
         <property name="whatsThis">
-         <string>Intervalo de tiempo en segundos para la búsqueda de documentos.</string>
+         <string>Time interval, in seconds, between searches of files.</string>
         </property>
         <property name="suffix">
          <string> s</string>
@@ -71,7 +71,7 @@
       <item row="1" column="0">
        <widget class="QLabel" name="label_path">
         <property name="text">
-         <string>C&amp;arpeta compartida:</string>
+         <string>Shared &amp;folder:</string>
         </property>
         <property name="buddy">
          <cstring>m_path</cstring>
@@ -93,30 +93,30 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Carpeta compartida</string>
+         <string>Shared folder</string>
         </property>
         <property name="whatsThis">
-         <string>Carpeta compartida mediante el nombre de recurso indicado debajo.</string>
+         <string>Shared folder using the name of the resource written below.</string>
         </property>
        </widget>
       </item>
       <item row="1" column="2">
        <widget class="QToolButton" name="m_find_path">
         <property name="toolTip">
-         <string>Buscar directorio</string>
+         <string>Select a folder</string>
         </property>
         <property name="whatsThis">
-         <string>Explorar el disco en busca de la carpeta compartida.</string>
+         <string>Select a folder to share.</string>
         </property>
         <property name="text">
-         <string>...</string>
+         <string notr="true">...</string>
         </property>
        </widget>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="label_shared">
         <property name="text">
-         <string>Recurso &amp;compartido:</string>
+         <string>Shared &amp;resource:</string>
         </property>
         <property name="buddy">
          <cstring>m_shared</cstring>
@@ -138,36 +138,36 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Nombre del recurso compartido en red</string>
+         <string>Name of the shared resource</string>
         </property>
         <property name="whatsThis">
-         <string>Nombre del recurso compartido en red  que el cliente NX montará en el servidor. NxSpooler no comprueba la existencia del recurso compartido, ya que no es necesario que el usuario actual tenga permisos para acceder a él.</string>
+         <string>Name of the shared resource that the NX client will mount in the server. NxSpooler doesn't check the existence of the shared resource because it's not necessary that the present user had access to it.</string>
         </property>
        </widget>
       </item>
       <item row="3" column="0" rowspan="2" colspan="3">
        <widget class="QGroupBox" name="groupBox_2">
         <property name="title">
-         <string>Ex&amp;tensiones a reconocer y la aplicación a utilizar con cada una</string>
+         <string>Ex&amp;tensions to deal with and the application to view each one</string>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="0">
           <widget class="QPushButton" name="m_nueva_ext">
            <property name="toolTip">
-            <string>Nueva extensión</string>
+            <string>New extension</string>
            </property>
            <property name="text">
-            <string>&amp;Nueva</string>
+            <string>&amp;New</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
           <widget class="QPushButton" name="m_eliminar_ext">
            <property name="toolTip">
-            <string>Eliminar extensión</string>
+            <string>Delete the selected extension</string>
            </property>
            <property name="text">
-            <string>&amp;Eliminar</string>
+            <string>&amp;Delete</string>
            </property>
           </widget>
          </item>
@@ -180,13 +180,13 @@
             </sizepolicy>
            </property>
            <property name="toolTip">
-            <string>Buscar aplicación</string>
+            <string>Select the application to view the files with this extension</string>
            </property>
            <property name="whatsThis">
-            <string>Explorar el disco en busca de una aplicación.</string>
+            <string>Select an application.</string>
            </property>
            <property name="text">
-            <string>E&amp;xaminar</string>
+            <string>&amp;Browse</string>
            </property>
           </widget>
          </item>
@@ -218,12 +218,12 @@
            </property>
            <column>
             <property name="text">
-             <string>Extensión</string>
+             <string>Extension</string>
             </property>
            </column>
            <column>
             <property name="text">
-             <string>Abrir con</string>
+             <string>Open with</string>
             </property>
            </column>
           </widget>

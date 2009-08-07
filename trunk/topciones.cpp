@@ -137,7 +137,7 @@ void TOpciones::actualizarAjustes()
 
    if(!sist.existePrograma(m_ajustes->value("app").toString()))
    {
-      sist.mostrarAviso(tr("No se puede acceder a la aplicación indicada. Seleccione otra o deje el valor predeterminado."));
+      sist.mostrarAviso(tr("The selected program can't be accessed. Please select another or set the default value."));
    }
 
    qDebug() << "END" << metaObject()->className() << ":: actualizarAjustes";
@@ -169,7 +169,7 @@ void TOpciones::on_m_find_app_clicked()
 {
    qDebug() << "___" << metaObject()->className() << ":: on_m_find_app_clicked";
 
-   QFileDialog dialog_fichero(this, tr("Seleccione el programa visor"), "/");
+   QFileDialog dialog_fichero(this, tr("Select the viewer program"), "/");
    dialog_fichero.setFileMode(QFileDialog::ExistingFile);
 
    // Si el usuario acepta el diálogo, tomar la ruta del fichero seleccionado
@@ -190,7 +190,7 @@ void TOpciones::on_m_find_path_clicked()
 {
    qDebug() << "___" << metaObject()->className() << ":: on_m_find_path_clicked";
 
-   QFileDialog dialog_ruta(this, tr("Seleccione la ruta local compartida"));
+   QFileDialog dialog_ruta(this, tr("Select the shared local folder"));
 
    // Configurar para que sea un selector de directorios
    dialog_ruta.setFileMode(QFileDialog::Directory);
