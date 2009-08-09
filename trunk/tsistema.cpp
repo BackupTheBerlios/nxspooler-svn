@@ -56,7 +56,6 @@ bool TSistema::confirmar(const QString &mensaje) const
 {
    qDebug() << "___" << metaObject()->className() << ":: confirmar()";
 
-   // Nota: de esta manera aparecían los botones en inglés (para intentar solucionarlo podemos ver los archivos de traducción, QTranslator, Qt Linguist y demás)
    QMessageBox msgBox(QMessageBox::Question, tr("Confirm"), mensaje, QMessageBox::Ok|QMessageBox::Cancel);
 
    int bt = msgBox.exec();

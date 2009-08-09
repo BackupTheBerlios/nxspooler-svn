@@ -85,7 +85,7 @@ void TOpciones::actualizarCamposOpciones()
    {
       m_exts_apps->insertRow(m_exts_apps->rowCount());
       m_exts_apps->setItem(i, 0, new QTableWidgetItem(exts.value(i)));
-      qDebug()<<apps.value(i);
+      qDebug() << apps.value(i);
       m_exts_apps->setItem(i, 1, new QTableWidgetItem(apps.value(i)));
    }
 

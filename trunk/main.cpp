@@ -18,6 +18,7 @@
 *****************************************************************************/
 
 #include <QTranslator>
+#include <QLibraryInfo>
 
 #include "tnxspooler.h"
 #include "qtsingleapplication/qtsingleapplication.h"
@@ -33,28 +34,20 @@ int main(int argc, char *argv[])
    {
       qDebug() << "___ main";
 
+      QTextStream cerr(stderr);
+
       QtSingleApplication a(argc, argv);
 
       if (a.isRunning())
       {
-         qDebug() << "END main. NxSpooler was already running";
-         return EXIT_FAILURE;
+         QString message = a.tr("NxSpooler was already running");
+         throw runtime_error(message.toStdString());
       }
 
-      // Nota: estas cadenas no se traducirán
       a.setOrganizationName("Creación y Diseño Ibense");
       a.setOrganizationDomain("cdi-ibense.com");
       a.setApplicationName("NxSpooler");
       a.setApplicationVersion("0.2");
-
-      // Comprobamos si se le han pasado parámetros al programa
-      if (argc - 1 != 0)
-      {
-	 sist.mostrarError(a.tr("NxSpooler does not expect parameters and has been provided with: ") 
-                       + QString::number(argc - 1) + ".", a.tr("Error - NxSpooler"));
-         qDebug() << "END main. NxSpooler was provided one or several parameters, but none was expected.";
-         return EXIT_FAILURE;
-      }
 
       // Ponemos en marcha un QTranslator para que vea si se pueden traducir los mensajes al usuario
       QTranslator translator;
@@ -63,13 +56,34 @@ int main(int argc, char *argv[])
       // lowercase, two-letter ISO 639 language code, and country is an uppercase, two-letter ISO 3166 country code.
       QString locale = QLocale::system().name();
 
-      // Tries to load a file that contains translations for the source texts used in the program. No error will occur if the
-      // file is not found.
-      translator.load(QString("nxspooler_") + locale );
+      // Tries to load a file that contains translations for the source texts used in the program. The program will
+      // continue even if the file is not found
+      if ( ! translator.load(QString("nxspooler_") + locale ))
+         cerr << a.tr("Warning: the file of the NxSpooler translation for your language has not been found.") << endl;
 
       a.installTranslator(&translator);
 
-      TNxSpooler w;
+      // Launch a QTranslator for the case of already translated, standard items
+      // like "Restore defaults" buttons, "Cancel" buttons, etc.
+      QString translations_path;
+      translations_path = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
+      QTranslator translatorStandardItems;
+
+      // Note: the program will continue even if the file is not found
+      if ( ! translatorStandardItems.load("qt_" + locale, translations_path))
+         cerr << a.tr("Warning: the file of the Qt translation for your language has not been found.") << endl;
+
+      a.installTranslator(&translatorStandardItems);
+
+      // Comprobamos si se le han pasado parámetros al programa
+      if (argc - 1 != 0)
+      {
+         QString message = a.tr("NxSpooler does not expect parameters and has been provided with: ")
+                       + QString::number(argc - 1);
+         throw runtime_error(message.toStdString());
+      }
+
+      TNxSpooler nxspooler;
 
       int resultado = a.exec();
 
@@ -78,14 +92,20 @@ int main(int argc, char *argv[])
    }
    catch(std::exception &excep)
    {
-      sist.mostrarError(QString(excep.what()) + ".");
       qDebug() << "END main. Error " << excep.what();
+
+      QApplication auxiliar(argc, argv); // It's needed to show a Qt Dialog later
+      sist.mostrarError(QString(excep.what()) + ".", QT_TR_NOOP("Error - NxSpooler"));
+
       return EXIT_FAILURE;
    }
    catch(...)
    {
-      sist.mostrarError(QT_TR_NOOP("An unidentified problem has happened and NxSpooler must be closed."));
       qDebug() << "END main. Unknown error";
+
+      QApplication auxiliar(argc, argv); // It's needed to show a Qt Dialog later
+      sist.mostrarError(QT_TR_NOOP("An unidentified problem has happened and NxSpooler must be closed.")
+                        , QT_TR_NOOP("Error - NxSpooler"));
       return EXIT_FAILURE;
    }
 }

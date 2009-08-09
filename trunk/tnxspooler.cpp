@@ -393,7 +393,6 @@ void TNxSpooler::prepararIconoBandejaOMostrarPrograma()
       {
          // Si no se ha podido establecer la conexión, lanzar una excepción
          QString mensaje = tr("2805099 - The icon of the notification area could not be activated");
-
          throw runtime_error(mensaje.toStdString());
       }
 

@@ -35,16 +35,16 @@ SOURCES += main.cpp \
     tnxspooler.cpp
 RESOURCES += nxspooler.qrc
 win32 { 
-    # Desactivar la salida de mensaje de depuración en modo release
+    # In release mode: disable the debug messages
     CONFIG(release, debug|release):DEFINES += NDEBUG
     
-    # Activar salida de texto en el modo debug (necesario en Windows)
+    # In debug mode: enable the debug messages (necessary in Windows)
     CONFIG(debug, debug|release):CONFIG += console
 }
-unix:# Desactivar la salida de mensaje de depuración en modo release
+unix:# In release mode: disable the debug messages 
 CONFIG(release, debug|release):DEFINES += QT_NO_DEBUG_OUTPUT
 
-# El QtSingleApllication usa indirectamente la librería de red
+# The QtSingleApplication indirectly uses the network library
 QT *= network
 
-TRANSLATIONS = nxspooler_es_ES.ts
+TRANSLATIONS = nxspooler_es.ts
