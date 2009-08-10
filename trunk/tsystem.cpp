@@ -22,7 +22,7 @@
    \brief Ofrece funciones que pueden usarse desde cualquier objecto del programa.
 */
 
-#include "tsistema.h"
+#include "tsystem.h"
 
 //! Constructor.
 /*!

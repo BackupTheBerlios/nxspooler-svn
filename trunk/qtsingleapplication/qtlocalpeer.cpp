@@ -49,7 +49,7 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QTime>
 
-#include "tsistema.h"
+#include "tsystem.h"
 
 #if defined(Q_OS_WIN)
 #include <QtCore/QLibrary>

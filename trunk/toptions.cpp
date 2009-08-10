@@ -22,7 +22,7 @@
    \brief Gestiona del diálogo de opciones.
 */
 
-#include "topciones.h"
+#include "toptions.h"
 
 //! Constructor.
 /*!

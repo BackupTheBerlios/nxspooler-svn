@@ -17,38 +17,19 @@
 *  along with NxSpooler. If not, see http://www.gnu.org/copyleft/gpl.html.
 *****************************************************************************/
 
-#ifndef TOPCIONES_H
-#define TOPCIONES_H
+#ifndef TICONOBANDEJA_H
+#define TICONOBANDEJA_H
 
-#include <QtGui/QDialog>
-#include <QtCore/QSettings>
-#include <QtGui/QFileDialog>
-#include "ui_optionsDialog.h"
-#include "tsistema.h"
+#include <QtGui/QSystemTrayIcon>
+#include "tsystem.h"
 
-class TOpciones : public QDialog, private Ui::optionsDialog
+class TIconoBandeja : public QSystemTrayIcon
 {
    Q_OBJECT
 
 public:
-   TOpciones(QSettings *ajustes, QWidget *padre = 0);
-   ~TOpciones();
-
-public slots:
-   void actualizarAjustes();
-   void actualizarCamposOpciones();
-
-private slots:
-   void on_m_find_path_clicked();
-   void on_m_find_app_clicked();
-   void on_m_eliminar_ext_clicked();
-   void on_m_nueva_ext_clicked();
-
-private:
-   QSettings *m_ajustes; //!< Objeto gestor de la configuración del programa (carga y guarda automáticamente)
-
-signals:
-   void restaurarPulsado(); //!< Se activará esta señal cuando el botón de restaurar sea pulsado
+   TIconoBandeja();
+   ~TIconoBandeja();
 };
 
 #endif

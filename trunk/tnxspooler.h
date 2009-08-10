@@ -29,9 +29,9 @@
 
 #include <QTranslator>
 
-#include "ticonobandeja.h"
-#include "topciones.h"
-#include "tsistema.h"
+#include "ttrayicon.h"
+#include "toptions.h"
+#include "tsystem.h"
 
 // Si estamos en Windows, usaremos la función system() de la librería stdlib.h
 #ifdef Q_WS_WIN

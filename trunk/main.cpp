@@ -22,7 +22,7 @@
 
 #include "tnxspooler.h"
 #include "qtsingleapplication/qtsingleapplication.h"
-#include "tsistema.h"
+#include "tsystem.h"
 
 // Objeto global para uso de características comunes
 TSistema sist;

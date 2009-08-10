@@ -17,19 +17,39 @@
 *  along with NxSpooler. If not, see http://www.gnu.org/copyleft/gpl.html.
 *****************************************************************************/
 
-#ifndef TICONOBANDEJA_H
-#define TICONOBANDEJA_H
+/*!
+   \class TIconoBandeja
+   \brief Gestiona un icono de bandeja forzando que se oculte en su destrucción.
 
-#include <QtGui/QSystemTrayIcon>
-#include "tsistema.h"
+   Con Qt4.5, cuando un programa con icono en bandeja termina abrutamente,
+   se queda un icono de bandeja fantasma que suele desaparecer al pasar el ratón sobre él.
+*/
 
-class TIconoBandeja : public QSystemTrayIcon
+#include "ttrayicon.h"
+
+//! Constructor sin parámetros
+/*!
+*/
+TIconoBandeja::TIconoBandeja()
 {
-   Q_OBJECT
+   qDebug() << "___ TIconoBandeja::TIconoBandeja()";
 
-public:
-   TIconoBandeja();
-   ~TIconoBandeja();
-};
+   qDebug() << "END TIconoBandeja::TIconoBandeja()";
+}
 
-#endif
+
+//! Destructor
+/*!
+  Ocultar el icono al terminar.
+*/
+TIconoBandeja::~TIconoBandeja()
+{
+   qDebug() << "___ TIconoBandeja::~TIconoBandeja()";
+
+   if (isSystemTrayAvailable())
+   {
+      hide();
+   }
+
+   qDebug() << "END TIconoBandeja::~TIconoBandeja()";
+}

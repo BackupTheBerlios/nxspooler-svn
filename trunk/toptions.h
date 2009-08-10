@@ -17,39 +17,38 @@
 *  along with NxSpooler. If not, see http://www.gnu.org/copyleft/gpl.html.
 *****************************************************************************/
 
-/*!
-   \class TIconoBandeja
-   \brief Gestiona un icono de bandeja forzando que se oculte en su destrucción.
+#ifndef TOPCIONES_H
+#define TOPCIONES_H
 
-   Con Qt4.5, cuando un programa con icono en bandeja termina abrutamente,
-   se queda un icono de bandeja fantasma que suele desaparecer al pasar el ratón sobre él.
-*/
+#include <QtGui/QDialog>
+#include <QtCore/QSettings>
+#include <QtGui/QFileDialog>
+#include "ui_optionsDialog.h"
+#include "tsystem.h"
 
-#include "ticonobandeja.h"
-
-//! Constructor sin parámetros
-/*!
-*/
-TIconoBandeja::TIconoBandeja()
+class TOpciones : public QDialog, private Ui::optionsDialog
 {
-   qDebug() << "___ TIconoBandeja::TIconoBandeja()";
+   Q_OBJECT
 
-   qDebug() << "END TIconoBandeja::TIconoBandeja()";
-}
+public:
+   TOpciones(QSettings *ajustes, QWidget *padre = 0);
+   ~TOpciones();
 
+public slots:
+   void actualizarAjustes();
+   void actualizarCamposOpciones();
 
-//! Destructor
-/*!
-  Ocultar el icono al terminar.
-*/
-TIconoBandeja::~TIconoBandeja()
-{
-   qDebug() << "___ TIconoBandeja::~TIconoBandeja()";
+private slots:
+   void on_m_find_path_clicked();
+   void on_m_find_app_clicked();
+   void on_m_eliminar_ext_clicked();
+   void on_m_nueva_ext_clicked();
 
-   if (isSystemTrayAvailable())
-   {
-      hide();
-   }
+private:
+   QSettings *m_ajustes; //!< Objeto gestor de la configuración del programa (carga y guarda automáticamente)
 
-   qDebug() << "END TIconoBandeja::~TIconoBandeja()";
-}
+signals:
+   void restaurarPulsado(); //!< Se activará esta señal cuando el botón de restaurar sea pulsado
+};
+
+#endif
