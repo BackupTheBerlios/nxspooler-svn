@@ -18,7 +18,7 @@
 *****************************************************************************/
 
 /*!
-   \class TSistema
+   \class TSystem
    \brief Ofrece funciones que pueden usarse desde cualquier objecto del programa.
 */
 
@@ -28,39 +28,39 @@
 /*!
   Será un objeto global.
 */
-TSistema::TSistema()
+TSystem::TSystem()
 {
-   qDebug() << "___" << metaObject()->className() << ":: TSistema()";
+   qDebug() << "___" << metaObject()->className() << ":: TSystem()";
 
-   qDebug() << "END" << metaObject()->className() << ":: TSistema()";
+   qDebug() << "END" << metaObject()->className() << ":: TSystem()";
 }
 
 
 //! Destructor.
 /*!
 */
-TSistema::~TSistema()
+TSystem::~TSystem()
 {
-   qDebug() << "___" << metaObject()->className() << ":: ~TSistema()";
+   qDebug() << "___" << metaObject()->className() << ":: ~TSystem()";
 
-   qDebug() << "END" << metaObject()->className() << ":: ~TSistema()";
+   qDebug() << "END" << metaObject()->className() << ":: ~TSystem()";
 }
 
 
 //! Muestra una pregunta y pide que al usuario que acepte o cancele.
 /*!
-   \param mensaje Pregunta para el usuario
+   \param message Pregunta para el usuario
    \return Verdadero si el usuario pulsa el botón de aceptar
 */
-bool TSistema::confirmar(const QString &mensaje) const
+bool TSystem::confirm(const QString &message) const
 {
-   qDebug() << "___" << metaObject()->className() << ":: confirmar()";
+   qDebug() << "___" << metaObject()->className() << ":: confirm()";
 
-   QMessageBox msgBox(QMessageBox::Question, tr("Confirm"), mensaje, QMessageBox::Ok|QMessageBox::Cancel);
+   QMessageBox msgBox(QMessageBox::Question, tr("Confirm"), message, QMessageBox::Ok|QMessageBox::Cancel);
 
    int bt = msgBox.exec();
 
-   qDebug() << "END" << metaObject()->className() << ":: confirmar()";
+   qDebug() << "END" << metaObject()->className() << ":: confirm()";
    return (bt == QMessageBox::Ok);
 }
 
@@ -71,25 +71,25 @@ bool TSistema::confirmar(const QString &mensaje) const
    Si se recibe un nombre de ejecutable, se comprueba si está en el PATH.
    Como NxSpooler permite almacenar el programa como una cadena vacía,
    con un nombre vacío se retornará true.
-   \param nombre Ruta o nombre de un ejecutable
+   \param name Ruta o nombre de un ejecutable
    \return Valor true si el programa existe en la ruta o está en el PATH
 */
-bool TSistema::existePrograma(const QString &nombre) const
+bool TSystem::existsProgram(const QString &name) const
 {
-   qDebug() << "___" << metaObject()->className() << ":: existePrograma";
+   qDebug() << "___" << metaObject()->className() << ":: existsProgram";
 
-   if (nombre.isEmpty())
+   if (name.isEmpty())
    {
-      qDebug() << "END" << metaObject()->className() << ":: existePrograma AHEAD";
+      qDebug() << "END" << metaObject()->className() << ":: existsProgram AHEAD";
       return true;
    }
 
    // Según la plataforma, usar un comando u otro para realizar la detección
    QString comando;
 #ifdef Q_WS_WIN
-   comando = QString("dir \"%1\" >nul").arg(nombre);
+   comando = QString("dir \"%1\" >nul").arg(name);
 #else
-   comando = QString("which \"%1\" >/dev/null").arg(nombre);
+   comando = QString("which \"%1\" >/dev/null").arg(name);
 #endif
 
    int resultado;
@@ -100,48 +100,50 @@ bool TSistema::existePrograma(const QString &nombre) const
    resultado = system(comando.toUtf8());
 #endif
 
-   qDebug() << "END" << metaObject()->className() << ":: existePrograma";
+   qDebug() << "END" << metaObject()->className() << ":: existsProgram";
    return (resultado == 0);
 }
 
 
 // Muestra un mensaje de aviso al usuario (el usuario sólo puede continuar).
 /*!
-   \param mensaje Aviso que se le muestra al usuario
+   \param message Warning message that is shown to the user
+   \param windowTitle Title that appears in the window
 */
-void TSistema::mostrarAviso(const QString &mensaje, const QString &titVentana) const
+void TSystem::showWarning(const QString &message, const QString &windowTitle) const
 {
-   qDebug() << "___" << metaObject()->className() << ":: mostrarAviso";
+   qDebug() << "___" << metaObject()->className() << ":: showWarning";
 
    QMessageBox msgBox;
 
-   msgBox.setWindowTitle(titVentana == "" ? tr("Warning"):titVentana);
-   msgBox.setText(mensaje);
+   msgBox.setWindowTitle(windowTitle == "" ? tr("Warning"):windowTitle);
+   msgBox.setText(message);
    msgBox.setIcon(QMessageBox::Warning);
-   qDebug() << tr("Warning: ") << mensaje;
+   qDebug() << tr("Warning: ") << message;
    msgBox.exec();
 
-   qDebug() << "END" << metaObject()->className() << ":: mostrarAviso";
+   qDebug() << "END" << metaObject()->className() << ":: showWarning";
 }
 
 
 // Muestra un mensaje de error al usuario.
 /*!
-   \param mensaje Error que se le muestra al usuario
+   \param message Error message that is shown to the user
+   \param windowTitle Title that appears in the window
 */
-void TSistema::mostrarError(const QString &mensaje, const QString &titVentana) const
+void TSystem::showError(const QString &message, const QString &windowTitle) const
 {
-   qDebug() << "___" << metaObject()->className() << ":: mostrarError()";
+   qDebug() << "___" << metaObject()->className() << ":: showError()";
 
    QMessageBox msgBox;
 
-   msgBox.setWindowTitle(titVentana == "" ? tr("Error"):titVentana);
-   msgBox.setText(mensaje);
+   msgBox.setWindowTitle(windowTitle == "" ? tr("Error"):windowTitle);
+   msgBox.setText(message);
    msgBox.setIcon(QMessageBox::Critical);
 
    QTextStream cerr(stderr);
-   cerr << tr("Error: ") << mensaje << endl;
+   cerr << tr("Error: ") << message << endl;
    msgBox.exec();
 
-   qDebug() << "END" << metaObject()->className() << ":: mostrarError()";
+   qDebug() << "END" << metaObject()->className() << ":: showError()";
 }

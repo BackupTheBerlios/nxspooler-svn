@@ -18,7 +18,7 @@
 *****************************************************************************/
 
 /*!
-   \class TOpciones
+   \class TOptions
    \brief Gestiona del diálogo de opciones.
 */
 
@@ -27,24 +27,24 @@
 //! Constructor.
 /*!
 */
-TOpciones::TOpciones(QSettings *ajustes, QWidget *padre)
-      : QDialog(padre)
-      , m_ajustes(ajustes)
+TOptions::TOptions(QSettings *settings, QWidget *parent)
+      : QDialog(parent)
+      , m_settings(settings)
 {
-   qDebug() << "___" << metaObject()->className() << ":: TOpciones";
+   qDebug() << "___" << metaObject()->className() << ":: TOptions";
 
    setupUi(this);
 
    // Botón para dejar los valores predeterminados en los campos de opciones
    connect((QObject *)m_buttonBox->button(QDialogButtonBox::RestoreDefaults), SIGNAL(clicked()),
-                                                                        this, SIGNAL(restaurarPulsado()));
+                                                                        this, SIGNAL(pushedRestore()));
 
    // Al aceptar el diálogo, asignar a los ajustes el contenido de los campos de opciones
    connect(this, SIGNAL(accepted()),
-           this, SLOT(actualizarAjustes()));
+           this, SLOT(updateSettings()));
 
    // Poner en los campos de opciones los ajustes actuales del programa
-   actualizarCamposOpciones();
+   updateOptionsRows();
 
    // La última columna (la de la ruta del programa) ocupará todo el espacio horizontal sobrante
    m_exts_apps->horizontalHeader()->setStretchLastSection(true);
@@ -52,36 +52,36 @@ TOpciones::TOpciones(QSettings *ajustes, QWidget *padre)
    // Dejar el cursor de la tabla de extensiones en su primer elemento
    m_exts_apps->selectRow(0);
 
-   qDebug() << "END" << metaObject()->className() << ":: TOpciones";
+   qDebug() << "END" << metaObject()->className() << ":: TOptions";
 }
 
 
 //! Destructor.
 /*!
 */
-TOpciones::~TOpciones()
+TOptions::~TOptions()
 {
-   qDebug() << "___" << metaObject()->className() << ":: ~TOpciones";
+   qDebug() << "___" << metaObject()->className() << ":: ~TOptions";
 
-   qDebug() << "END" << metaObject()->className() << ":: ~TOpciones";
+   qDebug() << "END" << metaObject()->className() << ":: ~TOptions";
 }
 
 
 //! Pone la información de los ajustes del programa en los campos de opciones.
 /*!
 */
-void TOpciones::actualizarCamposOpciones()
+void TOptions::updateOptionsRows()
 {
-   qDebug() << "___" << metaObject()->className() << ":: actualizarCamposOpciones";
+   qDebug() << "___" << metaObject()->className() << ":: updateOptionsRows";
 
-   m_seconds->setValue(m_ajustes->value("segundos").toInt());
+   m_seconds->setValue(m_settings->value("seconds").toInt());
 
-   QStringList exts = m_ajustes->value("exts").toStringList();
-   QStringList apps = m_ajustes->value("apps").toStringList();
-   int elementos = exts.count();
+   QStringList exts = m_settings->value("exts").toStringList();
+   QStringList apps = m_settings->value("apps").toStringList();
    m_exts_apps->model()->removeRows(0, m_exts_apps->rowCount());
 
-   for(int i = 0; i < elementos; i++)
+   int quant_elements = exts.count();
+   for(int i = 0; i < quant_elements; i++)
    {
       m_exts_apps->insertRow(m_exts_apps->rowCount());
       m_exts_apps->setItem(i, 0, new QTableWidgetItem(exts.value(i)));
@@ -89,26 +89,26 @@ void TOpciones::actualizarCamposOpciones()
       m_exts_apps->setItem(i, 1, new QTableWidgetItem(apps.value(i)));
    }
 
-   m_path->setText(m_ajustes->value("ruta").toString());
-   m_shared->setText(m_ajustes->value("recurso").toString());
+   m_folder->setText(m_settings->value("folder").toString());
+   m_shared->setText(m_settings->value("resource").toString());
 
-   qDebug() << "END" << metaObject()->className() << ":: actualizarCamposOpciones";
+   qDebug() << "END" << metaObject()->className() << ":: updateOptionsRows";
 }
 
 
 //! Pone la información de los campos de opciones en los ajustes del programa.
 /*!
 */
-void TOpciones::actualizarAjustes()
+void TOptions::updateSettings()
 {
-   qDebug() << "___" << metaObject()->className() << ":: actualizarAjustes";
+   qDebug() << "___" << metaObject()->className() << ":: updateSettings";
 
    QStringList exts;
    QStringList apps;
 
    // Recorrer las filas del control tabla para tomar las extensiones y sus aplicaciones
-   const int filas = m_exts_apps->rowCount();
-   for(int i = 0; i < filas; i++)
+   const int quant_rows = m_exts_apps->rowCount();
+   for(int i = 0; i < quant_rows; i++)
    {
       // Evitar agregar una extensión nula o vacía
       if(not m_exts_apps->item(i, 0)->text().isNull() && not m_exts_apps->item(i, 0)->text().isEmpty())
@@ -126,28 +126,28 @@ void TOpciones::actualizarAjustes()
          }
       }
    }
-   m_ajustes->remove("exts");
-   m_ajustes->remove("apps");
-   m_ajustes->setValue("exts", exts);
-   m_ajustes->setValue("apps", apps);
+   m_settings->remove("exts");
+   m_settings->remove("apps");
+   m_settings->setValue("exts", exts);
+   m_settings->setValue("apps", apps);
 
-   m_ajustes->setValue("recurso", m_shared->text());
-   m_ajustes->setValue("ruta", m_path->text());
-   m_ajustes->setValue("segundos", m_seconds->value());
+   m_settings->setValue("resource", m_shared->text());
+   m_settings->setValue("folder", m_folder->text());
+   m_settings->setValue("seconds", m_seconds->value());
 
-   if(!sist.existePrograma(m_ajustes->value("app").toString()))
+   if(!syst.existsProgram(m_settings->value("app").toString()))
    {
-      sist.mostrarAviso(tr("The selected program can't be accessed. Please select another or set the default value."));
+      syst.showWarning(tr("The selected program can't be accessed. Please select another or set the default value."));
    }
 
-   qDebug() << "END" << metaObject()->className() << ":: actualizarAjustes";
+   qDebug() << "END" << metaObject()->className() << ":: updateSettings";
 }
 
 
 //! Inserta al final de la tabla una nueva línea
 /*
 */
-void TOpciones::on_m_nueva_ext_clicked()
+void TOptions::on_m_new_ext_clicked()
 {
    m_exts_apps->insertRow(m_exts_apps->rowCount());
    m_exts_apps->setCurrentCell(m_exts_apps->rowCount() - 1, 0);
@@ -156,7 +156,7 @@ void TOpciones::on_m_nueva_ext_clicked()
 //! Borra la línea seleccionada
 /*
 */
-void TOpciones::on_m_eliminar_ext_clicked()
+void TOptions::on_m_delete_ext_clicked()
 {
     m_exts_apps->removeRow(m_exts_apps->currentRow());
 }
@@ -165,18 +165,19 @@ void TOpciones::on_m_eliminar_ext_clicked()
 //! Abre un diálogo para que el usuario seleccione el fichero del ejecutable del programa
 /*
 */
-void TOpciones::on_m_find_app_clicked()
+void TOptions::on_m_find_app_clicked()
 {
    qDebug() << "___" << metaObject()->className() << ":: on_m_find_app_clicked";
 
-   QFileDialog dialog_fichero(this, tr("Select the viewer program"), "/");
-   dialog_fichero.setFileMode(QFileDialog::ExistingFile);
+   QFileDialog file_dialog(this, tr("Select the viewer program"), "/");
+   file_dialog.setFileMode(QFileDialog::ExistingFile);
 
    // Si el usuario acepta el diálogo, tomar la ruta del fichero seleccionado
-   if (dialog_fichero.exec() == 1)
+   if (file_dialog.exec() == QDialog::Accepted)
    {
-      QTableWidgetItem *nuevo_campo_app = new QTableWidgetItem(QDir::toNativeSeparators((dialog_fichero.selectedFiles().first())));
-      m_exts_apps->setItem(m_exts_apps->currentRow(), 1, nuevo_campo_app);
+      QTableWidgetItem *new_app_item = new
+          QTableWidgetItem(QDir::toNativeSeparators((file_dialog.selectedFiles().first())));
+      m_exts_apps->setItem(m_exts_apps->currentRow(), 1, new_app_item);
    }
 
    qDebug() << "END" << metaObject()->className() << ":: on_m_find_app_clicked";
@@ -186,27 +187,27 @@ void TOpciones::on_m_find_app_clicked()
 //! Abre un diálogo para que el usuario seleccione la ruta local compartida
 /*
 */
-void TOpciones::on_m_find_path_clicked()
+void TOptions::on_m_find_path_clicked()
 {
    qDebug() << "___" << metaObject()->className() << ":: on_m_find_path_clicked";
 
-   QFileDialog dialog_ruta(this, tr("Select the shared local folder"));
+   QFileDialog folder_dialog(this, tr("Select the shared local folder"));
 
    // Configurar para que sea un selector de directorios
-   dialog_ruta.setFileMode(QFileDialog::Directory);
-   dialog_ruta.setOption(QFileDialog::ShowDirsOnly);
+   folder_dialog.setFileMode(QFileDialog::Directory);
+   folder_dialog.setOption(QFileDialog::ShowDirsOnly);
 
-   // Comenzar con la ruta actual seleccionada
-   QDir ruta(m_ajustes->value("ruta").toString());
-   QDir ruta_sin_dir(ruta);
-   ruta_sin_dir.cdUp();
-   dialog_ruta.setDirectory(ruta_sin_dir);
-   dialog_ruta.selectFile(ruta.dirName());
+   // Comenzar con la carpeta actual especificada
+   QDir folder(m_settings->value("folder").toString());
+   QDir upper_folder(folder);
+   upper_folder.cdUp();
+   folder_dialog.setDirectory(upper_folder);
+   folder_dialog.selectFile(folder.dirName());
 
    // Si el usuario acepta el diálogo, tomar la ruta seleccionada
-   if (dialog_ruta.exec() == 1)
+   if (folder_dialog.exec() == QDialog::Accepted)
    {
-      m_path->setText(QDir::toNativeSeparators(dialog_ruta.selectedFiles().first()));
+      m_folder->setText(QDir::toNativeSeparators(folder_dialog.selectedFiles().first()));
    }
 
    qDebug() << "END" << metaObject()->className() << ":: on_m_find_path_clicked";

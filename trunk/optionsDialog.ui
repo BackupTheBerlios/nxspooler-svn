@@ -17,7 +17,7 @@
    <string>Options</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="nxspooler.qrc">
+   <iconset>
     <normaloff>:/img/nxspooler.png</normaloff>:/img/nxspooler.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -74,12 +74,12 @@
          <string>Shared &amp;folder:</string>
         </property>
         <property name="buddy">
-         <cstring>m_path</cstring>
+         <cstring>m_folder</cstring>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="m_path">
+       <widget class="QLineEdit" name="m_folder">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -152,7 +152,7 @@
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="0">
-          <widget class="QPushButton" name="m_nueva_ext">
+          <widget class="QPushButton" name="m_new_ext">
            <property name="toolTip">
             <string>New extension</string>
            </property>
@@ -162,7 +162,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QPushButton" name="m_eliminar_ext">
+          <widget class="QPushButton" name="m_delete_ext">
            <property name="toolTip">
             <string>Delete the selected extension</string>
            </property>
@@ -264,18 +264,16 @@
  </widget>
  <tabstops>
   <tabstop>m_seconds</tabstop>
-  <tabstop>m_path</tabstop>
+  <tabstop>m_folder</tabstop>
   <tabstop>m_find_path</tabstop>
   <tabstop>m_shared</tabstop>
-  <tabstop>m_nueva_ext</tabstop>
-  <tabstop>m_eliminar_ext</tabstop>
+  <tabstop>m_new_ext</tabstop>
+  <tabstop>m_delete_ext</tabstop>
   <tabstop>m_find_app</tabstop>
   <tabstop>m_exts_apps</tabstop>
   <tabstop>m_buttonBox</tabstop>
  </tabstops>
- <resources>
-  <include location="nxspooler.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>m_buttonBox</sender>

@@ -17,8 +17,8 @@
 *  along with NxSpooler. If not, see http://www.gnu.org/copyleft/gpl.html.
 *****************************************************************************/
 
-#ifndef TNXSPOOLER_H
-#define TNXSPOOLER_H
+#ifndef T_NXSPOOLER_H
+#define T_NXSPOOLER_H
 
 #include <QtCore/QDir>
 #include <QtCore/QProcess>
@@ -29,7 +29,7 @@
 
 #include <QTranslator>
 
-#include "ttrayicon.h"
+#include "tsystrayicon.h"
 #include "toptions.h"
 #include "tsystem.h"
 
@@ -50,33 +50,33 @@ public:
    ~TNxSpooler();
 
 private slots:
-   void abrir();
-   void abrirAcercaDe();
-   void abrirOpciones();
-   void mostrar();
-   void mostrarOcultar(QSystemTrayIcon::ActivationReason motivo);
-   void ocultar();
-   void prepararRutaLocal();
-   void restaurarAjustes();
+   void open();
+   void openAboutNxSpooler();
+   void openOptions();
+   void show();
+   void showOrHide(QSystemTrayIcon::ActivationReason reason);
+   void hide();
+   void prepareSharedFolder();
+   void restoreSettings();
 
 private:
-   void filtrarOrdenarDir(QDir &ruta);
-   void inicializarAjustes();
-   void prepararIconoBandejaOMostrarPrograma();
-   void prepararTemporizador();
-   QString programaPredeterminado() const;
-   QString programaPredeterminadoLinux() const;
+   void filterAndSortFolder(QDir &folder);
+   void initializeSettings();
+   void prepareTrayIconOrShowProgram();
+   void prepareTimer();
+   QString getDefaultProgram() const;
+   QString getDefaultProgramInLinux() const;
 
-   QSettings m_ajustes; //!< Objeto gestor de la configuración del programa (carga y guarda automáticamente)
-   TIconoBandeja m_icono_bandeja; //!< Gestor del icono de bandeja
-   int m_intervalo_predeterminado; //!< Número de segundos del intervalo por defecto
-   QStringList m_formatos_predeterminados; //!< Lista de extensiones a incluir en la detección
-   QString m_recurso_predeterminado; //!< Cadena que se mantendrá constante con el nombre de recurso por defecto
-   QString m_ruta_predeterminada; //!< Cadena que se mantendrá constante con la ruta por defecto
-   QTimer m_temporizador; //!< Objeto que llamará a abrir() a intervalos de tiempo regulares
+   QSettings m_settings; //!< Objeto gestor de la configuración del programa (carga y guarda automáticamente)
+   TSysTrayIcon m_sys_tray_icon; //!< Gestor del icono de bandeja
+   int m_default_interval; //!< Número de segundos del intervalo por defecto
+   QStringList m_default_formats; //!< Lista de extensiones a incluir en la detección
+   QString m_default_resource; //!< Cadena que se mantendrá constante con el nombre de recurso por defecto
+   QString m_default_folder; //!< Cadena que se mantendrá constante con la ruta por defecto
+   QTimer m_timer; //!< Objeto que llamará a abrir() a intervalos de tiempo regulares
 
 signals:
-   void ajustesRestaurados();
+   void settingsRestored();
 };
 
 #endif

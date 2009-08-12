@@ -47,33 +47,33 @@
 /*!
    Si no ocurre alguna excepción que lo impida, se inician los diferentes
    aspectos de un objeto TNxSpooler.
-   \param padre Si no se especifica, el objeto TNxSpooler será una ventana independiente
+   \param parent Si no se especifica, el objeto TNxSpooler será una ventana independiente
 */
-TNxSpooler::TNxSpooler(QWidget *padre)
-   : QDialog(padre)
+TNxSpooler::TNxSpooler(QWidget *parent)
+   : QDialog(parent)
 {
    qDebug() << "___" << metaObject()->className() << ":: TNxSpooler";
 
    // Adoptar a los objetos miembro que lo requieran
-   m_ajustes.setParent(this);
-   m_icono_bandeja.setParent(this);
-   m_temporizador.setParent(this);
+   m_settings.setParent(this);
+   m_sys_tray_icon.setParent(this);
+   m_timer.setParent(this);
 
    // Definir los valores predeterminados "constantes"
-   m_intervalo_predeterminado = 3;
-   m_formatos_predeterminados.append("pdf");
-   m_formatos_predeterminados.append("ods");
-   m_formatos_predeterminados.append("sxc");
-   m_recurso_predeterminado = "bulmages$"; // Nota: esta cadena no se traducirá
-   m_ruta_predeterminada = QDir::toNativeSeparators(QDir::homePath().append(QDir::separator()).append(".bulmages"));
+   m_default_interval = 3;
+   m_default_formats.append("pdf");
+   m_default_formats.append("ods");
+   m_default_formats.append("sxc");
+   m_default_resource = "bulmages$";
+   m_default_folder = QDir::toNativeSeparators(QDir::homePath().append(QDir::separator()).append(".bulmages"));
 
    setupUi(this);
-   prepararIconoBandejaOMostrarPrograma();
+   prepareTrayIconOrShowProgram();
 
    try
    {
-      inicializarAjustes();
-      prepararRutaLocal();
+      initializeSettings();
+      prepareSharedFolder();
    }
    catch (std::exception &excep)
    {
@@ -81,17 +81,17 @@ TNxSpooler::TNxSpooler(QWidget *padre)
       // llevar al usuario al diálogo de opciones
       if (QString(excep.what()).startsWith("2805093") || QString(excep.what()).startsWith("0707091"))
       {
-         sist.mostrarAviso(QString(excep.what()) + ".");
+         syst.showWarning(QString(excep.what()) + ".");
          show();
-         abrirOpciones();
+         openOptions();
       }
       else
       {
-         throw(excep);
+         throw (excep);
       }
    }
 
-   prepararTemporizador();
+   prepareTimer();
 
    qDebug() << "END" << metaObject()->className() << ":: TNxSpooler";
 }
@@ -112,120 +112,120 @@ TNxSpooler::~TNxSpooler()
 //! Abre y borra los archivos con extensión deseada que se encuentra.
 /*!
 */
-void TNxSpooler::abrir()
+void TNxSpooler::open()
 {
-   qDebug() << "___" << metaObject()->className() << ":: abrir";
+   qDebug() << "___" << metaObject()->className() << ":: open";
 
-   QDir ruta(m_ajustes.value("ruta").toString());
-   filtrarOrdenarDir(ruta);
+   QDir folder(m_settings.value("folder").toString());
+   filterAndSortFolder(folder);
 
    // No continuar en este método si no existen ficheros a tratar
-   if (ruta.count() == 0)
+   if (folder.count() == 0)
    {
-      qDebug() << "END" << metaObject()->className() << ":: abrir AHEAD";
+      qDebug() << "END" << metaObject()->className() << ":: open AHEAD";
       return;
    }
 
-   QStringList argumentos;
-   bool borrado = false;
-   int resultado = 0;
-   QFileInfoList archivos = ruta.entryInfoList();
+   QStringList arguments;
+   bool hasBeenDeleted = false;
+   int result = 0;
+   QFileInfoList files = folder.entryInfoList();
 
    // Abrir uno a uno cada fichero y si ha funcionado bien, borrarlo
-   foreach(QFileInfo archivo, archivos)
+   foreach(QFileInfo file, files)
    {
-      argumentos.clear();
+      arguments.clear();
 
-      int i = m_ajustes.value("exts").toStringList().indexOf(archivo.completeSuffix());
-      QString app = m_ajustes.value("apps").toStringList().value(i);
+      int i = m_settings.value("exts").toStringList().indexOf(file.completeSuffix());
+      QString app = m_settings.value("apps").toStringList().value(i);
 
 #ifdef Q_WS_WIN
-      argumentos << "/C" << "start" << "/wait" << app;
+      arguments << "/C" << "start" << "/wait" << app;
 #endif
 
-      argumentos << QDir::toNativeSeparators(archivo.absoluteFilePath());
-      QProcess proceso(this);
+      arguments << QDir::toNativeSeparators(file.absoluteFilePath());
+      QProcess process(this);
 
 #ifdef Q_WS_WIN
-      resultado = proceso.execute("cmd", argumentos);
+      result = process.execute("cmd", arguments);
 #else
       // Si estamos en Linux y el usuario ha dejado en blanco el nombre de la aplicación de apertura,
       // usar la que se encuentre en este momento respetando ese ajuste vacío
       if (app.isEmpty())
       {
-         resultado = proceso.execute(programaPredeterminadoLinux(), argumentos);
+         result = process.execute(getDefaultProgramInLinux(), arguments);
       }
       else
       {
-         resultado = proceso.execute(app, argumentos);
+         result = process.execute(app, arguments);
       }
 #endif
 
       // La apertura puede fallar en el caso de que el fichero esté todavía a mitad de generarse
-      if (resultado != 0)
+      if (result != 0)
       {
-         sist.mostrarAviso(tr("The file \"%1\" could not be opened").arg(archivo.absoluteFilePath()));
+         syst.showWarning(tr("The file \"%1\" could not be opened").arg(file.absoluteFilePath()));
       }
 
       // Eliminar el fichero si se ha podido abrir correctamente
-      borrado = ruta.remove(archivo.fileName());
-      if (!borrado)
+      hasBeenDeleted = folder.remove(file.fileName());
+      if (!hasBeenDeleted)
       {
-         QString mensaje = tr("2805096 - The file \"%1\" could not be deleted").arg(archivo.absoluteFilePath()); 
-         throw runtime_error(mensaje.toStdString());
+         QString message = tr("2805096 - The file \"%1\" could not be deleted").arg(file.absoluteFilePath());
+         throw runtime_error(message.toStdString());
       }
 
       // Si se pudo abrir y se pudo borrar el fichero, agregarlo al histórico
-      m_listFiles->addItem(archivo.fileName());
+      m_listFiles->addItem(file.fileName());
    }
 
-   qDebug() << "END" << metaObject()->className() << ":: abrir";
+   qDebug() << "END" << metaObject()->className() << ":: open";
 }
 
 
 //! Muestra información sobre el programa, los autores y la licencia.
 /*!
 */
-void TNxSpooler::abrirAcercaDe()
+void TNxSpooler::openAboutNxSpooler()
 {
-   qDebug() << "___" << metaObject()->className() << ":: abrirAcercaDe";
+   qDebug() << "___" << metaObject()->className() << ":: openAboutNxSpooler";
 
-   Ui::aboutDialog ui_acerca_de;
-   QDialog acerca_de(this);
-   ui_acerca_de.setupUi(&acerca_de);
+   Ui::aboutDialog uiAbout;
+   QDialog about(this);
+   uiAbout.setupUi(&about);
 
-   acerca_de.exec();
+   about.exec();
 
-   qDebug() << "END" << metaObject()->className() << ":: abrirAcercaDe";
+   qDebug() << "END" << metaObject()->className() << ":: openAboutNxSpooler";
 }
 
 
 //! Muestra el diálogo de opciones.
 /*!
 */
-void TNxSpooler::abrirOpciones()
+void TNxSpooler::openOptions()
 {
-   qDebug() << "___" << metaObject()->className() << ":: abrirOpciones";
+   qDebug() << "___" << metaObject()->className() << ":: openOptions";
 
-   TOpciones opciones(&m_ajustes, this);
+   TOptions options(&m_settings, this);
 
    // Cuando se pulsa el botón de restaurar, los ajustes del programa vuelven a sus valores predeterminados
-   connect(&opciones, SIGNAL(restaurarPulsado()),
-                this, SLOT(restaurarAjustes()));
+   connect(&options, SIGNAL(pushedRestore()),
+                this, SLOT(restoreSettings()));
 
    // Tras ser restaurados los ajustes del programa, el cambio debe reflejarse en el diálogo
-   connect(this, SIGNAL(ajustesRestaurados()),
-      &opciones, SLOT(actualizarCamposOpciones()));
+   connect(this, SIGNAL(settingsRestored()),
+      &options, SLOT(updateOptionsFields()));
 
    do
    {
-      opciones.exec();
-      prepararRutaLocal();
-      prepararTemporizador();
+      options.exec();
+      prepareSharedFolder();
+      prepareTimer();
    }
-   while(!sist.existePrograma(m_ajustes.value("apps").toString()));
+   while(!syst.existsProgram(m_settings.value("apps").toString()));
 
-   qDebug() << "END" << metaObject()->className() << ":: abrirOpciones";
+   qDebug() << "END" << metaObject()->className() << ":: openOptions";
 }
 
 
@@ -233,25 +233,25 @@ void TNxSpooler::abrirOpciones()
 /*!
    Con esta manera de ordenar nos aseguramos de que el documento que lleva más tiempo esperando es el primero
    en ser abierto.
-   \param ruta Gestor del directorio
+   \param folder Gestor del directorio
 */
-void TNxSpooler::filtrarOrdenarDir(QDir &ruta)
+void TNxSpooler::filterAndSortFolder(QDir &folder)
 {
-   qDebug() << "___" << metaObject()->className() << ":: filtrarOrdenarDir";
+   qDebug() << "___" << metaObject()->className() << ":: filterAndSortFolder";
 
    // Tratar sólo ciertos tipos de ficheros mediante un filtro.
    // Tanto en Windows como en Linux no diferenciará mayúsculas de minúsculas.
-   QStringList filtros;
-   QStringList exts = m_ajustes.value("exts").toStringList();
+   QStringList filters;
+   QStringList exts = m_settings.value("exts").toStringList();
    for(int i = 0; i < exts.count(); i++)
    {
-      filtros << QString("*.%1").arg(exts.value(i));
+      filters << QString("*.%1").arg(exts.value(i));
    }
-   ruta.setNameFilters(filtros);
+   folder.setNameFilters(filters);
 
-   ruta.setSorting(QDir::Time|QDir::Reversed);
+   folder.setSorting(QDir::Time|QDir::Reversed);
 
-   qDebug() << "END" << metaObject()->className() << ":: filtrarOrdenarDir";
+   qDebug() << "END" << metaObject()->className() << ":: filterAndSortFolder";
 }
 
 
@@ -262,54 +262,54 @@ void TNxSpooler::filtrarOrdenarDir(QDir &ruta)
    del programa en el ordenador y no había ajustes guardados en el registro de Windows o los
    ficheros de configuración en nuestro "home" de Linux.
 */
-void TNxSpooler::inicializarAjustes()
+void TNxSpooler::initializeSettings()
 {
-   qDebug() << "___" << metaObject()->className() << ":: inicializarAjustes";
+   qDebug() << "___" << metaObject()->className() << ":: initializeSettings";
 
-   if (m_ajustes.value("segundos").isNull())
+   if (m_settings.value("seconds").isNull())
    {
-      m_ajustes.setValue("segundos", m_intervalo_predeterminado);
+      m_settings.setValue("seconds", m_default_interval);
    }
 
-   if (m_ajustes.value("exts").isNull())
+   if (m_settings.value("exts").isNull())
    {
-      m_ajustes.setValue("exts", m_formatos_predeterminados);
+      m_settings.setValue("exts", m_default_formats);
    }
 
    // Nota: se permite dejar una ruta de aplicación como una cadena vacía,
    // sólo ponemos las predeterminadas si el ajuste está nulo (todavía no es ni una lista de cadenas)
-   if (m_ajustes.value("apps").isNull())
+   if (m_settings.value("apps").isNull())
    {
-      const int elementos = m_ajustes.value("exts").toStringList().count();
+      const int elements = m_settings.value("exts").toStringList().count();
       QStringList apps;
 
-      for(int i = 0; i < elementos; i++)
+      for(int i = 0; i < elements; i++)
       {
-         apps.append(programaPredeterminado());
+         apps.append(getDefaultProgram());
       }
-      m_ajustes.setValue("apps", apps);
+      m_settings.setValue("apps", apps);
    }
 
-   if (m_ajustes.value("ruta").isNull() || m_ajustes.value("ruta").toString().isEmpty())
+   if (m_settings.value("folder").isNull() || m_settings.value("folder").toString().isEmpty())
    {
-      m_ajustes.setValue("ruta", m_ruta_predeterminada);
+      m_settings.setValue("folder", m_default_folder);
    }
 
-   if (m_ajustes.value("recurso").isNull() || m_ajustes.value("recurso").toString().isEmpty())
+   if (m_settings.value("resource").isNull() || m_settings.value("resource").toString().isEmpty())
    {
-      m_ajustes.setValue("recurso", m_recurso_predeterminado);
+      m_settings.setValue("resource", m_default_resource);
    }
 
-   qDebug() << "END" << metaObject()->className() << ":: inicializarAjustes";
+   qDebug() << "END" << metaObject()->className() << ":: initializeSettings";
 }
 
 
 //! Muestra la ventana de NxSpooler.
 /*!
 */
-void TNxSpooler::mostrar()
+void TNxSpooler::show()
 {
-   qDebug() << "___" << metaObject()->className() << ":: mostrar";
+   qDebug() << "___" << metaObject()->className() << ":: show";
 
    // Evitar que NxSpooler termine al cerrar diálogos con la ventana principal oculta
    qApp->setQuitOnLastWindowClosed(true);
@@ -322,10 +322,10 @@ void TNxSpooler::mostrar()
    // robe el foco a otra que lo está usando
    qApp->setActiveWindow(this);
    qApp->activeWindow()->raise();
-   m_icono_bandeja.contextMenu()->insertAction(m_action_show, m_action_hide);
-   m_icono_bandeja.contextMenu()->removeAction(m_action_show);
+   m_sys_tray_icon.contextMenu()->insertAction(m_action_show, m_action_hide);
+   m_sys_tray_icon.contextMenu()->removeAction(m_action_show);
 
-   qDebug() << "END" << metaObject()->className() << ":: mostrar";
+   qDebug() << "END" << metaObject()->className() << ":: show";
 }
 
 
@@ -333,67 +333,67 @@ void TNxSpooler::mostrar()
 /*!
   \param motivo Código de evento que genera el icono de bandeja (el botón pulsado)
 */
-void TNxSpooler::mostrarOcultar(QSystemTrayIcon::ActivationReason motivo)
+void TNxSpooler::showOrHide(QSystemTrayIcon::ActivationReason reason)
 {
-   qDebug() << "___" << metaObject()->className() << ":: mostrarOcultar";
+   qDebug() << "___" << metaObject()->className() << ":: showOrHide";
 
    // Si el usuario hace click sobre el icono de la bandeja, mostrar u ocultar el programa
-   if (motivo == QSystemTrayIcon::Trigger)
+   if (reason == QSystemTrayIcon::Trigger)
    {
       if (isHidden())
       {
-         mostrar();
+         show();
       }
       else
       {
-         ocultar();
+         hide();
       }
    }
 
-   qDebug() << "END" << metaObject()->className() << ":: mostrarOcultar";
+   qDebug() << "END" << metaObject()->className() << ":: showOrHide";
 }
 
 
 //! Oculta la ventana de NxSpooler.
 /*!
 */
-void TNxSpooler::ocultar()
+void TNxSpooler::hide()
 {
-   qDebug() << "___" << metaObject()->className() << ":: ocultar";
+   qDebug() << "___" << metaObject()->className() << ":: hide";
 
-   hide();
+   QDialog::hide();
 
    // Permitir que cuando la última ventana de NxSpooler se cierre, éste termine
    qApp->setQuitOnLastWindowClosed(false);
 
    if(QSystemTrayIcon::isSystemTrayAvailable())
    {
-      m_icono_bandeja.contextMenu()->insertAction(m_action_hide, m_action_show);
-      m_icono_bandeja.contextMenu()->removeAction(m_action_hide);
+      m_sys_tray_icon.contextMenu()->insertAction(m_action_hide, m_action_show);
+      m_sys_tray_icon.contextMenu()->removeAction(m_action_hide);
    }
 
-   qDebug() << "END" << metaObject()->className() << ":: ocultar";
+   qDebug() << "END" << metaObject()->className() << ":: hide";
 }
 
 
 //! Activa un icono en la bandeja de sistema si es posible. En caso contrario, muestra la ventana principal de forma normal.
 /*!
 */
-void TNxSpooler::prepararIconoBandejaOMostrarPrograma()
+void TNxSpooler::prepareTrayIconOrShowProgram()
 {
-   qDebug() << "___" << metaObject()->className() << ":: prepararIconoBandejaOMostrarPrograma";
+   qDebug() << "___" << metaObject()->className() << ":: prepareTrayIconOrShowProgram";
 
    if (QSystemTrayIcon::isSystemTrayAvailable())
    {
-      m_icono_bandeja.setIcon(windowIcon());
-      bool conectado = connect(&m_icono_bandeja, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
-                                           this, SLOT(mostrarOcultar(QSystemTrayIcon::ActivationReason)));
+      m_sys_tray_icon.setIcon(windowIcon());
+      bool isConnected = connect(&m_sys_tray_icon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+                                           this, SLOT(showOrHide(QSystemTrayIcon::ActivationReason)));
 
-      if (!conectado)
+      if (!isConnected)
       {
          // Si no se ha podido establecer la conexión, lanzar una excepción
-         QString mensaje = tr("2805099 - The icon of the notification area could not be activated");
-         throw runtime_error(mensaje.toStdString());
+         QString message = tr("2805099 - The icon of the notification area could not be activated");
+         throw runtime_error(message.toStdString());
       }
 
       // Preparar el menú contextual del icono de bandeja
@@ -404,9 +404,9 @@ void TNxSpooler::prepararIconoBandejaOMostrarPrograma()
       menu->addAction(m_action_about);
       menu->addSeparator();
       menu->addAction(m_action_exit);
-      m_icono_bandeja.setContextMenu(menu);
+      m_sys_tray_icon.setContextMenu(menu);
 
-      m_icono_bandeja.show();
+      m_sys_tray_icon.show();
       qApp->setQuitOnLastWindowClosed(false);
       hide();
    }
@@ -418,74 +418,75 @@ void TNxSpooler::prepararIconoBandejaOMostrarPrograma()
       m_hide->hide();
    }
 
-   qDebug() << "END" << metaObject()->className() << ":: prepararIconoBandejaOMostrarPrograma";
+   qDebug() << "END" << metaObject()->className() << ":: prepareTrayIconOrShowProgram";
 }
 
 
 //! Comprobar si existe la ruta e intentar crearla en caso de que no.
 /*!
 */
-void TNxSpooler::prepararRutaLocal()
+void TNxSpooler::prepareSharedFolder()
 {
-   qDebug() << "___" << metaObject()->className() << ":: prepararRutaLocal";
+   qDebug() << "___" << metaObject()->className() << ":: prepareSharedFolder";
 
    // Crear el gestor de la ruta a comprobar
-   QDir ruta(m_ajustes.value("ruta").toString());
+   QDir folder(m_settings.value("folder").toString());
 
    // Crear el directorio si no existe
-   if (!ruta.exists())
+   if (!folder.exists())
    {
-      QString pregunta = tr("The folder \"%1\" does not exist. Do you want to create it?").arg(m_ajustes.value("ruta").toString());
-      bool aceptado = sist.confirmar(pregunta);
+      QString question = tr("The folder \"%1\" does not exist. Do you want to create it?")
+                         .arg(m_settings.value("folder").toString());
+      bool isAccepted = syst.confirm(question);
 
-      if(!aceptado)
+      if (!isAccepted)
       {
-         qDebug() << "END" << metaObject()->className() << ":: prepararRutaLocal() AHEAD";
+         qDebug() << "END" << metaObject()->className() << ":: prepareSharedFolder() AHEAD";
          return;
       }
 
-      if(ruta.mkdir(ruta.path()))
+      if (folder.mkdir(folder.path()))
       {
-         QString aviso = tr("The folder \"%1\" was successfully created. Now it must be shared with the name \"%2\".") 
-                         .arg(m_ajustes.value("ruta").toString(), m_ajustes.value("recurso").toString());
-         sist.mostrarAviso(aviso);
+         QString warning = tr("The folder \"%1\" was successfully created. Now it must be shared with the name \"%2\".")
+                         .arg(m_settings.value("folder").toString(), m_settings.value("resource").toString());
+         syst.showWarning(warning);
       }
       else
       {
          // Si no se ha podido crear el directorio inexistente, lanzar una excepción
-         QString mensaje = tr("2805093 - The folder \"%1\" could not be created").arg(m_ajustes.value("ruta").toString());
-         throw runtime_error(mensaje.toStdString());
+         QString message = tr("2805093 - The folder \"%1\" could not be created").arg(m_settings.value("folder").toString());
+         throw runtime_error(message.toStdString());
       }
    }
 
-   qDebug() << "END" << metaObject()->className() << ":: prepararRutaLocal";
+   qDebug() << "END" << metaObject()->className() << ":: prepareSharedFolder";
 }
 
 
 //! Activa un temporizador que se ejecutará el slot abrir según el intervalo especificado.
 /*!
 */
-void TNxSpooler::prepararTemporizador()
+void TNxSpooler::prepareTimer()
 {
-   qDebug() << "___" << metaObject()->className() << ":: prepararTemporizador";
+   qDebug() << "___" << metaObject()->className() << ":: prepareTimer";
 
    // Evitar que sucesivas llamadas a este método intenten abrir varias veces al mismo tiempo
-   disconnect(&m_temporizador, SIGNAL(timeout()),
-                         this, SLOT(abrir()));
+   disconnect(&m_timer, SIGNAL(timeout()),
+                         this, SLOT(open()));
 
-   bool conectado = connect(&m_temporizador, SIGNAL(timeout()),
-                                       this, SLOT(abrir()));
+   bool isConnected = connect(&m_timer, SIGNAL(timeout()),
+                                       this, SLOT(open()));
 
-   if (conectado == false)
+   if (isConnected == false)
    {
       // Si no se ha podido establecer la conexión, lanzar una excepción
-      QString mensaje = tr("2805094 - The timer could not be activated");
-      throw runtime_error(mensaje.toStdString());
+      QString message = tr("2805094 - The timer could not be activated");
+      throw runtime_error(message.toStdString());
    }
 
-   m_temporizador.start(m_ajustes.value("segundos").toInt() * 1000);
+   m_timer.start(m_settings.value("seconds").toInt() * 1000);
 
-   qDebug() << "END" << metaObject()->className() << ":: prepararTemporizador";
+   qDebug() << "END" << metaObject()->className() << ":: prepareTimer";
 }
 
 
@@ -495,16 +496,16 @@ void TNxSpooler::prepararTemporizador()
    En Linux, se realiza una búsqueda priorizando ciertas aplicaciones.
   \return Nombre o ruta del programa a utilizar de forma predeterminada
 */
-QString TNxSpooler::programaPredeterminado() const
+QString TNxSpooler::getDefaultProgram() const
 {
-   qDebug() << "___" << metaObject()->className() << ":: programaPredeterminado";
+   qDebug() << "___" << metaObject()->className() << ":: getDefaultProgram";
 
-   qDebug() << "END" << metaObject()->className() << ":: programaPredeterminado";
+   qDebug() << "END" << metaObject()->className() << ":: getDefaultProgram";
 
 #ifdef Q_WS_WIN
    return "";
 #else
-   return programaPredeterminadoLinux();
+   return getDefaultProgramInLinux();
 #endif
 }
 
@@ -515,32 +516,32 @@ QString TNxSpooler::programaPredeterminado() const
    el usuario cierre el fichero abierto y por tanto se ejecuta toda la cola de ficheros al mismo tiempo.
    \return Nombre del ejecutable de la aplicación que se encuentre en Linux
 */
-QString TNxSpooler::programaPredeterminadoLinux() const
+QString TNxSpooler::getDefaultProgramInLinux() const
 {
-   qDebug() << "___" << metaObject()->className() << ":: programaPredeterminadoLinux";
+   qDebug() << "___" << metaObject()->className() << ":: getDefaultProgramInLinux";
 
-   QString comando;
-   QStringList comandos;
-   comandos<<"run-mailcap"<<"sensible-browser"<<"okular"<<"kpdf"<<"evince"<<"xpdf"<<"epdfview"<<"acroread"<<"xdg-open";
+   QString command;
+   QStringList commands;
+   commands<<"run-mailcap"<<"sensible-browser"<<"okular"<<"kpdf"<<"evince"<<"xpdf"<<"epdfview"<<"acroread"<<"xdg-open";
 
    // Recorrer los elementos de la lista hasta encontrar uno accesible por ruta o por PATH
-   foreach(comando, comandos)
+   foreach(command, commands)
    {
-      if (sist.existePrograma(comando))
+      if (syst.existsProgram(command))
       {
          break;
       }
    }
 
    // Si no se ha podido encontrar un programa adecuado, lanzar una excepción
-   if (!sist.existePrograma(comando))
+   if (!syst.existsProgram(command))
    {
-      QString mensaje = tr("2805095 - A valid program to open the files could not be found");
-      throw runtime_error(mensaje.toStdString());
+      QString message = tr("2805095 - A valid program to open the files could not be found");
+      throw runtime_error(message.toStdString());
    }
 
-   qDebug() << "END" << metaObject()->className() << ":: programaPredeterminadoLinux";
-   return comando;
+   qDebug() << "END" << metaObject()->className() << ":: getDefaultProgramInLinux";
+   return command;
 }
 
 
@@ -549,27 +550,27 @@ QString TNxSpooler::programaPredeterminadoLinux() const
   Al final se emite una señal que capta el diálogo de opciones si está abierto
   para que adapte sus campos de opciones a los nuevos ajustes.
 */
-void TNxSpooler::restaurarAjustes()
+void TNxSpooler::restoreSettings()
 {
-   qDebug() << "___" << metaObject()->className() << ":: restaurarAjustes";
+   qDebug() << "___" << metaObject()->className() << ":: restoreSettings";
 
-   m_ajustes.remove("exts");
-   m_ajustes.setValue("exts", m_formatos_predeterminados);
+   m_settings.remove("exts");
+   m_settings.setValue("exts", m_default_formats);
 
    QStringList apps;
-   int elementos = m_formatos_predeterminados.count();
+   int elements = m_default_formats.count();
 
-   for(int i = 0; i < elementos; i++)
+   for(int i = 0; i < elements; i++)
    {
-      apps.append(programaPredeterminado());
+      apps.append(getDefaultProgram());
    }
-   m_ajustes.remove("apps");
-   m_ajustes.setValue("apps", apps);
+   m_settings.remove("apps");
+   m_settings.setValue("apps", apps);
 
-   m_ajustes.setValue("recurso", m_recurso_predeterminado);
-   m_ajustes.setValue("ruta", m_ruta_predeterminada);
-   m_ajustes.setValue("segundos", m_intervalo_predeterminado);
-   emit ajustesRestaurados();
+   m_settings.setValue("resource", m_default_resource);
+   m_settings.setValue("folder", m_default_folder);
+   m_settings.setValue("seconds", m_default_interval);
+   emit settingsRestored();
 
-   qDebug() << "END" << metaObject()->className() << ":: restaurarAjustes";
+   qDebug() << "END" << metaObject()->className() << ":: restoreSettings";
 }

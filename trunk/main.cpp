@@ -24,10 +24,16 @@
 #include "qtsingleapplication/qtsingleapplication.h"
 #include "tsystem.h"
 
-// Objeto global para uso de características comunes
-TSistema sist;
+// Note: Although the names of files, variables and classes are in English
+// and the source code is pretty self-explanatory, most of the remarks are
+// still in Spanish due to the origin of this program. Feel free to
+// translate to English and change what you want and send the modified files
+// to the project; to do this you can visit http://developer.berlios.de/projects/nxspooler/
 
-// Este programa funciona tanto en Linux como en Windows.
+// Objeto global para uso de características comunes
+TSystem syst;
+
+// Este programa funciona en Linux, en Windows y posiblemente en otros sistemas operativos
 int main(int argc, char *argv[])
 {
    try
@@ -85,17 +91,17 @@ int main(int argc, char *argv[])
 
       TNxSpooler nxspooler;
 
-      int resultado = a.exec();
+      int result = a.exec();
 
       qDebug() << "END main";
-      return resultado;
+      return result;
    }
    catch(std::exception &excep)
    {
       qDebug() << "END main. Error " << excep.what();
 
-      QApplication auxiliar(argc, argv); // It's needed to show a Qt Dialog later
-      sist.mostrarError(QString(excep.what()) + ".", QT_TR_NOOP("Error - NxSpooler"));
+      QApplication auxiliary(argc, argv); // It's needed to show a Qt Dialog later
+      syst.showError(QString(excep.what()) + ".", QT_TR_NOOP("Error - NxSpooler"));
 
       return EXIT_FAILURE;
    }
@@ -103,8 +109,8 @@ int main(int argc, char *argv[])
    {
       qDebug() << "END main. Unknown error";
 
-      QApplication auxiliar(argc, argv); // It's needed to show a Qt Dialog later
-      sist.mostrarError(QT_TR_NOOP("An unidentified problem has happened and NxSpooler must be closed.")
+      QApplication auxiliary(argc, argv); // It's needed to show a Qt Dialog later
+      syst.showError(QT_TR_NOOP("An unidentified problem has happened and NxSpooler must be closed.")
                         , QT_TR_NOOP("Error - NxSpooler"));
       return EXIT_FAILURE;
    }

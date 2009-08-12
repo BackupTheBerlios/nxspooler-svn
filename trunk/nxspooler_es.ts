@@ -4,34 +4,34 @@
 <context>
     <name></name>
     <message>
-        <location filename="main.cpp" line="81"/>
+        <location filename="main.cpp" line="87"/>
         <source>NxSpooler does not expect parameters and has been provided with: </source>
         <translation>El programa NxSpooler no usa parámetros y se le han pasado: </translation>
     </message>
     <message>
-        <location filename="main.cpp" line="43"/>
+        <location filename="main.cpp" line="49"/>
         <source>NxSpooler was already running</source>
         <translation>NxSpooler ya se estaba ejecutando</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="62"/>
+        <location filename="main.cpp" line="68"/>
         <source>Warning: the file of the NxSpooler translation for your language has not been found.</source>
         <translatorcomment>Traducción hecha para más uniformidad</translatorcomment>
         <translation>Aviso: no se ha encontrado el archivo de la traducción de NxSpooler para su lenguaje.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="74"/>
+        <location filename="main.cpp" line="80"/>
         <source>Warning: the file of the Qt translation for your language has not been found.</source>
         <translation>Aviso: no se ha encontrado el archivo de la traducción de Qt para su lenguaje.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="98"/>
-        <location filename="main.cpp" line="108"/>
+        <location filename="main.cpp" line="104"/>
+        <location filename="main.cpp" line="114"/>
         <source>Error - NxSpooler</source>
         <translation>Error - NxSpooler</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="107"/>
+        <location filename="main.cpp" line="113"/>
         <source>An unidentified problem has happened and NxSpooler must be closed.</source>
         <oldsource>A problem not identified has happened and NxSpooler must be closed.</oldsource>
         <translation>Ha ocurrido un error no identificado en NxSpooler y debe cerrarse.</translation>
@@ -198,76 +198,72 @@
         <translation>El directorio &quot;%1&quot; no existe. ¿Quiere crearlo?</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="449"/>
+        <location filename="tnxspooler.cpp" line="450"/>
         <source>The folder &quot;%1&quot; was successfully created. Now it must be shared with the name &quot;%2&quot;.</source>
         <oldsource>Directorio &quot;%1&quot; creado con Ã©xito. Ahora debe compartirlo con el nombre &quot;%2&quot;.</oldsource>
         <translation>La carpeta &quot;%1&quot; ha sido creada con éxito. Ahora debe compartirla con el nombre &quot;%2&quot;.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="456"/>
+        <location filename="tnxspooler.cpp" line="457"/>
         <source>2805093 - The folder &quot;%1&quot; could not be created</source>
         <oldsource>2805093 - No se pudo crear el directorio &quot;%1&quot;</oldsource>
         <translation>2805093 - No se pudo crear el directorio &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="482"/>
+        <location filename="tnxspooler.cpp" line="483"/>
         <source>2805094 - The timer could not be activated</source>
         <oldsource>2805094 - No se pudo activar el temporizador</oldsource>
         <translation>2805094 - No se pudo activar el temporizador</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="538"/>
+        <location filename="tnxspooler.cpp" line="539"/>
         <source>2805095 - A valid program to open the files could not be found</source>
         <oldsource>2805095 - No se encuentra un programa adecuado para abrir los ficheros</oldsource>
         <translation>2805095 - No se encuentra un programa adecuado para abrir los ficheros</translation>
     </message>
 </context>
 <context>
-    <name>TOpciones</name>
+    <name>TOptions</name>
     <message>
-        <location filename="topciones.cpp" line="140"/>
+        <location filename="toptions.cpp" line="140"/>
         <source>The selected program can&apos;t be accessed. Please select another or set the default value.</source>
-        <oldsource>No se puede acceder a la aplicaciÃ³n indicada. Seleccione otra o deje el valor predeterminado.</oldsource>
         <translation>No se puede acceder al programa indicado. Seleccione otro o deje el valor predeterminado.</translation>
     </message>
     <message>
-        <location filename="topciones.cpp" line="172"/>
+        <location filename="toptions.cpp" line="172"/>
         <source>Select the viewer program</source>
-        <oldsource>Seleccione el programa visor</oldsource>
         <translation>Seleccione el programa visor</translation>
     </message>
     <message>
-        <location filename="topciones.cpp" line="193"/>
+        <location filename="toptions.cpp" line="194"/>
         <source>Select the shared local folder</source>
-        <oldsource>Seleccione la ruta local compartida</oldsource>
         <translation>Seleccione la carpeta local compartida</translation>
     </message>
 </context>
 <context>
-    <name>TSistema</name>
+    <name>TSystem</name>
     <message>
-        <location filename="tsistema.cpp" line="60"/>
+        <location filename="tsystem.cpp" line="59"/>
         <source>Confirm</source>
-        <oldsource>ConfirmaciÃ³n</oldsource>
         <translation>Confirmación</translation>
     </message>
     <message>
-        <location filename="tsistema.cpp" line="119"/>
+        <location filename="tsystem.cpp" line="119"/>
         <source>Warning</source>
         <translation>Aviso</translation>
     </message>
     <message>
-        <location filename="tsistema.cpp" line="122"/>
+        <location filename="tsystem.cpp" line="122"/>
         <source>Warning: </source>
         <translation>Aviso: </translation>
     </message>
     <message>
-        <location filename="tsistema.cpp" line="139"/>
+        <location filename="tsystem.cpp" line="140"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="tsistema.cpp" line="144"/>
+        <location filename="tsystem.cpp" line="145"/>
         <source>Error: </source>
         <translation>Error:</translation>
     </message>

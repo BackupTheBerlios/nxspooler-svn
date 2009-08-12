@@ -17,8 +17,8 @@
 *  along with NxSpooler. If not, see http://www.gnu.org/copyleft/gpl.html.
 *****************************************************************************/
 
-#ifndef TOPCIONES_H
-#define TOPCIONES_H
+#ifndef T_OPTIONS_H
+#define T_OPTIONS_H
 
 #include <QtGui/QDialog>
 #include <QtCore/QSettings>
@@ -26,29 +26,29 @@
 #include "ui_optionsDialog.h"
 #include "tsystem.h"
 
-class TOpciones : public QDialog, private Ui::optionsDialog
+class TOptions : public QDialog, private Ui::optionsDialog
 {
    Q_OBJECT
 
 public:
-   TOpciones(QSettings *ajustes, QWidget *padre = 0);
-   ~TOpciones();
+   TOptions(QSettings *settings, QWidget *parent = 0);
+   ~TOptions();
 
 public slots:
-   void actualizarAjustes();
-   void actualizarCamposOpciones();
+   void updateSettings();
+   void updateOptionsRows();
 
 private slots:
    void on_m_find_path_clicked();
    void on_m_find_app_clicked();
-   void on_m_eliminar_ext_clicked();
-   void on_m_nueva_ext_clicked();
+   void on_m_delete_ext_clicked();
+   void on_m_new_ext_clicked();
 
 private:
-   QSettings *m_ajustes; //!< Objeto gestor de la configuración del programa (carga y guarda automáticamente)
+   QSettings *m_settings; //!< Objeto gestor de la configuración del programa (carga y guarda automáticamente)
 
 signals:
-   void restaurarPulsado(); //!< Se activará esta señal cuando el botón de restaurar sea pulsado
+   void pushedRestore(); //!< Se activará esta señal cuando el botón de restaurar sea pulsado
 };
 
 #endif

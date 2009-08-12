@@ -9,7 +9,7 @@ INCLUDEPATH += . \
     qtsingleapplication
 
 # Input
-HEADERS += ttrayicon.h \
+HEADERS += tsystrayicon.h \
     toptions.h \
     tsystem.h \
     qtsingleapplication/qtlocalpeer.h \
@@ -21,7 +21,7 @@ FORMS += aboutDialog.ui \
     nxspooler.ui \
     optionsDialog.ui
 SOURCES += main.cpp \
-    ttrayicon.cpp \
+    tsystrayicon.cpp \
     toptions.cpp \
     tsystem.cpp \
     qtsingleapplication/qtlocalpeer.cpp \
