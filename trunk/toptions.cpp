@@ -153,12 +153,20 @@ void TOptions::on_m_new_ext_clicked()
    m_exts_apps->setCurrentCell(m_exts_apps->rowCount() - 1, 0);
 }
 
+
 //! Borra la línea seleccionada
 /*
 */
 void TOptions::on_m_delete_ext_clicked()
 {
-    m_exts_apps->removeRow(m_exts_apps->currentRow());
+   QString question = tr("Are you sure that you want to delete the selected row?");
+   bool isAccepted = syst.confirm(question);
+
+   if (isAccepted)
+   {
+      m_exts_apps->removeRow(m_exts_apps->currentRow());
+      return;
+   }
 }
 
 

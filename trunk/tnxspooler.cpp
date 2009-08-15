@@ -27,18 +27,6 @@
    De este modo, basta con que funcione la compartición de ficheros por Samba
    en la sesión FreeNX para que se abra automáticamente en nuestra sesión local
    cualquier fichero con la extensión deseada que se genere en la ruta.
-
-   CASO PARTICULAR: BulmaGés
-   Hay que compartir nuestra carpeta personal ".bulmages" como "bulmages$".
-   El cliente de FreeNX debe ser configurado para que monte dicho recurso
-   como carpeta personal "~/.bulmages" en la sesión remota.
-   Cuando BulmaGés imprime algo, se genera un archivo PDF, ODS o SXC en
-   dicha ruta compartida.
-   NxSpooler detectará ese fichero y lo abrirá localmente.
-   Para evitar que se abra también en la sesión remota,
-   editar el fichero "/etc/bulmages/bulmages.conf" y
-   dejar los parámetros "CONF_PDF", "CONF_ODS" y "CONF_SXC"
-   con el valor "echo".
 */
 
 #include "tnxspooler.h"
@@ -193,6 +181,7 @@ void TNxSpooler::openAboutNxSpooler()
    Ui::aboutDialog uiAbout;
    QDialog about(this);
    uiAbout.setupUi(&about);
+   uiAbout.m_app_name_and_version->setText(qApp->applicationName() + " " + qApp->applicationVersion());
 
    about.exec();
 
@@ -226,6 +215,23 @@ void TNxSpooler::openOptions()
    while(!syst.existsProgram(m_settings.value("apps").toString()));
 
    qDebug() << "END" << metaObject()->className() << ":: openOptions";
+}
+
+
+//! Muestra la ventana de ayuda.
+/*!
+*/
+void TNxSpooler::openHelp()
+{
+   qDebug() << "___" << metaObject()->className() << ":: openHelp";
+
+   Ui::helpDialog uiHelp;
+   QDialog help(this);
+   uiHelp.setupUi(&help);
+
+   help.exec();
+
+   qDebug() << "END" << metaObject()->className() << ":: openHelp";
 }
 
 
@@ -401,6 +407,7 @@ void TNxSpooler::prepareTrayIconOrShowProgram()
       menu->addAction(m_action_show);
       menu->addSeparator();
       menu->addAction(m_action_options);
+      menu->addAction(m_action_help);
       menu->addAction(m_action_about);
       menu->addSeparator();
       menu->addAction(m_action_exit);
@@ -574,3 +581,5 @@ void TNxSpooler::restoreSettings()
 
    qDebug() << "END" << metaObject()->className() << ":: restoreSettings";
 }
+
+

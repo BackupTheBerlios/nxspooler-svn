@@ -64,31 +64,31 @@
         <translation>Ver y modificar la configuración de NxSpooler.</translation>
     </message>
     <message>
-        <location filename="nxspooler.ui" line="87"/>
+        <location filename="nxspooler.ui" line="97"/>
         <source>About NxSpooler</source>
         <oldsource>Acerca de NxSpooler</oldsource>
         <translation>Acerca de NxSpooler</translation>
     </message>
     <message>
         <location filename="nxspooler.ui" line="80"/>
-        <location filename="nxspooler.ui" line="136"/>
+        <location filename="nxspooler.ui" line="146"/>
         <source>&amp;Options</source>
         <translation>&amp;Opciones</translation>
     </message>
     <message>
-        <location filename="nxspooler.ui" line="90"/>
+        <location filename="nxspooler.ui" line="100"/>
         <source>Information about NxSpooler and its license.</source>
         <oldsource>Información sobre NxSpooler y su licencia.</oldsource>
         <translation>Información sobre NxSpooler y su licencia.</translation>
     </message>
     <message>
-        <location filename="nxspooler.ui" line="103"/>
+        <location filename="nxspooler.ui" line="113"/>
         <source>Hide this window and set an icon in the notification area to let the user restore or exit from NxSpooler.</source>
         <oldsource>Esconder esta ventana y dejar un icono en la bandeja del sistema para poder restaurar o salir de NxSpooler.</oldsource>
         <translation>Esconder esta ventana y dejar un icono en la bandeja del sistema para poder restaurar o salir de NxSpooler.</translation>
     </message>
     <message>
-        <location filename="nxspooler.ui" line="100"/>
+        <location filename="nxspooler.ui" line="110"/>
         <source>Hide this window</source>
         <translation>Ocultar esta ventana</translation>
     </message>
@@ -98,75 +98,90 @@
         <translation>Archivos abiertos y eliminados durante la ejecución de NxSpooler</translation>
     </message>
     <message>
-        <location filename="nxspooler.ui" line="93"/>
+        <location filename="nxspooler.ui" line="103"/>
         <source>&amp;About</source>
-        <translation>&amp;Acerca de</translation>
+        <translation>Acerca &amp;de</translation>
     </message>
     <message>
-        <location filename="nxspooler.ui" line="106"/>
-        <source>&amp;Hide</source>
-        <translation>Oc&amp;ultar</translation>
-    </message>
-    <message>
-        <location filename="nxspooler.ui" line="119"/>
+        <location filename="nxspooler.ui" line="129"/>
         <source>&amp;Exit</source>
         <translation>&amp;Salir</translation>
     </message>
     <message>
-        <location filename="nxspooler.ui" line="113"/>
-        <location filename="nxspooler.ui" line="131"/>
+        <location filename="nxspooler.ui" line="123"/>
+        <location filename="nxspooler.ui" line="141"/>
         <source>Exit from NxSpooler</source>
         <oldsource>Salir de NxSpooler</oldsource>
         <translation>Salir de NxSpooler</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="87"/>
+        <source>Help.</source>
+        <translation>Ayuda.</translation>
+    </message>
+    <message>
+        <location filename="nxspooler.ui" line="90"/>
+        <location filename="nxspooler.ui" line="178"/>
+        <source>&amp;Help</source>
+        <translation>&amp;Ayuda</translation>
+    </message>
+    <message>
         <location filename="nxspooler.ui" line="116"/>
+        <source>H&amp;ide</source>
+        <translation>Oc&amp;ultar</translation>
+    </message>
+    <message>
+        <location filename="nxspooler.ui" line="126"/>
         <source>Exit from NxSpooler.</source>
         <oldsource>Salir de NxSpooler.</oldsource>
         <translation>Salir de NxSpooler.</translation>
     </message>
     <message>
-        <location filename="nxspooler.ui" line="128"/>
+        <location filename="nxspooler.ui" line="138"/>
         <source>&amp;Exit from NxSpooler</source>
         <oldsource>&amp;Salir de NxSpooler</oldsource>
         <translation>&amp;Salir de NxSpooler</translation>
     </message>
     <message>
-        <location filename="nxspooler.ui" line="139"/>
+        <location filename="nxspooler.ui" line="149"/>
         <source>Open the options dialog</source>
         <oldsource>Abrir el diálogo de opciones</oldsource>
         <translation>Abrir el diálogo de opciones</translation>
     </message>
     <message>
-        <location filename="nxspooler.ui" line="144"/>
+        <location filename="nxspooler.ui" line="154"/>
         <source>&amp;About NxSpooler</source>
         <translation>Acerca &amp;de NxSpooler</translation>
     </message>
     <message>
-        <location filename="nxspooler.ui" line="147"/>
+        <location filename="nxspooler.ui" line="157"/>
         <source>See information about NxSpooler</source>
         <translation>Ver información sobre NxSpooler</translation>
     </message>
     <message>
-        <location filename="nxspooler.ui" line="152"/>
-        <source>&amp;Hide NxSpooler</source>
-        <oldsource>Oc&amp;ultar NxSpooler</oldsource>
+        <location filename="nxspooler.ui" line="162"/>
+        <source>H&amp;ide NxSpooler</source>
         <translation>Oc&amp;ultar NxSpooler</translation>
     </message>
     <message>
-        <location filename="nxspooler.ui" line="155"/>
+        <location filename="nxspooler.ui" line="181"/>
+        <source>Help</source>
+        <translation>Ayuda</translation>
+    </message>
+    <message>
+        <location filename="nxspooler.ui" line="165"/>
         <source>Hide the window of NxSpooler</source>
         <oldsource>Esconder la ventana de NxSpooler</oldsource>
         <translation>Esconder la ventana de NxSpooler</translation>
     </message>
     <message>
-        <location filename="nxspooler.ui" line="160"/>
+        <location filename="nxspooler.ui" line="170"/>
         <source>&amp;Restore NxSpooler</source>
         <oldsource>&amp;Restaurar NxSpooler</oldsource>
         <translation>&amp;Restaurar NxSpooler</translation>
     </message>
     <message>
-        <location filename="nxspooler.ui" line="163"/>
+        <location filename="nxspooler.ui" line="173"/>
         <source>Makes visible the window of NxSpooler</source>
         <oldsource>Hace visible la ventana de NxSpooler</oldsource>
         <translation>Hace visible la ventana de NxSpooler</translation>
@@ -175,48 +190,48 @@
 <context>
     <name>TNxSpooler</name>
     <message>
-        <location filename="tnxspooler.cpp" line="167"/>
+        <location filename="tnxspooler.cpp" line="155"/>
         <source>The file &quot;%1&quot; could not be opened</source>
         <translation>No se pudo abrir el archivo &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="174"/>
+        <location filename="tnxspooler.cpp" line="162"/>
         <source>2805096 - The file &quot;%1&quot; could not be deleted</source>
         <oldsource>2805096 - No se pudo borrar el archivo &quot;%1&quot;</oldsource>
         <translation>2805096 - No se pudo borrar el archivo &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="395"/>
+        <location filename="tnxspooler.cpp" line="401"/>
         <source>2805099 - The icon of the notification area could not be activated</source>
         <oldsource>2805099 - No se pudo activar el icono de la bandeja del sistema</oldsource>
         <translation>2805099 - No se pudo activar el icono del área de notificación</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="438"/>
+        <location filename="tnxspooler.cpp" line="445"/>
         <source>The folder &quot;%1&quot; does not exist. Do you want to create it?</source>
         <oldsource>El folder &quot;%1&quot; does not exist. Do you want to create it?</oldsource>
         <translation>El directorio &quot;%1&quot; no existe. ¿Quiere crearlo?</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="450"/>
+        <location filename="tnxspooler.cpp" line="457"/>
         <source>The folder &quot;%1&quot; was successfully created. Now it must be shared with the name &quot;%2&quot;.</source>
         <oldsource>Directorio &quot;%1&quot; creado con Ã©xito. Ahora debe compartirlo con el nombre &quot;%2&quot;.</oldsource>
         <translation>La carpeta &quot;%1&quot; ha sido creada con éxito. Ahora debe compartirla con el nombre &quot;%2&quot;.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="457"/>
+        <location filename="tnxspooler.cpp" line="464"/>
         <source>2805093 - The folder &quot;%1&quot; could not be created</source>
         <oldsource>2805093 - No se pudo crear el directorio &quot;%1&quot;</oldsource>
         <translation>2805093 - No se pudo crear el directorio &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="483"/>
+        <location filename="tnxspooler.cpp" line="490"/>
         <source>2805094 - The timer could not be activated</source>
         <oldsource>2805094 - No se pudo activar el temporizador</oldsource>
         <translation>2805094 - No se pudo activar el temporizador</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="539"/>
+        <location filename="tnxspooler.cpp" line="546"/>
         <source>2805095 - A valid program to open the files could not be found</source>
         <oldsource>2805095 - No se encuentra un programa adecuado para abrir los ficheros</oldsource>
         <translation>2805095 - No se encuentra un programa adecuado para abrir los ficheros</translation>
@@ -230,12 +245,18 @@
         <translation>No se puede acceder al programa indicado. Seleccione otro o deje el valor predeterminado.</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="172"/>
+        <location filename="toptions.cpp" line="162"/>
+        <source>Are you sure that you want to delete the selected row?</source>
+        <oldsource>Are you sure that you want to delete the row of this extension?</oldsource>
+        <translation>¿Está seguro de que quiere borrar la fila seleccionada?</translation>
+    </message>
+    <message>
+        <location filename="toptions.cpp" line="180"/>
         <source>Select the viewer program</source>
         <translation>Seleccione el programa visor</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="194"/>
+        <location filename="toptions.cpp" line="202"/>
         <source>Select the shared local folder</source>
         <translation>Seleccione la carpeta local compartida</translation>
     </message>
@@ -277,13 +298,18 @@
         <translation>Acerca de NxSpooler</translation>
     </message>
     <message>
-        <location filename="aboutDialog.ui" line="52"/>
-        <source>NxSpooler monitors if files with certain extensions appear in a set shared resource. NxSpooler opens every new file that finds so that the user can look into it and print it or save it; when the user closes the viewer application that shows the file, NxSpooler will delete the file if possible. NxSpooler is normally used together with a FreeNX session where a remote program (or sometimes the user) creates files and saves it in the shared resource for a later automatic opening by NxSpooler in the computer of the user (for example, to print the file).</source>
-        <oldsource>NxSpooler monitors if files with certain extensions appear in a set shared resource. NxSpooler opens every new file that finds so that the user can look into it and print it or save it; when the user closes the viewer application that shows the file, NxSpooler will try to delete the file. NxSpooler is normally used together with a FreeNX session where a remote program (or sometimes the user) creates files and saves it in the shared resource for a later automatic opening by NxSpooler in the computer of the user (for example, to print the file).</oldsource>
-        <translation>NxSpooler monitoriza si en determinado recurso compartido aparecen archivos con alguna extensión en particular. Por cada archivo nuevo que encuentra NxSpooler: lo abre para que el usuario lo vea y pueda imprimirlo o guardarlo; cuando el usuario cierra la aplicación que muestra el archivo, NxSpooler lo borra si es posible. NxSpooler está pensado para ser usado conjuntamente con una sesión FreeNX donde un programa remoto (o el usuario ocasionalmente) crea archivos y los guarda en el recurso compartido para su posterior apertura automática por NxSpooler en el ordenador del usuario (por ejemplo, para imprimir el archivo).</translation>
+        <location filename="aboutDialog.ui" line="46"/>
+        <source>http://nxspooler.berlios.de</source>
+        <translatorcomment>Es traducible por si el usuario ha de ver otra dirección, como (por ejemplo) http://nxspooler.berlios.de/es</translatorcomment>
+        <translation>http://nxspooler.berlios.de</translation>
     </message>
     <message>
-        <location filename="aboutDialog.ui" line="99"/>
+        <location filename="aboutDialog.ui" line="66"/>
+        <source>NxSpooler is a Qt utility used to help people to print in their printers when connected to a remote computer with sessions like the ones of FreeNX.</source>
+        <translation>NxSpooler es una utilidad Qt usada para ayudar a las personas a imprimir en sus impresoras cuando están conectados a un ordenador remoto usando sesiones como las de FreeNX.</translation>
+    </message>
+    <message>
+        <location filename="aboutDialog.ui" line="120"/>
         <source>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
                     GNU GENERAL PUBLIC LICENSE
@@ -2315,6 +2341,67 @@ the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 &lt;http://www.gnu.org/philosophy/why-not-lgpl.html&gt;.
 </translation>
+    </message>
+</context>
+<context>
+    <name>helpDialog</name>
+    <message>
+        <location filename="helpDialog.ui" line="17"/>
+        <source>Help</source>
+        <translation>Ayuda</translation>
+    </message>
+    <message>
+        <location filename="helpDialog.ui" line="46"/>
+        <source>NxSpooler allows that particular files created in the server (normally by an application and sometimes by the user) can be printed in the local printer of the user.
+
+More precisely: NxSpooler monitors if files with certain extensions (for example PDF) appear in a set shared resource. NxSpooler opens every new file that finds so that the user can look into the file and print it or save it; when the user closes the viewer application that shows the file, NxSpooler will delete the file if possible. NxSpooler is normally used together with a FreeNX session where a remote program (or sometimes the user) creates files and saves them in the shared resource for a later automatic opening by NxSpooler in the computer of the user (for example, to print the file).
+
+____________________________________________________________
+
+APPENDIX
+
+Example of configuration of the system for NxSpooler, in this case for working with a program called Bulmages that is executed on the server:
+
+* The first time:
+   + In the server:
+      - To achieve that Bulmages 0.12 does not open PDF, ODS and SCX files in the server (because they have to be opened in the computer of the user): edit /etc/bulmages/bulmages.conf and put the value &quot;echo&quot; in the parameters CONF_PDF. CONF_ODS and CONF_SXC.
+      - Note: the user that is going to be connected has to have his own $HOME in the server.
+ 
+   + In the client computer:
+      - In Linux: share (using Samba) the folder $HOME/.bulmages as &quot;bulmages&quot;, using a particular password and username.
+      - In Windows: share the folder %UserProfile%\.bulmages as &quot;bulmages$&quot;, using a particular password and username.
+      - Note: when sharing, you must be sure that the particular username that will be used to access to the shared resource has permissions to write on it.
+      - Configure the NX client program so that the connection normally used to access to the FreeNX server  grants the server access to the shared resource that we talked about. For example, in the Linux program called &quot;nx client&quot; you can go to a tab called &quot;Services&quot;, click on the checkbox &quot;enable SMB printing and file sharing&quot; and click on &quot;Add&quot; to add the resource &quot;bulmages&quot;, configure that the mount point in the server is ~/.bulmages so that Bulmages uses it in a natural way in the remote session; enter the particular password and username.
+
+* Every time the user starts the FreeNX session:
+      - NxSpooler has to be running in the computer of the user, of course :-).
+ 
+This way: the files of the reports that Bulmages makes in the server  will be opened in the client computer, where the user can print them, save them, send them by email, etc.</source>
+        <translation>NxSpooler permite que determinados documentos creados en el servidor (normalmente por una aplicación y algunas veces por el usuario) puedan ser impresos en la impresora del usuario.
+
+Más precisamente: NxSpooler monitoriza si archivos con ciertas extensiones (por ejemplo PDF) aparecen en determinado recurso compartido. Por cada archivo nuevo que encuentra NxSpooler: lo abre para que el usuario lo vea y pueda imprimirlo; cuando el usuario cierre la ventana del visor PDF, NxSpooler intentará borrar el archivo PDF. NxSpooler está pensado para ser usado conjuntamente con una sesión FreeNX donde un programa remoto (o a veces el usuario) crea archivos y los guarda en el recurso compartido para su posterior apertura automática por NxSpooler en el ordenador del usuario (por ejemplo, para imprimir el archivo).
+
+____________________________________________________________
+
+APÉNDICE
+
+Ejemplo de configuración del sistema para NxSpooler, en este caso para trabajar con un programa llamado Bulmagés que se ejecuta en el servidor:
+
+* La primera vez:
+   + En el servidor:
+      - Para conseguir que Bulmagés no abra archivos PDF, ODS ni SCX en el servidor (ya que tienen que abrirse en el cliente): editar /etc/bulmages/bulmages.conf y poner el valor &quot;echo&quot; en los parámetros CONF_PDF. CONF_ODS y CONF_SXC.
+      - Nota: el usuario que se va a conectar debe tener su propio $HOME en el servidor.
+ 
+   + En el ordenador cliente:
+      - En Linux: compartir (usando Samba) la carpeta $HOME/.bulmages como &quot;bulmages&quot;, utilizando un nombre de usuario y contraseña particulares.
+      - En Windows: compartir la carpeta %UserProfile%\.bulmages como &quot;bulmages$&quot;, utilizando un nombre de usuario y contraseña particulares.
+      - Nota: al compartir, asegurarse de que el usuario particular que se usará para acceder al recurso compartido tiene permiso de escritura sobre el mismo.
+      - Configurar el programa cliente Nx para que utilizando la conexión que se usa normalmente para acceder al servidor FreeNX éste pueda acceder al recurso compartido del que hablábamos. Por ejemplo, en el programa &quot;nx client&quot; para Linux se puede ir a una solapa &quot;Services&quot;, activar &quot;enable SMB printing and file sharing&quot; y pulsar en &quot;Add&quot; para añadir el recurso &quot;bulmages&quot;, especificar que su montaje en el servidor se realice en ~/.bulmages para que Bulmagés lo use de forma natural en la sesión remota; especificar el usuario y contraseña particulares.
+
+* Cada vez que el usuario se conecte al FreeNX del servidor:
+      - Ha de tener NxSpooler ejecutándose en su ordenador, claro :-). 
+
+De esta forma: los informes que hace Bulmagés en el servidor se abrirán en el ordenador cliente, donde el usuario puede imprimirlos en la impresora que quiera, guardarlos, enviarlos por correo, etc.</translation>
     </message>
 </context>
 <context>

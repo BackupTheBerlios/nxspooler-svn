@@ -39,6 +39,7 @@
 #endif
 
 #include "ui_aboutDialog.h"
+#include "ui_helpDialog.h"
 #include "ui_nxspooler.h"
 
 class TNxSpooler : public QDialog, private Ui::NxSpooler
@@ -53,6 +54,7 @@ private slots:
    void open();
    void openAboutNxSpooler();
    void openOptions();
+   void openHelp();
    void show();
    void showOrHide(QSystemTrayIcon::ActivationReason reason);
    void hide();

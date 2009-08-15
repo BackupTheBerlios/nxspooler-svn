@@ -19,7 +19,8 @@ HEADERS += tsystrayicon.h \
     tnxspooler.h
 FORMS += aboutDialog.ui \
     nxspooler.ui \
-    optionsDialog.ui
+    optionsDialog.ui \
+    helpDialog.ui
 SOURCES += main.cpp \
     tsystrayicon.cpp \
     toptions.cpp \
@@ -30,7 +31,7 @@ SOURCES += main.cpp \
     qtsingleapplication/qtlockedfile_unix.cpp \
     qtsingleapplication/qtsingleapplication.cpp \
     qtsingleapplication/qtsinglecoreapplication.cpp \
-    tnxspooler.cpp 
+    tnxspooler.cpp
 RESOURCES += nxspooler.qrc
 win32 { 
     # In release mode: disable the debug messages

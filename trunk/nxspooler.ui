@@ -82,6 +82,16 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="m_help">
+       <property name="whatsThis">
+        <string>Help.</string>
+       </property>
+       <property name="text">
+        <string>&amp;Help</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="m_about">
        <property name="toolTip">
         <string>About NxSpooler</string>
@@ -103,7 +113,7 @@
         <string>Hide this window and set an icon in the notification area to let the user restore or exit from NxSpooler.</string>
        </property>
        <property name="text">
-        <string>&amp;Hide</string>
+        <string>H&amp;ide</string>
        </property>
       </widget>
      </item>
@@ -149,7 +159,7 @@
   </action>
   <action name="m_action_hide">
    <property name="text">
-    <string>&amp;Hide NxSpooler</string>
+    <string>H&amp;ide NxSpooler</string>
    </property>
    <property name="toolTip">
     <string>Hide the window of NxSpooler</string>
@@ -161,6 +171,14 @@
    </property>
    <property name="toolTip">
     <string>Makes visible the window of NxSpooler</string>
+   </property>
+  </action>
+  <action name="m_action_help">
+   <property name="text">
+    <string>&amp;Help</string>
+   </property>
+   <property name="toolTip">
+    <string>Help</string>
    </property>
   </action>
  </widget>
@@ -175,8 +193,8 @@
    <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>389</x>
-     <y>254</y>
+     <x>341</x>
+     <y>259</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>
@@ -191,8 +209,8 @@
    <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>162</x>
-     <y>231</y>
+     <x>140</x>
+     <y>259</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>
@@ -223,8 +241,8 @@
    <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>437</x>
-     <y>241</y>
+     <x>399</x>
+     <y>259</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>
@@ -328,6 +346,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>m_help</sender>
+   <signal>clicked()</signal>
+   <receiver>m_action_help</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>174</x>
+     <y>247</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_action_help</sender>
+   <signal>triggered()</signal>
+   <receiver>NxSpooler</receiver>
+   <slot>openHelp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>202</x>
+     <y>132</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>open()</slot>
@@ -335,5 +385,6 @@
   <slot>openAboutNxSpooler()</slot>
   <slot>show()</slot>
   <slot>hide()</slot>
+  <slot>openHelp()</slot>
  </slots>
 </ui>
