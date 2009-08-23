@@ -115,11 +115,10 @@ void TSystem::showWarning(const QString &message, const QString &windowTitle) co
    qDebug() << "___" << metaObject()->className() << ":: showWarning";
 
    QMessageBox msgBox;
-
-   msgBox.setWindowTitle(windowTitle == "" ? tr("Warning"):windowTitle);
+   msgBox.setWindowTitle(windowTitle == "" ? tr("Warning") : windowTitle);
    msgBox.setText(message);
    msgBox.setIcon(QMessageBox::Warning);
-   qDebug() << tr("Warning: ") << message;
+   qDebug() << "Warning: " << message;
    msgBox.exec();
 
    qDebug() << "END" << metaObject()->className() << ":: showWarning";
@@ -136,13 +135,13 @@ void TSystem::showError(const QString &message, const QString &windowTitle) cons
    qDebug() << "___" << metaObject()->className() << ":: showError()";
 
    QMessageBox msgBox;
-
    msgBox.setWindowTitle(windowTitle == "" ? tr("Error"):windowTitle);
    msgBox.setText(message);
    msgBox.setIcon(QMessageBox::Critical);
 
    QTextStream cerr(stderr);
-   cerr << tr("Error: ") << message << endl;
+   cerr << "Error: " << message << endl;
+
    msgBox.exec();
 
    qDebug() << "END" << metaObject()->className() << ":: showError()";

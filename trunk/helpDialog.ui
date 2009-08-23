@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>408</width>
     <height>998</height>
    </rect>
   </property>
@@ -21,25 +21,31 @@
     <normaloff>:/img/nxspooler.png</normaloff>:/img/nxspooler.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_description">
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
      </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Ok</set>
-     </property>
-     <property name="centerButtons">
-      <bool>true</bool>
+     <property name="text">
+      <string>Description</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="0">
-    <widget class="QPlainTextEdit" name="plainTextEdit">
+   <item row="1" column="0">
+    <widget class="QPlainTextEdit" name="m_description">
      <property name="minimumSize">
       <size>
        <width>400</width>
        <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>300</height>
       </size>
      </property>
      <property name="plainText">
@@ -47,15 +53,42 @@
 
 More precisely: NxSpooler monitors if files with certain extensions (for example PDF) appear in a set shared resource. NxSpooler opens every new file that finds so that the user can look into the file and print it or save it; when the user closes the viewer application that shows the file, NxSpooler will delete the file if possible. NxSpooler is normally used together with a FreeNX session where a remote program (or sometimes the user) creates files and saves them in the shared resource for a later automatic opening by NxSpooler in the computer of the user (for example, to print the file).
 
-____________________________________________________________
+</string>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_appendix">
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Appendix</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QPlainTextEdit" name="m_appendix">
+     <property name="minimumSize">
+      <size>
+       <width>400</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="plainText">
+      <string>Example of configuration of the system for NxSpooler, in this case for working with a program called Bulmages that is executed on the server.
 
-APPENDIX
-
-Example of configuration of the system for NxSpooler, in this case for working with a program called Bulmages that is executed on the server:
+Note: to print a report, Bulmages 0.12 first saves it (normally in PDF format) on a folder and then it asks the system that the file is opened; working with FreeNX we want that Bulmages saves the file but in the computer of the user, that Bulmages opens nothing and that NxSpooler opens the file but in the computer of the user.
 
 * The first time:
    + In the server:
-      - To achieve that Bulmages 0.12 does not open PDF, ODS and SCX files in the server (because they have to be opened in the computer of the user): edit /etc/bulmages/bulmages.conf and put the value &quot;echo&quot; in the parameters CONF_PDF. CONF_ODS and CONF_SXC.
+      -  To achieve that Bulmages 0.12 does not open PDF, ODS and SCX files in the server (because they have to be opened in the computer of the user): edit /etc/bulmages/bulmages.conf and put the value &quot;echo&quot; in the parameters CONF_PDF. CONF_ODS and CONF_SXC.
       - Note: the user that is going to be connected has to have his own $HOME in the server.
  
    + In the client computer:
@@ -71,6 +104,19 @@ This way: the files of the reports that Bulmages makes in the server  will be op
      </property>
      <property name="textInteractionFlags">
       <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Ok</set>
+     </property>
+     <property name="centerButtons">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

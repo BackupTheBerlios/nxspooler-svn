@@ -58,11 +58,11 @@ private slots:
    void show();
    void showOrHide(QSystemTrayIcon::ActivationReason reason);
    void hide();
-   void prepareSharedFolder();
+   void prepareSharedFolder() const;
    void restoreSettings();
 
 private:
-   void filterAndSortFolder(QDir &folder);
+   void filterAndSortFolder(QDir &folder) const;
    void initializeSettings();
    void prepareTrayIconOrShowProgram();
    void prepareTimer();

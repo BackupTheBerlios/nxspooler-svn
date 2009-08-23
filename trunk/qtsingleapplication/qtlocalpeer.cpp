@@ -49,8 +49,6 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QTime>
 
-#include "tsystem.h"
-
 #if defined(Q_OS_WIN)
 #include <QtCore/QLibrary>
 #include <QtCore/qt_windows.h>

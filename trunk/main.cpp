@@ -22,7 +22,6 @@
 
 #include "tnxspooler.h"
 #include "qtsingleapplication/qtsingleapplication.h"
-#include "tsystem.h"
 
 // Note: Although the names of files, variables and classes are in English
 // and the source code is pretty self-explanatory, most of the remarks are
@@ -61,11 +60,13 @@ int main(int argc, char *argv[])
       // The language and country of this locale as a string of the form "language_country", where language is a
       // lowercase, two-letter ISO 639 language code, and country is an uppercase, two-letter ISO 3166 country code.
       QString locale = QLocale::system().name();
+      QString current_language = locale.section('_', 0, 0);
 
       // Tries to load a file that contains translations for the source texts used in the program. The program will
       // continue even if the file is not found
-      if ( ! translator.load(QString("nxspooler_") + locale ))
-         cerr << a.tr("Warning: the file of the NxSpooler translation for your language has not been found.") << endl;
+      if (!translator.load(QString("nxspooler_") + locale ))
+         if (current_language != "en")
+             cerr << a.tr("Warning: the file of the NxSpooler translation for your language has not been found.") << endl;
 
       a.installTranslator(&translator);
 
@@ -74,10 +75,10 @@ int main(int argc, char *argv[])
       QString translations_path;
       translations_path = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
       QTranslator translatorStandardItems;
-
       // Note: the program will continue even if the file is not found
-      if ( ! translatorStandardItems.load("qt_" + locale, translations_path))
-         cerr << a.tr("Warning: the file of the Qt translation for your language has not been found.") << endl;
+      if (!translatorStandardItems.load("qt_" + locale, translations_path))
+         if (current_language != "en")
+            cerr << a.tr("Warning: the file of the Qt translation for your language has not been found.") << endl;
 
       a.installTranslator(&translatorStandardItems);
 
@@ -93,12 +94,12 @@ int main(int argc, char *argv[])
 
       int result = a.exec();
 
-      qDebug() << "END main";
+      qDebug() << "END main. The result is:" << result; // Note: we put no space after the ":"
       return result;
    }
    catch(std::exception &excep)
    {
-      qDebug() << "END main. Error " << excep.what();
+      qDebug() << "END main. Error: " << excep.what();
 
       QApplication auxiliary(argc, argv); // It's needed to show a Qt Dialog later
       syst.showError(QString(excep.what()) + ".", QT_TR_NOOP("Error - NxSpooler"));

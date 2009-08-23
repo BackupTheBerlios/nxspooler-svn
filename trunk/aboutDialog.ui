@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>428</width>
+    <width>508</width>
     <height>379</height>
    </rect>
   </property>
@@ -48,7 +48,7 @@
     </widget>
    </item>
    <item row="2" column="0">
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="label_whitespace1">
      <property name="text">
       <string notr="true"/>
      </property>
@@ -74,7 +74,7 @@
     </widget>
    </item>
    <item row="4" column="0">
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="label_whitespace2">
      <property name="text">
       <string notr="true"/>
      </property>

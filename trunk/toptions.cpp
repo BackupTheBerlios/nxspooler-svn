@@ -36,12 +36,24 @@ TOptions::TOptions(QSettings *settings, QWidget *parent)
    setupUi(this);
 
    // Botón para dejar los valores predeterminados en los campos de opciones
-   connect((QObject *)m_buttonBox->button(QDialogButtonBox::RestoreDefaults), SIGNAL(clicked()),
+   bool isConnected = connect((QObject *)m_buttonBox->button(QDialogButtonBox::RestoreDefaults), SIGNAL(clicked()),
                                                                         this, SIGNAL(pushedRestore()));
+   if (!isConnected)
+   {
+         // Si no se ha podido establecer la conexión, lanzar una excepción
+         QString message = tr("2208092 - Internal error when connecting");
+         throw runtime_error(message.toStdString());
+   }
 
    // Al aceptar el diálogo, asignar a los ajustes el contenido de los campos de opciones
-   connect(this, SIGNAL(accepted()),
+   isConnected = connect(this, SIGNAL(accepted()),
            this, SLOT(updateSettings()));
+   if (!isConnected)
+   {
+         // Si no se ha podido establecer la conexión, lanzar una excepción
+         QString message = tr("2208093 - Internal error when connecting");
+         throw runtime_error(message.toStdString());
+   }
 
    // Poner en los campos de opciones los ajustes actuales del programa
    updateOptionsRows();
@@ -78,7 +90,12 @@ void TOptions::updateOptionsRows()
 
    QStringList exts = m_settings->value("exts").toStringList();
    QStringList apps = m_settings->value("apps").toStringList();
-   m_exts_apps->model()->removeRows(0, m_exts_apps->rowCount());
+   bool success = m_exts_apps->model()->removeRows(0, m_exts_apps->rowCount());
+   if (not success)
+   {
+       QString message = tr("2108091 - A problem was found and a row could not be deleted");
+       throw runtime_error(message.toStdString());
+   }
 
    int quant_elements = exts.count();
    for(int i = 0; i < quant_elements; i++)
@@ -208,7 +225,7 @@ void TOptions::on_m_find_path_clicked()
    // Comenzar con la carpeta actual especificada
    QDir folder(m_settings->value("folder").toString());
    QDir upper_folder(folder);
-   upper_folder.cdUp();
+   upper_folder.cdUp(); // We continue even if it fails
    folder_dialog.setDirectory(upper_folder);
    folder_dialog.selectFile(folder.dirName());
 
@@ -220,3 +237,4 @@ void TOptions::on_m_find_path_clicked()
 
    qDebug() << "END" << metaObject()->className() << ":: on_m_find_path_clicked";
 }
+

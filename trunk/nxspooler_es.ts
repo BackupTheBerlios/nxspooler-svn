@@ -4,34 +4,34 @@
 <context>
     <name></name>
     <message>
-        <location filename="main.cpp" line="87"/>
+        <location filename="main.cpp" line="88"/>
         <source>NxSpooler does not expect parameters and has been provided with: </source>
         <translation>El programa NxSpooler no usa parámetros y se le han pasado: </translation>
     </message>
     <message>
-        <location filename="main.cpp" line="49"/>
+        <location filename="main.cpp" line="48"/>
         <source>NxSpooler was already running</source>
         <translation>NxSpooler ya se estaba ejecutando</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="68"/>
+        <location filename="main.cpp" line="69"/>
         <source>Warning: the file of the NxSpooler translation for your language has not been found.</source>
         <translatorcomment>Traducción hecha para más uniformidad</translatorcomment>
         <translation>Aviso: no se ha encontrado el archivo de la traducción de NxSpooler para su lenguaje.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="80"/>
+        <location filename="main.cpp" line="81"/>
         <source>Warning: the file of the Qt translation for your language has not been found.</source>
         <translation>Aviso: no se ha encontrado el archivo de la traducción de Qt para su lenguaje.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="104"/>
-        <location filename="main.cpp" line="114"/>
+        <location filename="main.cpp" line="105"/>
+        <location filename="main.cpp" line="115"/>
         <source>Error - NxSpooler</source>
         <translation>Error - NxSpooler</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="113"/>
+        <location filename="main.cpp" line="114"/>
         <source>An unidentified problem has happened and NxSpooler must be closed.</source>
         <oldsource>A problem not identified has happened and NxSpooler must be closed.</oldsource>
         <translation>Ha ocurrido un error no identificado en NxSpooler y debe cerrarse.</translation>
@@ -190,48 +190,68 @@
 <context>
     <name>TNxSpooler</name>
     <message>
-        <location filename="tnxspooler.cpp" line="155"/>
+        <location filename="tnxspooler.cpp" line="133"/>
+        <source>2208097 - Extension not found</source>
+        <translation>2208097 - Extensión no encontrada</translation>
+    </message>
+    <message>
+        <location filename="tnxspooler.cpp" line="141"/>
+        <source>2208098 - Application not found</source>
+        <translation>2208098 - Aplicación no encontrada</translation>
+    </message>
+    <message>
+        <location filename="tnxspooler.cpp" line="170"/>
         <source>The file &quot;%1&quot; could not be opened</source>
         <translation>No se pudo abrir el archivo &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="162"/>
+        <location filename="tnxspooler.cpp" line="177"/>
         <source>2805096 - The file &quot;%1&quot; could not be deleted</source>
         <oldsource>2805096 - No se pudo borrar el archivo &quot;%1&quot;</oldsource>
         <translation>2805096 - No se pudo borrar el archivo &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="401"/>
+        <location filename="tnxspooler.cpp" line="222"/>
+        <source>2208095 - Internal error when connecting</source>
+        <translation>2208095 - Error interno al conectar</translation>
+    </message>
+    <message>
+        <location filename="tnxspooler.cpp" line="232"/>
+        <source>2208096 - Internal error when connecting</source>
+        <translation>2208096 - Error interno al conectar</translation>
+    </message>
+    <message>
+        <location filename="tnxspooler.cpp" line="428"/>
         <source>2805099 - The icon of the notification area could not be activated</source>
         <oldsource>2805099 - No se pudo activar el icono de la bandeja del sistema</oldsource>
         <translation>2805099 - No se pudo activar el icono del área de notificación</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="445"/>
+        <location filename="tnxspooler.cpp" line="472"/>
         <source>The folder &quot;%1&quot; does not exist. Do you want to create it?</source>
         <oldsource>El folder &quot;%1&quot; does not exist. Do you want to create it?</oldsource>
         <translation>El directorio &quot;%1&quot; no existe. ¿Quiere crearlo?</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="457"/>
+        <location filename="tnxspooler.cpp" line="484"/>
         <source>The folder &quot;%1&quot; was successfully created. Now it must be shared with the name &quot;%2&quot;.</source>
         <oldsource>Directorio &quot;%1&quot; creado con Ã©xito. Ahora debe compartirlo con el nombre &quot;%2&quot;.</oldsource>
         <translation>La carpeta &quot;%1&quot; ha sido creada con éxito. Ahora debe compartirla con el nombre &quot;%2&quot;.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="464"/>
+        <location filename="tnxspooler.cpp" line="491"/>
         <source>2805093 - The folder &quot;%1&quot; could not be created</source>
         <oldsource>2805093 - No se pudo crear el directorio &quot;%1&quot;</oldsource>
         <translation>2805093 - No se pudo crear el directorio &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="490"/>
+        <location filename="tnxspooler.cpp" line="518"/>
         <source>2805094 - The timer could not be activated</source>
         <oldsource>2805094 - No se pudo activar el temporizador</oldsource>
         <translation>2805094 - No se pudo activar el temporizador</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="546"/>
+        <location filename="tnxspooler.cpp" line="574"/>
         <source>2805095 - A valid program to open the files could not be found</source>
         <oldsource>2805095 - No se encuentra un programa adecuado para abrir los ficheros</oldsource>
         <translation>2805095 - No se encuentra un programa adecuado para abrir los ficheros</translation>
@@ -240,23 +260,38 @@
 <context>
     <name>TOptions</name>
     <message>
-        <location filename="toptions.cpp" line="140"/>
+        <location filename="toptions.cpp" line="44"/>
+        <source>2208092 - Internal error when connecting</source>
+        <translation>2208092 - Error interno al conectar</translation>
+    </message>
+    <message>
+        <location filename="toptions.cpp" line="54"/>
+        <source>2208093 - Internal error when connecting</source>
+        <translation>2208093 - Error interno al conectar</translation>
+    </message>
+    <message>
+        <location filename="toptions.cpp" line="96"/>
+        <source>2108091 - A problem was found and a row could not be deleted</source>
+        <translation>2108091 - Se encontró un problema y una fila no pudo ser borrada</translation>
+    </message>
+    <message>
+        <location filename="toptions.cpp" line="157"/>
         <source>The selected program can&apos;t be accessed. Please select another or set the default value.</source>
         <translation>No se puede acceder al programa indicado. Seleccione otro o deje el valor predeterminado.</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="162"/>
+        <location filename="toptions.cpp" line="179"/>
         <source>Are you sure that you want to delete the selected row?</source>
         <oldsource>Are you sure that you want to delete the row of this extension?</oldsource>
         <translation>¿Está seguro de que quiere borrar la fila seleccionada?</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="180"/>
+        <location filename="toptions.cpp" line="197"/>
         <source>Select the viewer program</source>
         <translation>Seleccione el programa visor</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="202"/>
+        <location filename="toptions.cpp" line="219"/>
         <source>Select the shared local folder</source>
         <translation>Seleccione la carpeta local compartida</translation>
     </message>
@@ -269,24 +304,14 @@
         <translation>Confirmación</translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="119"/>
+        <location filename="tsystem.cpp" line="118"/>
         <source>Warning</source>
         <translation>Aviso</translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="122"/>
-        <source>Warning: </source>
-        <translation>Aviso: </translation>
-    </message>
-    <message>
-        <location filename="tsystem.cpp" line="140"/>
+        <location filename="tsystem.cpp" line="138"/>
         <source>Error</source>
         <translation>Error</translation>
-    </message>
-    <message>
-        <location filename="tsystem.cpp" line="145"/>
-        <source>Error: </source>
-        <translation>Error:</translation>
     </message>
 </context>
 <context>
@@ -2351,20 +2376,35 @@ Public License instead of this License.  But first, please read
         <translation>Ayuda</translation>
     </message>
     <message>
-        <location filename="helpDialog.ui" line="46"/>
+        <location filename="helpDialog.ui" line="33"/>
+        <source>Description</source>
+        <translation>Descripción</translation>
+    </message>
+    <message>
+        <location filename="helpDialog.ui" line="52"/>
         <source>NxSpooler allows that particular files created in the server (normally by an application and sometimes by the user) can be printed in the local printer of the user.
 
 More precisely: NxSpooler monitors if files with certain extensions (for example PDF) appear in a set shared resource. NxSpooler opens every new file that finds so that the user can look into the file and print it or save it; when the user closes the viewer application that shows the file, NxSpooler will delete the file if possible. NxSpooler is normally used together with a FreeNX session where a remote program (or sometimes the user) creates files and saves them in the shared resource for a later automatic opening by NxSpooler in the computer of the user (for example, to print the file).
 
-____________________________________________________________
+</source>
+        <translation>NxSpooler permite que determinados documentos creados en el servidor (normalmente por una aplicación y algunas veces por el usuario) puedan ser impresos en la impresora del usuario.
 
-APPENDIX
+Más precisamente: NxSpooler monitoriza si archivos con ciertas extensiones (por ejemplo PDF) aparecen en determinado recurso compartido. Por cada archivo nuevo que encuentra NxSpooler: lo abre para que el usuario lo vea y pueda imprimirlo; cuando el usuario cierre la ventana del visor PDF, NxSpooler intentará borrar el archivo PDF. NxSpooler está pensado para ser usado conjuntamente con una sesión FreeNX donde un programa remoto (o a veces el usuario) crea archivos y los guarda en el recurso compartido para su posterior apertura automática por NxSpooler en el ordenador del usuario (por ejemplo, para imprimir el archivo).</translation>
+    </message>
+    <message>
+        <location filename="helpDialog.ui" line="72"/>
+        <source>Appendix</source>
+        <translation>Apéndice</translation>
+    </message>
+    <message>
+        <location filename="helpDialog.ui" line="85"/>
+        <source>Example of configuration of the system for NxSpooler, in this case for working with a program called Bulmages that is executed on the server.
 
-Example of configuration of the system for NxSpooler, in this case for working with a program called Bulmages that is executed on the server:
+Note: to print a report, Bulmages 0.12 first saves it (normally in PDF format) on a folder and then it asks the system that the file is opened; working with FreeNX we want that Bulmages saves the file but in the computer of the user, that Bulmages opens nothing and that NxSpooler opens the file but in the computer of the user.
 
 * The first time:
    + In the server:
-      - To achieve that Bulmages 0.12 does not open PDF, ODS and SCX files in the server (because they have to be opened in the computer of the user): edit /etc/bulmages/bulmages.conf and put the value &quot;echo&quot; in the parameters CONF_PDF. CONF_ODS and CONF_SXC.
+      -  To achieve that Bulmages 0.12 does not open PDF, ODS and SCX files in the server (because they have to be opened in the computer of the user): edit /etc/bulmages/bulmages.conf and put the value &quot;echo&quot; in the parameters CONF_PDF. CONF_ODS and CONF_SXC.
       - Note: the user that is going to be connected has to have his own $HOME in the server.
  
    + In the client computer:
@@ -2377,15 +2417,9 @@ Example of configuration of the system for NxSpooler, in this case for working w
       - NxSpooler has to be running in the computer of the user, of course :-).
  
 This way: the files of the reports that Bulmages makes in the server  will be opened in the client computer, where the user can print them, save them, send them by email, etc.</source>
-        <translation>NxSpooler permite que determinados documentos creados en el servidor (normalmente por una aplicación y algunas veces por el usuario) puedan ser impresos en la impresora del usuario.
+        <translation>Ejemplo de configuración del sistema para NxSpooler, en este caso para trabajar con un programa llamado Bulmagés que se ejecuta en el servidor.
 
-Más precisamente: NxSpooler monitoriza si archivos con ciertas extensiones (por ejemplo PDF) aparecen en determinado recurso compartido. Por cada archivo nuevo que encuentra NxSpooler: lo abre para que el usuario lo vea y pueda imprimirlo; cuando el usuario cierre la ventana del visor PDF, NxSpooler intentará borrar el archivo PDF. NxSpooler está pensado para ser usado conjuntamente con una sesión FreeNX donde un programa remoto (o a veces el usuario) crea archivos y los guarda en el recurso compartido para su posterior apertura automática por NxSpooler en el ordenador del usuario (por ejemplo, para imprimir el archivo).
-
-____________________________________________________________
-
-APÉNDICE
-
-Ejemplo de configuración del sistema para NxSpooler, en este caso para trabajar con un programa llamado Bulmagés que se ejecuta en el servidor:
+Nota: para imprimir un informe, Bulmages 0.12 primero lo guarda (normalmente en formato PDF) en una carpeta y entonces pide al sistema que abra el archivo; trabajando con FreeNX queremos que Bulmages guarde el archivo pero en el ordenador del usuario, que Bulmages no abra nada y que NxSpooler abra el archivo pero en el ordenador del usuario.
 
 * La primera vez:
    + En el servidor:

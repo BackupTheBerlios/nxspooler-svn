@@ -105,6 +105,8 @@ void TNxSpooler::open()
    qDebug() << "___" << metaObject()->className() << ":: open";
 
    QDir folder(m_settings.value("folder").toString());
+   // Note: previously we have made sure that existed m_settings.value("folder")
+
    filterAndSortFolder(folder);
 
    // No continuar en este método si no existen ficheros a tratar
@@ -125,7 +127,20 @@ void TNxSpooler::open()
       arguments.clear();
 
       int i = m_settings.value("exts").toStringList().indexOf(file.completeSuffix());
+      // This shouldn't happen, but just in case...
+      if (i == -1)
+      {
+         QString message = tr("2208097 - Extension not found");
+         throw runtime_error(message.toStdString());
+      }
+
       QString app = m_settings.value("apps").toStringList().value(i);
+      // This shouldn't happen, but just in case...
+      if (app == "")
+      {
+         QString message = tr("2208098 - Application not found");
+         throw runtime_error(message.toStdString());
+      }
 
 #ifdef Q_WS_WIN
       arguments << "/C" << "start" << "/wait" << app;
@@ -183,7 +198,7 @@ void TNxSpooler::openAboutNxSpooler()
    uiAbout.setupUi(&about);
    uiAbout.m_app_name_and_version->setText(qApp->applicationName() + " " + qApp->applicationVersion());
 
-   about.exec();
+   about.exec(); // The returned value is not important here
 
    qDebug() << "END" << metaObject()->className() << ":: openAboutNxSpooler";
 }
@@ -199,16 +214,28 @@ void TNxSpooler::openOptions()
    TOptions options(&m_settings, this);
 
    // Cuando se pulsa el botón de restaurar, los ajustes del programa vuelven a sus valores predeterminados
-   connect(&options, SIGNAL(pushedRestore()),
+   bool isConnected = connect(&options, SIGNAL(pushedRestore()),
                 this, SLOT(restoreSettings()));
+   if (!isConnected)
+   {
+         // Si no se ha podido establecer la conexión, lanzar una excepción
+         QString message = tr("2208095 - Internal error when connecting");
+         throw runtime_error(message.toStdString());
+   }
 
    // Tras ser restaurados los ajustes del programa, el cambio debe reflejarse en el diálogo
-   connect(this, SIGNAL(settingsRestored()),
+   isConnected = connect(this, SIGNAL(settingsRestored()),
       &options, SLOT(updateOptionsFields()));
+   if (!isConnected)
+   {
+         // Si no se ha podido establecer la conexión, lanzar una excepción
+         QString message = tr("2208096 - Internal error when connecting");
+         throw runtime_error(message.toStdString());
+   }
 
    do
    {
-      options.exec();
+      options.exec();  // The returned value is not important here
       prepareSharedFolder();
       prepareTimer();
    }
@@ -229,7 +256,7 @@ void TNxSpooler::openHelp()
    QDialog help(this);
    uiHelp.setupUi(&help);
 
-   help.exec();
+   help.exec(); // The returned value is not important here
 
    qDebug() << "END" << metaObject()->className() << ":: openHelp";
 }
@@ -241,7 +268,7 @@ void TNxSpooler::openHelp()
    en ser abierto.
    \param folder Gestor del directorio
 */
-void TNxSpooler::filterAndSortFolder(QDir &folder)
+void TNxSpooler::filterAndSortFolder(QDir &folder) const
 {
    qDebug() << "___" << metaObject()->className() << ":: filterAndSortFolder";
 
@@ -286,10 +313,10 @@ void TNxSpooler::initializeSettings()
    // sólo ponemos las predeterminadas si el ajuste está nulo (todavía no es ni una lista de cadenas)
    if (m_settings.value("apps").isNull())
    {
-      const int elements = m_settings.value("exts").toStringList().count();
+      const int quant_elements = m_settings.value("exts").toStringList().count();
       QStringList apps;
 
-      for(int i = 0; i < elements; i++)
+      for(int i = 0; i < quant_elements; i++)
       {
          apps.append(getDefaultProgram());
       }
@@ -328,7 +355,7 @@ void TNxSpooler::show()
    // robe el foco a otra que lo está usando
    qApp->setActiveWindow(this);
    qApp->activeWindow()->raise();
-   m_sys_tray_icon.contextMenu()->insertAction(m_action_show, m_action_hide);
+   m_sys_tray_icon.contextMenu()->insertAction(m_action_exit, m_action_hide);
    m_sys_tray_icon.contextMenu()->removeAction(m_action_show);
 
    qDebug() << "END" << metaObject()->className() << ":: show";
@@ -337,7 +364,7 @@ void TNxSpooler::show()
 
 //! Oculta o muestra alternadamente la ventana de NxSpooler.
 /*!
-  \param motivo Código de evento que genera el icono de bandeja (el botón pulsado)
+  \param reason Código de evento que genera el icono de bandeja (el botón pulsado)
 */
 void TNxSpooler::showOrHide(QSystemTrayIcon::ActivationReason reason)
 {
@@ -374,7 +401,7 @@ void TNxSpooler::hide()
 
    if(QSystemTrayIcon::isSystemTrayAvailable())
    {
-      m_sys_tray_icon.contextMenu()->insertAction(m_action_hide, m_action_show);
+      m_sys_tray_icon.contextMenu()->insertAction(m_action_exit, m_action_show);
       m_sys_tray_icon.contextMenu()->removeAction(m_action_hide);
    }
 
@@ -432,7 +459,7 @@ void TNxSpooler::prepareTrayIconOrShowProgram()
 //! Comprobar si existe la ruta e intentar crearla en caso de que no.
 /*!
 */
-void TNxSpooler::prepareSharedFolder()
+void TNxSpooler::prepareSharedFolder() const
 {
    qDebug() << "___" << metaObject()->className() << ":: prepareSharedFolder";
 
@@ -478,12 +505,13 @@ void TNxSpooler::prepareTimer()
    qDebug() << "___" << metaObject()->className() << ":: prepareTimer";
 
    // Evitar que sucesivas llamadas a este método intenten abrir varias veces al mismo tiempo
+   // Note: we continue even if this disconnection fails
    disconnect(&m_timer, SIGNAL(timeout()),
                          this, SLOT(open()));
 
+
    bool isConnected = connect(&m_timer, SIGNAL(timeout()),
                                        this, SLOT(open()));
-
    if (isConnected == false)
    {
       // Si no se ha podido establecer la conexión, lanzar una excepción
@@ -565,9 +593,9 @@ void TNxSpooler::restoreSettings()
    m_settings.setValue("exts", m_default_formats);
 
    QStringList apps;
-   int elements = m_default_formats.count();
+   int quant_elements = m_default_formats.count();
 
-   for(int i = 0; i < elements; i++)
+   for(int i = 0; i < quant_elements; i++)
    {
       apps.append(getDefaultProgram());
    }
@@ -581,5 +609,4 @@ void TNxSpooler::restoreSettings()
 
    qDebug() << "END" << metaObject()->className() << ":: restoreSettings";
 }
-
 
