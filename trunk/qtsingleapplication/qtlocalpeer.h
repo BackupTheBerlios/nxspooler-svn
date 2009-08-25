@@ -49,6 +49,8 @@
 #include <QtNetwork/QLocalSocket>
 #include <QtCore/QDir>
 
+#include <QDebug>  // To use QWarning() in release mode
+
 namespace QtLP_Private {
 #include "qtlockedfile.h"
 }

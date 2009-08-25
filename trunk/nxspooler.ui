@@ -110,7 +110,7 @@
         <string>Hide this window</string>
        </property>
        <property name="whatsThis">
-        <string>Hide this window and set an icon in the notification area to let the user restore or exit from NxSpooler.</string>
+        <string>Hide this window and set an icon in the notification area to let the user restore or quit NxSpooler.</string>
        </property>
        <property name="text">
         <string>H&amp;ide</string>
@@ -118,24 +118,24 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="m_exit">
+      <widget class="QPushButton" name="m_quit">
        <property name="toolTip">
         <string>Exit from NxSpooler</string>
        </property>
        <property name="whatsThis">
-        <string>Exit from NxSpooler.</string>
+        <string>Quit NxSpooler.</string>
        </property>
        <property name="text">
-        <string>&amp;Exit</string>
+        <string>&amp;Quit</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
   </layout>
-  <action name="m_action_exit">
+  <action name="m_action_quit">
    <property name="text">
-    <string>&amp;Exit from NxSpooler</string>
+    <string>&amp;Quit NxSpooler</string>
    </property>
    <property name="toolTip">
     <string>Exit from NxSpooler</string>
@@ -235,9 +235,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>m_exit</sender>
+   <sender>m_quit</sender>
    <signal>clicked()</signal>
-   <receiver>m_action_exit</receiver>
+   <receiver>m_action_quit</receiver>
    <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -251,7 +251,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>m_action_exit</sender>
+   <sender>m_action_quit</sender>
    <signal>triggered()</signal>
    <receiver>NxSpooler</receiver>
    <slot>show()</slot>
@@ -331,7 +331,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>m_action_exit</sender>
+   <sender>m_action_quit</sender>
    <signal>triggered()</signal>
    <receiver>NxSpooler</receiver>
    <slot>close()</slot>

@@ -83,8 +83,8 @@
     </message>
     <message>
         <location filename="nxspooler.ui" line="113"/>
-        <source>Hide this window and set an icon in the notification area to let the user restore or exit from NxSpooler.</source>
-        <oldsource>Esconder esta ventana y dejar un icono en la bandeja del sistema para poder restaurar o salir de NxSpooler.</oldsource>
+        <source>Hide this window and set an icon in the notification area to let the user restore or quit NxSpooler.</source>
+        <oldsource>Hide this window and set an icon in the notification area to let the user restore or exit from NxSpooler.</oldsource>
         <translation>Esconder esta ventana y dejar un icono en la bandeja del sistema para poder restaurar o salir de NxSpooler.</translation>
     </message>
     <message>
@@ -104,7 +104,8 @@
     </message>
     <message>
         <location filename="nxspooler.ui" line="129"/>
-        <source>&amp;Exit</source>
+        <source>&amp;Quit</source>
+        <oldsource>&amp;Exit</oldsource>
         <translation>&amp;Salir</translation>
     </message>
     <message>
@@ -132,14 +133,14 @@
     </message>
     <message>
         <location filename="nxspooler.ui" line="126"/>
-        <source>Exit from NxSpooler.</source>
-        <oldsource>Salir de NxSpooler.</oldsource>
+        <source>Quit NxSpooler.</source>
+        <oldsource>Exit from NxSpooler.</oldsource>
         <translation>Salir de NxSpooler.</translation>
     </message>
     <message>
         <location filename="nxspooler.ui" line="138"/>
-        <source>&amp;Exit from NxSpooler</source>
-        <oldsource>&amp;Salir de NxSpooler</oldsource>
+        <source>&amp;Quit NxSpooler</source>
+        <oldsource>&amp;Exit from NxSpooler</oldsource>
         <translation>&amp;Salir de NxSpooler</translation>
     </message>
     <message>
@@ -270,28 +271,28 @@
         <translation>2208093 - Error interno al conectar</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="96"/>
+        <location filename="toptions.cpp" line="99"/>
         <source>2108091 - A problem was found and a row could not be deleted</source>
         <translation>2108091 - Se encontró un problema y una fila no pudo ser borrada</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="157"/>
+        <location filename="toptions.cpp" line="161"/>
         <source>The selected program can&apos;t be accessed. Please select another or set the default value.</source>
         <translation>No se puede acceder al programa indicado. Seleccione otro o deje el valor predeterminado.</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="179"/>
+        <location filename="toptions.cpp" line="183"/>
         <source>Are you sure that you want to delete the selected row?</source>
         <oldsource>Are you sure that you want to delete the row of this extension?</oldsource>
         <translation>¿Está seguro de que quiere borrar la fila seleccionada?</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="197"/>
+        <location filename="toptions.cpp" line="201"/>
         <source>Select the viewer program</source>
         <translation>Seleccione el programa visor</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="219"/>
+        <location filename="toptions.cpp" line="223"/>
         <source>Select the shared local folder</source>
         <translation>Seleccione la carpeta local compartida</translation>
     </message>
@@ -2468,7 +2469,7 @@ De esta forma: los informes que hace Bulmagés en el servidor se abrirán en el 
         <location filename="optionsDialog.ui" line="61"/>
         <source> s</source>
         <translatorcomment>Abreviatura de segundos</translatorcomment>
-        <translation>s</translation>
+        <translation> s</translation>
     </message>
     <message>
         <location filename="optionsDialog.ui" line="74"/>

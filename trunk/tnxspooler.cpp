@@ -52,8 +52,8 @@ TNxSpooler::TNxSpooler(QWidget *parent)
    m_default_formats.append("pdf");
    m_default_formats.append("ods");
    m_default_formats.append("sxc");
-   m_default_resource = "bulmages$";
-   m_default_folder = QDir::toNativeSeparators(QDir::homePath().append(QDir::separator()).append(".bulmages"));
+   m_default_resource = "nxspooler$";
+   m_default_folder = QDir::toNativeSeparators(QDir::homePath().append(QDir::separator()).append(".nxspooler"));
 
    setupUi(this);
    prepareTrayIconOrShowProgram();
@@ -225,7 +225,7 @@ void TNxSpooler::openOptions()
 
    // Tras ser restaurados los ajustes del programa, el cambio debe reflejarse en el diálogo
    isConnected = connect(this, SIGNAL(settingsRestored()),
-      &options, SLOT(updateOptionsFields()));
+      &options, SLOT(updateOptionsRows()));
    if (!isConnected)
    {
          // Si no se ha podido establecer la conexión, lanzar una excepción
@@ -355,7 +355,7 @@ void TNxSpooler::show()
    // robe el foco a otra que lo está usando
    qApp->setActiveWindow(this);
    qApp->activeWindow()->raise();
-   m_sys_tray_icon.contextMenu()->insertAction(m_action_exit, m_action_hide);
+   m_sys_tray_icon.contextMenu()->insertAction(m_action_quit, m_action_hide);
    m_sys_tray_icon.contextMenu()->removeAction(m_action_show);
 
    qDebug() << "END" << metaObject()->className() << ":: show";
@@ -401,7 +401,7 @@ void TNxSpooler::hide()
 
    if(QSystemTrayIcon::isSystemTrayAvailable())
    {
-      m_sys_tray_icon.contextMenu()->insertAction(m_action_exit, m_action_show);
+      m_sys_tray_icon.contextMenu()->insertAction(m_action_quit, m_action_show);
       m_sys_tray_icon.contextMenu()->removeAction(m_action_hide);
    }
 
@@ -437,7 +437,7 @@ void TNxSpooler::prepareTrayIconOrShowProgram()
       menu->addAction(m_action_help);
       menu->addAction(m_action_about);
       menu->addSeparator();
-      menu->addAction(m_action_exit);
+      menu->addAction(m_action_quit);
       m_sys_tray_icon.setContextMenu(menu);
 
       m_sys_tray_icon.show();

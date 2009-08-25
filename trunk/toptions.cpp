@@ -19,7 +19,7 @@
 
 /*!
    \class TOptions
-   \brief Gestiona del diálogo de opciones.
+   \brief Gestiona el diálogo de opciones.
 */
 
 #include "toptions.h"
@@ -90,12 +90,16 @@ void TOptions::updateOptionsRows()
 
    QStringList exts = m_settings->value("exts").toStringList();
    QStringList apps = m_settings->value("apps").toStringList();
-   bool success = m_exts_apps->model()->removeRows(0, m_exts_apps->rowCount());
-   if (not success)
+
+   if (m_exts_apps->rowCount() > 0)
    {
-       QString message = tr("2108091 - A problem was found and a row could not be deleted");
-       throw runtime_error(message.toStdString());
-   }
+      bool success = m_exts_apps->model()->removeRows(0, m_exts_apps->rowCount());
+      if (not success)
+      {
+         QString message = tr("2108091 - A problem was found and a row could not be deleted");
+         throw runtime_error(message.toStdString());
+      }
+  }
 
    int quant_elements = exts.count();
    for(int i = 0; i < quant_elements; i++)
