@@ -1,7 +1,7 @@
 /*****************************************************************************
 *  This file is part of NxSpooler.
 *
-*  Copyright (C) 2009 by Creación y Diseño Ibense S.L.
+*  Copyright (C) 2009 by Creación y Diseño Ibense S.L., Arón Galdón Ginés, Toni Asensi Esteve.
 *
 *  NxSpooler is free software: you can redistribute it and/or modify
 *  it under the terms of the GNU General Public License as published by
@@ -108,17 +108,19 @@ bool TSystem::existsProgram(const QString &name) const
 // Muestra un mensaje de aviso al usuario (el usuario sólo puede continuar).
 /*!
    \param message Warning message that is shown to the user
-   \param windowTitle Title that appears in the window
+   \param windowTitle The title that appears in the window
 */
 void TSystem::showWarning(const QString &message, const QString &windowTitle) const
 {
    qDebug() << "___" << metaObject()->className() << ":: showWarning";
 
+   QTextStream cerr(stderr);
+   cerr << "Warning: " << message << endl;
+
    QMessageBox msgBox;
    msgBox.setWindowTitle(windowTitle == "" ? tr("Warning") : windowTitle);
    msgBox.setText(message);
    msgBox.setIcon(QMessageBox::Warning);
-   qDebug() << "Warning: " << message;
    msgBox.exec();
 
    qDebug() << "END" << metaObject()->className() << ":: showWarning";
@@ -128,21 +130,47 @@ void TSystem::showWarning(const QString &message, const QString &windowTitle) co
 // Muestra un mensaje de error al usuario.
 /*!
    \param message Error message that is shown to the user
-   \param windowTitle Title that appears in the window
+   \param windowTitle The title that appears in the window
 */
 void TSystem::showError(const QString &message, const QString &windowTitle) const
 {
    qDebug() << "___" << metaObject()->className() << ":: showError()";
 
+   QTextStream cerr(stderr);
+   cerr << "Error: " << message << endl;
+
    QMessageBox msgBox;
    msgBox.setWindowTitle(windowTitle == "" ? tr("Error"):windowTitle);
    msgBox.setText(message);
    msgBox.setIcon(QMessageBox::Critical);
-
-   QTextStream cerr(stderr);
-   cerr << "Error: " << message << endl;
-
    msgBox.exec();
 
    qDebug() << "END" << metaObject()->className() << ":: showError()";
+}
+
+
+//! Se sale del programa debido a una excepción
+/*!
+*/
+void
+TSystem::exitBecauseException(std::exception &excep)
+{
+    QApplication auxiliary(); // It's needed to avoid the error of showing a Qt dialog without a QApplication
+    syst.showError(QString(excep.what()) + ".", tr("Error - ") + qApp->applicationName());
+
+    exit(EXIT_FAILURE);
+}
+
+
+//! Se sale del programa debido a una excepción
+/*!
+*/
+void
+TSystem::exitBecauseException()
+{
+    QApplication auxiliary(); // It's needed to show a Qt dialog later
+    syst.showError(tr("An unidentified problem has happened and %1 must be closed.").arg(qApp->applicationName())
+                        , tr("Error - ") + qApp->applicationName());
+
+    exit(EXIT_FAILURE);
 }

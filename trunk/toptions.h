@@ -1,7 +1,7 @@
 /*****************************************************************************
 *  This file is part of NxSpooler.
 *
-*  Copyright (C) 2009 by Creación y Diseño Ibense S.L.
+*  Copyright (C) 2009 by Creación y Diseño Ibense S.L., Arón Galdón Ginés, Toni Asensi Esteve.
 *
 *  NxSpooler is free software: you can redistribute it and/or modify
 *  it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@
 #include <QtCore/QSettings>
 #include <QtGui/QFileDialog>
 #include "ui_optionsDialog.h"
-#include "tsystem.h"
+#include "tnxspooler.h"
 
 class TOptions : public QDialog, private Ui::optionsDialog
 {
@@ -35,14 +35,14 @@ public:
    ~TOptions();
 
 public slots:
-   void updateSettings();
    void updateOptionsRows();
+   void updateSettings();
 
 private slots:
-   void on_m_find_path_clicked();
-   void on_m_find_app_clicked();
-   void on_m_delete_ext_clicked();
    void on_m_new_ext_clicked();
+   void on_m_delete_ext_clicked();
+   void on_m_find_app_clicked();
+   void on_m_find_path_clicked();
 
 private:
    QSettings *m_settings; //!< Objeto gestor de la configuración del programa (carga y guarda automáticamente)

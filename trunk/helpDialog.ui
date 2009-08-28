@@ -92,10 +92,10 @@ Note: to print a report, Bulmages 0.12 first saves it (normally in PDF format) o
       - Note: the user that is going to be connected has to have his own $HOME in the server.
  
    + In the client computer:
-      - In Linux: share (using Samba) the folder $HOME/.bulmages as &quot;bulmages&quot;, using a particular password and username.
-      - In Windows: share the folder %UserProfile%\.bulmages as &quot;bulmages$&quot;, using a particular password and username.
+      - In Linux: share (using Samba) the folder $HOME/.nxspooler as &quot;nxspooler&quot;, using a particular password and username.
+      - In Windows: share the folder %UserProfile%\.nxspooler as &quot;nxspooler$&quot;, using a particular password and username.
       - Note: when sharing, you must be sure that the particular username that will be used to access to the shared resource has permissions to write on it.
-      - Configure the NX client program so that the connection normally used to access to the FreeNX server  grants the server access to the shared resource that we talked about. For example, in the Linux program called &quot;nx client&quot; you can go to a tab called &quot;Services&quot;, click on the checkbox &quot;enable SMB printing and file sharing&quot; and click on &quot;Add&quot; to add the resource &quot;bulmages&quot;, configure that the mount point in the server is ~/.bulmages so that Bulmages uses it in a natural way in the remote session; enter the particular password and username.
+      - Configure the NX client program so that the connection normally used to access to the FreeNX server  grants the server access to the shared resource that we talked about. For example, in the Linux program called &quot;nx client&quot; you can go to a tab called &quot;Services&quot;, click on the checkbox &quot;enable SMB printing and file sharing&quot; and click on &quot;Add&quot; to add the resource &quot;nxspooler&quot;, configure that the mount point in the server is ~/.bulmages so that Bulmages uses it in a natural way in the remote session; enter the particular password and username.
 
 * Every time the user starts the FreeNX session:
       - NxSpooler has to be running in the computer of the user, of course :-).

@@ -1,7 +1,7 @@
 /*****************************************************************************
 *  This file is part of NxSpooler.
 *
-*  Copyright (C) 2009 by Creación y Diseño Ibense S.L.
+*  Copyright (C) 2009 by Creación y Diseño Ibense S.L., Arón Galdón Ginés, Toni Asensi Esteve.
 *
 *  NxSpooler is free software: you can redistribute it and/or modify
 *  it under the terms of the GNU General Public License as published by
@@ -27,6 +27,7 @@
 #include <QtCore/QVariant>
 #include <QtGui/QAbstractButton>
 #include <QtGui/QMessageBox>
+#include <QApplication>
 #include <stdexcept>
 
 using std::runtime_error;
@@ -42,6 +43,9 @@ public:
    bool existsProgram(const QString &name) const;
    void showWarning(const QString &message, const QString &windowTitle = "") const;
    void showError(const QString &message, const QString &windowTitle = "") const;
+
+   static void exitBecauseException(std::exception &excep);
+   static void exitBecauseException();
 };
 
 

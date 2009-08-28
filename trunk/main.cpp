@@ -1,7 +1,7 @@
 /*****************************************************************************
 *  This file is part of NxSpooler.
 *
-*  Copyright (C) 2009 by Creación y Diseño Ibense S.L.
+*  Copyright (C) 2009 by Creación y Diseño Ibense S.L., Arón Galdón Ginés, Toni Asensi Esteve.
 *
 *  NxSpooler is free software: you can redistribute it and/or modify
 *  it under the terms of the GNU General Public License as published by
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
          throw runtime_error(message.toStdString());
       }
 
-      a.setOrganizationName("Creación y Diseño Ibense");
+      a.setOrganizationName(QString::fromUtf8("Creación y Diseño Ibense"));
       a.setOrganizationDomain("cdi-ibense.com");
       a.setApplicationName("NxSpooler");
       a.setApplicationVersion("0.2");
@@ -99,20 +99,10 @@ int main(int argc, char *argv[])
    }
    catch(std::exception &excep)
    {
-      qDebug() << "END main. Error: " << excep.what();
-
-      QApplication auxiliary(argc, argv); // It's needed to show a Qt Dialog later
-      syst.showError(QString(excep.what()) + ".", QT_TR_NOOP("Error - NxSpooler"));
-
-      return EXIT_FAILURE;
+      TSystem::exitBecauseException(excep);
    }
    catch(...)
    {
-      qDebug() << "END main. Unknown error";
-
-      QApplication auxiliary(argc, argv); // It's needed to show a Qt Dialog later
-      syst.showError(QT_TR_NOOP("An unidentified problem has happened and NxSpooler must be closed.")
-                        , QT_TR_NOOP("Error - NxSpooler"));
-      return EXIT_FAILURE;
+      TSystem::exitBecauseException();
    }
 }

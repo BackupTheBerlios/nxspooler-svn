@@ -1,7 +1,7 @@
 /*****************************************************************************
 *  This file is part of NxSpooler.
 *
-*  Copyright (C) 2009 by Creación y Diseño Ibense S.L.
+*  Copyright (C) 2009 by Creación y Diseño Ibense S.L., Arón Galdón Ginés, Toni Asensi Esteve.
 *
 *  NxSpooler is free software: you can redistribute it and/or modify
 *  it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ class TNxSpooler : public QDialog, private Ui::NxSpooler
    Q_OBJECT
 
 public:
-   TNxSpooler(QWidget *padre = 0);
+   TNxSpooler(QWidget *parent = 0);
    ~TNxSpooler();
 
 private slots:
@@ -58,13 +58,13 @@ private slots:
    void show();
    void showOrHide(QSystemTrayIcon::ActivationReason reason);
    void hide();
-   void prepareSharedFolder() const;
    void restoreSettings();
 
 private:
-   void filterAndSortFolder(QDir &folder) const;
+   bool filterAndSortFolder(QDir &folder) const;
    void initializeSettings();
    void prepareTrayIconOrShowProgram();
+   void prepareSharedFolder() const;
    void prepareTimer();
    QString getDefaultProgram() const;
    QString getDefaultProgramInLinux() const;

@@ -1,7 +1,7 @@
 /*****************************************************************************
 *  This file is part of NxSpooler.
 *
-*  Copyright (C) 2009 by Creación y Diseño Ibense S.L.
+*  Copyright (C) 2009 by Creación y Diseño Ibense S.L., Arón Galdón Ginés, Toni Asensi Esteve.
 *
 *  NxSpooler is free software: you can redistribute it and/or modify
 *  it under the terms of the GNU General Public License as published by
@@ -102,87 +102,98 @@ TNxSpooler::~TNxSpooler()
 */
 void TNxSpooler::open()
 {
-   qDebug() << "___" << metaObject()->className() << ":: open";
-
-   QDir folder(m_settings.value("folder").toString());
-   // Note: previously we have made sure that existed m_settings.value("folder")
-
-   filterAndSortFolder(folder);
-
-   // No continuar en este método si no existen ficheros a tratar
-   if (folder.count() == 0)
+   // As this is a slot that can be called by Qt code (in response to a call
+   // made by m_timer, for example), we don't allow exceptions to go out
+   // from here. So we use a "try" block
+   try
    {
-      qDebug() << "END" << metaObject()->className() << ":: open AHEAD";
-      return;
+       qDebug() << "___" << metaObject()->className() << ":: open";
+
+       QDir folder(m_settings.value("folder").toString());
+       // Note: previously we have made sure that existed m_settings.value("folder")
+
+       if (!filterAndSortFolder(folder))
+           return;
+
+       // No continuar en este método si no existen ficheros a tratar
+       if (folder.count() == 0)
+       {
+          qDebug() << "END" << metaObject()->className() << ":: open AHEAD";
+          return;
+       }
+
+       QStringList arguments;
+       bool hasBeenDeleted = false;
+       int result = 0;
+       QFileInfoList files = folder.entryInfoList();
+
+       // Abrir uno a uno cada fichero y si ha funcionado bien, borrarlo
+       foreach(QFileInfo file, files)
+       {
+          arguments.clear();
+
+          int i = m_settings.value("exts").toStringList().indexOf(file.completeSuffix());
+          // This shouldn't happen, but just in case...
+          if (i == -1)
+          {
+             QString message = tr("2208097 - Extension not found");
+             throw runtime_error(message.toStdString());
+          }
+
+          QString app = m_settings.value("apps").toStringList().value(i);
+          // There's no problem if app.isEmpty()
+
+    #ifdef Q_WS_WIN
+          arguments << "/C" << "start" << "/wait" << app;
+    #endif
+
+          arguments << QDir::toNativeSeparators(file.absoluteFilePath());
+          QProcess process(this);
+
+    #ifdef Q_WS_WIN
+          result = process.execute("cmd", arguments);
+    #else
+          // Si estamos en Linux y el usuario ha dejado en blanco el nombre de la aplicación de apertura,
+          // usar la que se encuentre en este momento respetando ese ajuste vacío
+          if (app.isEmpty())
+          {
+             result = process.execute(getDefaultProgramInLinux(), arguments);
+          }
+          else
+          {
+             result = process.execute(app, arguments);
+          }
+    #endif
+
+          // La apertura puede fallar en el caso de que el fichero esté todavía a mitad de generarse
+          // It also happens if the user didn't specify a valid application to open a file with that extension
+          if (result != 0)
+          {
+             syst.showWarning(tr("The file \"%1\" could not be opened").arg(file.absoluteFilePath()));
+          }
+
+          // Eliminar el fichero si se ha podido abrir correctamente
+          hasBeenDeleted = folder.remove(file.fileName());
+          if (!hasBeenDeleted)
+          {
+             QString message = tr("2805096 - The file \"%1\" could not be deleted").arg(file.absoluteFilePath());
+             throw runtime_error(message.toStdString());
+          }
+
+          // Si se pudo abrir y se pudo borrar el fichero, agregarlo al histórico
+          m_listFiles->addItem(file.fileName());
+       }
+
+       qDebug() << "END" << metaObject()->className() << ":: open";
    }
-
-   QStringList arguments;
-   bool hasBeenDeleted = false;
-   int result = 0;
-   QFileInfoList files = folder.entryInfoList();
-
-   // Abrir uno a uno cada fichero y si ha funcionado bien, borrarlo
-   foreach(QFileInfo file, files)
+   catch(std::exception &excep)
    {
-      arguments.clear();
-
-      int i = m_settings.value("exts").toStringList().indexOf(file.completeSuffix());
-      // This shouldn't happen, but just in case...
-      if (i == -1)
-      {
-         QString message = tr("2208097 - Extension not found");
-         throw runtime_error(message.toStdString());
-      }
-
-      QString app = m_settings.value("apps").toStringList().value(i);
-      // This shouldn't happen, but just in case...
-      if (app == "")
-      {
-         QString message = tr("2208098 - Application not found");
-         throw runtime_error(message.toStdString());
-      }
-
-#ifdef Q_WS_WIN
-      arguments << "/C" << "start" << "/wait" << app;
-#endif
-
-      arguments << QDir::toNativeSeparators(file.absoluteFilePath());
-      QProcess process(this);
-
-#ifdef Q_WS_WIN
-      result = process.execute("cmd", arguments);
-#else
-      // Si estamos en Linux y el usuario ha dejado en blanco el nombre de la aplicación de apertura,
-      // usar la que se encuentre en este momento respetando ese ajuste vacío
-      if (app.isEmpty())
-      {
-         result = process.execute(getDefaultProgramInLinux(), arguments);
-      }
-      else
-      {
-         result = process.execute(app, arguments);
-      }
-#endif
-
-      // La apertura puede fallar en el caso de que el fichero esté todavía a mitad de generarse
-      if (result != 0)
-      {
-         syst.showWarning(tr("The file \"%1\" could not be opened").arg(file.absoluteFilePath()));
-      }
-
-      // Eliminar el fichero si se ha podido abrir correctamente
-      hasBeenDeleted = folder.remove(file.fileName());
-      if (!hasBeenDeleted)
-      {
-         QString message = tr("2805096 - The file \"%1\" could not be deleted").arg(file.absoluteFilePath());
-         throw runtime_error(message.toStdString());
-      }
-
-      // Si se pudo abrir y se pudo borrar el fichero, agregarlo al histórico
-      m_listFiles->addItem(file.fileName());
+      TSystem::exitBecauseException(excep);
    }
-
-   qDebug() << "END" << metaObject()->className() << ":: open";
+   catch(...)
+   {
+      TSystem::exitBecauseException();
+   }
 }
 
 
@@ -191,16 +202,29 @@ void TNxSpooler::open()
 */
 void TNxSpooler::openAboutNxSpooler()
 {
-   qDebug() << "___" << metaObject()->className() << ":: openAboutNxSpooler";
+   // As this is a slot that can be called by Qt code (in response to a pushed button, for example), we
+   // don't allow exceptions to go out from here. So we use a "try" block
+   try
+   {
+       qDebug() << "___" << metaObject()->className() << ":: openAboutNxSpooler";
 
-   Ui::aboutDialog uiAbout;
-   QDialog about(this);
-   uiAbout.setupUi(&about);
-   uiAbout.m_app_name_and_version->setText(qApp->applicationName() + " " + qApp->applicationVersion());
+       Ui::aboutDialog uiAbout;
+       QDialog about(this);
+       uiAbout.setupUi(&about);
+       uiAbout.m_app_name_and_version->setText(qApp->applicationName() + " " + qApp->applicationVersion());
 
-   about.exec(); // The returned value is not important here
+       about.exec(); // The returned value is not important here
 
-   qDebug() << "END" << metaObject()->className() << ":: openAboutNxSpooler";
+       qDebug() << "END" << metaObject()->className() << ":: openAboutNxSpooler";
+   }
+   catch(std::exception &excep)
+   {
+      TSystem::exitBecauseException(excep);
+   }
+   catch(...)
+   {
+      TSystem::exitBecauseException();
+   }
 }
 
 
@@ -209,39 +233,52 @@ void TNxSpooler::openAboutNxSpooler()
 */
 void TNxSpooler::openOptions()
 {
-   qDebug() << "___" << metaObject()->className() << ":: openOptions";
-
-   TOptions options(&m_settings, this);
-
-   // Cuando se pulsa el botón de restaurar, los ajustes del programa vuelven a sus valores predeterminados
-   bool isConnected = connect(&options, SIGNAL(pushedRestore()),
-                this, SLOT(restoreSettings()));
-   if (!isConnected)
+   // As this is a slot that can be called by Qt code (in response to a pushed button, for example), we
+   // don't allow exceptions to go out from here. So we use a "try" block
+   try
    {
-         // Si no se ha podido establecer la conexión, lanzar una excepción
-         QString message = tr("2208095 - Internal error when connecting");
-         throw runtime_error(message.toStdString());
-   }
+      qDebug() << "___" << metaObject()->className() << ":: openOptions";
 
-   // Tras ser restaurados los ajustes del programa, el cambio debe reflejarse en el diálogo
-   isConnected = connect(this, SIGNAL(settingsRestored()),
-      &options, SLOT(updateOptionsRows()));
-   if (!isConnected)
+      TOptions options(&m_settings, this);
+
+      // Cuando se pulsa el botón de restaurar, los ajustes del programa vuelven a sus valores predeterminados
+      bool isConnected = connect(&options, SIGNAL(pushedRestore()),
+                    this, SLOT(restoreSettings()));
+      if (!isConnected)
+      {
+            // Si no se ha podido establecer la conexión, lanzar una excepción
+            QString message = tr("2208095 - Internal error when connecting");
+            throw runtime_error(message.toStdString());
+      }
+
+      // Tras ser restaurados los ajustes del programa, el cambio debe reflejarse en el diálogo
+      isConnected = connect(this, SIGNAL(settingsRestored()),
+          &options, SLOT(updateOptionsRows()));
+      if (!isConnected)
+      {
+            // Si no se ha podido establecer la conexión, lanzar una excepción
+            QString message = tr("2208096 - Internal error when connecting");
+            throw runtime_error(message.toStdString());
+      }
+
+      do
+      {
+          options.exec();  // The returned value is not important here
+          prepareSharedFolder();
+          prepareTimer();
+      }
+      while(!syst.existsProgram(m_settings.value("apps").toString()));
+
+      qDebug() << "END" << metaObject()->className() << ":: openOptions";
+   }
+   catch(std::exception &excep)
    {
-         // Si no se ha podido establecer la conexión, lanzar una excepción
-         QString message = tr("2208096 - Internal error when connecting");
-         throw runtime_error(message.toStdString());
+      TSystem::exitBecauseException(excep);
    }
-
-   do
+   catch(...)
    {
-      options.exec();  // The returned value is not important here
-      prepareSharedFolder();
-      prepareTimer();
+      TSystem::exitBecauseException();
    }
-   while(!syst.existsProgram(m_settings.value("apps").toString()));
-
-   qDebug() << "END" << metaObject()->className() << ":: openOptions";
 }
 
 
@@ -250,15 +287,28 @@ void TNxSpooler::openOptions()
 */
 void TNxSpooler::openHelp()
 {
-   qDebug() << "___" << metaObject()->className() << ":: openHelp";
+   // As this is a slot that can be called by Qt code (in response to a pushed button, for example), we
+   // don't allow exceptions to go out from here. So we use a "try" block
+   try
+   {
+       qDebug() << "___" << metaObject()->className() << ":: openHelp";
 
-   Ui::helpDialog uiHelp;
-   QDialog help(this);
-   uiHelp.setupUi(&help);
+       Ui::helpDialog uiHelp;
+       QDialog help(this);
+       uiHelp.setupUi(&help);
 
-   help.exec(); // The returned value is not important here
+       help.exec(); // The returned value is not important here
 
-   qDebug() << "END" << metaObject()->className() << ":: openHelp";
+       qDebug() << "END" << metaObject()->className() << ":: openHelp";
+   }
+   catch(std::exception &excep)
+   {
+      TSystem::exitBecauseException(excep);
+   }
+   catch(...)
+   {
+      TSystem::exitBecauseException();
+   }
 }
 
 
@@ -267,8 +317,9 @@ void TNxSpooler::openHelp()
    Con esta manera de ordenar nos aseguramos de que el documento que lleva más tiempo esperando es el primero
    en ser abierto.
    \param folder Gestor del directorio
+   \return Verdadero si el filtrado ha sido realizado correctamente
 */
-void TNxSpooler::filterAndSortFolder(QDir &folder) const
+bool TNxSpooler::filterAndSortFolder(QDir &folder) const
 {
    qDebug() << "___" << metaObject()->className() << ":: filterAndSortFolder";
 
@@ -276,15 +327,30 @@ void TNxSpooler::filterAndSortFolder(QDir &folder) const
    // Tanto en Windows como en Linux no diferenciará mayúsculas de minúsculas.
    QStringList filters;
    QStringList exts = m_settings.value("exts").toStringList();
-   for(int i = 0; i < exts.count(); i++)
+   int quant_exts = exts.count();
+
+   // This is to avoid the case where the user goes to the options window
+   // of NxSpooler and deletes all the extensions listed and then
+   // NxSpooler would try to open everything
+   if (quant_exts == 0)
+      return false;
+
+   for(int i = 0; i < quant_exts; i++)
    {
       filters << QString("*.%1").arg(exts.value(i));
    }
+
+   // We specify to open only files. This is to avoid cases where for example
+   // the user creates a folder named "my .pdf"
+   folder.setFilter(QDir::Files);
+
    folder.setNameFilters(filters);
 
    folder.setSorting(QDir::Time|QDir::Reversed);
 
    qDebug() << "END" << metaObject()->className() << ":: filterAndSortFolder";
+
+   return true;
 }
 
 
@@ -342,23 +408,37 @@ void TNxSpooler::initializeSettings()
 */
 void TNxSpooler::show()
 {
-   qDebug() << "___" << metaObject()->className() << ":: show";
+   // As this is a slot that can be called by Qt code (in response to a mouse
+   // click, for example), we don't allow exceptions to go out
+   // from here. So we use a "try" block
+   try
+   {
+       qDebug() << "___" << metaObject()->className() << ":: show";
 
-   // Evitar que NxSpooler termine al cerrar diálogos con la ventana principal oculta
-   qApp->setQuitOnLastWindowClosed(true);
+       // Evitar que NxSpooler termine al cerrar diálogos con la ventana principal oculta
+       qApp->setQuitOnLastWindowClosed(true);
 
-   // No usamos show() porque a veces la ventana se muestra minimizada
-   showNormal();
+       // No usamos show() porque a veces la ventana se muestra minimizada
+       showNormal();
 
-   // Evitar que en ocasiones NxSpooler se restaure sin foco
-   //NOTE: De todos modos, en Windows no está permitido que un programa
-   // robe el foco a otra que lo está usando
-   qApp->setActiveWindow(this);
-   qApp->activeWindow()->raise();
-   m_sys_tray_icon.contextMenu()->insertAction(m_action_quit, m_action_hide);
-   m_sys_tray_icon.contextMenu()->removeAction(m_action_show);
+       // Evitar que en ocasiones NxSpooler se restaure sin foco
+       //NOTE: De todos modos, en Windows no está permitido que un programa
+       // robe el foco a otra que lo está usando
+       qApp->setActiveWindow(this);
+       qApp->activeWindow()->raise();
+       m_sys_tray_icon.contextMenu()->insertAction(m_action_quit, m_action_hide);
+       m_sys_tray_icon.contextMenu()->removeAction(m_action_show);
 
-   qDebug() << "END" << metaObject()->className() << ":: show";
+       qDebug() << "END" << metaObject()->className() << ":: show";
+   }
+   catch(std::exception &excep)
+   {
+      TSystem::exitBecauseException(excep);
+   }
+   catch(...)
+   {
+      TSystem::exitBecauseException();
+   }
 }
 
 
@@ -368,22 +448,35 @@ void TNxSpooler::show()
 */
 void TNxSpooler::showOrHide(QSystemTrayIcon::ActivationReason reason)
 {
-   qDebug() << "___" << metaObject()->className() << ":: showOrHide";
-
-   // Si el usuario hace click sobre el icono de la bandeja, mostrar u ocultar el programa
-   if (reason == QSystemTrayIcon::Trigger)
+   // As this is a slot that can be called by Qt code (in response to a mouse 
+   // click in the NxSpooler icon, for example), we don't allow exceptions
+   // to go out from here. So we use a "try" block
+   try
    {
-      if (isHidden())
-      {
-         show();
-      }
-      else
-      {
-         hide();
-      }
-   }
+       qDebug() << "___" << metaObject()->className() << ":: showOrHide";
+       // Si el usuario hace click sobre el icono de la bandeja, mostrar u ocultar el programa
+       if (reason == QSystemTrayIcon::Trigger)
+       {
+          if (isHidden())
+          {
+             show();
+          }
+          else
+          {
+             hide();
+          }
+       }
 
-   qDebug() << "END" << metaObject()->className() << ":: showOrHide";
+       qDebug() << "END" << metaObject()->className() << ":: showOrHide";
+   }
+   catch(std::exception &excep)
+   {
+      TSystem::exitBecauseException(excep);
+   }
+   catch(...)
+   {
+      TSystem::exitBecauseException();
+   }
 }
 
 
@@ -392,22 +485,35 @@ void TNxSpooler::showOrHide(QSystemTrayIcon::ActivationReason reason)
 */
 void TNxSpooler::hide()
 {
-   qDebug() << "___" << metaObject()->className() << ":: hide";
-
-   QDialog::hide();
-
-   // Permitir que cuando la última ventana de NxSpooler se cierre, éste termine
-   qApp->setQuitOnLastWindowClosed(false);
-
-   if(QSystemTrayIcon::isSystemTrayAvailable())
+   // As this is a slot that can be called by Qt code (in response to pushing the 
+   // "hide" button in the main window, for example), we don't allow exceptions to 
+   // go out from here. So we use a "try" block
+   try
    {
-      m_sys_tray_icon.contextMenu()->insertAction(m_action_quit, m_action_show);
-      m_sys_tray_icon.contextMenu()->removeAction(m_action_hide);
+       qDebug() << "___" << metaObject()->className() << ":: hide";
+
+       QDialog::hide();
+
+       // Permitir que cuando la última ventana de NxSpooler se cierre, éste termine
+       qApp->setQuitOnLastWindowClosed(false);
+
+       if(QSystemTrayIcon::isSystemTrayAvailable())
+       {
+          m_sys_tray_icon.contextMenu()->insertAction(m_action_quit, m_action_show);
+          m_sys_tray_icon.contextMenu()->removeAction(m_action_hide);
+       }
+
+       qDebug() << "END" << metaObject()->className() << ":: hide";
    }
-
-   qDebug() << "END" << metaObject()->className() << ":: hide";
+   catch(std::exception &excep)
+   {
+      TSystem::exitBecauseException(excep);
+   }
+   catch(...)
+   {
+      TSystem::exitBecauseException();
+   }
 }
-
 
 //! Activa un icono en la bandeja de sistema si es posible. En caso contrario, muestra la ventana principal de forma normal.
 /*!
@@ -587,26 +693,39 @@ QString TNxSpooler::getDefaultProgramInLinux() const
 */
 void TNxSpooler::restoreSettings()
 {
-   qDebug() << "___" << metaObject()->className() << ":: restoreSettings";
-
-   m_settings.remove("exts");
-   m_settings.setValue("exts", m_default_formats);
-
-   QStringList apps;
-   int quant_elements = m_default_formats.count();
-
-   for(int i = 0; i < quant_elements; i++)
+   // As this is a slot that can be called by Qt code (in response to a pushed button, for example), we
+   // don't allow exceptions to go out from here. So we use a "try" block
+   try
    {
-      apps.append(getDefaultProgram());
+       qDebug() << "___" << metaObject()->className() << ":: restoreSettings";
+
+       m_settings.remove("exts");
+       m_settings.setValue("exts", m_default_formats);
+
+       QStringList apps;
+       int quant_elements = m_default_formats.count();
+
+       for(int i = 0; i < quant_elements; i++)
+       {
+          apps.append(getDefaultProgram());
+       }
+       m_settings.remove("apps");
+       m_settings.setValue("apps", apps);
+
+       m_settings.setValue("resource", m_default_resource);
+       m_settings.setValue("folder", m_default_folder);
+       m_settings.setValue("seconds", m_default_interval);
+       emit settingsRestored();
+
+       qDebug() << "END" << metaObject()->className() << ":: restoreSettings";
    }
-   m_settings.remove("apps");
-   m_settings.setValue("apps", apps);
-
-   m_settings.setValue("resource", m_default_resource);
-   m_settings.setValue("folder", m_default_folder);
-   m_settings.setValue("seconds", m_default_interval);
-   emit settingsRestored();
-
-   qDebug() << "END" << metaObject()->className() << ":: restoreSettings";
+   catch(std::exception &excep)
+   {
+      TSystem::exitBecauseException(excep);
+   }
+   catch(...)
+   {
+      TSystem::exitBecauseException();
+   }
 }
 
