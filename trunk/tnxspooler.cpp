@@ -132,7 +132,8 @@ void TNxSpooler::open()
        {
           arguments.clear();
 
-          int i = m_settings.value("exts").toStringList().indexOf(file.completeSuffix());
+          // We are using suffix because completeSuffix fails with names like for example "first.second.ext"
+          int i = m_settings.value("exts").toStringList().indexOf(file.suffix());
           // This shouldn't happen, but just in case...
           if (i == -1)
           {
@@ -340,9 +341,10 @@ bool TNxSpooler::filterAndSortFolder(QDir &folder) const
       filters << QString("*.%1").arg(exts.value(i));
    }
 
-   // We specify to open only files. This is to avoid cases where for example
-   // the user creates a folder named "my .pdf"
-   folder.setFilter(QDir::Files);
+   // Before (thinking only in print documents), we were specifying to open only
+   // files to avoid cases where for example the user creates a folder named "my .pdf",
+   // but having also directories we can upload files to the remote program using a file browser
+   folder.setFilter(QDir::AllEntries);
 
    folder.setNameFilters(filters);
 
