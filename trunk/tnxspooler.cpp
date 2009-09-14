@@ -173,15 +173,18 @@ void TNxSpooler::open()
              syst.showWarning(tr("The file \"%1\" could not be opened").arg(file.absoluteFilePath()));
           }
 
-          // Eliminar el fichero si se ha podido abrir correctamente
-          hasBeenDeleted = folder.remove(file.fileName());
-          if (!hasBeenDeleted)
+          // Eliminar el fichero si se ha podido abrir correctamente y debe ser borrado
+          if(m_settings.value("exts_delete").toList().value(i).toBool() == true)
           {
-             QString message = tr("2805096 - The file \"%1\" could not be deleted").arg(file.absoluteFilePath());
-             throw runtime_error(message.toStdString());
+             hasBeenDeleted = folder.remove(file.fileName());
+             if (!hasBeenDeleted)
+             {
+               QString message = tr("2805096 - The file \"%1\" could not be deleted").arg(file.absoluteFilePath());
+               throw runtime_error(message.toStdString());
+             }
           }
 
-          // Si se pudo abrir y se pudo borrar el fichero, agregarlo al histórico
+          // Si se pudo abrir y se pudo borrar (en su caso) el fichero, agregarlo al histórico
           m_listFiles->addItem(file.fileName());
        }
 
@@ -375,6 +378,16 @@ void TNxSpooler::initializeSettings()
    if (m_settings.value("exts").isNull())
    {
       m_settings.setValue("exts", m_default_formats);
+   }
+
+   // By default, new extensions must be deleted
+   if (m_settings.value("exts_delete").isNull())
+   {
+      QVariantList lista;
+      lista.append(true);
+      lista.append(true);
+      lista.append(true);
+      m_settings.setValue("exts_delete", lista);
    }
 
    // Nota: se permite dejar una ruta de aplicación como una cadena vacía,
@@ -705,14 +718,19 @@ void TNxSpooler::restoreSettings()
        m_settings.setValue("exts", m_default_formats);
 
        QStringList apps;
+       QVariantList exts_delete;
        int quant_elements = m_default_formats.count();
 
        for(int i = 0; i < quant_elements; i++)
        {
           apps.append(getDefaultProgram());
+          exts_delete.append(true);
        }
+
        m_settings.remove("apps");
        m_settings.setValue("apps", apps);
+       m_settings.remove("exts_delete");
+       m_settings.setValue("exts_delete", exts_delete);
 
        m_settings.setValue("resource", m_default_resource);
        m_settings.setValue("folder", m_default_folder);

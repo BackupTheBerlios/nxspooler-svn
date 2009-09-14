@@ -20,6 +20,7 @@
 #ifndef T_OPTIONS_H
 #define T_OPTIONS_H
 
+#include <QtGui/QCheckBox>
 #include <QtGui/QDialog>
 #include <QtCore/QSettings>
 #include <QtGui/QFileDialog>
