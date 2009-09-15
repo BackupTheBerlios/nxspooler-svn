@@ -107,25 +107,24 @@ void TOptions::updateOptionsRows()
           }
       }
 
-       int quant_elements = exts.count();
-       for(int i = 0; i < quant_elements; i++)
-       {
-          m_exts_apps->insertRow(m_exts_apps->rowCount());
-          m_exts_apps->setItem(i, 0, new QTableWidgetItem(exts.value(i)));
-          qDebug() << apps.value(i);
+      int quant_elements = exts.count();
+      for(int i = 0; i < quant_elements; i++)
+      {
+         m_exts_apps->insertRow(m_exts_apps->rowCount());
+         m_exts_apps->setItem(i, 0, new QTableWidgetItem(exts.value(i)));
+         qDebug() << apps.value(i);
 
-          QCheckBox *cb_ext_delete = new QCheckBox();
-          cb_ext_delete->setCheckState(exts_delete.value(i).toBool()?Qt::Checked:Qt::Unchecked);
-          m_exts_apps->setCellWidget(i, 1, cb_ext_delete);
-          m_exts_apps->setItem(i, 1, new QTableWidgetItem(exts_delete.value(i)));
+         QTableWidgetItem *cb_ext_delete = new QTableWidgetItem();
+         cb_ext_delete->setCheckState(exts_delete.value(i).toBool()?Qt::Checked:Qt::Unchecked);
+         m_exts_apps->setItem(i, 1, cb_ext_delete);
 
-          m_exts_apps->setItem(i, 2, new QTableWidgetItem(apps.value(i)));
-       }
+         m_exts_apps->setItem(i, 2, new QTableWidgetItem(apps.value(i)));
+      }
 
-       m_folder->setText(m_settings->value("folder").toString());
-       m_shared->setText(m_settings->value("resource").toString());
+      m_folder->setText(m_settings->value("folder").toString());
+      m_shared->setText(m_settings->value("resource").toString());
 
-       qDebug() << "END" << metaObject()->className() << ":: updateOptionsRows";
+      qDebug() << "END" << metaObject()->className() << ":: updateOptionsRows";
    }
    catch(std::exception &excep)
    {
@@ -163,7 +162,8 @@ void TOptions::updateSettings()
           {
              exts.append(m_exts_apps->item(i, 0)->text());
 
-             exts_delete.append(m_exts_apps->cellWidget(i, 1)->checkState());
+             //exts_delete.append(m_exts_apps->item(i, 1)->text());
+             exts_delete.append(m_exts_apps->item(i, 1)->checkState() == Qt::Checked);
 
              // Evitar tener una ruta nula (sí se puede tener vacía)
              // For example, this way we avoid the problem when the user on an empty
@@ -216,7 +216,11 @@ void TOptions::on_m_new_ext_clicked()
    {
        m_exts_apps->insertRow(m_exts_apps->rowCount());
        m_exts_apps->setCurrentCell(m_exts_apps->rowCount() - 1, 0);
-       m_exts_apps->setCellWidget(m_exts_apps->rowCount() - 1, 1, new QCheckBox());
+
+       // Por defecto, el campo QCheckBox de borrar después de abrir debe estar a true
+       QTableWidgetItem *cb_ext_delete = new QTableWidgetItem();
+       cb_ext_delete->setCheckState(Qt::Checked);
+       m_exts_apps->setItem(m_exts_apps->rowCount() - 1, 1, cb_ext_delete);
    }
    catch(std::exception &excep)
    {
