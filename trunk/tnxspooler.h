@@ -66,6 +66,7 @@ private:
    void prepareTrayIconOrShowProgram();
    void prepareSharedFolder() const;
    void prepareTimer();
+   void removeFromOpenListIfDeleted();
    QString getDefaultProgram() const;
    QString getDefaultProgramInLinux() const;
 

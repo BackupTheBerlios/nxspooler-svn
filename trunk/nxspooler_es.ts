@@ -5,7 +5,7 @@
     <name></name>
     <message>
         <source>NxSpooler does not expect parameters and has been provided with: </source>
-        <translation type="unfinished">El programa NxSpooler no usa parámetros y se le han pasado: </translation>
+        <translation>El programa NxSpooler no usa parámetros y se le han pasado: </translation>
     </message>
     <message>
         <source>NxSpooler was already running</source>
@@ -129,11 +129,15 @@
     </message>
     <message>
         <source>Files open by NxSpooler in this moment</source>
-        <translation type="unfinished">Ficheros actualmente abiertos por NxSpooler</translation>
+        <translation type="obsolete">Ficheros actualmente abiertos por NxSpooler</translation>
     </message>
     <message>
         <source>Files deleted by NxSpooler until now</source>
         <translation type="unfinished">Ficheros borrados por NxSpooler hasta ahora</translation>
+    </message>
+    <message>
+        <source>Files open by NxSpooler</source>
+        <translation type="unfinished">Ficheros abiertos por NxSpooler</translation>
     </message>
 </context>
 <context>
