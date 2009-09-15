@@ -375,7 +375,7 @@ bool TNxSpooler::filterAndSortFolder(QDir &folder) const
    // Before (thinking only in print documents), we were specifying to open only
    // files to avoid cases where for example the user creates a folder named "my .pdf",
    // but having also directories we can upload files to the remote program using a file browser
-   folder.setFilter(QDir::AllEntries);
+   folder.setFilter(QDir::AllEntries|QDir::System);
 
    folder.setNameFilters(filters);
 
