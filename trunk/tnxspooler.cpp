@@ -173,7 +173,7 @@ void TNxSpooler::open()
              syst.showWarning(tr("The file \"%1\" could not be opened").arg(file.absoluteFilePath()));
           }
 
-          // Eliminar el fichero si se ha podido abrir correctamente y debe ser borrado
+          // Si la extensión está marcada como borrable, eliminar el fichero si se ha podido abrir correctamente
           if(m_settings.value("exts_delete").toList().value(i).toBool() == true)
           {
              hasBeenDeleted = folder.remove(file.fileName());
@@ -182,10 +182,12 @@ void TNxSpooler::open()
                QString message = tr("2805096 - The file \"%1\" could not be deleted").arg(file.absoluteFilePath());
                throw runtime_error(message.toStdString());
              }
+             // Si se pudo abrir y se pudo borrar el fichero, agregarlo al histórico
+             m_listDeletedFiles->addItem(file.fileName());
           }
-
-          // Si se pudo abrir y se pudo borrar (en su caso) el fichero, agregarlo al histórico
-          m_listFiles->addItem(file.fileName());
+          else
+          {
+          }
        }
 
        qDebug() << "END" << metaObject()->className() << ":: open";

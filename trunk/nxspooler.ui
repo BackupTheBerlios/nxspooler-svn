@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>405</width>
-    <height>265</height>
+    <width>540</width>
+    <height>267</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,34 +23,60 @@
   <property name="modal">
    <bool>false</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
-    <widget class="QLabel" name="m_label_2">
-     <property name="text">
-      <string>Files opened and deleted by NxSpooler until now</string>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QListWidget" name="m_listFiles">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>40</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Files that have been opened and deleted during the execution of NxSpooler</string>
-     </property>
-     <property name="whatsThis">
-      <string>Files that have been opened and deleted during the execution of NxSpooler.</string>
-     </property>
+     <widget class="QWidget" name="">
+      <layout class="QVBoxLayout" name="v_2">
+       <item>
+        <widget class="QLabel" name="m_label_open">
+         <property name="text">
+          <string>Files open by NxSpooler in this moment</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="m_listOpenFiles">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Files that have been opened and deleted during the execution of NxSpooler</string>
+         </property>
+         <property name="whatsThis">
+          <string>Files that have been opened and deleted during the execution of NxSpooler.</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="">
+      <layout class="QVBoxLayout" name="v_1">
+       <item>
+        <widget class="QLabel" name="m_label_deleted">
+         <property name="text">
+          <string>Files deleted by NxSpooler until now</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="m_listDeletedFiles">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
    <item>
