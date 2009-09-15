@@ -189,27 +189,30 @@ void TNxSpooler::open()
           // Si la extensión está marcada como borrable, eliminar el fichero si se ha podido abrir correctamente
           if(m_settings.value("exts_delete").toList().value(i).toBool() == true)
           {
-             hasBeenDeleted = folder.remove(file.fileName());
-             if (!hasBeenDeleted)
+             // Its not good delete directories because we can have problems with Explorer or other applications
+             if(file.isFile())
              {
-               QString message = tr("2805096 - The file \"%1\" could not be deleted").arg(file.absoluteFilePath());
-               throw runtime_error(message.toStdString());
+                hasBeenDeleted = folder.remove(file.fileName());
+
+
+                if (!hasBeenDeleted)
+                {
+                   QString message = tr("2805096 - The file \"%1\" could not be deleted").arg(file.absoluteFilePath());
+                   throw runtime_error(message.toStdString());
+                }
+
+                // Remove the file name from the open files list
+                if(m_listOpenFiles->count() > 0)
+                {
+                   QListWidgetItem *item = m_listOpenFiles->findItems(file.absoluteFilePath(), Qt::MatchExactly).first();
+                   int fila = m_listOpenFiles->row(item);
+
+                   m_listOpenFiles->takeItem(fila);
+                }
+
+                // Si se pudo abrir y se pudo borrar el fichero, agregarlo al histórico
+                m_listDeletedFiles->addItem(file.absoluteFilePath());
              }
-
-             // Remove the file name from the open files list
-             if(m_listOpenFiles->count() > 0)
-             {
-               QListWidgetItem *item = m_listOpenFiles->findItems(file.absoluteFilePath(), Qt::MatchExactly).first();
-               int fila = m_listOpenFiles->row(item);
-
-               m_listOpenFiles->takeItem(fila);
-             }
-
-             // Si se pudo abrir y se pudo borrar el fichero, agregarlo al histórico
-             m_listDeletedFiles->addItem(file.absoluteFilePath());
-          }
-          else
-          {
           }
        }
 
