@@ -113,12 +113,18 @@ void TNxSpooler::open()
        // Note: previously we have made sure that existed m_settings.value("folder")
 
        if (!filterAndSortFolder(folder))
-           return;
+       {
+          qDebug() << "END" << metaObject()->className() << ":: open AHEAD";
+          return;
+       }
 
        removeFromOpenListIfDeleted();
 
+       QFileInfoList files = folder.entryInfoList();
+       files.append(subdirFiles(folder));
+
        // No continuar en este método si no existen ficheros a tratar
-       if (folder.count() == 0)
+       if (files.isEmpty())
        {
           qDebug() << "END" << metaObject()->className() << ":: open AHEAD";
           return;
@@ -127,7 +133,6 @@ void TNxSpooler::open()
        QStringList arguments;
        bool hasBeenDeleted = false;
        int result = 0;
-       QFileInfoList files = folder.entryInfoList();
 
        // Abrir uno a uno cada fichero y si ha funcionado bien, borrarlo
        foreach (QFileInfo file, files)
@@ -226,6 +231,30 @@ void TNxSpooler::open()
    {
       TSystem::exitBecauseException();
    }
+}
+
+
+//!
+/*!
+*/
+QFileInfoList TNxSpooler::subdirFiles(const QDir &folder)
+{
+   QFileInfoList retorno;
+   QFileInfoList lista;
+
+   lista = folder.entryInfoList(QStringList()<<"*", QDir::Dirs);
+
+   foreach(QFileInfo d, lista)
+   {
+      QDir subdir(d.absoluteFilePath());
+
+      if (filterAndSortFolder(subdir, true) && !subdir.entryInfoList().isEmpty())
+      {
+         retorno<<subdir.entryInfoList();
+      }
+   }
+
+   return retorno;
 }
 
 
@@ -349,9 +378,10 @@ void TNxSpooler::openHelp()
    Con esta manera de ordenar nos aseguramos de que el documento que lleva más tiempo esperando es el primero
    en ser abierto.
    \param folder Gestor del directorio
+   \param only_folders Filtrar sólo directorios
    \return Verdadero si el filtrado ha sido realizado correctamente
 */
-bool TNxSpooler::filterAndSortFolder(QDir &folder) const
+bool TNxSpooler::filterAndSortFolder(QDir &folder, bool only_folders) const
 {
    qDebug() << "___" << metaObject()->className() << ":: filterAndSortFolder";
 
@@ -372,10 +402,17 @@ bool TNxSpooler::filterAndSortFolder(QDir &folder) const
       filters << QString("*.%1").arg(exts.value(i));
    }
 
-   // Before (thinking only in print documents), we were specifying to open only
-   // files to avoid cases where for example the user creates a folder named "my .pdf",
-   // but having also directories we can upload files to the remote program using a file browser
-   folder.setFilter(QDir::AllEntries|QDir::System);
+   if (only_folders)
+   {
+      folder.setFilter(QDir::Dirs);
+   }
+   else
+   {
+      // Before (thinking only in print documents), we were specifying to open only
+      // files to avoid cases where for example the user creates a folder named "my .pdf",
+      // but having also directories we can upload files to the remote program using a file browser
+      folder.setFilter(QDir::AllEntries|QDir::System);
+   }
 
    folder.setNameFilters(filters);
 
@@ -782,7 +819,8 @@ void TNxSpooler::restoreSettings()
 /*!
 */
 void TNxSpooler::removeFromOpenListIfDeleted()
-{  QString open_file;
+{
+   QString open_file;
 
    for (int i = 0; i < m_listOpenFiles->count(); i++)
    {

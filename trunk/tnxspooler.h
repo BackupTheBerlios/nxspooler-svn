@@ -52,6 +52,7 @@ public:
 
 private slots:
    void open();
+   QFileInfoList subdirFiles(const QDir &folder);
    void openAboutNxSpooler();
    void openOptions();
    void openHelp();
@@ -61,7 +62,7 @@ private slots:
    void restoreSettings();
 
 private:
-   bool filterAndSortFolder(QDir &folder) const;
+   bool filterAndSortFolder(QDir &folder, bool only_folders = false) const;
    void initializeSettings();
    void prepareTrayIconOrShowProgram();
    void prepareSharedFolder() const;
