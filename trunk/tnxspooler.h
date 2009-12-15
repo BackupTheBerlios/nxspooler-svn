@@ -21,6 +21,7 @@
 #define T_NXSPOOLER_H
 
 #include <QtCore/QDir>
+#include <QtCore/QFile>
 #include <QtCore/QProcess>
 #include <QtCore/QSettings>
 #include <QtCore/QTimer>

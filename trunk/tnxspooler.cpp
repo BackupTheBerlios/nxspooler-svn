@@ -107,84 +107,108 @@ void TNxSpooler::open()
    // from here. So we use a "try" block
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: open";
+      qDebug() << "___" << metaObject()->className() << ":: open";
 
-       QDir folder(m_settings.value("folder").toString());
-       // Note: previously we have made sure that existed m_settings.value("folder")
+      QDir folder(m_settings.value("folder").toString());
+      // Note: previously we have made sure that existed m_settings.value("folder")
 
-       if (!filterAndSortFolder(folder))
-           return;
+      if (!filterAndSortFolder(folder))
+         return;
 
-       // No continuar en este método si no existen ficheros a tratar
-       if (folder.count() == 0)
-       {
-          qDebug() << "END" << metaObject()->className() << ":: open AHEAD";
-          return;
-       }
+      // No continuar en este método si no existen ficheros a tratar
+      if (folder.count() == 0)
+      {
+         qDebug() << "END" << metaObject()->className() << ":: open AHEAD";
+         return;
+      }
 
-       QStringList arguments;
-       bool hasBeenDeleted = false;
-       int result = 0;
-       QFileInfoList files = folder.entryInfoList();
+      QStringList arguments;
+      bool hasBeenDeleted = false;
+      int result = 0;
+      QFileInfoList files = folder.entryInfoList();
 
-       // Abrir uno a uno cada fichero y si ha funcionado bien, borrarlo
-       foreach(QFileInfo file, files)
-       {
-          arguments.clear();
+      // Abrir uno a uno cada fichero y si ha funcionado bien, borrarlo
+      foreach(QFileInfo file, files)
+      {
+         arguments.clear();
 
-          int i = m_settings.value("exts").toStringList().indexOf(file.completeSuffix());
-          // This shouldn't happen, but just in case...
-          if (i == -1)
-          {
-             QString message = tr("2208097 - Extension not found");
-             throw runtime_error(message.toStdString());
-          }
+         int i = m_settings.value("exts").toStringList().indexOf(file.completeSuffix());
 
-          QString app = m_settings.value("apps").toStringList().value(i);
-          // There's no problem if app.isEmpty()
+         if (file.completeSuffix() == "open")
+         {
+            QProcess process(this);
+            QFile read_file(file.filePath());
+            read_file.open(QIODevice::ReadOnly);
+            QString line = read_file.readLine();
+            line.chop(1);
+            arguments << line;
+            QDir path_to_check(line);
+            if (!path_to_check.exists())
+            {
+               QString message = tr("1512091 - Path \"%1\" doesn't exist").arg(line);
+               throw runtime_error(message.toStdString());
+            }
+#ifdef Q_WS_WIN
+            result = process.execute("explorer", arguments);
+#else
+            result = process.execute("dolphin", arguments);
+#endif
+         }
+         else
+         {
+            // This shouldn't happen, but just in case...
+            if (i == -1)
+            {
+               QString message = tr("2208097 - Extension not found");
+               throw runtime_error(message.toStdString());
+            }
 
-    #ifdef Q_WS_WIN
-          arguments << "/C" << "start" << "/wait" << app;
-    #endif
+            QString app = m_settings.value("apps").toStringList().value(i);
+            // There's no problem if app.isEmpty()
 
-          arguments << QDir::toNativeSeparators(file.absoluteFilePath());
-          QProcess process(this);
+#ifdef Q_WS_WIN
+            arguments << "/C" << "start" << "/wait" << app;
+#endif
 
-    #ifdef Q_WS_WIN
-          result = process.execute("cmd", arguments);
-    #else
-          // Si estamos en Linux y el usuario ha dejado en blanco el nombre de la aplicación de apertura,
-          // usar la que se encuentre en este momento respetando ese ajuste vacío
-          if (app.isEmpty())
-          {
-             result = process.execute(getDefaultProgramInLinux(), arguments);
-          }
-          else
-          {
-             result = process.execute(app, arguments);
-          }
-    #endif
+            arguments << QDir::toNativeSeparators(file.absoluteFilePath());
+            QProcess process(this);
 
-          // La apertura puede fallar en el caso de que el fichero esté todavía a mitad de generarse
-          // It also happens if the user didn't specify a valid application to open a file with that extension
-          if (result != 0)
-          {
-             syst.showWarning(tr("The file \"%1\" could not be opened").arg(file.absoluteFilePath()));
-          }
+#ifdef Q_WS_WIN
+            result = process.execute("cmd", arguments);
+#else
+            // Si estamos en Linux y el usuario ha dejado en blanco el nombre de la aplicación de apertura,
+            // usar la que se encuentre en este momento respetando ese ajuste vacío
+            if (app.isEmpty())
+            {
+               result = process.execute(getDefaultProgramInLinux(), arguments);
+            }
+            else
+            {
+               result = process.execute(app, arguments);
+            }
+#endif
+         }
 
-          // Eliminar el fichero si se ha podido abrir correctamente
-          hasBeenDeleted = folder.remove(file.fileName());
-          if (!hasBeenDeleted)
-          {
-             QString message = tr("2805096 - The file \"%1\" could not be deleted").arg(file.absoluteFilePath());
-             throw runtime_error(message.toStdString());
-          }
+         // La apertura puede fallar en el caso de que el fichero esté todavía a mitad de generarse
+         // It also happens if the user didn't specify a valid application to open a file with that extension
+         if (result != 0)
+         {
+            syst.showWarning(tr("The file \"%1\" could not be opened").arg(file.absoluteFilePath()));
+         }
 
-          // Si se pudo abrir y se pudo borrar el fichero, agregarlo al histórico
-          m_listFiles->addItem(file.fileName());
-       }
+         // Eliminar el fichero si se ha podido abrir correctamente
+         hasBeenDeleted = folder.remove(file.fileName());
+         if (!hasBeenDeleted)
+         {
+            QString message = tr("2805096 - The file \"%1\" could not be deleted").arg(file.absoluteFilePath());
+            throw runtime_error(message.toStdString());
+         }
 
-       qDebug() << "END" << metaObject()->className() << ":: open";
+         // Si se pudo abrir y se pudo borrar el fichero, agregarlo al histórico
+         m_listFiles->addItem(file.fileName());
+      }
+
+      qDebug() << "END" << metaObject()->className() << ":: open";
    }
    catch(std::exception &excep)
    {
@@ -342,7 +366,7 @@ bool TNxSpooler::filterAndSortFolder(QDir &folder) const
 
    // An special extension will let us to open a path contained inside
    // a text file ended with ".open"
-   filters << ".open";
+   filters << "*.open";
 
    // We specify to open only files. This is to avoid cases where for example
    // the user creates a folder named "my .pdf"
