@@ -4,259 +4,308 @@
 <context>
     <name></name>
     <message>
+        <location filename="main.cpp" line="88"/>
         <source>NxSpooler does not expect parameters and has been provided with: </source>
         <translation>El programa NxSpooler no usa parámetros y se le han pasado: </translation>
     </message>
     <message>
+        <location filename="main.cpp" line="48"/>
         <source>NxSpooler was already running</source>
-        <translation type="unfinished">NxSpooler ya se estaba ejecutando</translation>
+        <translation>NxSpooler ya se estaba ejecutando</translation>
     </message>
     <message>
+        <location filename="main.cpp" line="69"/>
         <source>Warning: the file of the NxSpooler translation for your language has not been found.</source>
         <translatorcomment>Traducción hecha para más uniformidad</translatorcomment>
-        <translation type="unfinished">Aviso: no se ha encontrado el archivo de la traducción de NxSpooler para su lenguaje.</translation>
+        <translation>Aviso: no se ha encontrado el archivo de la traducción de NxSpooler para su lenguaje.</translation>
     </message>
     <message>
+        <location filename="main.cpp" line="81"/>
         <source>Warning: the file of the Qt translation for your language has not been found.</source>
-        <translation type="unfinished">Aviso: no se ha encontrado el archivo de la traducción de Qt para su lenguaje.</translation>
+        <translation>Aviso: no se ha encontrado el archivo de la traducción de Qt para su lenguaje.</translation>
     </message>
 </context>
 <context>
     <name>NxSpooler</name>
     <message>
+        <location filename="nxspooler.ui" line="30"/>
         <source>Files opened and deleted by NxSpooler until now</source>
-        <translation type="obsolete">Archivos abiertos y borrados por NxSpooler hasta ahora</translation>
+        <translation>Archivos abiertos y borrados por NxSpooler hasta ahora</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="52"/>
         <source>Files that have been opened and deleted during the execution of NxSpooler.</source>
-        <translation type="unfinished">Archivos abiertos y eliminados durante la ejecución de NxSpooler.</translation>
+        <translation>Archivos abiertos y eliminados durante la ejecución de NxSpooler.</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="74"/>
         <source>NxSpooler options</source>
-        <translation type="unfinished">Opciones de NxSpooler</translation>
+        <translation>Opciones de NxSpooler</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="77"/>
         <source>See and modify the configuration of NxSpooler.</source>
-        <translation type="unfinished">Ver y modificar la configuración de NxSpooler.</translation>
+        <translation>Ver y modificar la configuración de NxSpooler.</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="97"/>
         <source>About NxSpooler</source>
-        <translation type="unfinished">Acerca de NxSpooler</translation>
+        <translation>Acerca de NxSpooler</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="80"/>
+        <location filename="nxspooler.ui" line="146"/>
         <source>&amp;Options</source>
-        <translation type="unfinished">&amp;Opciones</translation>
+        <translation>&amp;Opciones</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="100"/>
         <source>Information about NxSpooler and its license.</source>
-        <translation type="unfinished">Información sobre NxSpooler y su licencia.</translation>
+        <translation>Información sobre NxSpooler y su licencia.</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="113"/>
         <source>Hide this window and set an icon in the notification area to let the user restore or quit NxSpooler.</source>
-        <translation type="unfinished">Esconder esta ventana y dejar un icono en la bandeja del sistema para poder restaurar o salir de NxSpooler.</translation>
+        <translation>Esconder esta ventana y dejar un icono en la bandeja del sistema para poder restaurar o salir de NxSpooler.</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="110"/>
         <source>Hide this window</source>
-        <translation type="unfinished">Ocultar esta ventana</translation>
+        <translation>Ocultar esta ventana</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="49"/>
         <source>Files that have been opened and deleted during the execution of NxSpooler</source>
-        <translation type="unfinished">Archivos abiertos y eliminados durante la ejecución de NxSpooler</translation>
+        <translation>Archivos abiertos y eliminados durante la ejecución de NxSpooler</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="103"/>
         <source>&amp;About</source>
-        <translation type="unfinished">Acerca &amp;de</translation>
+        <translation>Acerca &amp;de</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="129"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished">&amp;Salir</translation>
+        <translation>&amp;Salir</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="123"/>
+        <location filename="nxspooler.ui" line="141"/>
         <source>Exit from NxSpooler</source>
-        <translation type="unfinished">Salir de NxSpooler</translation>
+        <translation>Salir de NxSpooler</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="87"/>
         <source>Help.</source>
-        <translation type="unfinished">Ayuda.</translation>
+        <translation>Ayuda.</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="90"/>
+        <location filename="nxspooler.ui" line="178"/>
         <source>&amp;Help</source>
-        <translation type="unfinished">&amp;Ayuda</translation>
+        <translation>&amp;Ayuda</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="116"/>
         <source>H&amp;ide</source>
-        <translation type="unfinished">Oc&amp;ultar</translation>
+        <translation>Oc&amp;ultar</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="126"/>
         <source>Quit NxSpooler.</source>
-        <translation type="unfinished">Salir de NxSpooler.</translation>
+        <translation>Salir de NxSpooler.</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="138"/>
         <source>&amp;Quit NxSpooler</source>
-        <translation type="unfinished">&amp;Salir de NxSpooler</translation>
+        <translation>&amp;Salir de NxSpooler</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="149"/>
         <source>Open the options dialog</source>
-        <translation type="unfinished">Abrir el diálogo de opciones</translation>
+        <translation>Abrir el diálogo de opciones</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="154"/>
         <source>&amp;About NxSpooler</source>
-        <translation type="unfinished">Acerca &amp;de NxSpooler</translation>
+        <translation>Acerca &amp;de NxSpooler</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="157"/>
         <source>See information about NxSpooler</source>
-        <translation type="unfinished">Ver información sobre NxSpooler</translation>
+        <translation>Ver información sobre NxSpooler</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="162"/>
         <source>H&amp;ide NxSpooler</source>
-        <translation type="unfinished">Oc&amp;ultar NxSpooler</translation>
+        <translation>Oc&amp;ultar NxSpooler</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="181"/>
         <source>Help</source>
-        <translation type="unfinished">Ayuda</translation>
+        <translation>Ayuda</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="165"/>
         <source>Hide the window of NxSpooler</source>
-        <translation type="unfinished">Esconder la ventana de NxSpooler</translation>
+        <translation>Esconder la ventana de NxSpooler</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="170"/>
         <source>&amp;Restore NxSpooler</source>
-        <translation type="unfinished">&amp;Restaurar NxSpooler</translation>
+        <translation>&amp;Restaurar NxSpooler</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="173"/>
         <source>Makes visible the window of NxSpooler</source>
-        <translation type="unfinished">Hace visible la ventana de NxSpooler</translation>
-    </message>
-    <message>
-        <source>Files open by NxSpooler in this moment</source>
-        <translation type="obsolete">Ficheros actualmente abiertos por NxSpooler</translation>
-    </message>
-    <message>
-        <source>Files deleted by NxSpooler until now</source>
-        <translation type="unfinished">Ficheros borrados por NxSpooler hasta ahora</translation>
-    </message>
-    <message>
-        <source>Files open by NxSpooler</source>
-        <translation type="unfinished">Ficheros abiertos por NxSpooler</translation>
+        <translation>Hace visible la ventana de NxSpooler</translation>
     </message>
 </context>
 <context>
     <name>TNxSpooler</name>
     <message>
+        <location filename="tnxspooler.cpp" line="135"/>
         <source>2208097 - Extension not found</source>
-        <translation type="unfinished">2208097 - Extensión no encontrada</translation>
+        <translation>2208097 - Extensión no encontrada</translation>
     </message>
     <message>
+        <location filename="tnxspooler.cpp" line="168"/>
         <source>The file &quot;%1&quot; could not be opened</source>
-        <translation type="unfinished">No se pudo abrir el archivo &quot;%1&quot;</translation>
+        <translation>No se pudo abrir el archivo &quot;%1&quot;</translation>
     </message>
     <message>
+        <location filename="tnxspooler.cpp" line="175"/>
         <source>2805096 - The file &quot;%1&quot; could not be deleted</source>
-        <translation type="unfinished">2805096 - No se pudo borrar el archivo &quot;%1&quot;</translation>
+        <translation>2805096 - No se pudo borrar el archivo &quot;%1&quot;</translation>
     </message>
     <message>
+        <location filename="tnxspooler.cpp" line="237"/>
         <source>2208095 - Internal error when connecting</source>
-        <translation type="unfinished">2208095 - Error interno al conectar</translation>
+        <translation>2208095 - Error interno al conectar</translation>
     </message>
     <message>
+        <location filename="tnxspooler.cpp" line="247"/>
         <source>2208096 - Internal error when connecting</source>
-        <translation type="unfinished">2208096 - Error interno al conectar</translation>
+        <translation>2208096 - Error interno al conectar</translation>
     </message>
     <message>
+        <location filename="tnxspooler.cpp" line="493"/>
         <source>2805099 - The icon of the notification area could not be activated</source>
-        <translation type="unfinished">2805099 - No se pudo activar el icono del área de notificación</translation>
+        <translation>2805099 - No se pudo activar el icono del área de notificación</translation>
     </message>
     <message>
+        <location filename="tnxspooler.cpp" line="537"/>
         <source>The folder &quot;%1&quot; does not exist. Do you want to create it?</source>
-        <translation type="unfinished">El directorio &quot;%1&quot; no existe. ¿Quiere crearlo?</translation>
+        <translation>El directorio &quot;%1&quot; no existe. ¿Quiere crearlo?</translation>
     </message>
     <message>
+        <location filename="tnxspooler.cpp" line="549"/>
         <source>The folder &quot;%1&quot; was successfully created. Now it must be shared with the name &quot;%2&quot;.</source>
-        <translation type="unfinished">La carpeta &quot;%1&quot; ha sido creada con éxito. Ahora debe compartirla con el nombre &quot;%2&quot;.</translation>
+        <translation>La carpeta &quot;%1&quot; ha sido creada con éxito. Ahora debe compartirla con el nombre &quot;%2&quot;.</translation>
     </message>
     <message>
+        <location filename="tnxspooler.cpp" line="556"/>
         <source>2805093 - The folder &quot;%1&quot; could not be created</source>
-        <translation type="unfinished">2805093 - No se pudo crear el directorio &quot;%1&quot;</translation>
+        <translation>2805093 - No se pudo crear el directorio &quot;%1&quot;</translation>
     </message>
     <message>
+        <location filename="tnxspooler.cpp" line="583"/>
         <source>2805094 - The timer could not be activated</source>
-        <translation type="unfinished">2805094 - No se pudo activar el temporizador</translation>
+        <translation>2805094 - No se pudo activar el temporizador</translation>
     </message>
     <message>
+        <location filename="tnxspooler.cpp" line="639"/>
         <source>2805095 - A valid program to open the files could not be found</source>
-        <translation type="unfinished">2805095 - No se encuentra un programa adecuado para abrir los ficheros</translation>
+        <translation>2805095 - No se encuentra un programa adecuado para abrir los ficheros</translation>
     </message>
 </context>
 <context>
     <name>TOptions</name>
     <message>
+        <location filename="toptions.cpp" line="44"/>
         <source>2208092 - Internal error when connecting</source>
-        <translation type="unfinished">2208092 - Error interno al conectar</translation>
+        <translation>2208092 - Error interno al conectar</translation>
     </message>
     <message>
+        <location filename="toptions.cpp" line="54"/>
         <source>2208093 - Internal error when connecting</source>
-        <translation type="unfinished">2208093 - Error interno al conectar</translation>
+        <translation>2208093 - Error interno al conectar</translation>
     </message>
     <message>
+        <location filename="toptions.cpp" line="101"/>
         <source>2108091 - A problem was found and a row could not be deleted</source>
-        <translation type="unfinished">2108091 - Se encontró un problema y una fila no pudo ser borrada</translation>
+        <translation>2108091 - Se encontró un problema y una fila no pudo ser borrada</translation>
     </message>
     <message>
+        <location filename="toptions.cpp" line="167"/>
         <source>The selected program can&apos;t be accessed. Please select another or set the default value.</source>
-        <translation type="unfinished">No se puede acceder al programa indicado. Seleccione otro o deje el valor predeterminado.</translation>
+        <translation>No se puede acceder al programa indicado. Seleccione otro o deje el valor predeterminado.</translation>
     </message>
     <message>
+        <location filename="toptions.cpp" line="198"/>
         <source>Are you sure that you want to delete the selected row?</source>
-        <translation type="unfinished">¿Está seguro de que quiere borrar la fila seleccionada?</translation>
+        <translation>¿Está seguro de que quiere borrar la fila seleccionada?</translation>
     </message>
     <message>
+        <location filename="toptions.cpp" line="216"/>
         <source>Select the viewer program</source>
-        <translation type="unfinished">Seleccione el programa visor</translation>
+        <translation>Seleccione el programa visor</translation>
     </message>
     <message>
+        <location filename="toptions.cpp" line="238"/>
         <source>Select the shared local folder</source>
-        <translation type="unfinished">Seleccione la carpeta local compartida</translation>
+        <translation>Seleccione la carpeta local compartida</translation>
     </message>
 </context>
 <context>
     <name>TSystem</name>
     <message>
+        <location filename="tsystem.cpp" line="54"/>
+        <location filename="tsystem.cpp" line="66"/>
         <source>Error - </source>
-        <translation type="unfinished">Error - </translation>
+        <translation>Error - </translation>
     </message>
     <message>
+        <location filename="tsystem.cpp" line="65"/>
         <source>An unidentified problem has happened and %1 must be closed.</source>
-        <translation type="unfinished">Ha ocurrido un error no identificado en %1 y debe cerrarse.</translation>
+        <translation>Ha ocurrido un error no identificado en %1 y debe cerrarse.</translation>
     </message>
     <message>
+        <location filename="tsystem.cpp" line="81"/>
         <source>Confirm</source>
-        <translation type="unfinished">Confirmación</translation>
+        <translation>Confirmación</translation>
     </message>
     <message>
+        <location filename="tsystem.cpp" line="143"/>
         <source>Warning</source>
-        <translation type="unfinished">Aviso</translation>
+        <translation>Aviso</translation>
     </message>
     <message>
+        <location filename="tsystem.cpp" line="165"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
 </context>
 <context>
     <name>aboutDialog</name>
     <message>
+        <location filename="aboutDialog.ui" line="23"/>
         <source>About NxSpooler</source>
-        <translation type="unfinished">Acerca de NxSpooler</translation>
+        <translation>Acerca de NxSpooler</translation>
     </message>
     <message>
+        <location filename="aboutDialog.ui" line="46"/>
         <source>http://nxspooler.berlios.de</source>
         <translatorcomment>Es traducible por si el usuario ha de ver otra dirección, como (por ejemplo) http://nxspooler.berlios.de/es</translatorcomment>
-        <translation type="unfinished">http://nxspooler.berlios.de</translation>
+        <translation>http://nxspooler.berlios.de</translation>
     </message>
     <message>
+        <location filename="aboutDialog.ui" line="66"/>
         <source>NxSpooler is a Qt utility used to help people to print in their printers when connected to a remote computer with sessions like the ones of FreeNX.</source>
-        <translation type="unfinished">NxSpooler es una utilidad Qt usada para ayudar a las personas a imprimir en sus impresoras cuando están conectados a un ordenador remoto usando sesiones como las de FreeNX.</translation>
+        <translation>NxSpooler es una utilidad Qt usada para ayudar a las personas a imprimir en sus impresoras cuando están conectados a un ordenador remoto usando sesiones como las de FreeNX.</translation>
     </message>
     <message>
+        <location filename="aboutDialog.ui" line="120"/>
         <source>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
                     GNU GENERAL PUBLIC LICENSE
@@ -934,7 +983,7 @@ the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 &lt;http://www.gnu.org/philosophy/why-not-lgpl.html&gt;.
 </source>
-        <translation type="unfinished">Este programa es software libre y se distribuye bajo los términos de la licencia GPL tal como la publica la Free Software Foundation; en cualquiera de las versiones 3 de la licencia o (a la elección de usted) cualquier versión posterior.
+        <translation>Este programa es software libre y se distribuye bajo los términos de la licencia GPL tal como la publica la Free Software Foundation; en cualquiera de las versiones 3 de la licencia o (a la elección de usted) cualquier versión posterior.
 
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
@@ -1616,28 +1665,33 @@ Public License instead of this License.  But first, please read
 <context>
     <name>helpDialog</name>
     <message>
+        <location filename="helpDialog.ui" line="17"/>
         <source>Help</source>
-        <translation type="unfinished">Ayuda</translation>
+        <translation>Ayuda</translation>
     </message>
     <message>
+        <location filename="helpDialog.ui" line="33"/>
         <source>Description</source>
-        <translation type="unfinished">Descripción</translation>
+        <translation>Descripción</translation>
     </message>
     <message>
+        <location filename="helpDialog.ui" line="52"/>
         <source>NxSpooler allows that particular files created in the server (normally by an application and sometimes by the user) can be printed in the local printer of the user.
 
 More precisely: NxSpooler monitors if files with certain extensions (for example PDF) appear in a set shared resource. NxSpooler opens every new file that finds so that the user can look into the file and print it or save it; when the user closes the viewer application that shows the file, NxSpooler will delete the file if possible. NxSpooler is normally used together with a FreeNX session where a remote program (or sometimes the user) creates files and saves them in the shared resource for a later automatic opening by NxSpooler in the computer of the user (for example, to print the file).
 
 </source>
-        <translation type="unfinished">NxSpooler permite que determinados documentos creados en el servidor (normalmente por una aplicación y algunas veces por el usuario) puedan ser impresos en la impresora del usuario.
+        <translation>NxSpooler permite que determinados documentos creados en el servidor (normalmente por una aplicación y algunas veces por el usuario) puedan ser impresos en la impresora del usuario.
 
 Más precisamente: NxSpooler monitoriza si archivos con ciertas extensiones (por ejemplo PDF) aparecen en determinado recurso compartido. Por cada archivo nuevo que encuentra NxSpooler: lo abre para que el usuario lo vea y pueda imprimirlo; cuando el usuario cierre la ventana del visor PDF, NxSpooler intentará borrar el archivo PDF. NxSpooler está pensado para ser usado conjuntamente con una sesión FreeNX donde un programa remoto (o a veces el usuario) crea archivos y los guarda en el recurso compartido para su posterior apertura automática por NxSpooler en el ordenador del usuario (por ejemplo, para imprimir el archivo).</translation>
     </message>
     <message>
+        <location filename="helpDialog.ui" line="72"/>
         <source>Appendix</source>
-        <translation type="unfinished">Apéndice</translation>
+        <translation>Apéndice</translation>
     </message>
     <message>
+        <location filename="helpDialog.ui" line="85"/>
         <source>Example of configuration of the system for NxSpooler, in this case for working with a program called Bulmages that is executed on the server.
 
 Note: to print a report, Bulmages 0.12 first saves it (normally in PDF format) on a folder and then it asks the system that the file is opened; working with FreeNX we want that Bulmages saves the file but in the computer of the user, that Bulmages opens nothing and that NxSpooler opens the file but in the computer of the user.
@@ -1676,7 +1730,7 @@ Note: to print a report, Bulmages 0.12 first saves it (normally in PDF format) o
       - NxSpooler has to be running in the computer of the user, of course :-).
  
 This way: the files of the reports that Bulmages makes in the server  will be opened in the client computer, where the user can print them, save them, send them by email, etc.</oldsource>
-        <translation type="unfinished">Ejemplo de configuración del sistema para NxSpooler, en este caso para trabajar con un programa llamado Bulmagés que se ejecuta en el servidor.
+        <translation>Ejemplo de configuración del sistema para NxSpooler, en este caso para trabajar con un programa llamado Bulmagés que se ejecuta en el servidor.
 
 Nota: para imprimir un informe, Bulmages 0.12 primero lo guarda (normalmente en formato PDF) en una carpeta y entonces pide al sistema que abra el archivo; trabajando con FreeNX queremos que Bulmages guarde el archivo pero en el ordenador del usuario, que Bulmages no abra nada y que NxSpooler abra el archivo pero en el ordenador del usuario.
 
@@ -1700,105 +1754,125 @@ De esta forma: los informes que hace Bulmagés en el servidor se abrirán en el 
 <context>
     <name>optionsDialog</name>
     <message>
+        <location filename="optionsDialog.ui" line="17"/>
         <source>Options</source>
-        <translation type="unfinished">Opciones</translation>
+        <translation>Opciones</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="27"/>
         <source>NxSpooler options</source>
-        <translation type="unfinished">Opciones de NxSpooler</translation>
+        <translation>Opciones de NxSpooler</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="33"/>
         <source>&amp;Interval:</source>
-        <translation type="unfinished">&amp;Intervalo:</translation>
+        <translation>&amp;Intervalo:</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="58"/>
         <source>Time interval, in seconds, between searches of files.</source>
-        <translation type="unfinished">Intervalo de tiempo en segundos para la búsqueda de documentos.</translation>
+        <translation>Intervalo de tiempo en segundos para la búsqueda de documentos.</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="61"/>
         <source> s</source>
         <translatorcomment>Abreviatura de segundos</translatorcomment>
-        <translation type="unfinished"> s</translation>
+        <translation> s</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="74"/>
         <source>Shared &amp;folder:</source>
-        <translation type="unfinished">C&amp;arpeta compartida:</translation>
+        <translation>C&amp;arpeta compartida:</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="141"/>
         <source>Name of the shared resource</source>
-        <translation type="unfinished">Nombre del recurso compartido</translation>
+        <translation>Nombre del recurso compartido</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="170"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Eliminar</translation>
+        <translation>&amp;Eliminar</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="183"/>
         <source>Select the application to view the files with this extension</source>
-        <translation type="unfinished">Seleccionar la aplicación para ver los archivos con esta extensión</translation>
+        <translation>Seleccionar la aplicación para ver los archivos con esta extensión</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="189"/>
         <source>&amp;Browse</source>
-        <translation type="unfinished">E&amp;xaminar</translation>
+        <translation>E&amp;xaminar</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="106"/>
         <source>Select a folder</source>
-        <translation type="unfinished">Seleccionar una carpeta</translation>
+        <translation>Seleccionar una carpeta</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="55"/>
         <source>Time interval, in seconds, between searches of files</source>
-        <translation type="unfinished">Intervalo de tiempo en segundos para la búsqueda de documentos</translation>
+        <translation>Intervalo de tiempo en segundos para la búsqueda de documentos</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="96"/>
         <source>Shared folder</source>
-        <translation type="unfinished">Carpeta compartida</translation>
+        <translation>Carpeta compartida</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="99"/>
         <source>Shared folder using the name of the resource written below.</source>
-        <translation type="unfinished">Carpeta compartida mediante el nombre de recurso indicado debajo.</translation>
+        <translation>Carpeta compartida mediante el nombre de recurso indicado debajo.</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="109"/>
         <source>Select a folder to share.</source>
-        <translation type="unfinished">Seleccionar una carpeta para compartir.</translation>
+        <translation>Seleccionar una carpeta para compartir.</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="119"/>
         <source>Shared &amp;resource:</source>
-        <translation type="unfinished">Recurso &amp;compartido:</translation>
+        <translation>Recurso &amp;compartido:</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="144"/>
         <source>Name of the shared resource that the NX client will mount in the server. NxSpooler doesn&apos;t check the existence of the shared resource because it&apos;s not necessary that the present user had access to it.</source>
-        <translation type="unfinished">Nombre del recurso compartido en red  que el cliente NX montará en el servidor. NxSpooler no comprueba la existencia del recurso compartido, ya que no es necesario que el usuario actual tenga permisos para acceder a él.</translation>
+        <translation>Nombre del recurso compartido en red  que el cliente NX montará en el servidor. NxSpooler no comprueba la existencia del recurso compartido, ya que no es necesario que el usuario actual tenga permisos para acceder a él.</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="151"/>
         <source>Ex&amp;tensions to deal with and the application to view each one</source>
-        <translation type="unfinished">Ex&amp;tensiones a reconocer y la aplicación a utilizar con cada una</translation>
+        <translation>Ex&amp;tensiones a reconocer y la aplicación a utilizar con cada una</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="157"/>
         <source>New extension</source>
-        <translation type="unfinished">Nueva extensión</translation>
+        <translation>Nueva extensión</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="160"/>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;Nueva</translation>
+        <translation>&amp;Nueva</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="167"/>
         <source>Delete the selected extension</source>
-        <translation type="unfinished">Eliminar la extensión seleccionada</translation>
+        <translation>Eliminar la extensión seleccionada</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="186"/>
         <source>Select an application.</source>
-        <translation type="unfinished">Seleccionar una aplicación.</translation>
+        <translation>Seleccionar una aplicación.</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="221"/>
         <source>Extension</source>
-        <translation type="unfinished">Extensión</translation>
+        <translation>Extensión</translation>
     </message>
     <message>
+        <location filename="optionsDialog.ui" line="226"/>
         <source>Open with</source>
-        <translation type="unfinished">Abrir con</translation>
-    </message>
-    <message>
-        <source>Delete after</source>
-        <translation type="unfinished">Borrar luego</translation>
+        <translation>Abrir con</translation>
     </message>
 </context>
 </TS>

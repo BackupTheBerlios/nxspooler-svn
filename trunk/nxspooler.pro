@@ -30,7 +30,7 @@ SOURCES += main.cpp \
     qtsingleapplication/qtsinglecoreapplication.cpp \
     tnxspooler.cpp
 RESOURCES += nxspooler.qrc
-win32 {
+win32 { 
     # In release mode: disable the debug messages
     CONFIG(release, debug|release):DEFINES += NDEBUG
     

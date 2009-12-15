@@ -113,18 +113,10 @@ void TNxSpooler::open()
        // Note: previously we have made sure that existed m_settings.value("folder")
 
        if (!filterAndSortFolder(folder))
-       {
-          qDebug() << "END" << metaObject()->className() << ":: open AHEAD";
-          return;
-       }
-
-       removeFromOpenListIfDeleted();
-
-       QFileInfoList files = folder.entryInfoList();
-       files.append(subdirFiles(folder));
+           return;
 
        // No continuar en este método si no existen ficheros a tratar
-       if (files.isEmpty())
+       if (folder.count() == 0)
        {
           qDebug() << "END" << metaObject()->className() << ":: open AHEAD";
           return;
@@ -133,21 +125,14 @@ void TNxSpooler::open()
        QStringList arguments;
        bool hasBeenDeleted = false;
        int result = 0;
+       QFileInfoList files = folder.entryInfoList();
 
        // Abrir uno a uno cada fichero y si ha funcionado bien, borrarlo
-       foreach (QFileInfo file, files)
+       foreach(QFileInfo file, files)
        {
-          // The file name is in the open files list
-          if (!m_listOpenFiles->findItems(file.absoluteFilePath(), Qt::MatchExactly).isEmpty())
-          {
-             // As the file was open in a previous iteration, doesn't open it again and go with the next file detected
-             continue;
-          }
-
           arguments.clear();
 
-          // We are using suffix because completeSuffix fails with names like for example "first.second.ext"
-          int i = m_settings.value("exts").toStringList().indexOf(file.suffix());
+          int i = m_settings.value("exts").toStringList().indexOf(file.completeSuffix());
           // This shouldn't happen, but just in case...
           if (i == -1)
           {
@@ -186,39 +171,17 @@ void TNxSpooler::open()
           {
              syst.showWarning(tr("The file \"%1\" could not be opened").arg(file.absoluteFilePath()));
           }
-          else
+
+          // Eliminar el fichero si se ha podido abrir correctamente
+          hasBeenDeleted = folder.remove(file.fileName());
+          if (!hasBeenDeleted)
           {
-             m_listOpenFiles->addItem(file.absoluteFilePath());
+             QString message = tr("2805096 - The file \"%1\" could not be deleted").arg(file.absoluteFilePath());
+             throw runtime_error(message.toStdString());
           }
 
-          // Si la extensión está marcada como borrable, eliminar el fichero si se ha podido abrir correctamente
-          if(m_settings.value("exts_delete").toList().value(i).toBool() == true)
-          {
-             // Its not good delete directories because we can have problems with Explorer or other applications
-             if(file.isFile())
-             {
-                hasBeenDeleted = folder.remove(file.fileName());
-
-
-                if (!hasBeenDeleted)
-                {
-                   QString message = tr("2805096 - The file \"%1\" could not be deleted").arg(file.absoluteFilePath());
-                   throw runtime_error(message.toStdString());
-                }
-
-                // Remove the file name from the open files list
-                if(m_listOpenFiles->count() > 0)
-                {
-                   QListWidgetItem *item = m_listOpenFiles->findItems(file.absoluteFilePath(), Qt::MatchExactly).first();
-                   int fila = m_listOpenFiles->row(item);
-
-                   m_listOpenFiles->takeItem(fila);
-                }
-
-                // Si se pudo abrir y se pudo borrar el fichero, agregarlo al histórico
-                m_listDeletedFiles->addItem(file.absoluteFilePath());
-             }
-          }
+          // Si se pudo abrir y se pudo borrar el fichero, agregarlo al histórico
+          m_listFiles->addItem(file.fileName());
        }
 
        qDebug() << "END" << metaObject()->className() << ":: open";
@@ -231,30 +194,6 @@ void TNxSpooler::open()
    {
       TSystem::exitBecauseException();
    }
-}
-
-
-//!
-/*!
-*/
-QFileInfoList TNxSpooler::subdirFiles(const QDir &folder)
-{
-   QFileInfoList retorno;
-   QFileInfoList lista;
-
-   lista = folder.entryInfoList(QStringList()<<"*", QDir::Dirs);
-
-   foreach(QFileInfo d, lista)
-   {
-      QDir subdir(d.absoluteFilePath());
-
-      if (filterAndSortFolder(subdir, true) && !subdir.entryInfoList().isEmpty())
-      {
-         retorno<<subdir.entryInfoList();
-      }
-   }
-
-   return retorno;
 }
 
 
@@ -378,10 +317,9 @@ void TNxSpooler::openHelp()
    Con esta manera de ordenar nos aseguramos de que el documento que lleva más tiempo esperando es el primero
    en ser abierto.
    \param folder Gestor del directorio
-   \param only_folders Filtrar sólo directorios
    \return Verdadero si el filtrado ha sido realizado correctamente
 */
-bool TNxSpooler::filterAndSortFolder(QDir &folder, bool only_folders) const
+bool TNxSpooler::filterAndSortFolder(QDir &folder) const
 {
    qDebug() << "___" << metaObject()->className() << ":: filterAndSortFolder";
 
@@ -402,17 +340,13 @@ bool TNxSpooler::filterAndSortFolder(QDir &folder, bool only_folders) const
       filters << QString("*.%1").arg(exts.value(i));
    }
 
-   if (only_folders)
-   {
-      folder.setFilter(QDir::Dirs);
-   }
-   else
-   {
-      // Before (thinking only in print documents), we were specifying to open only
-      // files to avoid cases where for example the user creates a folder named "my .pdf",
-      // but having also directories we can upload files to the remote program using a file browser
-      folder.setFilter(QDir::AllEntries|QDir::System);
-   }
+   // An special extension will let us to open a path contained inside
+   // a text file ended with ".open"
+   filters << ".open";
+
+   // We specify to open only files. This is to avoid cases where for example
+   // the user creates a folder named "my .pdf"
+   folder.setFilter(QDir::Files);
 
    folder.setNameFilters(filters);
 
@@ -443,16 +377,6 @@ void TNxSpooler::initializeSettings()
    if (m_settings.value("exts").isNull())
    {
       m_settings.setValue("exts", m_default_formats);
-   }
-
-   // By default, new extensions must be deleted
-   if (m_settings.value("exts_delete").isNull())
-   {
-      QVariantList lista;
-      lista.append(true);
-      lista.append(true);
-      lista.append(true);
-      m_settings.setValue("exts_delete", lista);
    }
 
    // Nota: se permite dejar una ruta de aplicación como una cadena vacía,
@@ -783,19 +707,14 @@ void TNxSpooler::restoreSettings()
        m_settings.setValue("exts", m_default_formats);
 
        QStringList apps;
-       QVariantList exts_delete;
        int quant_elements = m_default_formats.count();
 
        for(int i = 0; i < quant_elements; i++)
        {
           apps.append(getDefaultProgram());
-          exts_delete.append(true);
        }
-
        m_settings.remove("apps");
        m_settings.setValue("apps", apps);
-       m_settings.remove("exts_delete");
-       m_settings.setValue("exts_delete", exts_delete);
 
        m_settings.setValue("resource", m_default_resource);
        m_settings.setValue("folder", m_default_folder);
@@ -814,24 +733,3 @@ void TNxSpooler::restoreSettings()
    }
 }
 
-
-//! If someone has deleted the file from disk, remove the entry from de list of open files.
-/*!
-*/
-void TNxSpooler::removeFromOpenListIfDeleted()
-{
-   QString open_file;
-
-   for (int i = 0; i < m_listOpenFiles->count(); i++)
-   {
-      open_file = m_listOpenFiles->item(i)->text();
-
-
-      if (!QFile::exists(open_file))
-      {
-         int fila = m_listOpenFiles->row(m_listOpenFiles->findItems(open_file, Qt::MatchExactly).first());
-
-         m_listOpenFiles->takeItem(fila);
-      }
-   }
-}

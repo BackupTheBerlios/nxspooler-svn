@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>465</width>
+    <width>450</width>
     <height>449</height>
    </rect>
   </property>
@@ -216,17 +216,9 @@
            <property name="cornerButtonEnabled">
             <bool>false</bool>
            </property>
-           <property name="columnCount">
-            <number>3</number>
-           </property>
            <column>
             <property name="text">
              <string>Extension</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Delete after</string>
             </property>
            </column>
            <column>

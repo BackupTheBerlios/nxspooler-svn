@@ -105,5 +105,4 @@ int main(int argc, char *argv[])
    {
       TSystem::exitBecauseException();
    }
-   return 0;
 }
