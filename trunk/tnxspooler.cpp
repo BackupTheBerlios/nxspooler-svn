@@ -138,7 +138,7 @@ void TNxSpooler::open()
 
          if (file.completeSuffix().prepend(".") == m_special_extension)
          {
-           result = openPathContainedByFile(file.absolutePath());
+           result = openPathContainedByFile(file.absoluteFilePath());
          }
          else
          {
@@ -214,6 +214,8 @@ void TNxSpooler::open()
 */
 int TNxSpooler::openPathContainedByFile(QString file_path)
 {
+   qDebug() << metaObject()->className() << ":: openPathContainedByFile";
+
    QStringList arguments;
    QProcess process(this);
 
@@ -222,8 +224,10 @@ int TNxSpooler::openPathContainedByFile(QString file_path)
    read_file.open(QIODevice::ReadOnly);
    QString line = read_file.readLine();
 
-   // Delete end of file or line feed character
+   // Delete end of file character if we are in Linux
+#ifndef Q_WS_WIN
    line.chop(1);
+#endif
 
    arguments << line;
 
@@ -232,14 +236,18 @@ int TNxSpooler::openPathContainedByFile(QString file_path)
    if (!path_to_check.exists())
    {
       QString message = tr("1512091 - Path \"%1\" doesn't exist").arg(line);
+      syst.showWarning(message);
       return -1;
    }
+
+   qDebug() << "END" << metaObject()->className() << ":: openPathContainedByFile";
 
 #ifdef Q_WS_WIN
       return process.execute("explorer", arguments);
 #else
       return process.execute("xdg-open", arguments);
 #endif
+
 }
 
 

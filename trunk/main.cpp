@@ -105,4 +105,7 @@ int main(int argc, char *argv[])
    {
       TSystem::exitBecauseException();
    }
+
+   // MinGWin wants this line
+   return 0;
 }
