@@ -238,7 +238,7 @@ int TNxSpooler::openPathContainedByFile(QString file_path)
 #ifdef Q_WS_WIN
       return process.execute("explorer", arguments);
 #else
-      return process.execute("dolphin", arguments);
+      return process.execute("xdg-open", arguments);
 #endif
 }
 

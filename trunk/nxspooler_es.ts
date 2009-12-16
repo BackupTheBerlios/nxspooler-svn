@@ -164,62 +164,62 @@
 <context>
     <name>TNxSpooler</name>
     <message>
-        <location filename="tnxspooler.cpp" line="148"/>
+        <location filename="tnxspooler.cpp" line="234"/>
         <source>1512091 - Path &quot;%1&quot; doesn&apos;t exist</source>
         <translation>1512091 - La ruta &quot;%1&quot; no existe</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="162"/>
+        <location filename="tnxspooler.cpp" line="148"/>
         <source>2208097 - Extension not found</source>
         <translation>2208097 - Extensión no encontrada</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="196"/>
+        <location filename="tnxspooler.cpp" line="181"/>
         <source>The file &quot;%1&quot; could not be opened</source>
         <translation>No se pudo abrir el archivo &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="203"/>
+        <location filename="tnxspooler.cpp" line="189"/>
         <source>2805096 - The file &quot;%1&quot; could not be deleted</source>
         <translation>2805096 - No se pudo borrar el archivo &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="274"/>
+        <location filename="tnxspooler.cpp" line="296"/>
         <source>2208095 - Internal error when connecting</source>
         <translation>2208095 - Error interno al conectar</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="284"/>
+        <location filename="tnxspooler.cpp" line="306"/>
         <source>2208096 - Internal error when connecting</source>
         <translation>2208096 - Error interno al conectar</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="562"/>
+        <location filename="tnxspooler.cpp" line="584"/>
         <source>2805099 - The icon of the notification area could not be activated</source>
         <translation>2805099 - No se pudo activar el icono del área de notificación</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="606"/>
+        <location filename="tnxspooler.cpp" line="628"/>
         <source>The folder &quot;%1&quot; does not exist. Do you want to create it?</source>
         <translation>El directorio &quot;%1&quot; no existe. ¿Quiere crearlo?</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="618"/>
+        <location filename="tnxspooler.cpp" line="640"/>
         <source>The folder &quot;%1&quot; was successfully created. Now it must be shared with the name &quot;%2&quot;.</source>
         <translation>La carpeta &quot;%1&quot; ha sido creada con éxito. Ahora debe compartirla con el nombre &quot;%2&quot;.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="625"/>
+        <location filename="tnxspooler.cpp" line="647"/>
         <source>2805093 - The folder &quot;%1&quot; could not be created</source>
         <translation>2805093 - No se pudo crear el directorio &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="652"/>
+        <location filename="tnxspooler.cpp" line="674"/>
         <source>2805094 - The timer could not be activated</source>
         <translation>2805094 - No se pudo activar el temporizador</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="708"/>
+        <location filename="tnxspooler.cpp" line="730"/>
         <source>2805095 - A valid program to open the files could not be found</source>
         <translation>2805095 - No se encuentra un programa adecuado para abrir los ficheros</translation>
     </message>
