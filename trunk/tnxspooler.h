@@ -73,6 +73,7 @@ private:
    QSettings m_settings; //!< Objeto gestor de la configuración del programa (carga y guarda automáticamente)
    TSysTrayIcon m_sys_tray_icon; //!< Gestor del icono de bandeja
    int m_default_interval; //!< Número de segundos del intervalo por defecto
+   QString m_special_extension; //!< A dot followed by the special extension for text files that contains a path inside
    QStringList m_default_formats; //!< Lista de extensiones a incluir en la detección
    QString m_default_resource; //!< Cadena que se mantendrá constante con el nombre de recurso por defecto
    QString m_default_folder; //!< Cadena que se mantendrá constante con la ruta por defecto

@@ -49,6 +49,7 @@ TNxSpooler::TNxSpooler(QWidget *parent)
 
    // Definir los valores predeterminados "constantes"
    m_default_interval = 3;
+   m_special_extension = ".open";
    m_default_formats.append("pdf");
    m_default_formats.append("ods");
    m_default_formats.append("sxc");
@@ -336,19 +337,17 @@ void TNxSpooler::openHelp()
 }
 
 
-//! Reduce el listado a los ficheros con las extensiones deseadas y ordena por hora de modificación.
+//! Filter by extension and sort by modification time.
 /*!
-   Con esta manera de ordenar nos aseguramos de que el documento que lleva más tiempo esperando es el primero
-   en ser abierto.
-   \param folder Gestor del directorio
-   \return Verdadero si el filtrado ha sido realizado correctamente
+  Case sensitive will not be applied to extensions both to Linux and Windows.
+  Older files go first.
+   \param folder Folder manager object
+   \return true if all went well
 */
 bool TNxSpooler::filterAndSortFolder(QDir &folder) const
 {
    qDebug() << "___" << metaObject()->className() << ":: filterAndSortFolder";
 
-   // Tratar sólo ciertos tipos de ficheros mediante un filtro.
-   // Tanto en Windows como en Linux no diferenciará mayúsculas de minúsculas.
    QStringList filters;
    QStringList exts = m_settings.value("exts").toStringList();
    int quant_exts = exts.count();
@@ -357,7 +356,9 @@ bool TNxSpooler::filterAndSortFolder(QDir &folder) const
    // of NxSpooler and deletes all the extensions listed and then
    // NxSpooler would try to open everything
    if (quant_exts == 0)
+   {
       return false;
+   }
 
    for(int i = 0; i < quant_exts; i++)
    {
@@ -365,8 +366,8 @@ bool TNxSpooler::filterAndSortFolder(QDir &folder) const
    }
 
    // An special extension will let us to open a path contained inside
-   // a text file ended with ".open"
-   filters << "*.open";
+   // a text file ended with the m_special_extension
+   filters << "*" + m_special_extension;
 
    // We specify to open only files. This is to avoid cases where for example
    // the user creates a folder named "my .pdf"
