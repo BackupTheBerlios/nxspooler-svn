@@ -98,8 +98,9 @@ TNxSpooler::~TNxSpooler()
 }
 
 
-//! Abre y borra los archivos con extensión deseada que se encuentra.
+//! Open and delete the files to be detected.
 /*!
+  Files with the special extensions will contain a path to be open.
 */
 void TNxSpooler::open()
 {
@@ -116,7 +117,7 @@ void TNxSpooler::open()
       if (!filterAndSortFolder(folder))
          return;
 
-      // No continuar en este método si no existen ficheros a tratar
+      // Exit from this function if nothing must be done
       if (folder.count() == 0)
       {
          qDebug() << "END" << metaObject()->className() << ":: open AHEAD";
@@ -128,32 +129,16 @@ void TNxSpooler::open()
       int result = 0;
       QFileInfoList files = folder.entryInfoList();
 
-      // Abrir uno a uno cada fichero y si ha funcionado bien, borrarlo
+      // Open files one by one. If all worked well, delete them too
       foreach(QFileInfo file, files)
       {
          arguments.clear();
 
          int i = m_settings.value("exts").toStringList().indexOf(file.completeSuffix());
 
-         if (file.completeSuffix() == "open")
+         if (file.completeSuffix().prepend(".") == m_special_extension)
          {
-            QProcess process(this);
-            QFile read_file(file.filePath());
-            read_file.open(QIODevice::ReadOnly);
-            QString line = read_file.readLine();
-            line.chop(1);
-            arguments << line;
-            QDir path_to_check(line);
-            if (!path_to_check.exists())
-            {
-               QString message = tr("1512091 - Path \"%1\" doesn't exist").arg(line);
-               throw runtime_error(message.toStdString());
-            }
-#ifdef Q_WS_WIN
-            result = process.execute("explorer", arguments);
-#else
-            result = process.execute("dolphin", arguments);
-#endif
+           result = openPathContainedByFile(file.absolutePath());
          }
          else
          {
@@ -188,13 +173,13 @@ void TNxSpooler::open()
                result = process.execute(app, arguments);
             }
 #endif
-         }
 
-         // La apertura puede fallar en el caso de que el fichero esté todavía a mitad de generarse
-         // It also happens if the user didn't specify a valid application to open a file with that extension
-         if (result != 0)
-         {
-            syst.showWarning(tr("The file \"%1\" could not be opened").arg(file.absoluteFilePath()));
+            // La apertura puede fallar en el caso de que el fichero esté todavía a mitad de generarse
+            // It also happens if the user didn't specify a valid application to open a file with that extension
+            if (result != 0)
+            {
+               syst.showWarning(tr("The file \"%1\" could not be opened").arg(file.absoluteFilePath()));
+            }
          }
 
          // Eliminar el fichero si se ha podido abrir correctamente
@@ -222,7 +207,43 @@ void TNxSpooler::open()
 }
 
 
-//! Muestra información sobre el programa, los autores y la licencia.
+//!
+/*!
+  \param path Special file path
+  \return 0 if all went well
+*/
+int TNxSpooler::openPathContainedByFile(QString file_path)
+{
+   QStringList arguments;
+   QProcess process(this);
+
+   // Read path from file
+   QFile read_file(file_path);
+   read_file.open(QIODevice::ReadOnly);
+   QString line = read_file.readLine();
+
+   // Delete end of file or line feed character
+   line.chop(1);
+
+   arguments << line;
+
+   // Check that the path read from file exists
+   QDir path_to_check(line);
+   if (!path_to_check.exists())
+   {
+      QString message = tr("1512091 - Path \"%1\" doesn't exist").arg(line);
+      return -1;
+   }
+
+#ifdef Q_WS_WIN
+      return process.execute("explorer", arguments);
+#else
+      return process.execute("dolphin", arguments);
+#endif
+}
+
+
+//! Show information about the application, authors and license.
 /*!
 */
 void TNxSpooler::openAboutNxSpooler()

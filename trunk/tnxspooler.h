@@ -53,6 +53,7 @@ public:
 
 private slots:
    void open();
+   int openPathContainedByFile(QString file_path);
    void openAboutNxSpooler();
    void openOptions();
    void openHelp();
