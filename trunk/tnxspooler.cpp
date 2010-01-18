@@ -134,9 +134,9 @@ void TNxSpooler::open()
       {
          arguments.clear();
 
-         int i = m_settings.value("exts").toStringList().indexOf(file.completeSuffix());
+         int i = m_settings.value("exts").toStringList().indexOf(file.suffix());
 
-         if (file.completeSuffix().prepend(".") == m_special_extension)
+         if (file.suffix().prepend(".") == m_special_extension)
          {
            result = openPathContainedByFile(file.absoluteFilePath());
          }
