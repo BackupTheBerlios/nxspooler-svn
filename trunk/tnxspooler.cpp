@@ -224,15 +224,11 @@ int TNxSpooler::openPathContainedByFile(QString file_path)
    read_file.open(QIODevice::ReadOnly);
    QString line = read_file.readLine();
 
+   // Try to adapt the path to running system
 #ifdef Q_WS_WIN
-   // Try to adapt the path to current system
    line.replace("smb:", "");
    line.replace("/", QDir::separator());
 #else
-   // Delete end of file character if we are in Linux
-   line.chop(1);
-
-   // Try to adapt the path to current system
    line.replace("\\", QDir::separator());
    line.replace("//", "smb://");
 #endif
@@ -248,7 +244,7 @@ int TNxSpooler::openPathContainedByFile(QString file_path)
 //      syst.showWarning(message);
 //      return -1;
 //   }
-
+qDebug()<<line;
    qDebug() << "END" << metaObject()->className() << ":: openPathContainedByFile";
 
 #ifdef Q_WS_WIN
