@@ -224,21 +224,30 @@ int TNxSpooler::openPathContainedByFile(QString file_path)
    read_file.open(QIODevice::ReadOnly);
    QString line = read_file.readLine();
 
+#ifdef Q_WS_WIN
+   // Try to adapt the path to current system
+   line.replace("smb:", "");
+   line.replace("/", QDir::separator());
+#else
    // Delete end of file character if we are in Linux
-#ifndef Q_WS_WIN
    line.chop(1);
+
+   // Try to adapt the path to current system
+   line.replace("\\", QDir::separator());
+   line.replace("//", "smb://");
 #endif
 
    arguments << line;
 
+   // Due to the path format "smb://..." we can't check the existence before try to open it
    // Check that the path read from file exists
-   QDir path_to_check(line);
-   if (!path_to_check.exists())
-   {
-      QString message = tr("1512091 - Path \"%1\" doesn't exist").arg(line);
-      syst.showWarning(message);
-      return -1;
-   }
+//   QDir path_to_check(line);
+//   if (!path_to_check.exists())
+//   {
+//      QString message = tr("1512091 - Path \"%1\" doesn't exist").arg(line);
+//      syst.showWarning(message);
+//      return -1;
+//   }
 
    qDebug() << "END" << metaObject()->className() << ":: openPathContainedByFile";
 
