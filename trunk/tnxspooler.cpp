@@ -159,6 +159,35 @@ void TNxSpooler::open()
             arguments << QDir::toNativeSeparators(file.absoluteFilePath());
             QProcess process(this);
 
+            // For avoiding the problem of having a file still being formed
+            // and trying to open it, we'll wait until it has a stable size
+
+            file.setCaching(false); // To try to read the current information about the file
+            qint64 file_size_in_instant_1, file_size_in_instant_2;
+
+            do
+            {
+               // Get the size
+               file_size_in_instant_1 = file.size();
+
+               // Miliseconds to wait
+               const int ms = 750;
+
+               // Note: code from the "qtlocalpeer.cpp" file that came with the source code of NxSpooler
+#if defined(Q_OS_WIN)
+               Sleep(DWORD(ms));
+#else
+               struct timespec ts = { ms / 1000, (ms % 1000) * 1000 * 1000 };
+               nanosleep(&ts, NULL);
+#endif
+
+               // Refresh the information that we have about the file
+               file.refresh();
+
+               file_size_in_instant_2 = file.size();
+            } while (file_size_in_instant_1 != file_size_in_instant_2);
+
+            // Try to open the file
 #ifdef Q_WS_WIN
             result = process.execute("cmd", arguments);
 #else
@@ -174,8 +203,8 @@ void TNxSpooler::open()
             }
 #endif
 
-            // La apertura puede fallar en el caso de que el fichero esté todavía a mitad de generarse
-            // It also happens if the user didn't specify a valid application to open a file with that extension
+            // The opening can fail, for example, if the user didn't specify a valid application to open
+            // a file with that extension
             if (result != 0)
             {
                syst.showWarning(tr("The file \"%1\" could not be opened").arg(file.absoluteFilePath()));
