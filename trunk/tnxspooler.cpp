@@ -49,7 +49,7 @@ TNxSpooler::TNxSpooler(QWidget *parent)
 
    // Definir los valores predeterminados "constantes"
    m_default_interval = 3;
-   m_special_extension = ".open";
+   m_special_extension = ".open"; // A special extension for files that contain a path to be opened by NxSpooler
    m_default_formats.append("pdf");
    m_default_formats.append("ods");
    m_default_formats.append("sxc");
@@ -190,7 +190,7 @@ void TNxSpooler::open()
             throw runtime_error(message.toStdString());
          }
 
-         // Si se pudo abrir y se pudo borrar el fichero, agregarlo al histórico
+         // If the file could be opened and deleted, add id to the list of opened files
          m_listFiles->addItem(file.fileName());
       }
 
