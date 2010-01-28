@@ -27,7 +27,7 @@
    <item>
     <widget class="QLabel" name="m_label_2">
      <property name="text">
-      <string>Files opened and deleted by NxSpooler until now</string>
+      <string>Files opened and deleted by NxSpooler</string>
      </property>
     </widget>
    </item>
@@ -49,7 +49,7 @@
       <string>Files that have been opened and deleted during the execution of NxSpooler</string>
      </property>
      <property name="whatsThis">
-      <string>Files that have been opened and deleted during the execution of NxSpooler.</string>
+      <string>Files that have been opened and deleted during the execution of NxSpooler</string>
      </property>
     </widget>
    </item>

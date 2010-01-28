@@ -29,13 +29,14 @@
     <name>NxSpooler</name>
     <message>
         <location filename="nxspooler.ui" line="30"/>
-        <source>Files opened and deleted by NxSpooler until now</source>
-        <translation>Archivos abiertos y borrados por NxSpooler hasta ahora</translation>
+        <source>Files opened and deleted by NxSpooler</source>
+        <translation>Archivos abiertos y borrados por NxSpooler</translation>
     </message>
     <message>
+        <location filename="nxspooler.ui" line="49"/>
         <location filename="nxspooler.ui" line="52"/>
-        <source>Files that have been opened and deleted during the execution of NxSpooler.</source>
-        <translation>Archivos abiertos y eliminados durante la ejecución de NxSpooler.</translation>
+        <source>Files that have been opened and deleted during the execution of NxSpooler</source>
+        <translation>Archivos que han sido abiertos y eliminados durante la ejecución de NxSpooler.</translation>
     </message>
     <message>
         <location filename="nxspooler.ui" line="74"/>
@@ -72,11 +73,6 @@
         <location filename="nxspooler.ui" line="110"/>
         <source>Hide this window</source>
         <translation>Ocultar esta ventana</translation>
-    </message>
-    <message>
-        <location filename="nxspooler.ui" line="49"/>
-        <source>Files that have been opened and deleted during the execution of NxSpooler</source>
-        <translation>Archivos abiertos y eliminados durante la ejecución de NxSpooler</translation>
     </message>
     <message>
         <location filename="nxspooler.ui" line="103"/>
@@ -168,57 +164,57 @@
         <translation type="obsolete">1512091 - La ruta &quot;%1&quot; no existe</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="148"/>
+        <location filename="tnxspooler.cpp" line="158"/>
         <source>2208097 - Extension not found</source>
         <translation>2208097 - Extensión no encontrada</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="181"/>
-        <source>The file &quot;%1&quot; could not be opened</source>
-        <translation>No se pudo abrir el archivo &quot;%1&quot;</translation>
-    </message>
-    <message>
-        <location filename="tnxspooler.cpp" line="189"/>
+        <location filename="tnxspooler.cpp" line="243"/>
         <source>2805096 - The file &quot;%1&quot; could not be deleted</source>
         <translation>2805096 - No se pudo borrar el archivo &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="309"/>
+        <location filename="tnxspooler.cpp" line="227"/>
+        <source>The file &quot;%1&quot; could not be opened. Sometimes this error happens because the system cannot find the program specified in the configuration of NxSpooler to open files with that extension. The file is going to be deleted when you close this dialog window.</source>
+        <translation>El archivo &quot;%1&quot; no pudo ser abierto. Algunas veces este error sucede porque el sistema no puede encontrar el programa especificado en la configuración de NxSpooler para abrir archivos con esa extensión. El archivo va a ser borrado cuando usted cierre este cuadro de diálogo.</translation>
+    </message>
+    <message>
+        <location filename="tnxspooler.cpp" line="364"/>
         <source>2208095 - Internal error when connecting</source>
         <translation>2208095 - Error interno al conectar</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="319"/>
+        <location filename="tnxspooler.cpp" line="374"/>
         <source>2208096 - Internal error when connecting</source>
         <translation>2208096 - Error interno al conectar</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="597"/>
+        <location filename="tnxspooler.cpp" line="652"/>
         <source>2805099 - The icon of the notification area could not be activated</source>
         <translation>2805099 - No se pudo activar el icono del área de notificación</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="641"/>
+        <location filename="tnxspooler.cpp" line="696"/>
         <source>The folder &quot;%1&quot; does not exist. Do you want to create it?</source>
         <translation>El directorio &quot;%1&quot; no existe. ¿Quiere crearlo?</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="653"/>
+        <location filename="tnxspooler.cpp" line="708"/>
         <source>The folder &quot;%1&quot; was successfully created. Now it must be shared with the name &quot;%2&quot;.</source>
         <translation>La carpeta &quot;%1&quot; ha sido creada con éxito. Ahora debe compartirla con el nombre &quot;%2&quot;.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="660"/>
+        <location filename="tnxspooler.cpp" line="715"/>
         <source>2805093 - The folder &quot;%1&quot; could not be created</source>
         <translation>2805093 - No se pudo crear el directorio &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="687"/>
+        <location filename="tnxspooler.cpp" line="742"/>
         <source>2805094 - The timer could not be activated</source>
         <translation>2805094 - No se pudo activar el temporizador</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="743"/>
+        <location filename="tnxspooler.cpp" line="798"/>
         <source>2805095 - A valid program to open the files could not be found</source>
         <translation>2805095 - No se encuentra un programa adecuado para abrir los ficheros</translation>
     </message>
@@ -1715,25 +1711,6 @@ Note: to print a report, Bulmages 0.12 first saves it (normally in PDF format) o
       - NxSpooler has to be running in the computer of the user, of course :-).
  
 This way: the files of the reports that Bulmages makes in the server  will be opened in the client computer, where the user can print them, save them, send them by email, etc.</source>
-        <oldsource>Example of configuration of the system for NxSpooler, in this case for working with a program called Bulmages that is executed on the server.
-
-Note: to print a report, Bulmages 0.12 first saves it (normally in PDF format) on a folder and then it asks the system that the file is opened; working with FreeNX we want that Bulmages saves the file but in the computer of the user, that Bulmages opens nothing and that NxSpooler opens the file but in the computer of the user.
-
-* The first time:
-   + In the server:
-      -  To achieve that Bulmages 0.12 does not open PDF, ODS and SCX files in the server (because they have to be opened in the computer of the user): edit /etc/bulmages/bulmages.conf and put the value &quot;echo&quot; in the parameters CONF_PDF. CONF_ODS and CONF_SXC.
-      - Note: the user that is going to be connected has to have his own $HOME in the server.
- 
-   + In the client computer:
-      - In Linux: share (using Samba) the folder $HOME/.bulmages as &quot;bulmages&quot;, using a particular password and username.
-      - In Windows: share the folder %UserProfile%\.bulmages as &quot;bulmages$&quot;, using a particular password and username.
-      - Note: when sharing, you must be sure that the particular username that will be used to access to the shared resource has permissions to write on it.
-      - Configure the NX client program so that the connection normally used to access to the FreeNX server  grants the server access to the shared resource that we talked about. For example, in the Linux program called &quot;nx client&quot; you can go to a tab called &quot;Services&quot;, click on the checkbox &quot;enable SMB printing and file sharing&quot; and click on &quot;Add&quot; to add the resource &quot;bulmages&quot;, configure that the mount point in the server is ~/.bulmages so that Bulmages uses it in a natural way in the remote session; enter the particular password and username.
-
-* Every time the user starts the FreeNX session:
-      - NxSpooler has to be running in the computer of the user, of course :-).
- 
-This way: the files of the reports that Bulmages makes in the server  will be opened in the client computer, where the user can print them, save them, send them by email, etc.</oldsource>
         <translation>Ejemplo de configuración del sistema para NxSpooler, en este caso para trabajar con un programa llamado Bulmagés que se ejecuta en el servidor.
 
 Nota: para imprimir un informe, Bulmages 0.12 primero lo guarda (normalmente en formato PDF) en una carpeta y entonces pide al sistema que abra el archivo; trabajando con FreeNX queremos que Bulmages guarde el archivo pero en el ordenador del usuario, que Bulmages no abra nada y que NxSpooler abra el archivo pero en el ordenador del usuario.

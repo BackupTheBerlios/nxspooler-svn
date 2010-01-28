@@ -98,7 +98,7 @@ TNxSpooler::~TNxSpooler()
 }
 
 
-//! Open and delete the files to be detected.
+//! The files to be detected are opened and deleted (if possible)
 /*!
   Files with the special extensions will contain a path to be open.
 */
@@ -124,15 +124,25 @@ void TNxSpooler::open()
          return;
       }
 
-      QStringList arguments;
-      bool hasBeenDeleted = false;
+      // Stores the result of some operations
       int result = 0;
+
+      // Stores the arguments to some callings
+      QStringList arguments;
+
+      // Boolean variables to know what could be done with the file
+      bool fileHasBeenOpened;
+      bool fileHasBeenDeleted;
+
       QFileInfoList files = folder.entryInfoList();
 
-      // Open files one by one. If all worked well, delete them too
+      // Try to open the files one by one and delete them
       foreach(QFileInfo file, files)
       {
+         // Initialize variables
          arguments.clear();
+         fileHasBeenOpened = false;
+         fileHasBeenDeleted = false;
 
          int i = m_settings.value("exts").toStringList().indexOf(file.suffix());
 
@@ -173,7 +183,7 @@ void TNxSpooler::open()
                // Miliseconds to wait
                const int ms = 750;
 
-               // Note: code from the "qtlocalpeer.cpp" file that came with the source code of NxSpooler
+               // Note: this code is from the "qtlocalpeer.cpp" file that came with the source code of NxSpooler
 #if defined(Q_OS_WIN)
                Sleep(DWORD(ms));
 #else
@@ -200,6 +210,13 @@ void TNxSpooler::open()
             else
             {
                result = process.execute(app, arguments);
+               /* Code used to debug the "process.execute"
+               QString tmp = QString("Result = %1. Using \"%2").arg(result).arg(app);
+
+               for (int i = 0; i < arguments.size(); i++)
+                  tmp += " " + arguments.at(i);
+               tmp += "\"";
+               syst.showWarning(tmp, "RESULT"); */
             }
 #endif
 
@@ -207,20 +224,29 @@ void TNxSpooler::open()
             // a file with that extension
             if (result != 0)
             {
-               syst.showWarning(tr("The file \"%1\" could not be opened").arg(file.absoluteFilePath()));
+               syst.showWarning(tr("The file \"%1\" could not be opened. Sometimes this error happens because the system "
+                                   "cannot find the program specified in the configuration of NxSpooler to open files "
+                                   "with that extension. The file is going to be deleted when you close this dialog window.")
+                                   .arg(file.absoluteFilePath()).arg(file.absoluteFilePath()));
+               fileHasBeenOpened = false;
             }
+            else
+               fileHasBeenOpened = true;
          }
 
-         // Eliminar el fichero si se ha podido abrir correctamente
-         hasBeenDeleted = folder.remove(file.fileName());
-         if (!hasBeenDeleted)
+         // Try to delete the file
+         fileHasBeenDeleted = folder.remove(file.fileName());
+         if (fileHasBeenDeleted == false)
          {
+            // If the file couldn't be deleted, there's an external problem
+            // and NxSpooler stops trying to open and delete all the files in its folder
             QString message = tr("2805096 - The file \"%1\" could not be deleted").arg(file.absoluteFilePath());
             throw runtime_error(message.toStdString());
          }
 
-         // If the file could be opened and deleted, add id to the list of opened files
-         m_listFiles->addItem(file.fileName());
+         // Add the file to the list of opened and deleted files by NxSpooler
+         // Note: in this moment, the file has been deleted so there is no mention of it
+         m_listFiles->addItem(fileHasBeenOpened?file.fileName():file.fileName()+" (errors when opening)");
       }
 
       qDebug() << "END" << metaObject()->className() << ":: open";
