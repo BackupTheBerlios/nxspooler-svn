@@ -199,7 +199,7 @@ void TNxSpooler::open()
 
             // Try to open the file
 #ifdef Q_WS_WIN
-            result = process.execute("cmd", arguments);
+            op_result = process.execute("cmd", arguments);
 #else
             // Si estamos en Linux y el usuario ha dejado en blanco el nombre de la aplicación de apertura,
             // usar la que se encuentre en este momento respetando ese ajuste vacío
