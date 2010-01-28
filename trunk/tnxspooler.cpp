@@ -37,8 +37,8 @@
    aspectos de un objeto TNxSpooler.
    \param parent Si no se especifica, el objeto TNxSpooler será una ventana independiente
 */
-TNxSpooler::TNxSpooler(QWidget *parent)
-   : QDialog(parent)
+TNxSpooler::TNxSpooler(QWidget *qwidget_parent)
+   : QDialog(qwidget_parent)
 {
    qDebug() << "___" << metaObject()->className() << ":: TNxSpooler";
 
@@ -125,7 +125,7 @@ void TNxSpooler::open()
       }
 
       // Stores the result of some operations
-      int result = 0;
+      int op_result = 0;
 
       // Stores the arguments to some callings
       QStringList arguments;
@@ -148,7 +148,7 @@ void TNxSpooler::open()
 
          if (file.suffix().prepend(".") == m_special_extension)
          {
-           result = openPathContainedByFile(file.absoluteFilePath());
+            op_result = openPathContainedByFile(file.absoluteFilePath());
          }
          else
          {
@@ -205,24 +205,24 @@ void TNxSpooler::open()
             // usar la que se encuentre en este momento respetando ese ajuste vacío
             if (app.isEmpty())
             {
-               result = process.execute(getDefaultProgramInLinux(), arguments);
+               op_result = process.execute(getDefaultProgramInLinux(), arguments);
             }
             else
             {
-               result = process.execute(app, arguments);
+               op_result = process.execute(app, arguments);
                /* Code used to debug the "process.execute"
-               QString tmp = QString("Result = %1. Using \"%2").arg(result).arg(app);
+               QString tmp = QString("Op_result = %1. Using \"%2").arg(op_result).arg(app);
 
-               for (int i = 0; i < arguments.size(); i++)
-                  tmp += " " + arguments.at(i);
+               for (int index = 0; index < arguments.size(); index++)
+                  tmp += " " + arguments.at(index);
                tmp += "\"";
-               syst.showWarning(tmp, "RESULT"); */
+               syst.showWarning(tmp, "Result of the operation"); */
             }
 #endif
 
             // The opening can fail, for example, if the user didn't specify a valid application to open
             // a file with that extension
-            if (result != 0)
+            if (op_result != 0)
             {
                syst.showWarning(tr("The file \"%1\" could not be opened. Sometimes this error happens because the system "
                                    "cannot find the program specified in the configuration of NxSpooler to open files "

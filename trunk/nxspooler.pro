@@ -43,3 +43,6 @@ CONFIG(release, debug|release):DEFINES += QT_NO_DEBUG_OUTPUT
 # The QtSingleApplication indirectly uses the network library
 QT *= network
 TRANSLATIONS = nxspooler_es.ts
+
+QMAKE_CXXFLAGS +=  -pedantic -ansi -W -Wall -Wshadow -fno-common -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -fshort-enums -Wno-long-long
+# //  Seguim les normes de http://www.physics.ohio-state.edu/~ntg/780/gsl_examples/recommended_C++_options menys les opcions de -g i -Werror ( abans només usavem -pedantic -ansi -W -Wall ). Apart també usem -Wno-long-long .

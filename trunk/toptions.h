@@ -31,7 +31,7 @@ class TOptions : public QDialog, private Ui::optionsDialog
    Q_OBJECT
 
 public:
-   TOptions(QSettings *settings, QWidget *parent = 0);
+   TOptions(QSettings *settings, QWidget *qwidget_parent = 0);
    ~TOptions();
 
 public slots:

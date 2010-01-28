@@ -27,8 +27,8 @@
 //! Constructor.
 /*!
 */
-TOptions::TOptions(QSettings *settings, QWidget *parent)
-      : QDialog(parent)
+TOptions::TOptions(QSettings *settings, QWidget *qwidget_parent)
+      : QDialog(qwidget_parent)
       , m_settings(settings)
 {
    qDebug() << "___" << metaObject()->className() << ":: TOptions";

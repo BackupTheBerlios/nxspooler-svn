@@ -48,7 +48,7 @@ class TNxSpooler : public QDialog, private Ui::NxSpooler
    Q_OBJECT
 
 public:
-   TNxSpooler(QWidget *parent = 0);
+   TNxSpooler(QWidget *qwidget_parent = 0);
    ~TNxSpooler();
 
 private slots:
