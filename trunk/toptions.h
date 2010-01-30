@@ -45,10 +45,10 @@ private slots:
    void on_m_find_path_clicked();
 
 private:
-   QSettings *m_settings; //!< Objeto gestor de la configuración del programa (carga y guarda automáticamente)
+   QSettings *m_settings; //!< Object that manages (loads and saves automatically) the configuration of NxSpooler
 
 signals:
-   void pushedRestore(); //!< Se activará esta señal cuando el botón de restaurar sea pulsado
+   void pushedRestore(); //!< This signal will be restored when the restore button is pushed
 };
 
 #endif

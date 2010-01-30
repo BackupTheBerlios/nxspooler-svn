@@ -34,7 +34,7 @@
 #include "toptions.h"
 #include "tsystem.h"
 
-// Si estamos en Windows, usaremos la función system() de la librería stdlib.h
+// Under Windows, the system() function of the library stdlib.h will be used
 #ifdef Q_WS_WIN
 #include <stdlib.h>
 #endif
@@ -71,14 +71,14 @@ private:
    QString getDefaultProgram() const;
    QString getDefaultProgramInLinux() const;
 
-   QSettings m_settings; //!< Objeto gestor de la configuración del programa (carga y guarda automáticamente)
-   TSysTrayIcon m_sys_tray_icon; //!< Gestor del icono de bandeja
-   int m_default_interval; //!< Número de segundos del intervalo por defecto
-   QString m_special_extension; //!< A dot followed by the special extension for text files that contains a path inside
-   QStringList m_default_formats; //!< Lista de extensiones a incluir en la detección
-   QString m_default_resource; //!< Cadena que se mantendrá constante con el nombre de recurso por defecto
-   QString m_default_folder; //!< Cadena que se mantendrá constante con la ruta por defecto
-   QTimer m_timer; //!< Objeto que llamará a abrir() a intervalos de tiempo regulares
+   QSettings m_settings; //!< Object that manages (loads and saves automatically) the configuration of the program
+   TSysTrayIcon m_sys_tray_icon; //!< Object that manages the system tray icon
+   int m_default_interval; //!< Default quantity of seconds to wait
+   QString m_special_extension; //!< A dot followed by the special extension for text files that contain a path inside
+   QStringList m_default_formats; //!< List of extensions that will have the files to detect
+   QString m_default_resource; //!< Constant string of the name of the default resource
+   QString m_default_folder; //!< Constant string of the name of the default local folder to monitor
+   QTimer m_timer; //!< Object that will call open() every X seconds
 
 signals:
    void settingsRestored();

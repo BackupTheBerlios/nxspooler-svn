@@ -19,14 +19,14 @@
 
 /*!
    \class TSystem
-   \brief Ofrece funciones que pueden usarse desde cualquier objecto del programa.
+   \brief Offers services that can be used from any object of the program.
 */
 
 #include "tsystem.h"
 
 //! Constructor.
 /*!
-  Será un objeto global.
+  It will be a global object.
 */
 TSystem::TSystem()
 {
@@ -47,10 +47,10 @@ TSystem::~TSystem()
 }
 
 
-//! Muestra una pregunta y pide que al usuario que acepte o cancele.
+//! Shows a question and asks the user to accept or cancel.
 /*!
-   \param message Pregunta para el usuario
-   \return Verdadero si el usuario pulsa el botón de aceptar
+   \param message Question for the user
+   \return True if the user clicks in the accept button
 */
 bool TSystem::confirm(const QString &message) const
 {
@@ -65,14 +65,14 @@ bool TSystem::confirm(const QString &message) const
 }
 
 
-//! Devuelve true si existe el programa cuyo nombre de ejecutable se recibe.
+//! Receives a program name (or a path) as an argument and returns if it exists or not.
 /*!
-   Si se recibe una ruta, se comprueba su existencia.
-   Si se recibe un nombre de ejecutable, se comprueba si está en el PATH.
-   Como NxSpooler permite almacenar el programa como una cadena vacía,
-   con un nombre vacío se retornará true.
-   \param name Ruta o nombre de un ejecutable
-   \return Valor true si el programa existe en la ruta o está en el PATH
+   If it receives a path, it checks if it exists.
+   If it receives a program name, it checks it's accessible directly or using the "path" string.
+   As NxSpooler allows an empty string as a program name,
+   with a passed empty name it will return "true".
+   \param name Path or a program name
+   \return The value "true" if the program (or path) exists or if the program is accessible using the "path" string
 */
 bool TSystem::existsProgram(const QString &name) const
 {
@@ -84,28 +84,28 @@ bool TSystem::existsProgram(const QString &name) const
       return true;
    }
 
-   // Según la plataforma, usar un comando u otro para realizar la detección
-   QString comando;
+   // Depending on the platform, use an order or another to do the detection
+   QString command;
 #ifdef Q_WS_WIN
-   comando = QString("dir \"%1\" >nul").arg(name);
+   command = QString("dir \"%1\" >nul").arg(name);
 #else
-   comando = QString("which \"%1\" >/dev/null").arg(name);
+   command = QString("which \"%1\" >/dev/null").arg(name);
 #endif
 
-   int resultado;
-   // Según la plataforma, ejecutar el comando de detección con una u otra codificación
+   int system_result;
+   // Depending on the platform, use the detection order with one codificaton or another
 #ifdef Q_WS_WIN
-   resultado = system(comando.toLatin1());
+   system_result = system(command.toLatin1());
 #else
-   resultado = system(comando.toUtf8());
+   system_result = system(command.toUtf8());
 #endif
 
    qDebug() << "END" << metaObject()->className() << ":: existsProgram";
-   return (resultado == 0);
+   return (system_result == 0);
 }
 
 
-// Muestra un mensaje de aviso al usuario (el usuario sólo puede continuar).
+//! Shows a warning message to the user (he can only continue).
 /*!
    \param message Warning message that is shown to the user
    \param windowTitle The title that appears in the window
@@ -127,7 +127,7 @@ void TSystem::showWarning(const QString &message, const QString &windowTitle) co
 }
 
 
-// Muestra un mensaje de error al usuario.
+//! Shows an error message to the user.
 /*!
    \param message Error message that is shown to the user
    \param windowTitle The title that appears in the window
@@ -149,7 +149,7 @@ void TSystem::showError(const QString &message, const QString &windowTitle) cons
 }
 
 
-//! Se sale del programa debido a una excepción
+//! Quit the program due to an exception.
 /*!
 */
 void
@@ -162,7 +162,7 @@ TSystem::exitBecauseException(std::exception &excep)
 }
 
 
-//! Se sale del programa debido a una excepción
+//! Quit the program due to a unidentified exception.
 /*!
 */
 void

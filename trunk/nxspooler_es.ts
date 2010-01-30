@@ -160,10 +160,6 @@
 <context>
     <name>TNxSpooler</name>
     <message>
-        <source>1512091 - Path &quot;%1&quot; doesn&apos;t exist</source>
-        <translation type="obsolete">1512091 - La ruta &quot;%1&quot; no existe</translation>
-    </message>
-    <message>
         <location filename="tnxspooler.cpp" line="158"/>
         <source>2208097 - Extension not found</source>
         <translation>2208097 - Extensión no encontrada</translation>

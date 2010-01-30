@@ -19,15 +19,15 @@
 
 /*!
    \class TSysTrayIcon
-   \brief Gestiona un icono de bandeja forzando que se oculte en su destrucción.
+   \brief Manages a system tray icon that hides when it's going to be destroyed.
 
-   Con Qt4.5, cuando un programa con icono en bandeja termina abrutamente,
-   se queda un icono de bandeja fantasma que suele desaparecer al pasar el ratón sobre él.
+   With Qt4.5, when a program with an icon in the system tray finishes suddenly, it leaves
+   a phantom icon in the system tray that uses to disappear when passing the mouse over it.
 */
 
 #include "tsystrayicon.h"
 
-//! Constructor sin parámetros
+//! Constructor without parameters
 /*!
 */
 TSysTrayIcon::TSysTrayIcon()
@@ -40,7 +40,7 @@ TSysTrayIcon::TSysTrayIcon()
 
 //! Destructor
 /*!
-  Ocultar el icono al terminar.
+  Hide the icon when finishing.
 */
 TSysTrayIcon::~TSysTrayIcon()
 {

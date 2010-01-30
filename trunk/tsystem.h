@@ -17,8 +17,7 @@
 *  along with NxSpooler. If not, see http://www.gnu.org/copyleft/gpl.html.
 *****************************************************************************/
 
-// Librería genérica de uso global en todo el proyecto.
-// Inclusiones, definiciones y una clase para la gestión errores.
+// Class to provide services common to several parts of the program, like methods, definitions, a class to manage errors, etc.
 
 #ifndef T_SYSTEM_H
 #define T_SYSTEM_H
@@ -49,8 +48,8 @@ public:
 };
 
 
-// Permitir que cualquier objeto que acceda a esta cabecera
-// pueda usar el objeto global que crearemos en el fichero main.cpp
+// Allow that any object that has access to this header
+// can use the global object that will be created in the main.cpp file
 extern TSystem syst;
 
 #endif

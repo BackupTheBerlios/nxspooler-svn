@@ -23,16 +23,12 @@
 #include "tnxspooler.h"
 #include "qtsingleapplication/qtsingleapplication.h"
 
-// Note: Although the names of files, variables and classes are in English
-// and the source code is pretty self-explanatory, most of the remarks are
-// still in Spanish due to the origin of this program. Feel free to
-// translate to English and change what you want and send the modified files
-// to the project; to do this you can visit http://developer.berlios.de/projects/nxspooler/
+// Feel free to improve NxSpooler and visit http://developer.berlios.de/projects/nxspooler/
 
-// Objeto global para uso de características comunes
+// Global object to provide services common to several parts of the program
 TSystem syst;
 
-// Este programa funciona en Linux, en Windows y posiblemente en otros sistemas operativos
+// This programs works in Linux, in Windows and probably in other operating systems
 int main(int argc, char *argv[])
 {
    try
@@ -54,7 +50,7 @@ int main(int argc, char *argv[])
       a.setApplicationName("NxSpooler");
       a.setApplicationVersion("0.2");
 
-      // Ponemos en marcha un QTranslator para que vea si se pueden traducir los mensajes al usuario
+      // Start a QTranslator to see if it can translate user messages
       QTranslator translator;
 
       // The language and country of this locale as a string of the form "language_country", where language is a
@@ -82,7 +78,7 @@ int main(int argc, char *argv[])
 
       a.installTranslator(&translatorStandardItems);
 
-      // Comprobamos si se le han pasado parámetros al programa
+      // Check if arguments were passed to NxSpooler
       if (argc - 1 != 0)
       {
          QString message = a.tr("NxSpooler does not expect parameters and has been provided with: ")

@@ -19,7 +19,7 @@
 
 /*!
    \class TOptions
-   \brief Gestiona el diálogo de opciones.
+   \brief Manages the options dialog.
 */
 
 #include "toptions.h"
@@ -35,33 +35,33 @@ TOptions::TOptions(QSettings *settings, QWidget *qwidget_parent)
 
    setupUi(this);
 
-   // Botón para dejar los valores predeterminados en los campos de opciones
+   // Button to set the default values in the options fields
    bool isConnected = connect((QObject *)m_buttonBox->button(QDialogButtonBox::RestoreDefaults), SIGNAL(clicked()),
                                                                         this, SIGNAL(pushedRestore()));
    if (!isConnected)
    {
-         // Si no se ha podido establecer la conexión, lanzar una excepción
+         // If the connection could not be established, throw an exception
          QString message = tr("2208092 - Internal error when connecting");
          throw runtime_error(message.toStdString());
    }
 
-   // Al aceptar el diálogo, asignar a los ajustes el contenido de los campos de opciones
+   // Establish that when the options dialog is accepted, the options have to be changed
    isConnected = connect(this, SIGNAL(accepted()),
            this, SLOT(updateSettings()));
    if (!isConnected)
    {
-         // Si no se ha podido establecer la conexión, lanzar una excepción
+         // If the connection could not be established, throw an exception
          QString message = tr("2208093 - Internal error when connecting");
          throw runtime_error(message.toStdString());
    }
 
-   // Poner en los campos de opciones los ajustes actuales del programa
+   // The option fields are updated with the actual NxSpooler options
    updateOptionsRows();
 
-   // La última columna (la de la ruta del programa) ocupará todo el espacio horizontal sobrante
+   // The last column (the one with the application path) will occupy all the horizontal space that is left
    m_exts_apps->horizontalHeader()->setStretchLastSection(true);
 
-   // Dejar el cursor de la tabla de extensiones en su primer elemento
+   // Place the cursor of the extensions table in its first element
    m_exts_apps->selectRow(0);
 
    qDebug() << "END" << metaObject()->className() << ":: TOptions";
@@ -79,7 +79,7 @@ TOptions::~TOptions()
 }
 
 
-//! Pone la información de los ajustes del programa en los campos de opciones.
+//! Copy the information of the NxSpooler configuration variables to the options fields.
 /*!
 */
 void TOptions::updateOptionsRows()
@@ -130,8 +130,7 @@ void TOptions::updateOptionsRows()
    }
 }
 
-
-//! Pone la información de los campos de opciones en los ajustes del programa.
+//! Copy the information of the options fields to the NxSpooler configuration variables.
 /*!
 */
 void TOptions::updateSettings()
@@ -146,18 +145,18 @@ void TOptions::updateSettings()
        QStringList exts;
        QStringList apps;
 
-       // Recorrer las filas del control tabla para tomar las extensiones y sus aplicaciones
+       // Go through the rows of the table control to see the extensions and its related applications
        const int quant_rows = m_exts_apps->rowCount();
        for (int i = 0; i < quant_rows; i++)
        {
-          // Evitar agregar una extensión nula o vacía
+          // Avoid adding an empty or null extension
           if(not m_exts_apps->item(i, 0)->text().isNull() && not m_exts_apps->item(i, 0)->text().isEmpty())
           {
              exts.append(m_exts_apps->item(i, 0)->text());
 
-             // Evitar tener una ruta nula (sí se puede tener vacía)
+             // Avoid adding a null application path (it can be empty).
              // For example, this way we avoid the problem when the user on an empty
-             // row entered letters in the extension cell of and then pushed "Ok"
+             // row entered letters in the extension cell of and then he pushed "Ok"
              if (m_exts_apps->item(i, 1) == NULL || m_exts_apps->item(i, 1)->text().isNull())
                 apps.append("");
              else
@@ -192,7 +191,7 @@ void TOptions::updateSettings()
 }
 
 
-//! Inserta al final de la tabla una nueva línea
+//! Insert a new line at the end of the table.
 /*
 */
 void TOptions::on_m_new_ext_clicked()
@@ -216,7 +215,7 @@ void TOptions::on_m_new_ext_clicked()
 }
 
 
-//! Borra la línea seleccionada
+//! Delete the selected row.
 /*
 */
 void TOptions::on_m_delete_ext_clicked()
@@ -246,7 +245,7 @@ void TOptions::on_m_delete_ext_clicked()
 }
 
 
-//! Abre un diálogo para que el usuario seleccione el fichero del ejecutable del programa
+//! Open a new dialog so that the user can select the executable file of an application.
 /*
 */
 void TOptions::on_m_find_app_clicked()
@@ -261,7 +260,7 @@ void TOptions::on_m_find_app_clicked()
        QFileDialog file_dialog(this, tr("Select the viewer program"), "/");
        file_dialog.setFileMode(QFileDialog::ExistingFile);
 
-       // Si el usuario acepta el diálogo, tomar la ruta del fichero seleccionado
+       // If the user accepts the dialog, get the path of the selected file
        if (file_dialog.exec() == QDialog::Accepted)
        {
           QTableWidgetItem *new_app_item = new
@@ -282,7 +281,7 @@ void TOptions::on_m_find_app_clicked()
 }
 
 
-//! Abre un diálogo para que el usuario seleccione la ruta local compartida
+//! Open a new dialog so that the user can select the shared local folder.
 /*
 */
 void TOptions::on_m_find_path_clicked()
@@ -296,18 +295,18 @@ void TOptions::on_m_find_path_clicked()
 
        QFileDialog folder_dialog(this, tr("Select the shared local folder"));
 
-       // Configurar para que sea un selector de directorios
+       // Configure it to be a folder selector
        folder_dialog.setFileMode(QFileDialog::Directory);
        folder_dialog.setOption(QFileDialog::ShowDirsOnly);
 
-       // Comenzar con la carpeta actual especificada
+       // Start in the specified actual folder
        QDir folder(m_settings->value("folder").toString());
        QDir upper_folder(folder);
        upper_folder.cdUp(); // We continue even if it fails
        folder_dialog.setDirectory(upper_folder);
        folder_dialog.selectFile(folder.dirName());
 
-       // Si el usuario acepta el diálogo, tomar la ruta seleccionada
+       // If the user accepts the dialog, get the selected path
        if (folder_dialog.exec() == QDialog::Accepted)
        {
           m_folder->setText(QDir::toNativeSeparators(folder_dialog.selectedFiles().first()));
