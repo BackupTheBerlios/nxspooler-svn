@@ -27,6 +27,7 @@
 #include <QtGui/QAbstractButton>
 #include <QtGui/QMessageBox>
 #include <QApplication>
+#include <QProcess>
 #include <stdexcept>
 
 using std::runtime_error;
@@ -42,6 +43,8 @@ public:
    bool existsProgram(const QString &name) const;
    void showWarning(const QString &message, const QString &windowTitle = "") const;
    void showError(const QString &message, const QString &windowTitle = "") const;
+   int execute(const QString &program) const;
+   int execute(const QString &program, const QStringList &arguments) const;
 
    static void exitBecauseException(std::exception &excep);
    static void exitBecauseException();

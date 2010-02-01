@@ -4,23 +4,23 @@
 <context>
     <name></name>
     <message>
-        <location filename="main.cpp" line="88"/>
+        <location filename="main.cpp" line="84"/>
         <source>NxSpooler does not expect parameters and has been provided with: </source>
         <translation>El programa NxSpooler no usa parámetros y se le han pasado: </translation>
     </message>
     <message>
-        <location filename="main.cpp" line="48"/>
+        <location filename="main.cpp" line="44"/>
         <source>NxSpooler was already running</source>
         <translation>NxSpooler ya se estaba ejecutando</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="69"/>
+        <location filename="main.cpp" line="65"/>
         <source>Warning: the file of the NxSpooler translation for your language has not been found.</source>
         <translatorcomment>Traducción hecha para más uniformidad</translatorcomment>
         <translation>Aviso: no se ha encontrado el archivo de la traducción de NxSpooler para su lenguaje.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="81"/>
+        <location filename="main.cpp" line="77"/>
         <source>Warning: the file of the Qt translation for your language has not been found.</source>
         <translation>Aviso: no se ha encontrado el archivo de la traducción de Qt para su lenguaje.</translation>
     </message>
@@ -160,57 +160,57 @@
 <context>
     <name>TNxSpooler</name>
     <message>
-        <location filename="tnxspooler.cpp" line="158"/>
+        <location filename="tnxspooler.cpp" line="156"/>
         <source>2208097 - Extension not found</source>
         <translation>2208097 - Extensión no encontrada</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="243"/>
+        <location filename="tnxspooler.cpp" line="234"/>
         <source>2805096 - The file &quot;%1&quot; could not be deleted</source>
         <translation>2805096 - No se pudo borrar el archivo &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="227"/>
+        <location filename="tnxspooler.cpp" line="218"/>
         <source>The file &quot;%1&quot; could not be opened. Sometimes this error happens because the system cannot find the program specified in the configuration of NxSpooler to open files with that extension. The file is going to be deleted when you close this dialog window.</source>
         <translation>El archivo &quot;%1&quot; no pudo ser abierto. Algunas veces este error sucede porque el sistema no puede encontrar el programa especificado en la configuración de NxSpooler para abrir archivos con esa extensión. El archivo va a ser borrado cuando usted cierre este cuadro de diálogo.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="364"/>
+        <location filename="tnxspooler.cpp" line="357"/>
         <source>2208095 - Internal error when connecting</source>
         <translation>2208095 - Error interno al conectar</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="374"/>
+        <location filename="tnxspooler.cpp" line="367"/>
         <source>2208096 - Internal error when connecting</source>
         <translation>2208096 - Error interno al conectar</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="652"/>
+        <location filename="tnxspooler.cpp" line="646"/>
         <source>2805099 - The icon of the notification area could not be activated</source>
         <translation>2805099 - No se pudo activar el icono del área de notificación</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="696"/>
+        <location filename="tnxspooler.cpp" line="691"/>
         <source>The folder &quot;%1&quot; does not exist. Do you want to create it?</source>
         <translation>El directorio &quot;%1&quot; no existe. ¿Quiere crearlo?</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="708"/>
+        <location filename="tnxspooler.cpp" line="703"/>
         <source>The folder &quot;%1&quot; was successfully created. Now it must be shared with the name &quot;%2&quot;.</source>
         <translation>La carpeta &quot;%1&quot; ha sido creada con éxito. Ahora debe compartirla con el nombre &quot;%2&quot;.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="715"/>
+        <location filename="tnxspooler.cpp" line="710"/>
         <source>2805093 - The folder &quot;%1&quot; could not be created</source>
         <translation>2805093 - No se pudo crear el directorio &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="742"/>
+        <location filename="tnxspooler.cpp" line="738"/>
         <source>2805094 - The timer could not be activated</source>
         <translation>2805094 - No se pudo activar el temporizador</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="798"/>
+        <location filename="tnxspooler.cpp" line="795"/>
         <source>2805095 - A valid program to open the files could not be found</source>
         <translation>2805095 - No se encuentra un programa adecuado para abrir los ficheros</translation>
     </message>
@@ -233,22 +233,22 @@
         <translation>2108091 - Se encontró un problema y una fila no pudo ser borrada</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="179"/>
+        <location filename="toptions.cpp" line="178"/>
         <source>The selected program can&apos;t be accessed. Please select another or set the default value.</source>
         <translation>No se puede acceder al programa indicado. Seleccione otro o deje el valor predeterminado.</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="229"/>
+        <location filename="toptions.cpp" line="228"/>
         <source>Are you sure that you want to delete the selected row?</source>
         <translation>¿Está seguro de que quiere borrar la fila seleccionada?</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="261"/>
+        <location filename="toptions.cpp" line="260"/>
         <source>Select the viewer program</source>
         <translation>Seleccione el programa visor</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="297"/>
+        <location filename="toptions.cpp" line="296"/>
         <source>Select the shared local folder</source>
         <translation>Seleccione la carpeta local compartida</translation>
     </message>
@@ -256,13 +256,13 @@
 <context>
     <name>TSystem</name>
     <message>
-        <location filename="tsystem.cpp" line="159"/>
-        <location filename="tsystem.cpp" line="173"/>
+        <location filename="tsystem.cpp" line="231"/>
+        <location filename="tsystem.cpp" line="245"/>
         <source>Error - </source>
         <translation>Error - </translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="172"/>
+        <location filename="tsystem.cpp" line="244"/>
         <source>An unidentified problem has happened and %1 must be closed.</source>
         <translation>Ha ocurrido un error no identificado en %1 y debe cerrarse.</translation>
     </message>

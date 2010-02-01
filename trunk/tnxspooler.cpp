@@ -197,24 +197,17 @@ void TNxSpooler::open()
 
             // Try to open the file
 #ifdef Q_WS_WIN
-            op_result = process.execute("cmd", arguments);
+            op_result = syst.execute("cmd", arguments);
 #else
             // If the user is using Linux and he has not specified the name of the program to use,
             // execute the default program
             if (app.isEmpty())
             {
-               op_result = process.execute(getDefaultProgramInLinux(), arguments);
+               op_result = syst.execute(getDefaultProgramInLinux(), arguments);
             }
             else
             {
-               op_result = process.execute(app, arguments);
-               /* Code used to debug the "process.execute"
-               QString tmp = QString("Op_result = %1. Using \"%2").arg(op_result).arg(app);
-
-               for (int index = 0; index < arguments.size(); index++)
-                  tmp += " " + arguments.at(index);
-               tmp += "\"";
-               syst.showWarning(tmp, "Result of the operation"); */
+               op_result = syst.execute(app, arguments);
             }
 #endif
 
@@ -302,9 +295,9 @@ int TNxSpooler::openPathContainedByFile(QString file_path)
    qDebug() << "END" << metaObject()->className() << ":: openPathContainedByFile";
 
 #ifdef Q_WS_WIN
-      return process.execute("explorer", arguments);
+      return syst.execute("explorer", arguments);
 #else
-      return process.execute("xdg-open", arguments);
+      return syst.execute("xdg-open", arguments);
 #endif
 
 }
