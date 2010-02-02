@@ -66,7 +66,7 @@ TNxSpooler::TNxSpooler(QWidget *qwidget_parent)
    catch (std::exception &excep)
    {
       // If the path did not exist and the path could not be created, show the options dialog
-      if (QString(excep.what()).startsWith("2805093") || QString(excep.what()).startsWith("0707091"))
+      if (QString(excep.what()).startsWith("2805093"))
       {
          syst.showWarning(QString(excep.what()) + ".");
          show();
@@ -270,19 +270,21 @@ int TNxSpooler::openPathContainedByFile(QString file_path)
    read_file.open(QIODevice::ReadOnly);
    QString line = read_file.readLine();
 
-   // Try to adapt the path to running system
+   // Try to adapt the path to the running system
 #ifdef Q_WS_WIN
-   line.replace("smb:", "");
-   line.replace("/", QDir::separator());
+   line.replace(QRegExp("^smb://"), "\\\\");
+   line.replace("/", QDir::separator()); 
 #else
+   line.replace(QRegExp("^\\\\\\\\"), "smb://");
    line.replace("\\", QDir::separator());
-   line.replace("//", "smb://");
 #endif
 
    arguments << line;
 
    // Due to the path format "smb://..." we can't check the existence of the file
-   // before trying to open it,so we won't check that exists the path read from file
+   // before trying to open it, so we won't check that exists the path read from  
+   // the file. Finally the program that will try to open the file
+   // will complain if the file is not found
 
    // Activate the NxSpooler window (set the focus to its window) so that the new
    // opened window will have the focus
