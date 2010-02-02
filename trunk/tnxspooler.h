@@ -34,8 +34,10 @@
 #include "toptions.h"
 #include "tsystem.h"
 
-// Under Windows, the system() function of the library stdlib.h will be used
 #ifdef Q_WS_WIN
+// To use the Sleep() function and DWORD()
+#include <QtCore/qt_windows.h>
+// Under Windows, the system() function of the library stdlib.h will be used
 #include <stdlib.h>
 #endif
 
