@@ -299,7 +299,7 @@ int TNxSpooler::openPathContainedByFile(QString file_path)
    qDebug() << "END" << metaObject()->className() << ":: openPathContainedByFile";
 
 #ifdef Q_WS_WIN
-      return syst.execute("explorer", arguments);
+      return (syst.execute("explorer", arguments) != 1); // Windows explorer has anti-standard behaviours
 #else
       return syst.execute("xdg-open", arguments);
 #endif
