@@ -147,6 +147,11 @@ void TNxSpooler::open()
          if (file.suffix().prepend(".") == m_special_extension)
          {
             op_result = openPathContainedByFile(file.absoluteFilePath());
+
+            if (op_result == 0)
+               fileHasBeenOpened = true;
+            else
+               fileHasBeenOpened = false;
          }
          else
          {
