@@ -48,7 +48,7 @@ TNxSpooler::TNxSpooler(QWidget *qwidget_parent)
 
    // Define constant values by default
    m_default_interval = 3;
-   m_special_extension = ".open"; // A special extension for files that contain a path to be opened by NxSpooler
+   m_special_extension = ".nxspooler-open"; // A special extension for files that contain a path to be opened by NxSpooler
    m_default_formats.append("pdf");
    m_default_formats.append("ods");
    m_default_formats.append("sxc");
