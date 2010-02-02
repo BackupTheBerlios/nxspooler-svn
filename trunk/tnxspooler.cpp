@@ -282,16 +282,13 @@ int TNxSpooler::openPathContainedByFile(QString file_path)
    arguments << line;
 
    // Due to the path format "smb://..." we can't check the existence of the file
-   // before trying to open it
-   // Check that the path read from file exists
-//   QDir path_to_check(line);
-//   if (!path_to_check.exists())
-//   {
-//      QString message = tr("1512091 - Path \"%1\" doesn't exist").arg(line);
-//      syst.showWarning(message);
-//      return -1;
-//   }
-   qDebug()<<line;
+   // before trying to open it,so we won't check that exists the path read from file
+
+   // Activate the NxSpooler window (set the focus to its window) so that the new
+   // opened window will have the focus
+   activateWindow();
+
+   qDebug() << line;
    qDebug() << "END" << metaObject()->className() << ":: openPathContainedByFile";
 
 #ifdef Q_WS_WIN

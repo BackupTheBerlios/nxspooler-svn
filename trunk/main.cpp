@@ -17,10 +17,10 @@
 *  along with NxSpooler. If not, see http://www.gnu.org/copyleft/gpl.html.
 *****************************************************************************/
 
+/*
 // To avoid errors when compiling in Windows, we have followed what it was told
 // in http://forums.codeblocks.org/index.php/topic,10508.msg72241.html#msg72241
 // and added two "ifndef"s and "endif"s in the cwchar file, more exactly:
-/*
 #ifndef __STRICT_ANSI__
   using ::swprintf;
 #endif
