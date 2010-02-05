@@ -169,6 +169,9 @@ TSystem::execute(const QString &program) const
     // As seen in http://jira.codehaus.org/browse/IZPACK-20 and http://labs.trolltech.com/forums/topic/156, the method
     // execute() from QProcess is not used.
 
+    // Note: more spaces and quotes were not needed
+    qDebug() << "___" << "Going to execute:" << program;
+
     process.setReadChannelMode(QProcess::ForwardedChannels);
     process.start(program);
     process.waitForFinished(-1);
@@ -204,6 +207,9 @@ TSystem::execute(const QString &program, const QStringList &arguments) const
 
     // As seen in http://jira.codehaus.org/browse/IZPACK-20 and http://labs.trolltech.com/forums/topic/156, the method
     // execute() from QProcess is not used.
+
+    // Note: more spaces and quotes were not needed
+    qDebug() << "___" << "Going to execute:" << program << "with arguments:" << arguments;
 
     process.setReadChannelMode(QProcess::ForwardedChannels);
     process.start(program, arguments);
