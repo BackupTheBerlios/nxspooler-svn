@@ -242,7 +242,7 @@ void TNxSpooler::open()
 
          // Add the file to the list of opened and deleted files by NxSpooler
          // Note: if there were problems deleting the file, NxSpooler would have stopped to avoid more problems
-         m_listFiles->addItem(fileHasBeenOpened?file.fileName():file.fileName()+" (errors when opening)");
+         m_listFiles->addItem(fileHasBeenOpened?file.fileName():file.fileName()+tr(" (errors when opening)"));
       }
 
       qDebug() << "END" << metaObject()->className() << ":: open";
