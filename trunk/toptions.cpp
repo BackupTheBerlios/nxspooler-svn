@@ -155,8 +155,8 @@ void TOptions::updateSettings()
              exts.append(m_exts_apps->item(i, 0)->text());
 
              // Avoid adding a null application path (it can be empty).
-             // For example, this way we avoid the problem when the user on an empty
-             // row entered letters in the extension cell of and then he pushed "Ok"
+             // For example, this way we avoid the problem of having a user entering
+             // letters in the extension cell of an empty row and then pushing "Ok"
              if (m_exts_apps->item(i, 1) == NULL || m_exts_apps->item(i, 1)->text().isNull())
                 apps.append("");
              else
