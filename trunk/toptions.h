@@ -23,8 +23,9 @@
 #include <QtGui/QDialog>
 #include <QtCore/QSettings>
 #include <QtGui/QFileDialog>
+
+#include "tsystem.h"
 #include "ui_optionsDialog.h"
-#include "tnxspooler.h"
 
 class TOptions : public QDialog, private Ui::optionsDialog
 {
