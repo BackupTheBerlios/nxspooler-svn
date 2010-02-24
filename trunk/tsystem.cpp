@@ -233,7 +233,6 @@ TSystem::execute(const QString &program, const QStringList &arguments) const
 void
 TSystem::exitBecauseException(std::exception &excep)
 {
-    QApplication auxiliary(); // It's needed to avoid the error of showing a Qt dialog without a QApplication
     syst.showError(QString(excep.what()) + ".", tr("Error - ") + qApp->applicationName());
 
     exit(EXIT_FAILURE);
@@ -246,7 +245,6 @@ TSystem::exitBecauseException(std::exception &excep)
 void
 TSystem::exitBecauseException()
 {
-    QApplication auxiliary(); // It's needed to show a Qt dialog later
     syst.showError(tr("An unidentified problem has happened and %1 must be closed.").arg(qApp->applicationName())
                         , tr("Error - ") + qApp->applicationName());
 

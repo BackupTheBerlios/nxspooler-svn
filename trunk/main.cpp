@@ -108,11 +108,15 @@ int main(int argc, char *argv[])
    }
    catch(std::exception &excep)
    {
-      TSystem::exitBecauseException(excep);
+       QApplication auxiliary(argc, argv); // To show a Qt dialog we need a QApplication
+       auxiliary.setApplicationName("NxSpooler"); // Some dialogs show the program name
+       TSystem::exitBecauseException(excep);
    }
    catch(...)
    {
-      TSystem::exitBecauseException();
+       QApplication auxiliary(argc, argv); // To show a Qt dialog we need a QApplication
+       auxiliary.setApplicationName("NxSpooler"); // Some dialogs show the program name
+       TSystem::exitBecauseException();
    }
 
    // MinGW wants this line
