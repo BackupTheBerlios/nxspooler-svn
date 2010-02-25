@@ -90,9 +90,9 @@ TNxSpooler::TNxSpooler(QWidget *qwidget_parent)
 */
 TNxSpooler::~TNxSpooler()
 {
-   qDebug() << "___" << metaObject()->className() << ":: ~TNxSpooler";
+   qDebug() << "___" << metaObject()->className() << ":: ~TNxSpooler()";
 
-   qDebug() << "END" << metaObject()->className() << ":: ~TNxSpooler";
+   qDebug() << "END" << metaObject()->className() << ":: ~TNxSpooler()";
 }
 
 
@@ -107,7 +107,7 @@ void TNxSpooler::open()
    // from here, so we use a "try" block
    try
    {
-      qDebug() << "___" << metaObject()->className() << ":: open";
+      qDebug() << "___" << metaObject()->className() << ":: open()";
 
       QDir folder(m_settings.value("folder").toString());
       // Note: previously we have made sure that existed m_settings.value("folder")
@@ -118,7 +118,7 @@ void TNxSpooler::open()
       // Exit from this function if nothing must be done
       if (folder.count() == 0)
       {
-         qDebug() << "END" << metaObject()->className() << ":: open AHEAD";
+         qDebug() << "END" << metaObject()->className() << ":: open() AHEAD";
          return;
       }
 
@@ -245,7 +245,7 @@ void TNxSpooler::open()
          m_listFiles->addItem(fileHasBeenOpened?file.fileName():file.fileName()+tr(" (errors when opening)"));
       }
 
-      qDebug() << "END" << metaObject()->className() << ":: open";
+      qDebug() << "END" << metaObject()->className() << ":: open()";
    }
    catch(std::exception &excep)
    {
@@ -316,7 +316,7 @@ void TNxSpooler::openAboutNxSpooler()
    // don't allow exceptions to go out from here. So we use a "try" block
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: openAboutNxSpooler";
+       qDebug() << "___" << metaObject()->className() << ":: openAboutNxSpooler()";
 
        Ui::aboutDialog uiAbout;
        QDialog about(this);
@@ -325,7 +325,7 @@ void TNxSpooler::openAboutNxSpooler()
 
        about.exec(); // The returned value is not important here
 
-       qDebug() << "END" << metaObject()->className() << ":: openAboutNxSpooler";
+       qDebug() << "END" << metaObject()->className() << ":: openAboutNxSpooler()";
    }
    catch(std::exception &excep)
    {
@@ -347,7 +347,7 @@ void TNxSpooler::openOptions()
    // don't allow exceptions to go out from here. So we use a "try" block
    try
    {
-      qDebug() << "___" << metaObject()->className() << ":: openOptions";
+      qDebug() << "___" << metaObject()->className() << ":: openOptions()";
 
       TOptions options(&m_settings, this);
 
@@ -380,7 +380,7 @@ void TNxSpooler::openOptions()
       }
       while(!syst.existsProgram(m_settings.value("apps").toString()));
 
-      qDebug() << "END" << metaObject()->className() << ":: openOptions";
+      qDebug() << "END" << metaObject()->className() << ":: openOptions()";
    }
    catch(std::exception &excep)
    {
@@ -402,7 +402,7 @@ void TNxSpooler::openHelp()
    // don't allow exceptions to go out from here. So we use a "try" block
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: openHelp";
+       qDebug() << "___" << metaObject()->className() << ":: openHelp()";
 
        Ui::helpDialog uiHelp;
        QDialog help(this);
@@ -410,7 +410,7 @@ void TNxSpooler::openHelp()
 
        help.exec(); // The returned value is not important here
 
-       qDebug() << "END" << metaObject()->className() << ":: openHelp";
+       qDebug() << "END" << metaObject()->className() << ":: openHelp()";
    }
    catch(std::exception &excep)
    {
@@ -479,7 +479,7 @@ bool TNxSpooler::filterAndSortFolder(QDir &folder) const
 */
 void TNxSpooler::initializeSettings()
 {
-   qDebug() << "___" << metaObject()->className() << ":: initializeSettings";
+   qDebug() << "___" << metaObject()->className() << ":: initializeSettings()";
 
    if (m_settings.value("seconds").isNull())
    {
@@ -515,7 +515,7 @@ void TNxSpooler::initializeSettings()
       m_settings.setValue("resource", m_default_resource);
    }
 
-   qDebug() << "END" << metaObject()->className() << ":: initializeSettings";
+   qDebug() << "END" << metaObject()->className() << ":: initializeSettings()";
 }
 
 
@@ -529,7 +529,7 @@ void TNxSpooler::show()
    // from here. So we use a "try" block
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: show";
+       qDebug() << "___" << metaObject()->className() << ":: show()";
 
        // Avoid that NxSpooler finishes when the user closes dialogs with the main window hidden
        qApp->setQuitOnLastWindowClosed(true);
@@ -545,7 +545,7 @@ void TNxSpooler::show()
        m_sys_tray_icon.contextMenu()->insertAction(m_action_quit, m_action_hide);
        m_sys_tray_icon.contextMenu()->removeAction(m_action_show);
 
-       qDebug() << "END" << metaObject()->className() << ":: show";
+       qDebug() << "END" << metaObject()->className() << ":: show()";
    }
    catch(std::exception &excep)
    {
@@ -606,7 +606,7 @@ void TNxSpooler::hide()
    // go out from here. So we use a "try" block
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: hide";
+       qDebug() << "___" << metaObject()->className() << ":: hide()";
 
        QDialog::hide();
 
@@ -619,7 +619,7 @@ void TNxSpooler::hide()
           m_sys_tray_icon.contextMenu()->removeAction(m_action_hide);
        }
 
-       qDebug() << "END" << metaObject()->className() << ":: hide";
+       qDebug() << "END" << metaObject()->className() << ":: hide()";
    }
    catch(std::exception &excep)
    {
@@ -636,7 +636,7 @@ void TNxSpooler::hide()
 */
 void TNxSpooler::prepareTrayIconOrShowProgram()
 {
-   qDebug() << "___" << metaObject()->className() << ":: prepareTrayIconOrShowProgram";
+   qDebug() << "___" << metaObject()->className() << ":: prepareTrayIconOrShowProgram()";
 
    if (QSystemTrayIcon::isSystemTrayAvailable())
    {
@@ -675,7 +675,7 @@ void TNxSpooler::prepareTrayIconOrShowProgram()
       m_hide->hide();
    }
 
-   qDebug() << "END" << metaObject()->className() << ":: prepareTrayIconOrShowProgram";
+   qDebug() << "END" << metaObject()->className() << ":: prepareTrayIconOrShowProgram()";
 }
 
 
@@ -684,7 +684,7 @@ void TNxSpooler::prepareTrayIconOrShowProgram()
 */
 void TNxSpooler::prepareSharedFolder() const
 {
-   qDebug() << "___" << metaObject()->className() << ":: prepareSharedFolder";
+   qDebug() << "___" << metaObject()->className() << ":: prepareSharedFolder()";
 
    // Create the manager of the path to check
    QDir folder(m_settings.value("folder").toString());
@@ -716,7 +716,7 @@ void TNxSpooler::prepareSharedFolder() const
       }
    }
 
-   qDebug() << "END" << metaObject()->className() << ":: prepareSharedFolder";
+   qDebug() << "END" << metaObject()->className() << ":: prepareSharedFolder()";
 }
 
 
@@ -725,7 +725,7 @@ void TNxSpooler::prepareSharedFolder() const
 */
 void TNxSpooler::prepareTimer()
 {
-   qDebug() << "___" << metaObject()->className() << ":: prepareTimer";
+   qDebug() << "___" << metaObject()->className() << ":: prepareTimer()";
 
    // Avoid that repeated callings to this method causes to try to open something
    // several times at the same moment.
@@ -745,7 +745,7 @@ void TNxSpooler::prepareTimer()
 
    m_timer.start(m_settings.value("seconds").toInt() * 1000);
 
-   qDebug() << "END" << metaObject()->className() << ":: prepareTimer";
+   qDebug() << "END" << metaObject()->className() << ":: prepareTimer()";
 }
 
 
@@ -757,9 +757,9 @@ void TNxSpooler::prepareTimer()
 */
 QString TNxSpooler::getDefaultProgram() const
 {
-   qDebug() << "___" << metaObject()->className() << ":: getDefaultProgram";
+   qDebug() << "___" << metaObject()->className() << ":: getDefaultProgram()";
 
-   qDebug() << "END" << metaObject()->className() << ":: getDefaultProgram";
+   qDebug() << "END" << metaObject()->className() << ":: getDefaultProgram()";
 
 #ifdef Q_WS_WIN
    return "";
@@ -778,7 +778,7 @@ QString TNxSpooler::getDefaultProgram() const
 */
 QString TNxSpooler::getDefaultProgramInLinux() const
 {
-   qDebug() << "___" << metaObject()->className() << ":: getDefaultProgramInLinux";
+   qDebug() << "___" << metaObject()->className() << ":: getDefaultProgramInLinux()";
 
    QString command;
    QStringList commands;
@@ -800,7 +800,7 @@ QString TNxSpooler::getDefaultProgramInLinux() const
       throw runtime_error(message.toStdString());
    }
 
-   qDebug() << "END" << metaObject()->className() << ":: getDefaultProgramInLinux";
+   qDebug() << "END" << metaObject()->className() << ":: getDefaultProgramInLinux()";
    return command;
 }
 
@@ -816,7 +816,7 @@ void TNxSpooler::restoreSettings()
    // don't allow exceptions to go out from here. So we use a "try" block
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: restoreSettings";
+       qDebug() << "___" << metaObject()->className() << ":: restoreSettings()";
 
        m_settings.remove("exts");
        m_settings.setValue("exts", m_default_formats);
@@ -836,7 +836,7 @@ void TNxSpooler::restoreSettings()
        m_settings.setValue("seconds", m_default_interval);
        emit settingsRestored();
 
-       qDebug() << "END" << metaObject()->className() << ":: restoreSettings";
+       qDebug() << "END" << metaObject()->className() << ":: restoreSettings()";
    }
    catch(std::exception &excep)
    {

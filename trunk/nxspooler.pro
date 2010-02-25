@@ -13,7 +13,8 @@ HEADERS += tsystrayicon.h \
     qtsingleapplication/qtlockedfile.h \
     qtsingleapplication/qtsingleapplication.h \
     qtsingleapplication/qtsinglecoreapplication.h \
-    tnxspooler.h
+    tnxspooler.h \
+    ttranslator.h
 FORMS += aboutDialog.ui \
     nxspooler.ui \
     optionsDialog.ui \
@@ -28,7 +29,8 @@ SOURCES += main.cpp \
     qtsingleapplication/qtlockedfile_unix.cpp \
     qtsingleapplication/qtsingleapplication.cpp \
     qtsingleapplication/qtsinglecoreapplication.cpp \
-    tnxspooler.cpp
+    tnxspooler.cpp \
+    ttranslator.cpp
 RESOURCES += nxspooler.qrc
 win32 { 
     # In release mode: disable the debug messages
@@ -47,5 +49,4 @@ TRANSLATIONS = nxspooler_es.ts
 
 # We follow the norms of http://www.physics.ohio-state.edu/~ntg/780/gsl_examples/recommended_C++_options
 # except the options of -Wconversion (there were too many warnings), -g and -Werror. We also use -Wno-long-long.
-QMAKE_CXXFLAGS +=  -pedantic -ansi -W -Wall -Wshadow -fno-common -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -fshort-enums -Wno-long-long
-
+QMAKE_CXXFLAGS += -pedantic -ansi -W -Wall -Wshadow -fno-common -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -fshort-enums -Wno-long-long

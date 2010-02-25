@@ -73,9 +73,9 @@ TOptions::TOptions(QSettings *settings, QWidget *qwidget_parent)
 */
 TOptions::~TOptions()
 {
-   qDebug() << "___" << metaObject()->className() << ":: ~TOptions";
+   qDebug() << "___" << metaObject()->className() << ":: ~TOptions()";
 
-   qDebug() << "END" << metaObject()->className() << ":: ~TOptions";
+   qDebug() << "END" << metaObject()->className() << ":: ~TOptions()";
 }
 
 
@@ -89,7 +89,7 @@ void TOptions::updateOptionsRows()
    // out from here. So we use a "try" block
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: updateOptionsRows";
+       qDebug() << "___" << metaObject()->className() << ":: updateOptionsRows()";
 
        m_seconds->setValue(m_settings->value("seconds").toInt());
 
@@ -118,7 +118,7 @@ void TOptions::updateOptionsRows()
        m_folder->setText(m_settings->value("folder").toString());
        m_shared->setText(m_settings->value("resource").toString());
 
-       qDebug() << "END" << metaObject()->className() << ":: updateOptionsRows";
+       qDebug() << "END" << metaObject()->className() << ":: updateOptionsRows()";
    }
    catch(std::exception &excep)
    {
@@ -140,7 +140,7 @@ void TOptions::updateSettings()
    // from here. So we use a "try" block
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: updateSettings";
+       qDebug() << "___" << metaObject()->className() << ":: updateSettings()";
 
        QStringList exts;
        QStringList apps;
@@ -178,7 +178,7 @@ void TOptions::updateSettings()
           syst.showWarning(tr("The selected program can't be accessed. Please select another or set the default value."));
        }
 
-       qDebug() << "END" << metaObject()->className() << ":: updateSettings";
+       qDebug() << "END" << metaObject()->className() << ":: updateSettings()";
    }
    catch(std::exception &excep)
    {
@@ -201,8 +201,12 @@ void TOptions::on_m_new_ext_clicked()
    // from here. So we use a "try" block
    try
    {
+       qDebug() << "___" << metaObject()->className() << ":: on_m_new_ext_clicked()";
+
        m_exts_apps->insertRow(m_exts_apps->rowCount());
        m_exts_apps->setCurrentCell(m_exts_apps->rowCount() - 1, 0);
+
+       qDebug() << "END" << metaObject()->className() << ":: on_m_new_ext_clicked()";
    }
    catch(std::exception &excep)
    {
@@ -225,6 +229,8 @@ void TOptions::on_m_delete_ext_clicked()
    // from here. So we use a "try" block
    try
    {
+       qDebug() << "___" << metaObject()->className() << ":: on_m_delete_ext_clicked()";
+
        QString question = tr("Are you sure that you want to delete the selected row?");
        bool isAccepted = syst.confirm(question);
 
@@ -233,6 +239,8 @@ void TOptions::on_m_delete_ext_clicked()
           m_exts_apps->removeRow(m_exts_apps->currentRow());
           return;
        }
+
+       qDebug() << "END" << metaObject()->className() << ":: on_m_delete_ext_clicked()";
    }
    catch(std::exception &excep)
    {
@@ -255,7 +263,7 @@ void TOptions::on_m_find_app_clicked()
    // from here. So we use a "try" block
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: on_m_find_app_clicked";
+       qDebug() << "___" << metaObject()->className() << ":: on_m_find_app_clicked()";
 
        QFileDialog file_dialog(this, tr("Select the viewer program"), "/");
        file_dialog.setFileMode(QFileDialog::ExistingFile);
@@ -268,7 +276,7 @@ void TOptions::on_m_find_app_clicked()
           m_exts_apps->setItem(m_exts_apps->currentRow(), 1, new_app_item);
        }
 
-       qDebug() << "END" << metaObject()->className() << ":: on_m_find_app_clicked";
+       qDebug() << "END" << metaObject()->className() << ":: on_m_find_app_clicked()";
    }
    catch(std::exception &excep)
    {
@@ -291,7 +299,7 @@ void TOptions::on_m_find_path_clicked()
    // exceptions to go out from here. So we use a "try" block
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: on_m_find_path_clicked";
+       qDebug() << "___" << metaObject()->className() << ":: on_m_find_path_clicked()";
 
        QFileDialog folder_dialog(this, tr("Select the shared local folder"));
 
@@ -312,7 +320,7 @@ void TOptions::on_m_find_path_clicked()
           m_folder->setText(QDir::toNativeSeparators(folder_dialog.selectedFiles().first()));
        }
 
-       qDebug() << "END" << metaObject()->className() << ":: on_m_find_path_clicked";
+       qDebug() << "END" << metaObject()->className() << ":: on_m_find_path_clicked()";
    }
    catch(std::exception &excep)
    {

@@ -19,7 +19,7 @@
 
 /*!
    \class TSystem
-   \brief Offers services that can be used from any object of the program.
+   \brief Offers services that can be used from any object of the program, like methods, definitions, a class to manage errors, etc.
 */
 
 #include "tsystem.h"
@@ -54,13 +54,13 @@ TSystem::~TSystem()
 */
 bool TSystem::confirm(const QString &message) const
 {
-   qDebug() << "___" << metaObject()->className() << ":: confirm()";
+   qDebug() << "___" << metaObject()->className() << ":: confirm";
 
    QMessageBox msgBox(QMessageBox::Question, tr("Confirm"), message, QMessageBox::Ok|QMessageBox::Cancel);
 
    int bt = msgBox.exec();
 
-   qDebug() << "END" << metaObject()->className() << ":: confirm()";
+   qDebug() << "END" << metaObject()->className() << ":: confirm";
    return (bt == QMessageBox::Ok);
 }
 
@@ -133,7 +133,7 @@ void TSystem::showWarning(const QString &message, const QString &windowTitle) co
 */
 void TSystem::showError(const QString &message, const QString &windowTitle) const
 {
-   qDebug() << "___" << metaObject()->className() << ":: showError()";
+   qDebug() << "___" << metaObject()->className() << ":: showError";
 
    cerr << tr("Error: ") << message << endl;
 
@@ -143,7 +143,7 @@ void TSystem::showError(const QString &message, const QString &windowTitle) cons
    msgBox.setIcon(QMessageBox::Critical);
    msgBox.exec();
 
-   qDebug() << "END" << metaObject()->className() << ":: showError()";
+   qDebug() << "END" << metaObject()->className() << ":: showError";
 }
 
 
@@ -160,7 +160,7 @@ void TSystem::showError(const QString &message, const QString &windowTitle) cons
 int
 TSystem::execute(const QString &program) const
 {
-    qDebug() << "___" << metaObject()->className() << ":: execute()";
+    qDebug() << "___" << metaObject()->className() << ":: execute";
 
     QProcess process;
 
@@ -180,7 +180,7 @@ TSystem::execute(const QString &program) const
        exitCode = -1;
     }
 
-    qDebug() << "END" << metaObject()->className() << ":: execute()";
+    qDebug() << "END" << metaObject()->className() << ":: execute";
 
     return exitCode;
 }
@@ -199,7 +199,7 @@ TSystem::execute(const QString &program) const
 int
 TSystem::execute(const QString &program, const QStringList &arguments) const
 {
-    qDebug() << "___" << metaObject()->className() << ":: execute()";
+    qDebug() << "___" << metaObject()->className() << ":: execute";
 
     QProcess process;
 
@@ -219,7 +219,7 @@ TSystem::execute(const QString &program, const QStringList &arguments) const
        exitCode = -1;
     }
 
-    qDebug() << "END" << metaObject()->className() << ":: execute()";
+    qDebug() << "END" << metaObject()->className() << ":: execute";
 
     return exitCode;
 }
@@ -231,11 +231,11 @@ TSystem::execute(const QString &program, const QStringList &arguments) const
 void
 TSystem::exitBecauseException(std::exception &excep)
 {
-    qDebug() << "___" << metaObject()->className() << ":: exitBecauseException(std::exception &excep)";
+    qDebug() << "___" << metaObject()->className() << ":: exitBecauseException";
 
     syst.showError(QString(excep.what()) + ".", tr("Error") + " - " + qApp->applicationName());
 
-    qDebug() << "END" << metaObject()->className() << ":: exitBecauseException(std::exception &excep)";
+    qDebug() << "END" << metaObject()->className() << ":: exitBecauseException";
 
     exit(EXIT_FAILURE);
 }

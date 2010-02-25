@@ -17,8 +17,6 @@
 *  along with NxSpooler. If not, see http://www.gnu.org/copyleft/gpl.html.
 *****************************************************************************/
 
-// Class to provide services common to several parts of the program, like methods, definitions, a class to manage errors, etc.
-
 #ifndef T_SYSTEM_H
 #define T_SYSTEM_H
 

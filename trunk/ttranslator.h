@@ -17,39 +17,26 @@
 *  along with NxSpooler. If not, see http://www.gnu.org/copyleft/gpl.html.
 *****************************************************************************/
 
-/*!
-   \class TSysTrayIcon
-   \brief Manages a system tray icon that hides when it's going to be destroyed.
+#ifndef T_TRANSLATOR_H
+#define T_TRANSLATOR_H
 
-   With Qt4.5, when a program with an icon in the system tray finishes suddenly, it leaves
-   a phantom icon in the system tray that uses to disappear when passing the mouse over it.
-*/
+#include <QtCore/QDebug>
+#include <QTranslator>
+#include <QApplication>
+#include <QLibraryInfo>
 
-#include "tsystrayicon.h"
+#include "tsystem.h"
 
-//! Constructor without parameters
-/*!
-*/
-TSysTrayIcon::TSysTrayIcon()
+class TTranslator : public QTranslator
 {
-   qDebug() << "___" << metaObject()->className() << ":: TSysTrayIcon()";
+   Q_OBJECT
 
-   qDebug() << "END" << metaObject()->className() << ":: TSysTrayIcon()";
-}
+private:
+   QTranslator m_translatorStandardItems; //!< A QTranslator for already translated, standard items like "Restore defaults" buttons, "Cancel" buttons, etc.
 
+public:
+    TTranslator(QApplication &a);
+    ~TTranslator();
+};
 
-//! Destructor
-/*!
-  Hide the icon when finishing.
-*/
-TSysTrayIcon::~TSysTrayIcon()
-{
-   qDebug() << "___" << metaObject()->className() << ":: ~TSysTrayIcon()";
-
-   if (isSystemTrayAvailable())
-   {
-      hide();
-   }
-
-   qDebug() << "END" << metaObject()->className() << ":: ~TSysTrayIcon()";
-}
+#endif

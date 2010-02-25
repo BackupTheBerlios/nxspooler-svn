@@ -219,17 +219,17 @@
         <translation>No se puede acceder al programa indicado. Seleccione otro o deje el valor predeterminado.</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="228"/>
+        <location filename="toptions.cpp" line="234"/>
         <source>Are you sure that you want to delete the selected row?</source>
         <translation>¿Está seguro de que quiere borrar la fila seleccionada?</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="260"/>
+        <location filename="toptions.cpp" line="268"/>
         <source>Select the viewer program</source>
         <translation>Seleccione el programa visor</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="296"/>
+        <location filename="toptions.cpp" line="304"/>
         <source>Select the shared local folder</source>
         <translation>Seleccione la carpeta local compartida</translation>
     </message>
@@ -237,14 +237,14 @@
 <context>
     <name>TSystem</name>
     <message>
-        <location filename="tsystem.cpp" line="143"/>
-        <location filename="tsystem.cpp" line="238"/>
-        <location filename="tsystem.cpp" line="255"/>
+        <location filename="tsystem.cpp" line="141"/>
+        <location filename="tsystem.cpp" line="236"/>
+        <location filename="tsystem.cpp" line="253"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="254"/>
+        <location filename="tsystem.cpp" line="252"/>
         <source>An unidentified problem has happened and %1 must be closed.</source>
         <translation>Ha ocurrido un error no identificado en %1 y debe cerrarse.</translation>
     </message>
@@ -254,40 +254,37 @@
         <translation>Confirmación</translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="121"/>
+        <location filename="tsystem.cpp" line="120"/>
         <source>Warning</source>
         <translation>Aviso</translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="140"/>
+        <location filename="tsystem.cpp" line="138"/>
         <source>Error: </source>
         <translation>Error: </translation>
     </message>
     <message>
-        <location filename="main.cpp" line="61"/>
+        <location filename="main.cpp" line="69"/>
         <source>NxSpooler was already running</source>
         <translation>NxSpooler ya se estaba ejecutando</translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="118"/>
+        <location filename="tsystem.cpp" line="117"/>
         <source>Warning: </source>
-        <translation>Alerta: </translation>
+        <translation>Aviso: </translation>
     </message>
     <message>
-        <location filename="main.cpp" line="122"/>
-        <source>Warning: the file of the NxSpooler translation for your language has not been found.</source>
-        <translatorcomment>Traducción hecha para más uniformidad</translatorcomment>
-        <translation>Aviso: no se ha encontrado el archivo de la traducción de NxSpooler para su lenguaje.</translation>
-    </message>
-    <message>
-        <location filename="main.cpp" line="135"/>
-        <source>Warning: the file of the Qt translation for your language has not been found.</source>
-        <translation>Aviso: no se ha encontrado el archivo de la traducción de Qt para su lenguaje.</translation>
-    </message>
-    <message>
-        <location filename="main.cpp" line="73"/>
+        <location filename="main.cpp" line="76"/>
         <source>NxSpooler does not expect parameters and has been provided with: </source>
         <translation>El programa NxSpooler no usa parámetros y se le han pasado: </translation>
+    </message>
+</context>
+<context>
+    <name>TTranslator</name>
+    <message>
+        <location filename="ttranslator.cpp" line="61"/>
+        <source>Warning: it has not been found the file of the Qt translation for the language of your system.</source>
+        <translation>Aviso: no se ha encontrado el archivo de la traducción de Qt para su lenguaje.</translation>
     </message>
 </context>
 <context>
