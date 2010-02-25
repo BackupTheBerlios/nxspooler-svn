@@ -2,30 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="es_ES">
 <context>
-    <name></name>
-    <message>
-        <location filename="main.cpp" line="97"/>
-        <source>NxSpooler does not expect parameters and has been provided with: </source>
-        <translation>El programa NxSpooler no usa parámetros y se le han pasado: </translation>
-    </message>
-    <message>
-        <location filename="main.cpp" line="57"/>
-        <source>NxSpooler was already running</source>
-        <translation>NxSpooler ya se estaba ejecutando</translation>
-    </message>
-    <message>
-        <location filename="main.cpp" line="78"/>
-        <source>Warning: the file of the NxSpooler translation for your language has not been found.</source>
-        <translatorcomment>Traducción hecha para más uniformidad</translatorcomment>
-        <translation>Aviso: no se ha encontrado el archivo de la traducción de NxSpooler para su lenguaje.</translation>
-    </message>
-    <message>
-        <location filename="main.cpp" line="90"/>
-        <source>Warning: the file of the Qt translation for your language has not been found.</source>
-        <translation>Aviso: no se ha encontrado el archivo de la traducción de Qt para su lenguaje.</translation>
-    </message>
-</context>
-<context>
     <name>NxSpooler</name>
     <message>
         <location filename="nxspooler.ui" line="30"/>
@@ -261,13 +237,13 @@
 <context>
     <name>TSystem</name>
     <message>
-        <location filename="tsystem.cpp" line="237"/>
-        <location filename="tsystem.cpp" line="251"/>
+        <location filename="tsystem.cpp" line="236"/>
+        <location filename="tsystem.cpp" line="249"/>
         <source>Error - </source>
         <translation>Error - </translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="250"/>
+        <location filename="tsystem.cpp" line="248"/>
         <source>An unidentified problem has happened and %1 must be closed.</source>
         <translation>Ha ocurrido un error no identificado en %1 y debe cerrarse.</translation>
     </message>
@@ -285,6 +261,27 @@
         <location filename="tsystem.cpp" line="143"/>
         <source>Error</source>
         <translation>Error</translation>
+    </message>
+    <message>
+        <location filename="main.cpp" line="63"/>
+        <source>NxSpooler was already running</source>
+        <translation>NxSpooler ya se estaba ejecutando</translation>
+    </message>
+    <message>
+        <location filename="main.cpp" line="122"/>
+        <source>Warning: the file of the NxSpooler translation for your language has not been found.</source>
+        <translatorcomment>Traducción hecha para más uniformidad</translatorcomment>
+        <translation>Aviso: no se ha encontrado el archivo de la traducción de NxSpooler para su lenguaje.</translation>
+    </message>
+    <message>
+        <location filename="main.cpp" line="135"/>
+        <source>Warning: the file of the Qt translation for your language has not been found.</source>
+        <translation>Aviso: no se ha encontrado el archivo de la traducción de Qt para su lenguaje.</translation>
+    </message>
+    <message>
+        <location filename="main.cpp" line="75"/>
+        <source>NxSpooler does not expect parameters and has been provided with: </source>
+        <translation>El programa NxSpooler no usa parámetros y se le han pasado: </translation>
     </message>
 </context>
 <context>

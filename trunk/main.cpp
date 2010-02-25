@@ -18,9 +18,9 @@
 *****************************************************************************/
 
 /*
-// To avoid errors when compiling in Windows, we have followed what it was told
-// in http://forums.codeblocks.org/index.php/topic,10508.msg72241.html#msg72241
-// and added two "ifndef"s and "endif"s in the cwchar file, more exactly:
+// To avoid errors when compiling in Windows, we have followed what it was told in
+// http://forums.codeblocks.org/index.php/topic,10508.msg72241.html#msg72241 and added
+// two "ifndef"s and "endif"s in the cwchar file, being the result there like this:
 #ifndef __STRICT_ANSI__
   using ::swprintf;
 #endif
@@ -41,7 +41,9 @@
 // Global object to provide services common to several parts of the program
 TSystem syst;
 
-// This programs works in Linux, in Windows and probably in other operating systems
+void configureTheTranslator(QApplication &a, QTranslator &translator);
+
+// NxSpooler works in Linux, in Windows and probably in other operating systems
 int main(int argc, char *argv[])
 {
    try
@@ -52,9 +54,13 @@ int main(int argc, char *argv[])
 
       QtSingleApplication a(argc, argv);
 
+      // Start a QTranslator to see if it can translate user messages
+      QTranslator translator;
+      configureTheTranslator(a, translator);
+
       if (a.isRunning())
       {
-         QString message = a.tr("NxSpooler was already running");
+         QString message = TSystem::tr("NxSpooler was already running");
          throw runtime_error(message.toStdString());
       }
 
@@ -63,38 +69,10 @@ int main(int argc, char *argv[])
       a.setApplicationName("NxSpooler");
       a.setApplicationVersion("0.2");
 
-      // Start a QTranslator to see if it can translate user messages
-      QTranslator translator;
-
-      // The language and country of this locale as a string of the form "language_country", where language is a
-      // lowercase, two-letter ISO 639 language code, and country is an uppercase, two-letter ISO 3166 country code.
-      QString locale = QLocale::system().name();
-      QString current_language = locale.section('_', 0, 0);
-
-      // Tries to load a file that contains translations for the source texts used in the program. The program will
-      // continue even if the file is not found
-      if (!translator.load(QString("nxspooler_") + locale ))
-         if (current_language != "en")
-             cerr << a.tr("Warning: the file of the NxSpooler translation for your language has not been found.") << endl;
-
-      a.installTranslator(&translator);
-
-      // Launch a QTranslator for the case of already translated, standard items
-      // like "Restore defaults" buttons, "Cancel" buttons, etc.
-      QString translations_path;
-      translations_path = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
-      QTranslator translatorStandardItems;
-      // Note: the program will continue even if the file is not found
-      if (!translatorStandardItems.load("qt_" + locale, translations_path))
-         if (current_language != "en")
-            cerr << a.tr("Warning: the file of the Qt translation for your language has not been found.") << endl;
-
-      a.installTranslator(&translatorStandardItems);
-
       // Check if arguments were passed to NxSpooler
       if (argc - 1 != 0)
       {
-         QString message = a.tr("NxSpooler does not expect parameters and has been provided with: ")
+         QString message = TSystem::tr("NxSpooler does not expect parameters and has been provided with: ")
                        + QString::number(argc - 1);
          throw runtime_error(message.toStdString());
       }
@@ -121,4 +99,40 @@ int main(int argc, char *argv[])
 
    // MinGW wants this line
    return 0;
+}
+
+//! Configure the Translator object. Provisionally, this code is not in a separate class.
+/*!
+*/
+void configureTheTranslator(QApplication &a, QTranslator &translator)
+{
+      QTextStream cerr(stderr);
+
+      // The language and country of this locale as a string of the form "language_country", where language is a
+      // lowercase, two-letter ISO 639 language code, and country is an uppercase, two-letter ISO 3166 country code.
+      QString locale = QLocale::system().name();
+      QString current_language = locale.section('_', 0, 0);
+
+      // Tries to load a file that contains translations for the source texts used in the program. The program will
+      // continue even if the file is not found
+      if (!translator.load(QString("nxspooler_") + locale ))
+         if (current_language != "en")
+          {
+             // Due to the error, tr() almost surely won't translate here. We use it to follow the same notation and "just in case".
+             cerr << TSystem::tr("Warning: the file of the NxSpooler translation for your language has not been found.") << endl;
+          }
+
+      a.installTranslator(&translator);
+
+      // Launch a QTranslator for the case of already translated, standard items
+      // like "Restore defaults" buttons, "Cancel" buttons, etc.
+      QString translations_path;
+      translations_path = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
+      QTranslator translatorStandardItems;
+      // Note: the program will continue even if the file is not found
+      if (!translatorStandardItems.load("qt_" + locale, translations_path))
+         if (current_language != "en")
+            cerr << TSystem::tr("Warning: the file of the Qt translation for your language has not been found.") << endl;
+
+      a.installTranslator(&translatorStandardItems);
 }
