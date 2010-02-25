@@ -122,11 +122,11 @@ void TOptions::updateOptionsRows()
    }
    catch(std::exception &excep)
    {
-      TSystem::exitBecauseException(excep);
+      syst.exitBecauseException(excep);
    }
    catch(...)
    {
-      TSystem::exitBecauseException();
+      syst.exitBecauseException();
    }
 }
 
@@ -182,11 +182,11 @@ void TOptions::updateSettings()
    }
    catch(std::exception &excep)
    {
-      TSystem::exitBecauseException(excep);
+      syst.exitBecauseException(excep);
    }
    catch(...)
    {
-      TSystem::exitBecauseException();
+      syst.exitBecauseException();
    }
 }
 
@@ -206,11 +206,11 @@ void TOptions::on_m_new_ext_clicked()
    }
    catch(std::exception &excep)
    {
-      TSystem::exitBecauseException(excep);
+      syst.exitBecauseException(excep);
    }
    catch(...)
    {
-      TSystem::exitBecauseException();
+      syst.exitBecauseException();
    }
 }
 
@@ -236,11 +236,11 @@ void TOptions::on_m_delete_ext_clicked()
    }
    catch(std::exception &excep)
    {
-      TSystem::exitBecauseException(excep);
+      syst.exitBecauseException(excep);
    }
    catch(...)
    {
-      TSystem::exitBecauseException();
+      syst.exitBecauseException();
    }
 }
 
@@ -272,11 +272,11 @@ void TOptions::on_m_find_app_clicked()
    }
    catch(std::exception &excep)
    {
-      TSystem::exitBecauseException(excep);
+      syst.exitBecauseException(excep);
    }
    catch(...)
    {
-      TSystem::exitBecauseException();
+      syst.exitBecauseException();
    }
 }
 
@@ -316,11 +316,11 @@ void TOptions::on_m_find_path_clicked()
    }
    catch(std::exception &excep)
    {
-      TSystem::exitBecauseException(excep);
+      syst.exitBecauseException(excep);
    }
    catch(...)
    {
-      TSystem::exitBecauseException();
+      syst.exitBecauseException();
    }
 }
 

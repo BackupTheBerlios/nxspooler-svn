@@ -249,11 +249,11 @@ void TNxSpooler::open()
    }
    catch(std::exception &excep)
    {
-      TSystem::exitBecauseException(excep);
+      syst.exitBecauseException(excep);
    }
    catch(...)
    {
-      TSystem::exitBecauseException();
+      syst.exitBecauseException();
    }
 }
 
@@ -329,11 +329,11 @@ void TNxSpooler::openAboutNxSpooler()
    }
    catch(std::exception &excep)
    {
-      TSystem::exitBecauseException(excep);
+      syst.exitBecauseException(excep);
    }
    catch(...)
    {
-      TSystem::exitBecauseException();
+      syst.exitBecauseException();
    }
 }
 
@@ -384,11 +384,11 @@ void TNxSpooler::openOptions()
    }
    catch(std::exception &excep)
    {
-      TSystem::exitBecauseException(excep);
+      syst.exitBecauseException(excep);
    }
    catch(...)
    {
-      TSystem::exitBecauseException();
+      syst.exitBecauseException();
    }
 }
 
@@ -414,11 +414,11 @@ void TNxSpooler::openHelp()
    }
    catch(std::exception &excep)
    {
-      TSystem::exitBecauseException(excep);
+      syst.exitBecauseException(excep);
    }
    catch(...)
    {
-      TSystem::exitBecauseException();
+      syst.exitBecauseException();
    }
 }
 
@@ -549,11 +549,11 @@ void TNxSpooler::show()
    }
    catch(std::exception &excep)
    {
-      TSystem::exitBecauseException(excep);
+      syst.exitBecauseException(excep);
    }
    catch(...)
    {
-      TSystem::exitBecauseException();
+      syst.exitBecauseException();
    }
 }
 
@@ -587,11 +587,11 @@ void TNxSpooler::showOrHide(QSystemTrayIcon::ActivationReason reason)
    }
    catch(std::exception &excep)
    {
-      TSystem::exitBecauseException(excep);
+      syst.exitBecauseException(excep);
    }
    catch(...)
    {
-      TSystem::exitBecauseException();
+      syst.exitBecauseException();
    }
 }
 
@@ -623,11 +623,11 @@ void TNxSpooler::hide()
    }
    catch(std::exception &excep)
    {
-      TSystem::exitBecauseException(excep);
+      syst.exitBecauseException(excep);
    }
    catch(...)
    {
-      TSystem::exitBecauseException();
+      syst.exitBecauseException();
    }
 }
 
@@ -840,11 +840,11 @@ void TNxSpooler::restoreSettings()
    }
    catch(std::exception &excep)
    {
-      TSystem::exitBecauseException(excep);
+      syst.exitBecauseException(excep);
    }
    catch(...)
    {
-      TSystem::exitBecauseException();
+      syst.exitBecauseException();
    }
 }
 

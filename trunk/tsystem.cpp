@@ -115,7 +115,7 @@ void TSystem::showWarning(const QString &message, const QString &windowTitle) co
    qDebug() << "___" << metaObject()->className() << ":: showWarning";
 
    QTextStream cerr(stderr);
-   cerr << "Warning: " << message << endl;
+   cerr << tr("Warning: ") << message << endl;
 
    QMessageBox msgBox;
    msgBox.setWindowTitle(windowTitle == "" ? tr("Warning") : windowTitle);
@@ -137,7 +137,7 @@ void TSystem::showError(const QString &message, const QString &windowTitle) cons
    qDebug() << "___" << metaObject()->className() << ":: showError()";
 
    QTextStream cerr(stderr);
-   cerr << "Error: " << message << endl;
+   cerr << tr("Error: ") << message << endl;
 
    QMessageBox msgBox;
    msgBox.setWindowTitle(windowTitle == "" ? tr("Error"):windowTitle);
@@ -233,7 +233,11 @@ TSystem::execute(const QString &program, const QStringList &arguments) const
 void
 TSystem::exitBecauseException(std::exception &excep)
 {
-    syst.showError(QString(excep.what()) + ".", tr("Error - ") + qApp->applicationName());
+    qDebug() << "___" << metaObject()->className() << ":: exitBecauseException(std::exception &excep)";
+
+    syst.showError(QString(excep.what()) + ".", tr("Error") + " - " + qApp->applicationName());
+
+    qDebug() << "END" << metaObject()->className() << ":: exitBecauseException(std::exception &excep)";
 
     exit(EXIT_FAILURE);
 }
@@ -245,8 +249,12 @@ TSystem::exitBecauseException(std::exception &excep)
 void
 TSystem::exitBecauseException()
 {
+    qDebug() << "___" << metaObject()->className() << ":: exitBecauseException()";
+
     syst.showError(tr("An unidentified problem has happened and %1 must be closed.").arg(qApp->applicationName())
-                        , tr("Error - ") + qApp->applicationName());
+                        , tr("Error") + " - " + qApp->applicationName());
+
+    qDebug() << "END" << metaObject()->className() << ":: exitBecauseException()";
 
     exit(EXIT_FAILURE);
 }

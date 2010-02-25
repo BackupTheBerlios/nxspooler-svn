@@ -46,8 +46,8 @@ public:
    int execute(const QString &program) const;
    int execute(const QString &program, const QStringList &arguments) const;
 
-   static void exitBecauseException(std::exception &excep);
-   static void exitBecauseException();
+   void exitBecauseException(std::exception &excep);
+   void exitBecauseException();
 };
 
 

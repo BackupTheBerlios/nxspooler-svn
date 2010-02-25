@@ -237,13 +237,14 @@
 <context>
     <name>TSystem</name>
     <message>
-        <location filename="tsystem.cpp" line="236"/>
-        <location filename="tsystem.cpp" line="249"/>
-        <source>Error - </source>
-        <translation>Error - </translation>
+        <location filename="tsystem.cpp" line="143"/>
+        <location filename="tsystem.cpp" line="238"/>
+        <location filename="tsystem.cpp" line="255"/>
+        <source>Error</source>
+        <translation>Error</translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="248"/>
+        <location filename="tsystem.cpp" line="254"/>
         <source>An unidentified problem has happened and %1 must be closed.</source>
         <translation>Ha ocurrido un error no identificado en %1 y debe cerrarse.</translation>
     </message>
@@ -258,14 +259,19 @@
         <translation>Aviso</translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="143"/>
-        <source>Error</source>
-        <translation>Error</translation>
+        <location filename="tsystem.cpp" line="140"/>
+        <source>Error: </source>
+        <translation>Error: </translation>
     </message>
     <message>
-        <location filename="main.cpp" line="63"/>
+        <location filename="main.cpp" line="61"/>
         <source>NxSpooler was already running</source>
         <translation>NxSpooler ya se estaba ejecutando</translation>
+    </message>
+    <message>
+        <location filename="tsystem.cpp" line="118"/>
+        <source>Warning: </source>
+        <translation>Alerta: </translation>
     </message>
     <message>
         <location filename="main.cpp" line="122"/>
@@ -279,7 +285,7 @@
         <translation>Aviso: no se ha encontrado el archivo de la traducción de Qt para su lenguaje.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="75"/>
+        <location filename="main.cpp" line="73"/>
         <source>NxSpooler does not expect parameters and has been provided with: </source>
         <translation>El programa NxSpooler no usa parámetros y se le han pasado: </translation>
     </message>

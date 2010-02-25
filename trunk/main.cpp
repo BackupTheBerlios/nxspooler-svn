@@ -50,8 +50,6 @@ int main(int argc, char *argv[])
    {
       qDebug() << "___ main";
 
-      QTextStream cerr(stderr);
-
       QtSingleApplication a(argc, argv);
 
       // Start a QTranslator to see if it can translate user messages
@@ -88,13 +86,13 @@ int main(int argc, char *argv[])
    {
        QApplication auxiliary(argc, argv); // To show a Qt dialog we need a QApplication
        auxiliary.setApplicationName("NxSpooler"); // Some dialogs show the program name
-       TSystem::exitBecauseException(excep);
+       syst.exitBecauseException(excep);
    }
    catch(...)
    {
        QApplication auxiliary(argc, argv); // To show a Qt dialog we need a QApplication
        auxiliary.setApplicationName("NxSpooler"); // Some dialogs show the program name
-       TSystem::exitBecauseException();
+       syst.exitBecauseException();
    }
 
    // MinGW wants this line
@@ -106,6 +104,8 @@ int main(int argc, char *argv[])
 */
 void configureTheTranslator(QApplication &a, QTranslator &translator)
 {
+      qDebug() << "___ configureTheTranslator";
+
       QTextStream cerr(stderr);
 
       // The language and country of this locale as a string of the form "language_country", where language is a
@@ -117,11 +117,11 @@ void configureTheTranslator(QApplication &a, QTranslator &translator)
       // continue even if the file is not found
       if (!translator.load(QString("nxspooler_") + locale ))
          if (current_language != "en")
-          {
-             // Due to the error, tr() almost surely won't translate here. We use it to follow the same notation and "just in case".
-             cerr << TSystem::tr("Warning: the file of the NxSpooler translation for your language has not been found.") << endl;
-          }
-
+         {
+             // Due to the error, tr() almost surely won't translate anything here. We use it mainly to follow the same notation.
+             cerr << TSystem::tr("Warning: the file of the NxSpooler translation for your language has not been found.");
+             // If we use 'cerr << TSystem::tr("Warning") << ": " << tr("the file[...]")' people who use right-to-left languages would complain :-)
+         }
       a.installTranslator(&translator);
 
       // Launch a QTranslator for the case of already translated, standard items
@@ -135,4 +135,6 @@ void configureTheTranslator(QApplication &a, QTranslator &translator)
             cerr << TSystem::tr("Warning: the file of the Qt translation for your language has not been found.") << endl;
 
       a.installTranslator(&translatorStandardItems);
+
+      qDebug() << "END configureTheTranslator";
 }
