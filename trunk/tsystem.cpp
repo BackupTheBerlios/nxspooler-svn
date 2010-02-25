@@ -114,7 +114,6 @@ void TSystem::showWarning(const QString &message, const QString &windowTitle) co
 {
    qDebug() << "___" << metaObject()->className() << ":: showWarning";
 
-   QTextStream cerr(stderr);
    cerr << tr("Warning: ") << message << endl;
 
    QMessageBox msgBox;
@@ -136,7 +135,6 @@ void TSystem::showError(const QString &message, const QString &windowTitle) cons
 {
    qDebug() << "___" << metaObject()->className() << ":: showError()";
 
-   QTextStream cerr(stderr);
    cerr << tr("Error: ") << message << endl;
 
    QMessageBox msgBox;

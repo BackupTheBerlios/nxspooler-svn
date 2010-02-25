@@ -55,4 +55,7 @@ public:
 // can use the global object that will be created in the main.cpp file
 extern TSystem syst;
 
+// Allow access to those external objects that deal with the standard input, output...
+extern QTextStream cin, cout, cerr;
+
 #endif

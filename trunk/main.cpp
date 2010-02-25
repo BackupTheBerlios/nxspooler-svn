@@ -41,6 +41,11 @@
 // Global object to provide services common to several parts of the program
 TSystem syst;
 
+// Objects that deal with the standard input, output...
+QTextStream cout(stdout, QIODevice::WriteOnly);
+QTextStream cin(stdin, QIODevice::ReadOnly);
+QTextStream cerr(stderr, QIODevice::WriteOnly);
+
 void configureTheTranslator(QApplication &a, QTranslator &translator);
 
 // NxSpooler works in Linux, in Windows and probably in other operating systems
@@ -105,8 +110,6 @@ int main(int argc, char *argv[])
 void configureTheTranslator(QApplication &a, QTranslator &translator)
 {
       qDebug() << "___ configureTheTranslator";
-
-      QTextStream cerr(stderr);
 
       // The language and country of this locale as a string of the form "language_country", where language is a
       // lowercase, two-letter ISO 639 language code, and country is an uppercase, two-letter ISO 3166 country code.
