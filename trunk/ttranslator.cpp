@@ -28,7 +28,7 @@
 /*!
      \param application Application that is going to work with the TTranslator
 */
-TTranslator::TTranslator(QApplication &a)
+TTranslator::TTranslator(QCoreApplication &a)
 {
    qDebug() << "___" << metaObject()->className() << ":: TTranslator";
 

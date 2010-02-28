@@ -20,12 +20,10 @@
 #ifndef T_TRANSLATOR_H
 #define T_TRANSLATOR_H
 
-#include <QtCore/QDebug>
+#include <QDebug>
 #include <QTranslator>
-#include <QApplication>
+#include <QCoreApplication>
 #include <QLibraryInfo>
-
-#include "tsystem.h"
 
 class TTranslator : public QTranslator
 {
@@ -35,8 +33,12 @@ private:
    QTranslator m_translatorStandardItems; //!< A QTranslator for already translated, standard items like "Restore defaults" buttons, "Cancel" buttons, etc.
 
 public:
-    TTranslator(QApplication &a);
+    TTranslator(QCoreApplication &a);
     ~TTranslator();
 };
 
+// Allow access to those external objects that deal with the standard input, output...
+extern QTextStream cin, cout, cerr;
+
 #endif
+
