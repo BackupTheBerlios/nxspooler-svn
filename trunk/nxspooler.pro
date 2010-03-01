@@ -47,6 +47,8 @@ QT *= network
 
 TRANSLATIONS = nxspooler_es.ts
 
+RC_FILE = nxspooler.rc
+
 # We follow the norms of http://www.physics.ohio-state.edu/~ntg/780/gsl_examples/recommended_C++_options
 # except the options of -Wconversion (there were too many warnings), -g and -Werror. We also use -Wno-long-long.
 QMAKE_CXXFLAGS += -pedantic -ansi -W -Wall -Wshadow -fno-common -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -fshort-enums -Wno-long-long
