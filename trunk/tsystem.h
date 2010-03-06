@@ -34,15 +34,25 @@ class TSystem : public QObject
 {
    Q_OBJECT
 
+private:
+   QString m_applicationName;  //!<  The name of the program.
+
+   void showMsgBoxWhenHavingQApp(const QString &message, const QString &windowTitle, QMessageBox::Icon icon) const;
+
+
 public:
    TSystem();
    ~TSystem();
    bool confirm(const QString &message) const;
    bool existsProgram(const QString &name) const;
+   void showMsgBox(const QString &message, const QString &windowTitle, QMessageBox::Icon icon) const;
    void showWarning(const QString &message, const QString &windowTitle = "") const;
    void showError(const QString &message, const QString &windowTitle = "") const;
    int execute(const QString &program) const;
    int execute(const QString &program, const QStringList &arguments) const;
+
+   QString setApplicationName(const QString & application);
+   QString applicationName();
 
    void exitBecauseException(std::exception &excep);
    void exitBecauseException();

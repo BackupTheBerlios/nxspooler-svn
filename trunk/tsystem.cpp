@@ -47,6 +47,26 @@ TSystem::~TSystem()
 }
 
 
+//! Show a message box when it's sure that there's a QApplication running. It's an auxiliary method to avoid duplicating code.
+/*!
+   \param message Warning message that is shown to the user
+   \param windowTitle The title that has the message box
+   \param icon The icon to show
+*/
+void TSystem::showMsgBoxWhenHavingQApp(const QString &message, const QString &windowTitle, QMessageBox::Icon icon) const
+{
+   qDebug() << "___" << metaObject()->className() << ":: showMsgBoxWhenHavingQApp";
+
+   QMessageBox msgBox;
+   msgBox.setText(message);
+   msgBox.setWindowTitle(windowTitle);
+   msgBox.setIcon(icon);
+   msgBox.exec();
+
+   qDebug() << "END" << metaObject()->className() << ":: showMsgBoxWhenHavingQApp";
+}
+
+
 //! Shows a question and asks the user to accept or cancel.
 /*!
    \param message Question for the user
@@ -105,22 +125,45 @@ bool TSystem::existsProgram(const QString &name) const
 }
 
 
+//! Show a message box. It has to work even if there is no QApplication already running.
+/*!
+   \param message Warning message that is shown to the user
+   \param windowTitle The title that has the message box
+   \param icon The icon to show
+*/
+void TSystem::showMsgBox(const QString &message, const QString &windowTitle, QMessageBox::Icon icon) const
+{
+   qDebug() << "___" << metaObject()->className() << ":: showMsgBox";
+
+   if (qApp == NULL)
+   {
+        // To show a Qt dialog we need a QApplication
+        int argc = 0;
+        char **argv = NULL;
+        QApplication temporary(argc, argv);
+        showMsgBoxWhenHavingQApp(message, windowTitle, icon);
+        // Let's notice that the life of the temporary QApplication finishes at the end of this block
+   }
+   else
+   {
+        showMsgBoxWhenHavingQApp(message, windowTitle, icon);
+   }
+
+   qDebug() << "END" << metaObject()->className() << ":: showMsgBox";
+}
+
+
 //! Shows a warning message to the user (he can only continue).
 /*!
    \param message Warning message that is shown to the user
-   \param windowTitle The title that appears in the window
+   \param windowTitle The title that has the message box
 */
 void TSystem::showWarning(const QString &message, const QString &windowTitle) const
 {
    qDebug() << "___" << metaObject()->className() << ":: showWarning";
 
    cerr << tr("Warning: ") << message << endl;
-
-   QMessageBox msgBox;
-   msgBox.setWindowTitle(windowTitle == "" ? tr("Warning") : windowTitle);
-   msgBox.setText(message);
-   msgBox.setIcon(QMessageBox::Warning);
-   msgBox.exec();
+   showMsgBox(message, windowTitle == "" ? tr("Warning") : windowTitle, QMessageBox::Warning);
 
    qDebug() << "END" << metaObject()->className() << ":: showWarning";
 }
@@ -129,19 +172,14 @@ void TSystem::showWarning(const QString &message, const QString &windowTitle) co
 //! Shows an error message to the user.
 /*!
    \param message Error message that is shown to the user
-   \param windowTitle The title that appears in the window
+   \param windowTitle The title that that has the message box
 */
 void TSystem::showError(const QString &message, const QString &windowTitle) const
 {
    qDebug() << "___" << metaObject()->className() << ":: showError";
 
    cerr << tr("Error: ") << message << endl;
-
-   QMessageBox msgBox;
-   msgBox.setWindowTitle(windowTitle == "" ? tr("Error"):windowTitle);
-   msgBox.setText(message);
-   msgBox.setIcon(QMessageBox::Critical);
-   msgBox.exec();
+   showMsgBox(message, windowTitle == "" ? tr("Error") : windowTitle, QMessageBox::Critical);
 
    qDebug() << "END" << metaObject()->className() << ":: showError";
 }
@@ -225,6 +263,39 @@ TSystem::execute(const QString &program, const QStringList &arguments) const
 }
 
 
+//! Tell the TSystem the name of the program.
+/*!
+   \param application The name of the program.
+
+    The TSystem needs to know the name of the program, for example when finding an error and having no QCoreApplication running.
+
+    The name of the method follows the Qt Style.
+*/
+QString
+TSystem::setApplicationName(const QString &application)
+{
+    qDebug() << "___" << metaObject()->className() << ":: setApplicationName";
+
+    return m_applicationName = application;
+
+    qDebug() << "END" << metaObject()->className() << ":: setApplicationName";
+}
+
+
+//! Get the name of the program.
+/*!
+*/
+QString
+TSystem::applicationName()
+{
+    qDebug() << "___" << metaObject()->className() << ":: applicationName()";
+
+    return m_applicationName;
+
+    qDebug() << "END" << metaObject()->className() << ":: applicationName()";
+}
+
+
 //! Quit the program due to an exception.
 /*!
 */
@@ -233,7 +304,7 @@ TSystem::exitBecauseException(std::exception &excep)
 {
     qDebug() << "___" << metaObject()->className() << ":: exitBecauseException";
 
-    syst.showError(QString(excep.what()) + ".", tr("Error") + " - " + qApp->applicationName());
+    syst.showError(QString(excep.what()) + ".", tr("Error") + " - " + m_applicationName);
 
     qDebug() << "END" << metaObject()->className() << ":: exitBecauseException";
 
@@ -249,8 +320,8 @@ TSystem::exitBecauseException()
 {
     qDebug() << "___" << metaObject()->className() << ":: exitBecauseException()";
 
-    syst.showError(tr("An unidentified problem has happened and %1 must be closed.").arg(qApp->applicationName())
-                        , tr("Error") + " - " + qApp->applicationName());
+    syst.showError(tr("An unidentified problem has happened and %1 must be closed.").arg(m_applicationName)
+                        , tr("Error") + " - " + m_applicationName);
 
     qDebug() << "END" << metaObject()->className() << ":: exitBecauseException()";
 

@@ -57,10 +57,10 @@ int main(int argc, char *argv[])
       QtSingleApplication a(argc, argv);
       a.setOrganizationName(QString::fromUtf8("Creación y Diseño Ibense"));
       a.setOrganizationDomain("cdi-ibense.com");
-      a.setApplicationName("NxSpooler");
+      a.setApplicationName(syst.setApplicationName("NxSpooler"));
       a.setApplicationVersion("0.2");
 
-      // Start a QTranslator to see if it can translate user messages
+      // Start a QTranslator to try to translate the next messages that the user sees
       TTranslator translator(a);
 
       // Check if another NxSpooler instance was running
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
          throw runtime_error(message.toStdString());
       }
 
-      // Check if arguments were passed to NxSpooler
+      // Check if any argument was passed to NxSpooler
       if (argc - 1 != 0)
       {
          QString message = TSystem::tr("NxSpooler does not expect parameters and has been provided with: ")
@@ -87,14 +87,10 @@ int main(int argc, char *argv[])
    }
    catch(std::exception &excep)
    {
-       QApplication auxiliary(argc, argv); // To show a Qt dialog we need a QApplication
-       auxiliary.setApplicationName("NxSpooler"); // Some dialogs show the program name
        syst.exitBecauseException(excep);
    }
    catch(...)
    {
-       QApplication auxiliary(argc, argv); // To show a Qt dialog we need a QApplication
-       auxiliary.setApplicationName("NxSpooler"); // Some dialogs show the program name
        syst.exitBecauseException();
    }
 }
