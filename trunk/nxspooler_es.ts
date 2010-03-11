@@ -237,29 +237,29 @@
 <context>
     <name>TSystem</name>
     <message>
-        <location filename="tsystem.cpp" line="141"/>
-        <location filename="tsystem.cpp" line="236"/>
-        <location filename="tsystem.cpp" line="253"/>
+        <location filename="tsystem.cpp" line="182"/>
+        <location filename="tsystem.cpp" line="307"/>
+        <location filename="tsystem.cpp" line="324"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="252"/>
+        <location filename="tsystem.cpp" line="323"/>
         <source>An unidentified problem has happened and %1 must be closed.</source>
         <translation>Ha ocurrido un error no identificado en %1 y debe cerrarse.</translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="59"/>
+        <location filename="tsystem.cpp" line="79"/>
         <source>Confirm</source>
         <translation>Confirmación</translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="120"/>
+        <location filename="tsystem.cpp" line="166"/>
         <source>Warning</source>
         <translation>Aviso</translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="138"/>
+        <location filename="tsystem.cpp" line="181"/>
         <source>Error: </source>
         <translation>Error: </translation>
     </message>
@@ -269,7 +269,7 @@
         <translation>NxSpooler ya se estaba ejecutando</translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="117"/>
+        <location filename="tsystem.cpp" line="165"/>
         <source>Warning: </source>
         <translation>Aviso: </translation>
     </message>
@@ -282,9 +282,9 @@
 <context>
     <name>TTranslator</name>
     <message>
-        <location filename="ttranslator.cpp" line="61"/>
-        <source>Warning: it has not been found the file of the Qt translation for the language of your system.</source>
-        <translation>Aviso: no se ha encontrado el archivo de la traducción de Qt para su lenguaje.</translation>
+        <location filename="ttranslator.cpp" line="80"/>
+        <source>Warning: it has not been found a valid file of the %1 translation for the language of your system.</source>
+        <translation>Aviso: no se ha encontrado el archivo de la traducción de %1 para su lenguaje.</translation>
     </message>
 </context>
 <context>

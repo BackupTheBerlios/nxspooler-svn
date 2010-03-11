@@ -30,7 +30,17 @@ class TTranslator : public QTranslator
    Q_OBJECT
 
 private:
-   QTranslator m_translatorStandardItems; //!< A QTranslator for already translated, standard items like "Restore defaults" buttons, "Cancel" buttons, etc.
+   QTranslator m_translatorStandardItems; //!< A simple QTranslator for already translated, standard items like "Restore defaults" buttons, "Cancel" buttons, etc. It must not be destroyed in the constructor of this class.
+   QCoreApplication &m_a;  //!< A reference to the main QCoreApplication, for a faster and somewhat clearer access to it.
+
+   QString folderWhereTheExecutableIs();
+   void searchAndLoadTranslation(QTranslator &translator,
+                                 const QString &fileNameBase,
+                                 const QString &programToTranslate,
+                                 const QString &currentLanguage,
+                                 const QString &folderWithPriority1,
+                                 const QString &folderWithPriority2,
+                                 const QString &folderWithPriority3 = "");
 
 public:
     TTranslator(QCoreApplication &a);

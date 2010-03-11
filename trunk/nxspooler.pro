@@ -33,14 +33,23 @@ SOURCES += main.cpp \
     ttranslator.cpp
 RESOURCES += nxspooler.qrc
 win32 { 
-    # In release mode: disable the debug messages
-    CONFIG(release, debug|release):DEFINES += NDEBUG
-    
-    # In debug mode: enable the debug messages (necessary in Windows)
+    # In debug mode: enable the debug messages (this step was necessary in Windows)
     CONFIG(debug, debug|release):CONFIG += console
 }
-unix:# In release mode: disable the debug messages
-CONFIG(release, debug|release):DEFINES += QT_NO_DEBUG_OUTPUT
+
+unix {
+    # In release mode: disable the debug messages
+    CONFIG(release, debug|release):DEFINES += QT_NO_DEBUG_OUTPUT
+
+    isEmpty(RELEASE_INSTALLATION_FOLDER) { # Remember, don't put the "{" in the next line.
+        # Note: you can execute, for example, 'qmake "RELEASE_INSTALLATION_FOLDER=/usr"' but
+        # if you don't, RELEASE_INSTALLATION_FOLDER has to have a default value.
+        # Give a value to the variable RELEASE_INSTALLATION_FOLDER if it's empty.
+        RELEASE_INSTALLATION_FOLDER = /usr/local
+    }
+    # Using this variable, make a "#define"
+    DEFINES += RELEASE_INSTALLATION_FOLDER=\\\"$${RELEASE_INSTALLATION_FOLDER}\\\"
+}
 
 # The QtSingleApplication indirectly uses the network library
 QT *= network
