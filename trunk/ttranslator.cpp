@@ -29,7 +29,7 @@
 /*!
    \return The folder where the executable file of the program is.
 */
-QString TTranslator::folderWhereTheExecutableIs()
+QDir TTranslator::folderWhereTheExecutableIs()
 {
    qDebug() << "___" << metaObject()->className() << ":: folderWhereTheExecutableIs";
 
@@ -53,9 +53,11 @@ QString TTranslator::folderWhereTheExecutableIs()
    \param baseName The base name of the translation files to find.
    \param programToTranslate The program that is going to be translated.
    \param currentLanguage The language of this locale.
-   \param folderWithPriority1 The first folder where to search.
-   \param folderWithPriority2 The second folder where to search.
-   \param folderWithPriority3 The third folder where to search.
+   \param folderWithPriority1 The path of the first folder where to search.
+   \param folderWithPriority2 The path of the second folder where to search.
+   \param folderWithPriority3 The path of the third folder where to search.
+   \param folderWithPriority4 The path of the fourth folder where to search.
+   \param folderWithPriority5 The path of the fifth folder where to search.
 */
 void TTranslator::searchAndLoadTranslation(QTranslator &translator,
                                            const QString &baseName,
@@ -63,14 +65,18 @@ void TTranslator::searchAndLoadTranslation(QTranslator &translator,
                                            const QString &currentLanguage,
                                            const QString &folderWithPriority1,
                                            const QString &folderWithPriority2,
-                                           const QString &folderWithPriority3)
+                                           const QString &folderWithPriority3,
+                                           const QString &folderWithPriority4,
+                                           const QString &folderWithPriority5)
 {
    qDebug() << "___" << metaObject()->className() << ":: searchAndLoadTranslation";
 
    if (!translator.load(baseName, folderWithPriority1))
       if (!translator.load(baseName, folderWithPriority2))
-          if (folderWithPriority3 != "")
-             translator.load(baseName, folderWithPriority3);
+         if (!translator.load(baseName, folderWithPriority3))
+            if (!translator.load(baseName, folderWithPriority4))
+               if (folderWithPriority5 != "")
+                  translator.load(baseName, folderWithPriority5);
 
    if (translator.isEmpty())
       if (currentLanguage != "en")
@@ -107,14 +113,23 @@ TTranslator::TTranslator(QCoreApplication &program) : m_a(program)
    // Base name of the translation file of the program.
    QString programTranslationFile = programNameInSmallLetters + "_" + locale;
 
+   // Temporary variable, to avoid executing more code than is necessary.
+   QDir operationFolder = folderWhereTheExecutableIs();
+   
    // Path of the folder where the executable program is.
-   QString programFolder = folderWhereTheExecutableIs();
+   QString programFolder = operationFolder.path();
+
+   // Path of the folder that is one level up from programFolder (if it exists,
+   // if not, it will be empty).
+   QString upProgramFolder;
+   if (operationFolder.cdUp())
+      upProgramFolder = operationFolder.path();
 
 #ifdef Q_WS_WIN
    #ifdef QT_NO_DEBUG
-         searchAndLoadTranslation(*this, programTranslationFile, programName, currentLanguage, programFolder, ".");
-   #else // For example, to allow to execute "debug\program.exe" from the development folder, where the qm file is.
-         searchAndLoadTranslation(*this, programTranslationFile, programName, currentLanguage, ".", programFolder);
+         searchAndLoadTranslation(*this, programTranslationFile, programName, currentLanguage, programFolder, ".", upProgramFolder, "..");
+   #else // For example, to allow to execute "debug\program.exe" from the development folder (where the qm file is).
+         searchAndLoadTranslation(*this, programTranslationFile, programName, currentLanguage, ".", programFolder, upProgramFolder, "..");
    #endif
 
 #else
@@ -127,9 +142,9 @@ TTranslator::TTranslator(QCoreApplication &program) : m_a(program)
    QString releaseTranslationsFolder = QString(RELEASE_INSTALLATION_FOLDER"/share/")
                                        + programNameInSmallLetters + "/translations";
    #ifdef QT_NO_DEBUG
-      searchAndLoadTranslation(*this, programTranslationFile, programName, currentLanguage, releaseTranslationsFolder, programFolder, ".");
+      searchAndLoadTranslation(*this, programTranslationFile, programName, currentLanguage, releaseTranslationsFolder, programFolder, ".", upProgramFolder, "..");
    #else
-      searchAndLoadTranslation(*this, programTranslationFile, programName, currentLanguage, ".", programFolder, releaseTranslationsFolder);
+      searchAndLoadTranslation(*this, programTranslationFile, programName, currentLanguage, ".", programFolder, releaseTranslationsFolder, upProgramFolder, "..");
    #endif
 #endif
 
@@ -141,7 +156,7 @@ TTranslator::TTranslator(QCoreApplication &program) : m_a(program)
    // Note: in development we have Qt installed, and we normally don't modify the Qt
    // translations files so this case is simpler.
    QString qtTranslationsPath = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
-   searchAndLoadTranslation(m_translatorStandardItems, "qt_" + locale, "Qt", currentLanguage, qtTranslationsPath, programFolder, ".");
+   searchAndLoadTranslation(m_translatorStandardItems, "qt_" + locale, "Qt", currentLanguage, qtTranslationsPath, programFolder, ".", upProgramFolder, "..");
 
    program.installTranslator(&m_translatorStandardItems);
 

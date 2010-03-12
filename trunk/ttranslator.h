@@ -21,6 +21,7 @@
 #define T_TRANSLATOR_H
 
 #include <QDebug>
+#include <QDir>
 #include <QTranslator>
 #include <QCoreApplication>
 #include <QLibraryInfo>
@@ -33,14 +34,16 @@ private:
    QTranslator m_translatorStandardItems; //!< A simple QTranslator for already translated, standard items like "Restore defaults" buttons, "Cancel" buttons, etc. It must not be destroyed in the constructor of this class.
    QCoreApplication &m_a;  //!< A reference to the main QCoreApplication, for a faster and somewhat clearer access to it.
 
-   QString folderWhereTheExecutableIs();
+   QDir folderWhereTheExecutableIs();
    void searchAndLoadTranslation(QTranslator &translator,
                                  const QString &fileNameBase,
                                  const QString &programToTranslate,
                                  const QString &currentLanguage,
                                  const QString &folderWithPriority1,
                                  const QString &folderWithPriority2,
-                                 const QString &folderWithPriority3 = "");
+                                 const QString &folderWithPriority3,
+                                 const QString &folderWithPriority4,
+                                 const QString &folderWithPriority5 = "");
 
 public:
     TTranslator(QCoreApplication &a);

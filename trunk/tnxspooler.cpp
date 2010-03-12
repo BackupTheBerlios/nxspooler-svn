@@ -291,8 +291,8 @@ int TNxSpooler::openPathContainedByFile(QString file_path)
    // the file. Finally the program that will try to open the file
    // will complain if the file is not found
 
-   // Activate the NxSpooler window (set the focus to its window) so that the new
-   // opened window will have the focus
+   // Try to activate the NxSpooler window (set the focus to its window) so that the
+   // new opened window has the focus. Note: the operating system has to allow that.
    activateWindow();
 
    qDebug() << line;
