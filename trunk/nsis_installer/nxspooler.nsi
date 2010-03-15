@@ -29,7 +29,7 @@
 
   ;Icon to show when uninstalling the program.
   !ifndef MUI_UNICON
-    !define MUI_UNICON "..\uninstall.ico"
+    !define MUI_UNICON "uninstall.ico"
   !endif
 
   !ifndef TARGET
