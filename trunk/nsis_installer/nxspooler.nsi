@@ -2,6 +2,8 @@
 ; NSIS script for creating NxSpooler installers
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+; Note: this file is in CP1252 (Windows-1252) encoding.
+
 ;--------------------------------
 ;Let's use the "Modern UI".
 
@@ -218,7 +220,7 @@ Function .onInit
       FindWindow $1 "" "${WINDOW_CAPTION_OF_THE_PROG}"
       StrCmp $1 0 ProgramNotFoundRunning
       MessageBox MB_RETRYCANCEL $(CloseProgramBeforeInstallation) IDRETRY CheckIfRunning
-      Abort 
+      Quit 
   ProgramNotFoundRunning:
 
 FunctionEnd
@@ -300,7 +302,7 @@ Function un.onInit
       FindWindow $1 "" "${WINDOW_CAPTION_OF_THE_PROG}"
       StrCmp $1 0 ProgramNotFoundRunning
       MessageBox MB_RETRYCANCEL $(CloseProgramBeforeUninstallation) IDRETRY CheckIfRunning
-      Abort
+      Quit
   ProgramNotFoundRunning:
 
 FunctionEnd
