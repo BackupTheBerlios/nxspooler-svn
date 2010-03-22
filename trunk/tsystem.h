@@ -28,6 +28,10 @@
 #include <QProcess>
 #include <stdexcept>
 
+#ifdef Q_WS_WIN
+   #include <QtCore/qt_windows.h>
+#endif
+
 using std::runtime_error;
 
 class TSystem : public QObject
@@ -37,7 +41,8 @@ class TSystem : public QObject
 private:
    QString m_applicationName;  //!<  The name of the program.
 
-   void showMsgBoxWhenHavingQApp(const QString &message, const QString &windowTitle, QMessageBox::Icon icon) const;
+   void showMsgBoxWhenHavingQApp(const QString &message, const QString &windowTitle,
+                                 QMessageBox::Icon icon = QMessageBox::NoIcon) const;
 
 
 public:
@@ -45,11 +50,13 @@ public:
    ~TSystem();
    bool confirm(const QString &message) const;
    bool existsProgram(const QString &name) const;
-   void showMsgBox(const QString &message, const QString &windowTitle, QMessageBox::Icon icon) const;
+   void showMsgBox(const QString &message, const QString &windowTitle, 
+                   QMessageBox::Icon icon = QMessageBox::NoIcon) const;
    void showWarning(const QString &message, const QString &windowTitle = "") const;
    void showError(const QString &message, const QString &windowTitle = "") const;
    int execute(const QString &program) const;
    int execute(const QString &program, const QStringList &arguments) const;
+   void wait(int miliseconds);
 
    QString setApplicationName(const QString & application);
    QString applicationName();
@@ -59,11 +66,10 @@ public:
 };
 
 
-// Allow that any object that has access to this header
-// can use the global object that will be created in the main.cpp file
-extern TSystem syst;
+extern TSystem syst; //!< Extern object to achieve that any object that has access to this header can use the global object that will be created in the main.cpp file.
 
-// Allow access to those external objects that deal with the standard input, output...
-extern QTextStream cin, cout, cerr;
+extern QTextStream cin;  //!< Extern object to allow access to the "standard input" stream.
+extern QTextStream cout; //!< Extern object to allow access to the "standard output" stream.
+extern QTextStream cerr; //!< Extern object to allow access to the "standard error" stream.
 
 #endif

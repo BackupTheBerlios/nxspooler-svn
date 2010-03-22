@@ -19,7 +19,8 @@
 
 /*!
    \class TSystem
-   \brief Offers services that can be used from any object of the program, like methods, definitions, a class to manage errors, etc.
+   \brief Offers services that can be used from any object of the program,
+          like methods, definitions, a class to manage errors, etc.
 */
 
 #include "tsystem.h"
@@ -49,9 +50,9 @@ TSystem::~TSystem()
 
 //! Show a message box when it's sure that there's a QApplication running. It's an auxiliary method to avoid duplicating code.
 /*!
-   \param message Warning message that is shown to the user
-   \param windowTitle The title that has the message box
-   \param icon The icon to show
+   \param message Warning message that is shown to the user.
+   \param windowTitle The title that has the message box.
+   \param icon The icon to show.
 */
 void TSystem::showMsgBoxWhenHavingQApp(const QString &message, const QString &windowTitle, QMessageBox::Icon icon) const
 {
@@ -69,8 +70,8 @@ void TSystem::showMsgBoxWhenHavingQApp(const QString &message, const QString &wi
 
 //! Shows a question and asks the user to accept or cancel.
 /*!
-   \param message Question for the user
-   \return True if the user clicks in the accept button
+   \param message Question for the user.
+   \return True if the user clicks in the accept button.
 */
 bool TSystem::confirm(const QString &message) const
 {
@@ -91,8 +92,9 @@ bool TSystem::confirm(const QString &message) const
    If it receives a program name, it checks it's accessible directly or using the "path" string.
    As NxSpooler allows an empty string as a program name,
    with a passed empty name it will return "true".
-   \param name Path or a program name
-   \return The value "true" if the program (or path) exists or if the program is accessible using the "path" string
+   \param name Path or a program name.
+   \return The value "true" if the program (or path) exists or if the program is accessible
+           using the "path" string.
 */
 bool TSystem::existsProgram(const QString &name) const
 {
@@ -127,9 +129,9 @@ bool TSystem::existsProgram(const QString &name) const
 
 //! Show a message box. It has to work even if there is no QApplication already running.
 /*!
-   \param message Warning message that is shown to the user
-   \param windowTitle The title that has the message box
-   \param icon The icon to show
+   \param message Warning message that is shown to the user.
+   \param windowTitle The title that has the message box.
+   \param icon The icon to show.
 */
 void TSystem::showMsgBox(const QString &message, const QString &windowTitle, QMessageBox::Icon icon) const
 {
@@ -155,8 +157,8 @@ void TSystem::showMsgBox(const QString &message, const QString &windowTitle, QMe
 
 //! Shows a warning message to the user (he can only continue).
 /*!
-   \param message Warning message that is shown to the user
-   \param windowTitle The title that has the message box
+   \param message Warning message that is shown to the user.
+   \param windowTitle The title that has the message box.
 */
 void TSystem::showWarning(const QString &message, const QString &windowTitle) const
 {
@@ -171,8 +173,8 @@ void TSystem::showWarning(const QString &message, const QString &windowTitle) co
 
 //! Shows an error message to the user.
 /*!
-   \param message Error message that is shown to the user
-   \param windowTitle The title that that has the message box
+   \param message Error message that is shown to the user.
+   \param windowTitle The title that that has the message box.
 */
 void TSystem::showError(const QString &message, const QString &windowTitle) const
 {
@@ -187,16 +189,16 @@ void TSystem::showError(const QString &message, const QString &windowTitle) cons
 
 //! Execute a program.
 /*!
-   \param program The program to execute
-   \param arguments The arguments to be passed to the program
-    Starts a program in a new process, waits for it to finish, and then returns the exit code of the process. Any data the new process writes to the console is forwarded to the calling process.
+   \param program The program to execute.
+   \return The exit code of the executed program.
+    Starts a program in a new process, waits for it to finish, and then returns the exit code
+    of the process. Any data the new process writes to the console is forwarded to the calling process.
 
     The environment and working directory are inherited by the calling process.
 
     On Windows, arguments that contain spaces are wrapped in quotes.
 */
-int
-TSystem::execute(const QString &program) const
+int TSystem::execute(const QString &program) const
 {
     qDebug() << "___" << metaObject()->className() << ":: execute";
 
@@ -226,16 +228,18 @@ TSystem::execute(const QString &program) const
 
 //! Execute a program, with arguments.
 /*!
-   \param program The program to execute
-   \param arguments The arguments to be passed to the program
-    Starts a program with arguments in a new process, waits for it to finish, and then returns the exit code of the process. Any data the new process writes to the console is forwarded to the calling process.
+   \param program The program to execute.
+   \param arguments The arguments to be passed to the program.
+   \return The exit code of the executed program.
+    Starts a program with arguments in a new process, waits for it to finish, and then returns
+    the exit code of the process. Any data the new process writes to the console is forwarded to
+    the calling process.
 
     The environment and working directory are inherited by the calling process.
 
     On Windows, arguments that contain spaces are wrapped in quotes.
 */
-int
-TSystem::execute(const QString &program, const QStringList &arguments) const
+int TSystem::execute(const QString &program, const QStringList &arguments) const
 {
     qDebug() << "___" << metaObject()->className() << ":: execute";
 
@@ -263,11 +267,34 @@ TSystem::execute(const QString &program, const QStringList &arguments) const
 }
 
 
+//! Wait during several miliseconds.
+/*!
+   \param miliseconds The quantity of miliseconds to wait.
+*/
+void
+TSystem::wait(int miliseconds)
+{
+   qDebug() << "___" << metaObject()->className() << ":: wait";
+
+   // Note: this code was extracted from the "qtlocalpeer.cpp" file
+    // that came with the source code of NxSpooler.
+    #ifdef Q_WS_WIN
+       Sleep(DWORD(miliseconds));
+    #else
+       struct timespec ts = { miliseconds / 1000, (miliseconds % 1000) * 1000 * 1000 };
+       nanosleep(&ts, NULL);
+    #endif
+
+    qDebug() << "END" << metaObject()->className() << ":: wait";
+}
+
+
 //! Tell the TSystem the name of the program.
 /*!
    \param application The name of the program.
 
-    The TSystem needs to know the name of the program, for example when finding an error and having no QCoreApplication running.
+    The TSystem needs to know the name of the program, for example when finding
+    an error and having no QCoreApplication running.
 
     The name of the method follows the Qt Style.
 */
@@ -276,9 +303,9 @@ TSystem::setApplicationName(const QString &application)
 {
     qDebug() << "___" << metaObject()->className() << ":: setApplicationName";
 
-    return m_applicationName = application;
-
     qDebug() << "END" << metaObject()->className() << ":: setApplicationName";
+
+    return m_applicationName = application;
 }
 
 
@@ -290,9 +317,9 @@ TSystem::applicationName()
 {
     qDebug() << "___" << metaObject()->className() << ":: applicationName()";
 
-    return m_applicationName;
-
     qDebug() << "END" << metaObject()->className() << ":: applicationName()";
+
+    return m_applicationName;
 }
 
 

@@ -137,7 +137,7 @@ void TOptions::updateSettings()
 {
    // As this is a slot that can be called by Qt code (in response to pushing the "OK"
    // button in the options window, for example), we don't allow exceptions to go out
-   // from here. So we use a "try" block
+   // from here. So we use a "try" block.
    try
    {
        qDebug() << "___" << metaObject()->className() << ":: updateSettings()";
@@ -198,7 +198,7 @@ void TOptions::on_m_new_ext_clicked()
 {
    // As this is a slot that can be called by Qt code (in response to pushing the "New"
    // button in the options window, for example), we don't allow exceptions to go out
-   // from here. So we use a "try" block
+   // from here. So we use a "try" block.
    try
    {
        qDebug() << "___" << metaObject()->className() << ":: on_m_new_ext_clicked()";
@@ -226,7 +226,7 @@ void TOptions::on_m_delete_ext_clicked()
 {
    // As this is a slot that can be called by Qt code (in response to pushing the "Delete"
    // button in the options window, for example), we don't allow exceptions to go out
-   // from here. So we use a "try" block
+   // from here. So we use a "try" block.
    try
    {
        qDebug() << "___" << metaObject()->className() << ":: on_m_delete_ext_clicked()";
@@ -260,7 +260,7 @@ void TOptions::on_m_find_app_clicked()
 {
    // As this is a slot that can be called by Qt code (in response to pushing the "Browse"
    // button in the options window, for example), we don't allow exceptions to go out
-   // from here. So we use a "try" block
+   // from here. So we use a "try" block.
    try
    {
        qDebug() << "___" << metaObject()->className() << ":: on_m_find_app_clicked()";
@@ -296,7 +296,7 @@ void TOptions::on_m_find_path_clicked()
 {
    // As this is a slot that can be called by Qt code (in response to pushing the
    // m_find_path button in the options window, for example), we don't allow
-   // exceptions to go out from here. So we use a "try" block
+   // exceptions to go out from here. So we use a "try" block.
    try
    {
        qDebug() << "___" << metaObject()->className() << ":: on_m_find_path_clicked()";

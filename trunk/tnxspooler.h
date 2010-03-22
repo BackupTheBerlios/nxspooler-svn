@@ -50,12 +50,12 @@ class TNxSpooler : public QDialog, private Ui::NxSpooler
    Q_OBJECT
 
 public:
-   TNxSpooler(QWidget *qwidget_parent = 0);
+   TNxSpooler(QWidget *qwidgetParent = 0);
    ~TNxSpooler();
 
 private slots:
    void open();
-   int openPathContainedByFile(QString file_path);
+   int openPathContainedByFile(const QString &filePath);
    void openAboutNxSpooler();
    void openOptions();
    void openHelp();

@@ -34,10 +34,10 @@
 //! Builds a TNxSpooler object, attaching it to a parent.
 /*!
    If there are no exceptions to stop it, the TNxSpooler object is constructed.
-   \param parent If "parent" is not specified, the TNxSpooler will be an independent window.
+   \param qwidgetParent If "qwidgetParent" is not specified, the TNxSpooler will be an independent window.
 */
-TNxSpooler::TNxSpooler(QWidget *qwidget_parent)
-   : QDialog(qwidget_parent)
+TNxSpooler::TNxSpooler(QWidget *qwidgetParent)
+   : QDialog(qwidgetParent)
 {
    qDebug() << "___" << metaObject()->className() << ":: TNxSpooler";
 
@@ -104,7 +104,7 @@ void TNxSpooler::open()
 {
    // As this is a slot that can be called by Qt code (in response to a call
    // made by m_timer, for example), we don't allow exceptions to go out
-   // from here, so we use a "try" block
+   // from here, so we use a "try" block.
    try
    {
       qDebug() << "___" << metaObject()->className() << ":: open()";
@@ -183,16 +183,7 @@ void TNxSpooler::open()
                // Get the size
                file_size_in_instant_1 = file.size();
 
-               // Miliseconds to wait
-               const int ms = 750;
-
-               // Note: this code is from the "qtlocalpeer.cpp" file that came with the source code of NxSpooler
-#if defined(Q_OS_WIN)
-               Sleep(DWORD(ms));
-#else
-               struct timespec ts = { ms / 1000, (ms % 1000) * 1000 * 1000 };
-               nanosleep(&ts, NULL);
-#endif
+               syst.wait(750);
 
                // Refresh the information that we have about the file
                file.refresh();
@@ -258,12 +249,12 @@ void TNxSpooler::open()
 }
 
 
-//!
+//! Open, in a new window, the path that is written inside a file.
 /*!
-  \param path Special file path
-  \return Returns 0 if there was no error
+  \param filePath Special file path.
+  \return Returns 0 if there was no error found.
 */
-int TNxSpooler::openPathContainedByFile(QString file_path)
+int TNxSpooler::openPathContainedByFile(const QString &filePath)
 {
    qDebug() << metaObject()->className() << ":: openPathContainedByFile";
 
@@ -271,31 +262,31 @@ int TNxSpooler::openPathContainedByFile(QString file_path)
    QProcess process(this);
 
    // Read path from file
-   QFile read_file(file_path);
-   read_file.open(QIODevice::ReadOnly);
-   QString line = read_file.readLine();
+   QFile readFile(filePath);
+   readFile.open(QIODevice::ReadOnly);
+   QString path = readFile.readLine();
 
    // Try to adapt the path to the running system
 #ifdef Q_WS_WIN
-   line.replace(QRegExp("^smb://"), "\\\\");
-   line.replace("/", QDir::separator()); 
+   path.replace(QRegExp("^smb://"), "\\\\");
+   path.replace("/", QDir::separator()); 
 #else
-   line.replace(QRegExp("^\\\\\\\\"), "smb://");
-   line.replace("\\", QDir::separator());
+   path.replace(QRegExp("^\\\\\\\\"), "smb://");
+   path.replace("\\", QDir::separator());
 #endif
 
-   arguments << line;
+   arguments << path;
 
    // Due to the path format "smb://..." we can't check the existence of the file
    // before trying to open it, so we won't check that exists the path read from  
    // the file. Finally the program that will try to open the file
-   // will complain if the file is not found
+   // will complain if the file is not found.
 
    // Try to activate the NxSpooler window (set the focus to its window) so that the
    // new opened window has the focus. Note: the operating system has to allow that.
    activateWindow();
 
-   qDebug() << line;
+   qDebug() << path;
    qDebug() << "END" << metaObject()->className() << ":: openPathContainedByFile";
 
 #ifdef Q_WS_WIN
@@ -313,7 +304,7 @@ int TNxSpooler::openPathContainedByFile(QString file_path)
 void TNxSpooler::openAboutNxSpooler()
 {
    // As this is a slot that can be called by Qt code (in response to a pushed button, for example), we
-   // don't allow exceptions to go out from here. So we use a "try" block
+   // don't allow exceptions to go out from here. So we use a "try" block.
    try
    {
        qDebug() << "___" << metaObject()->className() << ":: openAboutNxSpooler()";
@@ -344,7 +335,7 @@ void TNxSpooler::openAboutNxSpooler()
 void TNxSpooler::openOptions()
 {
    // As this is a slot that can be called by Qt code (in response to a pushed button, for example), we
-   // don't allow exceptions to go out from here. So we use a "try" block
+   // don't allow exceptions to go out from here. So we use a "try" block.
    try
    {
       qDebug() << "___" << metaObject()->className() << ":: openOptions()";
@@ -352,7 +343,7 @@ void TNxSpooler::openOptions()
       TOptions options(&m_settings, this);
 
       // When the restore button is pushed, the the program is configured
-      // with its default values
+      // with its default values.
       bool isConnected = connect(&options, SIGNAL(pushedRestore()),
                     this, SLOT(restoreSettings()));
       if (!isConnected)
@@ -399,7 +390,7 @@ void TNxSpooler::openOptions()
 void TNxSpooler::openHelp()
 {
    // As this is a slot that can be called by Qt code (in response to a pushed button, for example), we
-   // don't allow exceptions to go out from here. So we use a "try" block
+   // don't allow exceptions to go out from here. So we use a "try" block.
    try
    {
        qDebug() << "___" << metaObject()->className() << ":: openHelp()";
@@ -471,7 +462,6 @@ bool TNxSpooler::filterAndSortFolder(QDir &folder) const
 
 //! Initialize the settings of NxSpooler.
 /*!
-
    Assign default values to the options without an assigned value.
    Normally when the options have no value it's because it's the first execution of the
    program in a computer and so there were no options saved in the Windows registry or
@@ -526,7 +516,7 @@ void TNxSpooler::show()
 {
    // As this is a slot that can be called by Qt code (in response to a mouse
    // click, for example), we don't allow exceptions to go out
-   // from here. So we use a "try" block
+   // from here. So we use a "try" block.
    try
    {
        qDebug() << "___" << metaObject()->className() << ":: show()";
@@ -566,7 +556,7 @@ void TNxSpooler::showOrHide(QSystemTrayIcon::ActivationReason reason)
 {
    // As this is a slot that can be called by Qt code (in response to a mouse 
    // click in the NxSpooler icon, for example), we don't allow exceptions
-   // to go out from here. So we use a "try" block
+   // to go out from here. So we use a "try" block.
    try
    {
        qDebug() << "___" << metaObject()->className() << ":: showOrHide";
@@ -603,7 +593,7 @@ void TNxSpooler::hide()
 {
    // As this is a slot that can be called by Qt code (in response to pushing the 
    // "hide" button in the main window, for example), we don't allow exceptions to 
-   // go out from here. So we use a "try" block
+   // go out from here. So we use a "try" block.
    try
    {
        qDebug() << "___" << metaObject()->className() << ":: hide()";
@@ -670,7 +660,7 @@ void TNxSpooler::prepareTrayIconOrShowProgram()
    {
       // If there is no system tray available in the desktop being used, show NxSpooler
       // and do not show the button used to hide NxSpooler (otherwise the program could not be seen
-      // even being executed)
+      // even being executed).
       showNormal();
       m_hide->hide();
    }
@@ -729,7 +719,7 @@ void TNxSpooler::prepareTimer()
 
    // Avoid that repeated callings to this method causes to try to open something
    // several times at the same moment.
-   // Note: we continue even if this disconnection fails
+   // Note: we continue even if this disconnection fails.
    disconnect(&m_timer, SIGNAL(timeout()),
                          this, SLOT(open()));
 
@@ -753,7 +743,7 @@ void TNxSpooler::prepareTimer()
 /*!
    In Windows, allow the system to select the default viewer application.
    In Linux, make a search but giving priority to certain applications.
-  \return Name or route of the program to use in a default way
+  \return Name or route of the program to use in a default way.
 */
 QString TNxSpooler::getDefaultProgram() const
 {
@@ -774,7 +764,7 @@ QString TNxSpooler::getDefaultProgram() const
    As a last resurce, xdg-open is used, but it has the inconvenience that it doesn't wait
    the user to close the open file and so if there are more pending files, all of them
    would be opened at the same time.
-   \return Name of the executable program found in Linux
+   \return Name of the executable program found in Linux.
 */
 QString TNxSpooler::getDefaultProgramInLinux() const
 {
