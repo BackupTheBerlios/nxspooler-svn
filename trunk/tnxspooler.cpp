@@ -194,48 +194,6 @@ void TNxSpooler::detectFilesAndOpen()
 }
 
 
-//! Open the file (or folder) mentioned inside a file.
-/*!
-  \param container The path of the container file.
-  \return Returns 0 if there was no error found.
-*/
-int TNxSpooler::openPathWrittenInside(const QString &containerFile)
-{
-   qDebug() << "___" << metaObject()->className() << ":: openPathWrittenInside";
-
-   QStringList arguments;
-   QProcess process(this);
-
-   // Read the path inside the file
-   QFile container(containerFile);
-   container.open(QIODevice::ReadOnly);
-   QString path = container.readLine().trimmed();
-
-   // Try to adapt the path to the running system
-#ifdef Q_WS_WIN
-   path.replace(QRegExp("^smb://"), "\\\\");
-   path.replace("/", QDir::separator());
-#else
-   path.replace(QRegExp("^\\\\\\\\"), "smb://");
-   path.replace("\\", QDir::separator());
-#endif
-
-   // Note: we'll check later the existence of what "path" refers to
-
-   // Try to activate the NxSpooler window (set the focus to its window) so that the
-   // new opened window has the focus. Note: the operating system has to allow that.
-   activateWindow();
-
-   qDebug() << "The path that must be opened is: " << path;
-
-   QFileInfo aux(path);
-
-   qDebug() << "END" << metaObject()->className() << ":: openPathWrittenInside";
-
-   return openFile(aux, containerFile);
-}
-
-
 //! Show information about the application, authors and license.
 /*!
 */
@@ -774,6 +732,48 @@ int TNxSpooler::openFile(QFileInfo &path, const QString &source)
    qDebug() << "END" << metaObject()->className() << ":: openFile()";
 
    return op_result;
+}
+
+
+//! Open the file (or folder) mentioned inside a file.
+/*!
+  \param container The path of the container file.
+  \return Returns 0 if there was no error found.
+*/
+int TNxSpooler::openPathWrittenInside(const QString &containerFile)
+{
+   qDebug() << "___" << metaObject()->className() << ":: openPathWrittenInside";
+
+   QStringList arguments;
+   QProcess process(this);
+
+   // Read the path inside the file
+   QFile container(containerFile);
+   container.open(QIODevice::ReadOnly);
+   QString path = container.readLine().trimmed();
+
+   // Try to adapt the path to the running system
+#ifdef Q_WS_WIN
+   path.replace(QRegExp("^smb://"), "\\\\");
+   path.replace("/", QDir::separator());
+#else
+   path.replace(QRegExp("^\\\\\\\\"), "smb://");
+   path.replace("\\", QDir::separator());
+#endif
+
+   // Note: we'll check later the existence of what "path" refers to
+
+   // Try to activate the NxSpooler window (set the focus to its window) so that the
+   // new opened window has the focus. Note: the operating system has to allow that.
+   activateWindow();
+
+   qDebug() << "The path that must be opened is: " << path;
+
+   QFileInfo aux(path);
+
+   qDebug() << "END" << metaObject()->className() << ":: openPathWrittenInside";
+
+   return openFile(aux, containerFile);
 }
 
 
