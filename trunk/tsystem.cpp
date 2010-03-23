@@ -208,7 +208,7 @@ int TSystem::execute(const QString &program) const
     // execute() from QProcess is not used.
 
     // Note: more spaces and quotes were not needed
-    qDebug() << "___" << "Going to execute:" << program;
+    qDebug() << "Going to execute:" << program;
 
     process.setReadChannelMode(QProcess::ForwardedChannels);
     process.start(program);
@@ -249,7 +249,7 @@ int TSystem::execute(const QString &program, const QStringList &arguments) const
     // execute() from QProcess is not used.
 
     // Note: more spaces and quotes were not needed
-    qDebug() << "___" << "Going to execute:" << program << "with arguments:" << arguments;
+    qDebug() << "Going to execute:" << program << "with arguments:" << arguments;
 
     process.setReadChannelMode(QProcess::ForwardedChannels);
     process.start(program, arguments);

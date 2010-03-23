@@ -54,8 +54,7 @@ public:
    ~TNxSpooler();
 
 private slots:
-   void open();
-   int openPathContainedByFile(const QString &filePath);
+   void detectFilesAndOpen();
    void openAboutNxSpooler();
    void openOptions();
    void openHelp();
@@ -70,17 +69,19 @@ private:
    void prepareTrayIconOrShowProgram();
    void prepareSharedFolder() const;
    void prepareTimer();
+   int openFile(QFileInfo &containerFile, const QString &source);
+   int openPathWrittenInside(const QString &filePath);
    QString getDefaultProgram() const;
    QString getDefaultProgramInLinux() const;
 
-   QSettings m_settings; //!< Object that manages (loads and saves automatically) the configuration of the program
-   TSysTrayIcon m_sys_tray_icon; //!< Object that manages the system tray icon
-   int m_default_interval; //!< Default quantity of seconds to wait
-   QString m_special_extension; //!< A dot followed by the special extension for text files that contain a path inside
-   QStringList m_default_formats; //!< List of extensions that will have the files to detect
-   QString m_default_resource; //!< Constant string of the name of the default resource
-   QString m_default_folder; //!< Constant string of the name of the default local folder to monitor
-   QTimer m_timer; //!< Object that will call open() every X seconds
+   QSettings m_settings; //!< Object that manages (loads and saves automatically) the configuration of the program.
+   TSysTrayIcon m_sys_tray_icon; //!< Object that manages the system tray icon.
+   int m_default_interval; //!< Default quantity of seconds to wait.
+   QString m_special_extension; //!< A dot followed by the special extension for text files that contain a path inside.
+   QStringList m_default_formats; //!< List of extensions that will have the files to detect.
+   QString m_default_resource; //!< Constant string of the name of the default resource.
+   QString m_default_folder; //!< Constant string of the name of the default local folder to monitor.
+   QTimer m_timer; //!< Every X seconds this object will try to detect new files and open them.
 
 signals:
    void settingsRestored();

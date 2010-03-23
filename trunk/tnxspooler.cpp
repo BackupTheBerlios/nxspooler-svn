@@ -96,21 +96,22 @@ TNxSpooler::~TNxSpooler()
 }
 
 
-//! The files to be detected are opened and deleted (if possible).
+//! In the spool folder, detect files, open and delete them (if possible).
 /*!
   Files with the special extensions will contain a path to be open.
 */
-void TNxSpooler::open()
+void TNxSpooler::detectFilesAndOpen()
 {
    // As this is a slot that can be called by Qt code (in response to a call
    // made by m_timer, for example), we don't allow exceptions to go out
    // from here, so we use a "try" block.
    try
    {
-      qDebug() << "___" << metaObject()->className() << ":: open()";
+      qDebug() << "___" << metaObject()->className() << ":: detectFilesAndOpen()";
 
+      // The spool folder
       QDir folder(m_settings.value("folder").toString());
-      // Note: previously we have made sure that existed m_settings.value("folder")
+      // Note: previously we have made sure that existed: m_settings.value("folder")
 
       if (!filterAndSortFolder(folder))
          return;
@@ -118,15 +119,12 @@ void TNxSpooler::open()
       // Exit from this function if nothing must be done
       if (folder.count() == 0)
       {
-         qDebug() << "END" << metaObject()->className() << ":: open() AHEAD";
+         qDebug() << "END" << metaObject()->className() << ":: detectFilesAndOpen() AHEAD";
          return;
       }
 
       // Stores the result of some operations
       int op_result = 0;
-
-      // Stores the arguments to some callings
-      QStringList arguments;
 
       // Boolean variables to know what could be done with the file
       bool fileHasBeenOpened;
@@ -138,15 +136,12 @@ void TNxSpooler::open()
       foreach(QFileInfo file, files)
       {
          // Initialize variables
-         arguments.clear();
          fileHasBeenOpened = false;
          fileHasBeenDeleted = false;
 
-         int i = m_settings.value("exts").toStringList().indexOf(file.suffix());
-
          if (file.suffix().prepend(".") == m_special_extension)
          {
-            op_result = openPathContainedByFile(file.absoluteFilePath());
+            op_result = openPathWrittenInside(file.absoluteFilePath());
 
             if (op_result == 0)
                fileHasBeenOpened = true;
@@ -155,88 +150,38 @@ void TNxSpooler::open()
          }
          else
          {
-            // This shouldn't happen, but just in case...
-            if (i == -1)
-            {
-               QString message = tr("2208097 - Extension not found");
-               throw runtime_error(message.toStdString());
-            }
-
-            QString app = m_settings.value("apps").toStringList().value(i);
-            // There's no problem if app.isEmpty()
-
-#ifdef Q_WS_WIN
-            arguments << "/C" << "start" << "/wait" << app;
-#endif
-
-            arguments << QDir::toNativeSeparators(file.absoluteFilePath());
-            QProcess process(this);
-
-            // For avoiding the problem of having a file still being formed
-            // and trying to open it, we'll wait until it has a stable size
-
-            file.setCaching(false); // To try to read the current information about the file
-            qint64 file_size_in_instant_1, file_size_in_instant_2;
-
-            do
-            {
-               // Get the size
-               file_size_in_instant_1 = file.size();
-
-               syst.wait(750);
-
-               // Refresh the information that we have about the file
-               file.refresh();
-
-               file_size_in_instant_2 = file.size();
-            } while (file_size_in_instant_1 != file_size_in_instant_2);
-
-            // Try to open the file
-#ifdef Q_WS_WIN
-            op_result = syst.execute("cmd", arguments);
-#else
-            // If the user is using Linux and he has not specified the name of the program to use,
-            // execute the default program
-            if (app.isEmpty())
-            {
-               op_result = syst.execute(getDefaultProgramInLinux(), arguments);
-            }
-            else
-            {
-               op_result = syst.execute(app, arguments);
-            }
-#endif
-
-            // The opening can fail, for example, if the user didn't specify a valid application to open
-            // a file with that extension
-            if (op_result != 0)
-            {
-               syst.showWarning(tr("The file \"%1\" could not be opened. Sometimes this error happens because the system "
-                                   "cannot find the program specified in the configuration of NxSpooler to open files "
-                                   "with that extension. The file is going to be deleted when you close this dialog window.")
-                                   .arg(file.absoluteFilePath()).arg(file.absoluteFilePath()));
-               fileHasBeenOpened = false;
-            }
-            else
-               fileHasBeenOpened = true;
+            op_result = openFile(file, folder.absolutePath());
          }
+
+         // See the result. The opening can fail, for example, if the user didn't specify a
+         // valid application to open a file with that extension
+         if (op_result != 0)
+         {
+            syst.showWarning(tr("The file \"%1\" could not be opened. Sometimes this error happens because the system "
+                                "cannot find the program specified in the configuration of NxSpooler to open files "
+                                "with that extension. The file is going to be deleted when you close this dialog window.")
+                                .arg(file.absoluteFilePath()).arg(file.absoluteFilePath()));
+            fileHasBeenOpened = false;
+         }
+         else
+            fileHasBeenOpened = true;
 
          // Try to delete the file
          fileHasBeenDeleted = folder.remove(file.fileName());
          if (fileHasBeenDeleted == false)
          {
-            // If the file couldn't be deleted, there's an external problem
-            // and NxSpooler stops trying to open and delete all the files in its folder
+            // If the file couldn't be deleted, there's an external problem and
+            // NxSpooler stops trying to open and delete all the files in its folder.
             QString message = tr("2805096 - The file \"%1\" could not be deleted").arg(file.absoluteFilePath());
             throw runtime_error(message.toStdString());
          }
 
-         // Add the file to the list of opened and deleted files by NxSpooler
-         // Note: if there were problems deleting the file, NxSpooler would have stopped to avoid more problems
+         // Add the file to the list of opened and deleted files by NxSpooler.
+         // Note: if there were problems deleting the file, NxSpooler would have stopped to avoid more problems.
          m_listFiles->addItem(fileHasBeenOpened?file.fileName():file.fileName()+tr(" (errors when opening)"));
       }
 
-      qDebug() << "END" << metaObject()->className() << ":: open()";
+      qDebug() << "END" << metaObject()->className() << ":: detectFilesAndOpen()";
    }
    catch(std::exception &excep)
    {
@@ -249,52 +194,45 @@ void TNxSpooler::open()
 }
 
 
-//! Open, in a new window, the path that is written inside a file.
+//! Open the file (or folder) mentioned inside a file.
 /*!
-  \param filePath Special file path.
+  \param container The path of the container file.
   \return Returns 0 if there was no error found.
 */
-int TNxSpooler::openPathContainedByFile(const QString &filePath)
+int TNxSpooler::openPathWrittenInside(const QString &containerFile)
 {
-   qDebug() << metaObject()->className() << ":: openPathContainedByFile";
+   qDebug() << "___" << metaObject()->className() << ":: openPathWrittenInside";
 
    QStringList arguments;
    QProcess process(this);
 
-   // Read path from file
-   QFile readFile(filePath);
-   readFile.open(QIODevice::ReadOnly);
-   QString path = readFile.readLine();
+   // Read the path inside the file
+   QFile container(containerFile);
+   container.open(QIODevice::ReadOnly);
+   QString path = container.readLine().trimmed();
 
    // Try to adapt the path to the running system
 #ifdef Q_WS_WIN
    path.replace(QRegExp("^smb://"), "\\\\");
-   path.replace("/", QDir::separator()); 
+   path.replace("/", QDir::separator());
 #else
    path.replace(QRegExp("^\\\\\\\\"), "smb://");
    path.replace("\\", QDir::separator());
 #endif
 
-   arguments << path;
-
-   // Due to the path format "smb://..." we can't check the existence of the file
-   // before trying to open it, so we won't check that exists the path read from  
-   // the file. Finally the program that will try to open the file
-   // will complain if the file is not found.
+   // Note: we'll check later the existence of what "path" refers to
 
    // Try to activate the NxSpooler window (set the focus to its window) so that the
    // new opened window has the focus. Note: the operating system has to allow that.
    activateWindow();
 
-   qDebug() << path;
-   qDebug() << "END" << metaObject()->className() << ":: openPathContainedByFile";
+   qDebug() << "The path that must be opened is: " << path;
 
-#ifdef Q_WS_WIN
-      return (syst.execute("explorer", arguments) != 1); // Windows explorer has anti-standard behaviours
-#else
-      return syst.execute("xdg-open", arguments);
-#endif
+   QFileInfo aux(path);
 
+   qDebug() << "END" << metaObject()->className() << ":: openPathWrittenInside";
+
+   return openFile(aux, containerFile);
 }
 
 
@@ -710,7 +648,7 @@ void TNxSpooler::prepareSharedFolder() const
 }
 
 
-//! Activate a timer that will execute the open() slot every X seconds.
+//! Activate a timer that will execute the detectFilesAndOpen() slot every X seconds.
 /*!
 */
 void TNxSpooler::prepareTimer()
@@ -721,11 +659,11 @@ void TNxSpooler::prepareTimer()
    // several times at the same moment.
    // Note: we continue even if this disconnection fails.
    disconnect(&m_timer, SIGNAL(timeout()),
-                         this, SLOT(open()));
+                         this, SLOT(detectFilesAndOpen()));
 
 
    bool isConnected = connect(&m_timer, SIGNAL(timeout()),
-                                       this, SLOT(open()));
+                                       this, SLOT(detectFilesAndOpen()));
    if (isConnected == false)
    {
       // If the connection could not be restored, throw an exception
@@ -736,6 +674,106 @@ void TNxSpooler::prepareTimer()
    m_timer.start(m_settings.value("seconds").toInt() * 1000);
 
    qDebug() << "END" << metaObject()->className() << ":: prepareTimer()";
+}
+
+
+//! Try to open a path (it can be a file, a folder,...)
+/*!
+  \param path The QFileInfo of the path to open.
+  \param source The place where the path was found.
+  \return Returns 0 if there was no error found.
+*/
+int TNxSpooler::openFile(QFileInfo &path, const QString &source)
+{
+   qDebug() << "___" << metaObject()->className() << ":: openFile()";
+
+   // Object to store the arguments to some callings
+   QStringList arguments;
+
+   // Name of the application that can be used to open the file
+   QString app;
+
+   if (path.exists() && !path.isDir())
+   {
+      // Get the index of the file extension
+      int i = m_settings.value("exts").toStringList().indexOf(path.suffix());
+
+      // This can happen if the path to open was inside a container file
+      if (i == -1)
+      {
+         QString message = tr("2208097 - NxSpooler is not configured to launch an application to open files "
+                              "like \"%1\", which was found inside \"%2\"")
+                           .arg(path.fileName()).arg(source);
+         // Note: the suspicious file is not deleted, to allow further studies
+
+         throw runtime_error(message.toStdString());
+      }
+
+      app = m_settings.value("apps").toStringList().value(i);
+      // There's no problem if app.isEmpty()
+
+#ifdef Q_WS_WIN
+      arguments << "/C" << "start" << "/wait" << app;
+#endif
+   }
+
+   // Note: this way it worked with paths like "smb://server/resource" in Linux
+   arguments << QDir::toNativeSeparators(path.filePath());
+
+   QProcess process(this);
+
+   // Stores the result of opening the path. This will be the value to return
+   int op_result;
+
+   if (path.exists() && !path.isDir())
+   {
+      // For avoiding the problem of having a file still being formed
+      // and trying to open it, we'll wait until it has a stable size
+
+      path.setCaching(false); // To try to read the current information about the file
+      qint64 file_size_in_instant_1, file_size_in_instant_2;
+
+      do
+      {
+         // Get the size
+         file_size_in_instant_1 = path.size();
+
+         syst.wait(750);
+
+         // Refresh the information that we have about the file
+         path.refresh();
+
+         file_size_in_instant_2 = path.size();
+      } while (file_size_in_instant_1 != file_size_in_instant_2);
+
+      // Try to open the file
+#ifdef Q_WS_WIN
+      op_result = syst.execute("cmd", arguments);
+#else
+      // If the user is using Linux and he has not specified the name of the program to use,
+      // execute the default program
+      if (app.isEmpty())
+      {
+         op_result = syst.execute(getDefaultProgramInLinux(), arguments);
+      }
+      else
+      {
+         op_result = syst.execute(app, arguments);
+      }
+#endif
+   }
+   else // if it's a folder, or a file that doesn't seem to exist
+   {
+#ifdef Q_WS_WIN
+      op_result = (syst.execute("explorer", arguments) != 1); // Windows explorer has anti-standard behaviours
+#else
+      op_result = syst.execute("xdg-open", arguments);
+#endif
+   }
+
+   qDebug() << "END" << metaObject()->className() << ":: openFile()";
+
+   return op_result;
 }
 
 

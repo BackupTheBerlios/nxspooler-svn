@@ -136,62 +136,62 @@
 <context>
     <name>TNxSpooler</name>
     <message>
-        <location filename="tnxspooler.cpp" line="161"/>
-        <source>2208097 - Extension not found</source>
-        <translation>2208097 - Extensión no encontrada</translation>
-    </message>
-    <message>
-        <location filename="tnxspooler.cpp" line="239"/>
+        <location filename="tnxspooler.cpp" line="175"/>
         <source>2805096 - The file &quot;%1&quot; could not be deleted</source>
         <translation>2805096 - No se pudo borrar el archivo &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="223"/>
+        <location filename="tnxspooler.cpp" line="160"/>
         <source>The file &quot;%1&quot; could not be opened. Sometimes this error happens because the system cannot find the program specified in the configuration of NxSpooler to open files with that extension. The file is going to be deleted when you close this dialog window.</source>
         <translation>El archivo &quot;%1&quot; no pudo ser abierto. Algunas veces este error sucede porque el sistema no puede encontrar el programa especificado en la configuración de NxSpooler para abrir archivos con esa extensión. El archivo va a ser borrado cuando usted cierre este cuadro de diálogo.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="245"/>
+        <location filename="tnxspooler.cpp" line="181"/>
         <source> (errors when opening)</source>
         <translation> (errores al intentar abrirlo)</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="361"/>
+        <location filename="tnxspooler.cpp" line="248"/>
         <source>2208095 - Internal error when connecting</source>
         <translation>2208095 - Error interno al conectar</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="371"/>
+        <location filename="tnxspooler.cpp" line="258"/>
         <source>2208096 - Internal error when connecting</source>
         <translation>2208096 - Error interno al conectar</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="650"/>
+        <location filename="tnxspooler.cpp" line="536"/>
         <source>2805099 - The icon of the notification area could not be activated</source>
         <translation>2805099 - No se pudo activar el icono del área de notificación</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="695"/>
+        <location filename="tnxspooler.cpp" line="581"/>
         <source>The folder &quot;%1&quot; does not exist. Do you want to create it?</source>
         <translation>El directorio &quot;%1&quot; no existe. ¿Quiere crearlo?</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="707"/>
+        <location filename="tnxspooler.cpp" line="593"/>
         <source>The folder &quot;%1&quot; was successfully created. Now it must be shared with the name &quot;%2&quot;.</source>
         <translation>La carpeta &quot;%1&quot; ha sido creada con éxito. Ahora debe compartirla con el nombre &quot;%2&quot;.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="714"/>
+        <location filename="tnxspooler.cpp" line="600"/>
         <source>2805093 - The folder &quot;%1&quot; could not be created</source>
         <translation>2805093 - No se pudo crear el directorio &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="742"/>
+        <location filename="tnxspooler.cpp" line="628"/>
         <source>2805094 - The timer could not be activated</source>
         <translation>2805094 - No se pudo activar el temporizador</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="799"/>
+        <location filename="tnxspooler.cpp" line="662"/>
+        <source>2208097 - NxSpooler is not configured to launch an application to open files like &quot;%1&quot;, which was found inside &quot;%2&quot;</source>
+        <translation>2208097 - NxSpooler no está configurado para ejecutar una aplicación que abra archivos como &quot;%1&quot;, que se encontró dentro de &quot;%2&quot;</translation>
+    </message>
+    <message>
+        <location filename="tnxspooler.cpp" line="827"/>
         <source>2805095 - A valid program to open the files could not be found</source>
         <translation>2805095 - No se encuentra un programa adecuado para abrir los ficheros</translation>
     </message>
@@ -237,29 +237,29 @@
 <context>
     <name>TSystem</name>
     <message>
-        <location filename="tsystem.cpp" line="182"/>
-        <location filename="tsystem.cpp" line="307"/>
-        <location filename="tsystem.cpp" line="324"/>
+        <location filename="tsystem.cpp" line="184"/>
+        <location filename="tsystem.cpp" line="334"/>
+        <location filename="tsystem.cpp" line="351"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="323"/>
+        <location filename="tsystem.cpp" line="350"/>
         <source>An unidentified problem has happened and %1 must be closed.</source>
         <translation>Ha ocurrido un error no identificado en %1 y debe cerrarse.</translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="79"/>
+        <location filename="tsystem.cpp" line="80"/>
         <source>Confirm</source>
         <translation>Confirmación</translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="166"/>
+        <location filename="tsystem.cpp" line="168"/>
         <source>Warning</source>
         <translation>Aviso</translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="181"/>
+        <location filename="tsystem.cpp" line="183"/>
         <source>Error: </source>
         <translation>Error: </translation>
     </message>
@@ -269,7 +269,7 @@
         <translation>NxSpooler ya se estaba ejecutando</translation>
     </message>
     <message>
-        <location filename="tsystem.cpp" line="165"/>
+        <location filename="tsystem.cpp" line="167"/>
         <source>Warning: </source>
         <translation>Aviso: </translation>
     </message>
@@ -282,7 +282,7 @@
 <context>
     <name>TTranslator</name>
     <message>
-        <location filename="ttranslator.cpp" line="80"/>
+        <location filename="ttranslator.cpp" line="86"/>
         <source>Warning: it has not been found a valid file of the %1 translation for the language of your system.</source>
         <translation>Aviso: no se ha encontrado el archivo de la traducción de %1 para su lenguaje.</translation>
     </message>
