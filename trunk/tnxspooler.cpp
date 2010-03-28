@@ -39,7 +39,7 @@
 TNxSpooler::TNxSpooler(QWidget *qwidgetParent)
    : QDialog(qwidgetParent)
 {
-   qDebug() << "___" << metaObject()->className() << ":: TNxSpooler";
+   QDEBUG_METHOD_NAME;
 
    // "Adopt" member objects that need this
    m_settings.setParent(this);
@@ -68,19 +68,17 @@ TNxSpooler::TNxSpooler(QWidget *qwidgetParent)
       // If the path did not exist and the path could not be created, show the options dialog
       if (QString(excep.what()).startsWith("2805093"))
       {
-         syst.showWarning(QString(excep.what()) + ".");
+         syst.showWarning(excep.what());
          show();
          openOptions();
       }
       else
       {
-         throw (excep);
+         throw excep;
       }
    }
 
    prepareTimer();
-
-   qDebug() << "END" << metaObject()->className() << ":: TNxSpooler";
 }
 
 
@@ -90,9 +88,7 @@ TNxSpooler::TNxSpooler(QWidget *qwidgetParent)
 */
 TNxSpooler::~TNxSpooler()
 {
-   qDebug() << "___" << metaObject()->className() << ":: ~TNxSpooler()";
-
-   qDebug() << "END" << metaObject()->className() << ":: ~TNxSpooler()";
+   QDEBUG_METHOD_NAME;
 }
 
 
@@ -107,7 +103,7 @@ void TNxSpooler::detectFilesAndOpen()
    // from here, so we use a "try" block.
    try
    {
-      qDebug() << "___" << metaObject()->className() << ":: detectFilesAndOpen()";
+      QDEBUG_METHOD_NAME;
 
       // The spool folder
       QDir folder(m_settings.value("folder").toString());
@@ -119,7 +115,7 @@ void TNxSpooler::detectFilesAndOpen()
       // Exit from this function if nothing must be done
       if (folder.count() == 0)
       {
-         qDebug() << "END" << metaObject()->className() << ":: detectFilesAndOpen() AHEAD";
+         qDebug() << TDebug::indentation << "Going to end " << __PRETTY_FUNCTION__ <<  " AHEAD";
          return;
       }
 
@@ -150,17 +146,17 @@ void TNxSpooler::detectFilesAndOpen()
          }
          else
          {
-            op_result = openFile(file, folder.absolutePath());
+            op_result = openPath(file, folder.absolutePath());
          }
 
          // See the result. The opening can fail, for example, if the user didn't specify a
          // valid application to open a file with that extension
          if (op_result != 0)
          {
-            syst.showWarning(tr("The file \"%1\" could not be opened. Sometimes this error happens because the system "
+            syst.showWarning(tr("The file \"%1\" could not be correctly processed. Sometimes this error happens because the system "
                                 "cannot find the program specified in the configuration of NxSpooler to open files "
                                 "with that extension. The file is going to be deleted when you close this dialog window.")
-                                .arg(file.absoluteFilePath()).arg(file.absoluteFilePath()));
+                                .arg(QDir::toNativeSeparators(file.absoluteFilePath())));
             fileHasBeenOpened = false;
          }
          else
@@ -172,7 +168,8 @@ void TNxSpooler::detectFilesAndOpen()
          {
             // If the file couldn't be deleted, there's an external problem and
             // NxSpooler stops trying to open and delete all the files in its folder.
-            QString message = tr("2805096 - The file \"%1\" could not be deleted").arg(file.absoluteFilePath());
+            QString message = tr("2805096 - The file \"%1\" could not be deleted.")
+                              .arg(QDir::toNativeSeparators(file.absoluteFilePath()));
             throw runtime_error(message.toStdString());
          }
 
@@ -180,8 +177,6 @@ void TNxSpooler::detectFilesAndOpen()
          // Note: if there were problems deleting the file, NxSpooler would have stopped to avoid more problems.
          m_listFiles->addItem(fileHasBeenOpened?file.fileName():file.fileName()+tr(" (errors when opening)"));
       }
-
-      qDebug() << "END" << metaObject()->className() << ":: detectFilesAndOpen()";
    }
    catch(std::exception &excep)
    {
@@ -203,7 +198,7 @@ void TNxSpooler::openAboutNxSpooler()
    // don't allow exceptions to go out from here. So we use a "try" block.
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: openAboutNxSpooler()";
+       QDEBUG_METHOD_NAME;
 
        Ui::aboutDialog uiAbout;
        QDialog about(this);
@@ -211,8 +206,6 @@ void TNxSpooler::openAboutNxSpooler()
        uiAbout.m_app_name_and_version->setText(qApp->applicationName() + " " + qApp->applicationVersion());
 
        about.exec(); // The returned value is not important here
-
-       qDebug() << "END" << metaObject()->className() << ":: openAboutNxSpooler()";
    }
    catch(std::exception &excep)
    {
@@ -234,7 +227,7 @@ void TNxSpooler::openOptions()
    // don't allow exceptions to go out from here. So we use a "try" block.
    try
    {
-      qDebug() << "___" << metaObject()->className() << ":: openOptions()";
+      QDEBUG_METHOD_NAME;
 
       TOptions options(&m_settings, this);
 
@@ -245,7 +238,7 @@ void TNxSpooler::openOptions()
       if (!isConnected)
       {
             // If the connection could not be restored, throw an exception
-            QString message = tr("2208095 - Internal error when connecting");
+            QString message = tr("2208095 - Internal error when connecting.");
             throw runtime_error(message.toStdString());
       }
 
@@ -255,7 +248,7 @@ void TNxSpooler::openOptions()
       if (!isConnected)
       {
             // If the connection could not be restored, throw an exception
-            QString message = tr("2208096 - Internal error when connecting");
+            QString message = tr("2208096 - Internal error when connecting.");
             throw runtime_error(message.toStdString());
       }
 
@@ -266,8 +259,6 @@ void TNxSpooler::openOptions()
           prepareTimer();
       }
       while(!syst.existsProgram(m_settings.value("apps").toString()));
-
-      qDebug() << "END" << metaObject()->className() << ":: openOptions()";
    }
    catch(std::exception &excep)
    {
@@ -289,15 +280,13 @@ void TNxSpooler::openHelp()
    // don't allow exceptions to go out from here. So we use a "try" block.
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: openHelp()";
+       QDEBUG_METHOD_NAME;
 
        Ui::helpDialog uiHelp;
        QDialog help(this);
        uiHelp.setupUi(&help);
 
        help.exec(); // The returned value is not important here
-
-       qDebug() << "END" << metaObject()->className() << ":: openHelp()";
    }
    catch(std::exception &excep)
    {
@@ -319,7 +308,7 @@ void TNxSpooler::openHelp()
 */
 bool TNxSpooler::filterAndSortFolder(QDir &folder) const
 {
-   qDebug() << "___" << metaObject()->className() << ":: filterAndSortFolder";
+   QDEBUG_METHOD_NAME;
 
    QStringList filters;
    QStringList exts = m_settings.value("exts").toStringList();
@@ -350,8 +339,6 @@ bool TNxSpooler::filterAndSortFolder(QDir &folder) const
 
    folder.setSorting(QDir::Time|QDir::Reversed);
 
-   qDebug() << "END" << metaObject()->className() << ":: filterAndSortFolder";
-
    return true;
 }
 
@@ -365,7 +352,7 @@ bool TNxSpooler::filterAndSortFolder(QDir &folder) const
 */
 void TNxSpooler::initializeSettings()
 {
-   qDebug() << "___" << metaObject()->className() << ":: initializeSettings()";
+   QDEBUG_METHOD_NAME;
 
    if (m_settings.value("seconds").isNull())
    {
@@ -400,8 +387,6 @@ void TNxSpooler::initializeSettings()
    {
       m_settings.setValue("resource", m_default_resource);
    }
-
-   qDebug() << "END" << metaObject()->className() << ":: initializeSettings()";
 }
 
 
@@ -415,7 +400,7 @@ void TNxSpooler::show()
    // from here. So we use a "try" block.
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: show()";
+       QDEBUG_METHOD_NAME;
 
        // Avoid that NxSpooler finishes when the user closes dialogs with the main window hidden
        qApp->setQuitOnLastWindowClosed(true);
@@ -430,8 +415,6 @@ void TNxSpooler::show()
        qApp->activeWindow()->raise();
        m_sys_tray_icon.contextMenu()->insertAction(m_action_quit, m_action_hide);
        m_sys_tray_icon.contextMenu()->removeAction(m_action_show);
-
-       qDebug() << "END" << metaObject()->className() << ":: show()";
    }
    catch(std::exception &excep)
    {
@@ -455,7 +438,7 @@ void TNxSpooler::showOrHide(QSystemTrayIcon::ActivationReason reason)
    // to go out from here. So we use a "try" block.
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: showOrHide";
+       QDEBUG_METHOD_NAME;
        // If the user clicks on the system tray icon, hide or show the program
        if (reason == QSystemTrayIcon::Trigger)
        {
@@ -468,8 +451,6 @@ void TNxSpooler::showOrHide(QSystemTrayIcon::ActivationReason reason)
              hide();
           }
        }
-
-       qDebug() << "END" << metaObject()->className() << ":: showOrHide";
    }
    catch(std::exception &excep)
    {
@@ -492,7 +473,7 @@ void TNxSpooler::hide()
    // go out from here. So we use a "try" block.
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: hide()";
+       QDEBUG_METHOD_NAME;
 
        QDialog::hide();
 
@@ -504,8 +485,6 @@ void TNxSpooler::hide()
           m_sys_tray_icon.contextMenu()->insertAction(m_action_quit, m_action_show);
           m_sys_tray_icon.contextMenu()->removeAction(m_action_hide);
        }
-
-       qDebug() << "END" << metaObject()->className() << ":: hide()";
    }
    catch(std::exception &excep)
    {
@@ -522,7 +501,7 @@ void TNxSpooler::hide()
 */
 void TNxSpooler::prepareTrayIconOrShowProgram()
 {
-   qDebug() << "___" << metaObject()->className() << ":: prepareTrayIconOrShowProgram()";
+   QDEBUG_METHOD_NAME;
 
    if (QSystemTrayIcon::isSystemTrayAvailable())
    {
@@ -533,7 +512,7 @@ void TNxSpooler::prepareTrayIconOrShowProgram()
       if (!isConnected)
       {
          // If the connection could not be restored, throw an exception
-         QString message = tr("2805099 - The icon of the notification area could not be activated");
+         QString message = tr("2805099 - The icon of the notification area could not be activated.");
          throw runtime_error(message.toStdString());
       }
 
@@ -560,8 +539,6 @@ void TNxSpooler::prepareTrayIconOrShowProgram()
       showNormal();
       m_hide->hide();
    }
-
-   qDebug() << "END" << metaObject()->className() << ":: prepareTrayIconOrShowProgram()";
 }
 
 
@@ -570,7 +547,7 @@ void TNxSpooler::prepareTrayIconOrShowProgram()
 */
 void TNxSpooler::prepareSharedFolder() const
 {
-   qDebug() << "___" << metaObject()->className() << ":: prepareSharedFolder()";
+   QDEBUG_METHOD_NAME;
 
    // Create the manager of the path to check
    QDir folder(m_settings.value("folder").toString());
@@ -584,7 +561,7 @@ void TNxSpooler::prepareSharedFolder() const
 
       if (!isAccepted)
       {
-         qDebug() << "END" << metaObject()->className() << ":: prepareSharedFolder() AHEAD";
+         qDebug() << TDebug::indentation << "Going to end " << __PRETTY_FUNCTION__ <<  " AHEAD";
          return;
       }
 
@@ -597,12 +574,10 @@ void TNxSpooler::prepareSharedFolder() const
       else
       {
          // If he folder could not be created, thrown an exception
-         QString message = tr("2805093 - The folder \"%1\" could not be created").arg(m_settings.value("folder").toString());
+         QString message = tr("2805093 - The folder \"%1\" could not be created.").arg(m_settings.value("folder").toString());
          throw runtime_error(message.toStdString());
       }
    }
-
-   qDebug() << "END" << metaObject()->className() << ":: prepareSharedFolder()";
 }
 
 
@@ -611,7 +586,7 @@ void TNxSpooler::prepareSharedFolder() const
 */
 void TNxSpooler::prepareTimer()
 {
-   qDebug() << "___" << metaObject()->className() << ":: prepareTimer()";
+   QDEBUG_METHOD_NAME;
 
    // Avoid that repeated callings to this method causes to try to open something
    // several times at the same moment.
@@ -625,25 +600,23 @@ void TNxSpooler::prepareTimer()
    if (isConnected == false)
    {
       // If the connection could not be restored, throw an exception
-      QString message = tr("2805094 - The timer could not be activated");
+      QString message = tr("2805094 - The timer could not be activated.");
       throw runtime_error(message.toStdString());
    }
 
    m_timer.start(m_settings.value("seconds").toInt() * 1000);
-
-   qDebug() << "END" << metaObject()->className() << ":: prepareTimer()";
 }
 
 
-//! Try to open a path (it can be a file, a folder,...)
+//! Try to open a path (it can be a file, a folder, a symlink,...).
 /*!
-  \param path The QFileInfo of the path to open.
+  \param path The QFileInfo of the path to open (it can be a file, a folder, a symlink,...).
   \param source The place where the path was found.
   \return Returns 0 if there was no error found.
 */
-int TNxSpooler::openFile(QFileInfo &path, const QString &source)
+int TNxSpooler::openPath(QFileInfo &path, const QString &source)
 {
-   qDebug() << "___" << metaObject()->className() << ":: openFile()";
+   QDEBUG_METHOD_NAME;
 
    // Object to store the arguments to some callings
    QStringList arguments;
@@ -651,20 +624,28 @@ int TNxSpooler::openFile(QFileInfo &path, const QString &source)
    // Name of the application that can be used to open the file
    QString app;
 
+   // Stores the result of opening the path. This will be the value to return
+   int op_result = 0;
+
+   // If it's something that seems to exist (there are many cases) and it's not a folder
    if (path.exists() && !path.isDir())
    {
       // Get the index of the file extension
       int i = m_settings.value("exts").toStringList().indexOf(path.suffix());
 
-      // This can happen if the path to open was inside a container file
       if (i == -1)
       {
-         QString message = tr("2208097 - NxSpooler is not configured to launch an application to open files "
-                              "like \"%1\", which was found inside \"%2\"")
-                           .arg(path.fileName()).arg(source);
-         // Note: the suspicious file is not deleted, to allow further studies
+         // This case can happen if the path to open was inside a container file
+         syst.showError(tr("2208097 - NxSpooler is not configured to launch an application to open files "
+                              "like \"%1\", which was found inside \"%2\".\n\n"
+                              "The administrator of this computer should see if this is due to a mistake "
+                              "of the program that created the file, an incorrect configuration of "
+                              "NxSpooler, etc.")
+                              .arg(QDir::toNativeSeparators(path.fileName()))
+                              .arg(QDir::toNativeSeparators(source)));
 
-         throw runtime_error(message.toStdString());
+         // We return a value distinct from 0. Let's say "1" because we found 1 error
+         return 1;
       }
 
       app = m_settings.value("apps").toStringList().value(i);
@@ -678,11 +659,7 @@ int TNxSpooler::openFile(QFileInfo &path, const QString &source)
    // Note: this way it worked with paths like "smb://server/resource" in Linux
    arguments << QDir::toNativeSeparators(path.filePath());
 
-   QProcess process(this);
-
-   // Stores the result of opening the path. This will be the value to return
-   int op_result;
-
+   // If it's something that seems to exist (there are many cases) and it's not a folder
    if (path.exists() && !path.isDir())
    {
       // For avoiding the problem of having a file still being formed
@@ -720,16 +697,18 @@ int TNxSpooler::openFile(QFileInfo &path, const QString &source)
       }
 #endif
    }
-   else // if it's a folder, or a file that doesn't seem to exist
+   else
    {
+      // it's a folder, or something that doesn't seem to exist (there are many cases)
+
 #ifdef Q_WS_WIN
-      op_result = (syst.execute("explorer", arguments) != 1); // Windows explorer has anti-standard behaviours
+      // Windows explorer has anti-standard behaviours: for example returning 1 if it could
+      // open a file and also returning the same value if it couldn't.
+      op_result = (syst.execute("explorer", arguments) != 1);
 #else
       op_result = syst.execute("xdg-open", arguments);
 #endif
    }
-
-   qDebug() << "END" << metaObject()->className() << ":: openFile()";
 
    return op_result;
 }
@@ -737,12 +716,12 @@ int TNxSpooler::openFile(QFileInfo &path, const QString &source)
 
 //! Open the file (or folder) mentioned inside a file.
 /*!
-  \param container The path of the container file.
+  \param containerFile The path of the container file.
   \return Returns 0 if there was no error found.
 */
 int TNxSpooler::openPathWrittenInside(const QString &containerFile)
 {
-   qDebug() << "___" << metaObject()->className() << ":: openPathWrittenInside";
+   QDEBUG_METHOD_NAME;
 
    QStringList arguments;
    QProcess process(this);
@@ -751,6 +730,7 @@ int TNxSpooler::openPathWrittenInside(const QString &containerFile)
    QFile container(containerFile);
    container.open(QIODevice::ReadOnly);
    QString path = container.readLine().trimmed();
+   container.close();
 
    // Try to adapt the path to the running system
 #ifdef Q_WS_WIN
@@ -767,13 +747,11 @@ int TNxSpooler::openPathWrittenInside(const QString &containerFile)
    // new opened window has the focus. Note: the operating system has to allow that.
    activateWindow();
 
-   qDebug() << "The path that must be opened is: " << path;
+   qDebug() << TDebug::indentation << "The path that must be opened is: " << path;
 
    QFileInfo aux(path);
 
-   qDebug() << "END" << metaObject()->className() << ":: openPathWrittenInside";
-
-   return openFile(aux, containerFile);
+   return openPath(aux, containerFile);
 }
 
 
@@ -785,9 +763,7 @@ int TNxSpooler::openPathWrittenInside(const QString &containerFile)
 */
 QString TNxSpooler::getDefaultProgram() const
 {
-   qDebug() << "___" << metaObject()->className() << ":: getDefaultProgram()";
-
-   qDebug() << "END" << metaObject()->className() << ":: getDefaultProgram()";
+   QDEBUG_METHOD_NAME;
 
 #ifdef Q_WS_WIN
    return "";
@@ -806,7 +782,7 @@ QString TNxSpooler::getDefaultProgram() const
 */
 QString TNxSpooler::getDefaultProgramInLinux() const
 {
-   qDebug() << "___" << metaObject()->className() << ":: getDefaultProgramInLinux()";
+   QDEBUG_METHOD_NAME;
 
    QString command;
    QStringList commands;
@@ -824,11 +800,10 @@ QString TNxSpooler::getDefaultProgramInLinux() const
    // If there is no valid program found, throw an exception
    if (!syst.existsProgram(command))
    {
-      QString message = tr("2805095 - A valid program to open the files could not be found");
+      QString message = tr("2805095 - A valid program to open the files could not be found.");
       throw runtime_error(message.toStdString());
    }
 
-   qDebug() << "END" << metaObject()->className() << ":: getDefaultProgramInLinux()";
    return command;
 }
 
@@ -844,7 +819,7 @@ void TNxSpooler::restoreSettings()
    // don't allow exceptions to go out from here. So we use a "try" block
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: restoreSettings()";
+       QDEBUG_METHOD_NAME;
 
        m_settings.remove("exts");
        m_settings.setValue("exts", m_default_formats);
@@ -863,8 +838,6 @@ void TNxSpooler::restoreSettings()
        m_settings.setValue("folder", m_default_folder);
        m_settings.setValue("seconds", m_default_interval);
        emit settingsRestored();
-
-       qDebug() << "END" << metaObject()->className() << ":: restoreSettings()";
    }
    catch(std::exception &excep)
    {

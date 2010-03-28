@@ -32,6 +32,8 @@
    #include <QtCore/qt_windows.h>
 #endif
 
+#include "tdebug.h"
+
 using std::runtime_error;
 
 class TSystem : public QObject

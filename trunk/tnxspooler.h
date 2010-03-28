@@ -33,13 +33,7 @@
 #include "tsystrayicon.h"
 #include "toptions.h"
 #include "tsystem.h"
-
-#ifdef Q_WS_WIN
-// To use the Sleep() function and DWORD()
-#include <QtCore/qt_windows.h>
-// Under Windows, the system() function of the library stdlib.h will be used
-#include <stdlib.h>
-#endif
+#include "tdebug.h"
 
 #include "ui_aboutDialog.h"
 #include "ui_helpDialog.h"
@@ -59,18 +53,18 @@ private slots:
    void openOptions();
    void openHelp();
    void show();
-   void showOrHide(QSystemTrayIcon::ActivationReason reason);
+   void showOrHide(QSystemTrayIcon::ActivationReason);
    void hide();
    void restoreSettings();
 
 private:
-   bool filterAndSortFolder(QDir &folder) const;
+   bool filterAndSortFolder(QDir &) const;
    void initializeSettings();
    void prepareTrayIconOrShowProgram();
    void prepareSharedFolder() const;
    void prepareTimer();
-   int openFile(QFileInfo &containerFile, const QString &source);
-   int openPathWrittenInside(const QString &filePath);
+   int openPath(QFileInfo &, const QString &);
+   int openPathWrittenInside(const QString &);
    QString getDefaultProgram() const;
    QString getDefaultProgramInLinux() const;
 

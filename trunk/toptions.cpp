@@ -41,7 +41,7 @@ TOptions::TOptions(QSettings *settings, QWidget *qwidget_parent)
    if (!isConnected)
    {
          // If the connection could not be established, throw an exception
-         QString message = tr("2208092 - Internal error when connecting");
+         QString message = tr("2208092 - Internal error when connecting.");
          throw runtime_error(message.toStdString());
    }
 
@@ -51,7 +51,7 @@ TOptions::TOptions(QSettings *settings, QWidget *qwidget_parent)
    if (!isConnected)
    {
          // If the connection could not be established, throw an exception
-         QString message = tr("2208093 - Internal error when connecting");
+         QString message = tr("2208093 - Internal error when connecting.");
          throw runtime_error(message.toStdString());
    }
 
@@ -101,7 +101,7 @@ void TOptions::updateOptionsRows()
           bool success = m_exts_apps->model()->removeRows(0, m_exts_apps->rowCount());
           if (not success)
           {
-             QString message = tr("2108091 - A problem was found and a row could not be deleted");
+             QString message = tr("2108091 - A problem was found and a row could not be deleted.");
              throw runtime_error(message.toStdString());
           }
       }

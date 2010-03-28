@@ -102,7 +102,7 @@ bool TSystem::existsProgram(const QString &name) const
 
    if (name.isEmpty())
    {
-      qDebug() << "END" << metaObject()->className() << ":: existsProgram AHEAD";
+      qDebug() << TDebug::indentation << "Going to end " << __PRETTY_FUNCTION__ <<  " AHEAD";
       return true;
    }
 
@@ -271,8 +271,7 @@ int TSystem::execute(const QString &program, const QStringList &arguments) const
 /*!
    \param miliseconds The quantity of miliseconds to wait.
 */
-void
-TSystem::wait(int miliseconds)
+void TSystem::wait(int miliseconds)
 {
    qDebug() << "___" << metaObject()->className() << ":: wait";
 
@@ -298,8 +297,7 @@ TSystem::wait(int miliseconds)
 
     The name of the method follows the Qt Style.
 */
-QString
-TSystem::setApplicationName(const QString &application)
+QString TSystem::setApplicationName(const QString &application)
 {
     qDebug() << "___" << metaObject()->className() << ":: setApplicationName";
 
@@ -312,8 +310,7 @@ TSystem::setApplicationName(const QString &application)
 //! Get the name of the program.
 /*!
 */
-QString
-TSystem::applicationName()
+QString TSystem::applicationName()
 {
     qDebug() << "___" << metaObject()->className() << ":: applicationName()";
 
@@ -331,7 +328,7 @@ TSystem::exitBecauseException(std::exception &excep)
 {
     qDebug() << "___" << metaObject()->className() << ":: exitBecauseException";
 
-    syst.showError(QString(excep.what()) + ".", tr("Error") + " - " + m_applicationName);
+    syst.showError(excep.what(), tr("Error") + " - " + m_applicationName);
 
     qDebug() << "END" << metaObject()->className() << ":: exitBecauseException";
 

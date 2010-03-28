@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 {
    try
    {
-      qDebug() << "___ main";
+      qDebug() << "/ main";
 
       QtSingleApplication a(argc, argv);
       a.setOrganizationName(QString::fromUtf8("Creación y Diseño Ibense"));
@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
       // Check if another NxSpooler instance was running
       if (a.isRunning())
       {
-         QString message = TSystem::tr("NxSpooler was already running");
+         QString message = TSystem::tr("NxSpooler was already running.");
          throw runtime_error(message.toStdString());
       }
 
@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
       if (argc - 1 != 0)
       {
          QString message = TSystem::tr("NxSpooler does not expect parameters and has been provided with: ")
-                       + QString::number(argc - 1);
+                       + QString::number(argc - 1) + ".";
          throw runtime_error(message.toStdString());
       }
 
@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
 
       int result = a.exec();
 
-      qDebug() << "END main. The result is:" << result; // Note: we put no space after the ":"
+      qDebug() << "\\ main. The result is:" << result; // Note: we put no space after the ":"
       return result;
    }
    catch(std::exception &excep)
