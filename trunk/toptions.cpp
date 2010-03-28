@@ -31,7 +31,7 @@ TOptions::TOptions(QSettings *settings, QWidget *qwidget_parent)
       : QDialog(qwidget_parent)
       , m_settings(settings)
 {
-   qDebug() << "___" << metaObject()->className() << ":: TOptions";
+   QDEBUG_METHOD_NAME;
 
    setupUi(this);
 
@@ -63,8 +63,6 @@ TOptions::TOptions(QSettings *settings, QWidget *qwidget_parent)
 
    // Place the cursor of the extensions table in its first element
    m_exts_apps->selectRow(0);
-
-   qDebug() << "END" << metaObject()->className() << ":: TOptions";
 }
 
 
@@ -73,9 +71,7 @@ TOptions::TOptions(QSettings *settings, QWidget *qwidget_parent)
 */
 TOptions::~TOptions()
 {
-   qDebug() << "___" << metaObject()->className() << ":: ~TOptions()";
-
-   qDebug() << "END" << metaObject()->className() << ":: ~TOptions()";
+    QDEBUG_METHOD_NAME;
 }
 
 
@@ -89,7 +85,7 @@ void TOptions::updateOptionsRows()
    // out from here. So we use a "try" block
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: updateOptionsRows()";
+       QDEBUG_METHOD_NAME;
 
        m_seconds->setValue(m_settings->value("seconds").toInt());
 
@@ -111,14 +107,12 @@ void TOptions::updateOptionsRows()
        {
           m_exts_apps->insertRow(m_exts_apps->rowCount());
           m_exts_apps->setItem(i, 0, new QTableWidgetItem(exts.value(i)));
-          qDebug() << apps.value(i);
+          qDebug() << TDebug::indentation << apps.value(i);
           m_exts_apps->setItem(i, 1, new QTableWidgetItem(apps.value(i)));
        }
 
        m_folder->setText(m_settings->value("folder").toString());
        m_shared->setText(m_settings->value("resource").toString());
-
-       qDebug() << "END" << metaObject()->className() << ":: updateOptionsRows()";
    }
    catch(std::exception &excep)
    {
@@ -140,7 +134,7 @@ void TOptions::updateSettings()
    // from here. So we use a "try" block.
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: updateSettings()";
+       QDEBUG_METHOD_NAME;
 
        QStringList exts;
        QStringList apps;
@@ -177,8 +171,6 @@ void TOptions::updateSettings()
        {
           syst.showWarning(tr("The selected program can't be accessed. Please select another or set the default value."));
        }
-
-       qDebug() << "END" << metaObject()->className() << ":: updateSettings()";
    }
    catch(std::exception &excep)
    {
@@ -201,12 +193,10 @@ void TOptions::on_m_new_ext_clicked()
    // from here. So we use a "try" block.
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: on_m_new_ext_clicked()";
+       QDEBUG_METHOD_NAME;
 
        m_exts_apps->insertRow(m_exts_apps->rowCount());
        m_exts_apps->setCurrentCell(m_exts_apps->rowCount() - 1, 0);
-
-       qDebug() << "END" << metaObject()->className() << ":: on_m_new_ext_clicked()";
    }
    catch(std::exception &excep)
    {
@@ -229,7 +219,7 @@ void TOptions::on_m_delete_ext_clicked()
    // from here. So we use a "try" block.
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: on_m_delete_ext_clicked()";
+       QDEBUG_METHOD_NAME;
 
        QString question = tr("Are you sure that you want to delete the selected row?");
        bool isAccepted = syst.confirm(question);
@@ -239,8 +229,6 @@ void TOptions::on_m_delete_ext_clicked()
           m_exts_apps->removeRow(m_exts_apps->currentRow());
           return;
        }
-
-       qDebug() << "END" << metaObject()->className() << ":: on_m_delete_ext_clicked()";
    }
    catch(std::exception &excep)
    {
@@ -263,7 +251,7 @@ void TOptions::on_m_find_app_clicked()
    // from here. So we use a "try" block.
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: on_m_find_app_clicked()";
+       QDEBUG_METHOD_NAME;
 
        QFileDialog file_dialog(this, tr("Select the viewer program"), "/");
        file_dialog.setFileMode(QFileDialog::ExistingFile);
@@ -275,8 +263,6 @@ void TOptions::on_m_find_app_clicked()
               QTableWidgetItem(QDir::toNativeSeparators((file_dialog.selectedFiles().first())));
           m_exts_apps->setItem(m_exts_apps->currentRow(), 1, new_app_item);
        }
-
-       qDebug() << "END" << metaObject()->className() << ":: on_m_find_app_clicked()";
    }
    catch(std::exception &excep)
    {
@@ -299,7 +285,7 @@ void TOptions::on_m_find_path_clicked()
    // exceptions to go out from here. So we use a "try" block.
    try
    {
-       qDebug() << "___" << metaObject()->className() << ":: on_m_find_path_clicked()";
+       QDEBUG_METHOD_NAME;
 
        QFileDialog folder_dialog(this, tr("Select the shared local folder"));
 
@@ -319,8 +305,6 @@ void TOptions::on_m_find_path_clicked()
        {
           m_folder->setText(QDir::toNativeSeparators(folder_dialog.selectedFiles().first()));
        }
-
-       qDebug() << "END" << metaObject()->className() << ":: on_m_find_path_clicked()";
    }
    catch(std::exception &excep)
    {

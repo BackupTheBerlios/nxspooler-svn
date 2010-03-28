@@ -20,11 +20,11 @@
 #ifndef T_TRANSLATOR_H
 #define T_TRANSLATOR_H
 
-#include <QDebug>
 #include <QDir>
 #include <QTranslator>
 #include <QCoreApplication>
 #include <QLibraryInfo>
+#include "tdebug.h"
 
 class TTranslator : public QTranslator
 {

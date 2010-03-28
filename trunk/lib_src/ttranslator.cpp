@@ -31,9 +31,7 @@
 */
 QDir TTranslator::folderWhereTheExecutableIs()
 {
-   qDebug() << "___" << metaObject()->className() << ":: folderWhereTheExecutableIs";
-
-   qDebug() << "END" << metaObject()->className() << ":: folderWhereTheExecutableIs";
+   QDEBUG_METHOD_NAME;
 
    // If we use 'return "."', in the case of executing the program using a
    // symlink, then "." would be the folder of the symlink and we don't want that.
@@ -69,7 +67,7 @@ void TTranslator::searchAndLoadTranslation(QTranslator &translator,
                                            const QString &folderWithPriority4,
                                            const QString &folderWithPriority5)
 {
-   qDebug() << "___" << metaObject()->className() << ":: searchAndLoadTranslation";
+   QDEBUG_METHOD_NAME;
 
    if (!translator.load(baseName, folderWithPriority1))
       if (!translator.load(baseName, folderWithPriority2))
@@ -89,8 +87,6 @@ void TTranslator::searchAndLoadTranslation(QTranslator &translator,
       }
 
    // Note: the program will continue even if the translation file is not found.
-
-   qDebug() << "END" << metaObject()->className() << ":: searchAndLoadTranslation";
 }
 
 
@@ -100,7 +96,7 @@ void TTranslator::searchAndLoadTranslation(QTranslator &translator,
 */
 TTranslator::TTranslator(QCoreApplication &program) : m_a(program)
 {
-   qDebug() << "___" << metaObject()->className() << ":: TTranslator";
+   QDEBUG_METHOD_NAME;
 
    // The language and country of this locale as a string of the form "language_country", where language is a
    // lowercase, two-letter ISO 639 language code, and country is an uppercase, two-letter ISO 3166 country code.
@@ -159,8 +155,6 @@ TTranslator::TTranslator(QCoreApplication &program) : m_a(program)
    searchAndLoadTranslation(m_translatorStandardItems, "qt_" + locale, "Qt", currentLanguage, qtTranslationsPath, programFolder, ".", upProgramFolder, "..");
 
    program.installTranslator(&m_translatorStandardItems);
-
-   qDebug() << "END" << metaObject()->className() << ":: TTranslator";
 }
 
 
@@ -169,7 +163,5 @@ TTranslator::TTranslator(QCoreApplication &program) : m_a(program)
 */
 TTranslator::~TTranslator()
 {
-   qDebug() << "___" << metaObject()->className() << ":: ~TTranslator()";
-
-   qDebug() << "END" << metaObject()->className() << ":: ~TTranslator()";
+   QDEBUG_METHOD_NAME;
 }

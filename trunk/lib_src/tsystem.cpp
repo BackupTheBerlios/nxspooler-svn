@@ -31,9 +31,7 @@
 */
 TSystem::TSystem()
 {
-   qDebug() << "___" << metaObject()->className() << ":: TSystem()";
-
-   qDebug() << "END" << metaObject()->className() << ":: TSystem()";
+   QDEBUG_METHOD_NAME;
 }
 
 
@@ -42,9 +40,7 @@ TSystem::TSystem()
 */
 TSystem::~TSystem()
 {
-   qDebug() << "___" << metaObject()->className() << ":: ~TSystem()";
-
-   qDebug() << "END" << metaObject()->className() << ":: ~TSystem()";
+   QDEBUG_METHOD_NAME;
 }
 
 
@@ -56,15 +52,13 @@ TSystem::~TSystem()
 */
 void TSystem::showMsgBoxWhenHavingQApp(const QString &message, const QString &windowTitle, QMessageBox::Icon icon) const
 {
-   qDebug() << "___" << metaObject()->className() << ":: showMsgBoxWhenHavingQApp";
+   QDEBUG_METHOD_NAME;
 
    QMessageBox msgBox;
    msgBox.setText(message);
    msgBox.setWindowTitle(windowTitle);
    msgBox.setIcon(icon);
    msgBox.exec();
-
-   qDebug() << "END" << metaObject()->className() << ":: showMsgBoxWhenHavingQApp";
 }
 
 
@@ -75,13 +69,12 @@ void TSystem::showMsgBoxWhenHavingQApp(const QString &message, const QString &wi
 */
 bool TSystem::confirm(const QString &message) const
 {
-   qDebug() << "___" << metaObject()->className() << ":: confirm";
+   QDEBUG_METHOD_NAME;
 
    QMessageBox msgBox(QMessageBox::Question, tr("Confirm"), message, QMessageBox::Ok|QMessageBox::Cancel);
 
    int bt = msgBox.exec();
 
-   qDebug() << "END" << metaObject()->className() << ":: confirm";
    return (bt == QMessageBox::Ok);
 }
 
@@ -98,11 +91,11 @@ bool TSystem::confirm(const QString &message) const
 */
 bool TSystem::existsProgram(const QString &name) const
 {
-   qDebug() << "___" << metaObject()->className() << ":: existsProgram";
+   QDEBUG_METHOD_NAME;
 
    if (name.isEmpty())
    {
-      qDebug() << TDebug::indentation << "Going to end " << __PRETTY_FUNCTION__ <<  " AHEAD";
+      qDebug() << TDebug::indentation << "Going to end: " << __PRETTY_FUNCTION__ <<  " AHEAD";
       return true;
    }
 
@@ -122,7 +115,6 @@ bool TSystem::existsProgram(const QString &name) const
    system_result = system(command.toUtf8());
 #endif
 
-   qDebug() << "END" << metaObject()->className() << ":: existsProgram";
    return (system_result == 0);
 }
 
@@ -135,7 +127,7 @@ bool TSystem::existsProgram(const QString &name) const
 */
 void TSystem::showMsgBox(const QString &message, const QString &windowTitle, QMessageBox::Icon icon) const
 {
-   qDebug() << "___" << metaObject()->className() << ":: showMsgBox";
+   QDEBUG_METHOD_NAME;
 
    if (qApp == NULL)
    {
@@ -150,8 +142,6 @@ void TSystem::showMsgBox(const QString &message, const QString &windowTitle, QMe
    {
         showMsgBoxWhenHavingQApp(message, windowTitle, icon);
    }
-
-   qDebug() << "END" << metaObject()->className() << ":: showMsgBox";
 }
 
 
@@ -162,12 +152,10 @@ void TSystem::showMsgBox(const QString &message, const QString &windowTitle, QMe
 */
 void TSystem::showWarning(const QString &message, const QString &windowTitle) const
 {
-   qDebug() << "___" << metaObject()->className() << ":: showWarning";
+   QDEBUG_METHOD_NAME;
 
    cerr << tr("Warning: ") << message << endl;
    showMsgBox(message, windowTitle == "" ? tr("Warning") : windowTitle, QMessageBox::Warning);
-
-   qDebug() << "END" << metaObject()->className() << ":: showWarning";
 }
 
 
@@ -178,12 +166,10 @@ void TSystem::showWarning(const QString &message, const QString &windowTitle) co
 */
 void TSystem::showError(const QString &message, const QString &windowTitle) const
 {
-   qDebug() << "___" << metaObject()->className() << ":: showError";
+   QDEBUG_METHOD_NAME;
 
    cerr << tr("Error: ") << message << endl;
    showMsgBox(message, windowTitle == "" ? tr("Error") : windowTitle, QMessageBox::Critical);
-
-   qDebug() << "END" << metaObject()->className() << ":: showError";
 }
 
 
@@ -200,15 +186,14 @@ void TSystem::showError(const QString &message, const QString &windowTitle) cons
 */
 int TSystem::execute(const QString &program) const
 {
-    qDebug() << "___" << metaObject()->className() << ":: execute";
+    QDEBUG_METHOD_NAME;
 
     QProcess process;
 
     // As seen in http://jira.codehaus.org/browse/IZPACK-20 and http://labs.trolltech.com/forums/topic/156, the method
     // execute() from QProcess is not used.
 
-    // Note: more spaces and quotes were not needed
-    qDebug() << "Going to execute:" << program;
+    qDebug() << TDebug::indentation << " Going to execute: " << program;
 
     process.setReadChannelMode(QProcess::ForwardedChannels);
     process.start(program);
@@ -219,8 +204,6 @@ int TSystem::execute(const QString &program) const
     {
        exitCode = -1;
     }
-
-    qDebug() << "END" << metaObject()->className() << ":: execute";
 
     return exitCode;
 }
@@ -241,15 +224,14 @@ int TSystem::execute(const QString &program) const
 */
 int TSystem::execute(const QString &program, const QStringList &arguments) const
 {
-    qDebug() << "___" << metaObject()->className() << ":: execute";
+    QDEBUG_METHOD_NAME;
 
     QProcess process;
 
     // As seen in http://jira.codehaus.org/browse/IZPACK-20 and http://labs.trolltech.com/forums/topic/156, the method
     // execute() from QProcess is not used.
 
-    // Note: more spaces and quotes were not needed
-    qDebug() << "Going to execute:" << program << "with arguments:" << arguments;
+    qDebug() << TDebug::indentation << "Going to execute: " << program << " with arguments: " << arguments;
 
     process.setReadChannelMode(QProcess::ForwardedChannels);
     process.start(program, arguments);
@@ -261,8 +243,6 @@ int TSystem::execute(const QString &program, const QStringList &arguments) const
        exitCode = -1;
     }
 
-    qDebug() << "END" << metaObject()->className() << ":: execute";
-
     return exitCode;
 }
 
@@ -273,7 +253,7 @@ int TSystem::execute(const QString &program, const QStringList &arguments) const
 */
 void TSystem::wait(int miliseconds)
 {
-   qDebug() << "___" << metaObject()->className() << ":: wait";
+   QDEBUG_METHOD_NAME;
 
    // Note: this code was extracted from the "qtlocalpeer.cpp" file
     // that came with the source code of NxSpooler.
@@ -283,8 +263,6 @@ void TSystem::wait(int miliseconds)
        struct timespec ts = { miliseconds / 1000, (miliseconds % 1000) * 1000 * 1000 };
        nanosleep(&ts, NULL);
     #endif
-
-    qDebug() << "END" << metaObject()->className() << ":: wait";
 }
 
 
@@ -299,9 +277,7 @@ void TSystem::wait(int miliseconds)
 */
 QString TSystem::setApplicationName(const QString &application)
 {
-    qDebug() << "___" << metaObject()->className() << ":: setApplicationName";
-
-    qDebug() << "END" << metaObject()->className() << ":: setApplicationName";
+    QDEBUG_METHOD_NAME;
 
     return m_applicationName = application;
 }
@@ -312,9 +288,7 @@ QString TSystem::setApplicationName(const QString &application)
 */
 QString TSystem::applicationName()
 {
-    qDebug() << "___" << metaObject()->className() << ":: applicationName()";
-
-    qDebug() << "END" << metaObject()->className() << ":: applicationName()";
+    QDEBUG_METHOD_NAME;
 
     return m_applicationName;
 }
@@ -326,11 +300,9 @@ QString TSystem::applicationName()
 void
 TSystem::exitBecauseException(std::exception &excep)
 {
-    qDebug() << "___" << metaObject()->className() << ":: exitBecauseException";
+    QDEBUG_METHOD_NAME;
 
     syst.showError(excep.what(), tr("Error") + " - " + m_applicationName);
-
-    qDebug() << "END" << metaObject()->className() << ":: exitBecauseException";
 
     exit(EXIT_FAILURE);
 }
@@ -342,12 +314,10 @@ TSystem::exitBecauseException(std::exception &excep)
 void
 TSystem::exitBecauseException()
 {
-    qDebug() << "___" << metaObject()->className() << ":: exitBecauseException()";
+    QDEBUG_METHOD_NAME;
 
     syst.showError(tr("An unidentified problem has happened and %1 must be closed.").arg(m_applicationName)
                         , tr("Error") + " - " + m_applicationName);
-
-    qDebug() << "END" << metaObject()->className() << ":: exitBecauseException()";
 
     exit(EXIT_FAILURE);
 }

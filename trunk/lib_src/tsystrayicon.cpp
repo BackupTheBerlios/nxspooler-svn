@@ -32,9 +32,7 @@
 */
 TSysTrayIcon::TSysTrayIcon()
 {
-   qDebug() << "___" << metaObject()->className() << ":: TSysTrayIcon()";
-
-   qDebug() << "END" << metaObject()->className() << ":: TSysTrayIcon()";
+   QDEBUG_METHOD_NAME;
 }
 
 
@@ -44,12 +42,10 @@ TSysTrayIcon::TSysTrayIcon()
 */
 TSysTrayIcon::~TSysTrayIcon()
 {
-   qDebug() << "___" << metaObject()->className() << ":: ~TSysTrayIcon()";
+   QDEBUG_METHOD_NAME;
 
    if (isSystemTrayAvailable())
    {
       hide();
    }
-
-   qDebug() << "END" << metaObject()->className() << ":: ~TSysTrayIcon()";
 }
