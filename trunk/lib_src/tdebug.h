@@ -31,7 +31,7 @@ public:
 
    static TDebugIndentation indentation; //!<  Object that knows the level of indentation that must be used in the debug messages.
 
-   TDebug(const char *methodName);
+   TDebug(const char *);
    ~TDebug();
 };
 

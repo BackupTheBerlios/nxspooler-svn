@@ -34,7 +34,7 @@ public:
 private:
       int indentationLevel;
 
-      friend QDebug operator<<(QDebug dbg, const TDebugIndentation &indentation);
+      friend QDebug operator<<(QDebug, const TDebugIndentation &);
 };
 
 #endif

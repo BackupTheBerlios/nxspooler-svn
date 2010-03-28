@@ -43,27 +43,27 @@ class TSystem : public QObject
 private:
    QString m_applicationName;  //!<  The name of the program.
 
-   void showMsgBoxWhenHavingQApp(const QString &message, const QString &windowTitle,
-                                 QMessageBox::Icon icon = QMessageBox::NoIcon) const;
+   void showMsgBoxWhenHavingQApp(const QString &, const QString &,
+                                 QMessageBox::Icon = QMessageBox::NoIcon) const;
 
 
 public:
    TSystem();
    ~TSystem();
-   bool confirm(const QString &message) const;
-   bool existsProgram(const QString &name) const;
-   void showMsgBox(const QString &message, const QString &windowTitle, 
-                   QMessageBox::Icon icon = QMessageBox::NoIcon) const;
-   void showWarning(const QString &message, const QString &windowTitle = "") const;
-   void showError(const QString &message, const QString &windowTitle = "") const;
-   int execute(const QString &program) const;
-   int execute(const QString &program, const QStringList &arguments) const;
-   void wait(int miliseconds);
+   bool confirm(const QString &) const;
+   bool existsProgram(const QString &) const;
+   void showMsgBox(const QString &, const QString &,
+                   QMessageBox::Icon = QMessageBox::NoIcon) const;
+   void showWarning(const QString &, const QString & = "") const;
+   void showError(const QString &, const QString & = "") const;
+   int execute(const QString &) const;
+   int execute(const QString &, const QStringList &) const;
+   void wait(int);
 
-   QString setApplicationName(const QString & application);
+   QString setApplicationName(const QString &);
    QString applicationName();
 
-   void exitBecauseException(std::exception &excep);
+   void exitBecauseException(std::exception &);
    void exitBecauseException();
 };
 

@@ -35,18 +35,18 @@ private:
    QCoreApplication &m_a;  //!< A reference to the main QCoreApplication, for a faster and somewhat clearer access to it.
 
    QDir folderWhereTheExecutableIs();
-   void searchAndLoadTranslation(QTranslator &translator,
-                                 const QString &fileNameBase,
-                                 const QString &programToTranslate,
-                                 const QString &currentLanguage,
-                                 const QString &folderWithPriority1,
-                                 const QString &folderWithPriority2,
-                                 const QString &folderWithPriority3,
-                                 const QString &folderWithPriority4,
-                                 const QString &folderWithPriority5 = "");
+   void searchAndLoadTranslation(QTranslator &,
+                                 const QString &,
+                                 const QString &,
+                                 const QString &,
+                                 const QString &,
+                                 const QString &,
+                                 const QString &,
+                                 const QString &,
+                                 const QString & = "");
 
 public:
-    TTranslator(QCoreApplication &a);
+    TTranslator(QCoreApplication &);
     ~TTranslator();
 };
 
