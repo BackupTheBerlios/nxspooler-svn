@@ -95,7 +95,7 @@ bool TSystem::existsProgram(const QString &name) const
 
    if (name.isEmpty())
    {
-      qDebug() << TDebug::indentation << "Going to end: " << __PRETTY_FUNCTION__ <<  " AHEAD";
+      qDebug() << TDebug::indentation << "Going to end: " << Q_FUNC_INFO <<  " AHEAD";
       return true;
    }
 

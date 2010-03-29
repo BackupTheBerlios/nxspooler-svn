@@ -115,7 +115,7 @@ void TNxSpooler::detectFilesAndOpen()
       // Exit from this function if nothing must be done
       if (folder.count() == 0)
       {
-         qDebug() << TDebug::indentation << "Going to end: " << __PRETTY_FUNCTION__ <<  " AHEAD";
+         qDebug() << TDebug::indentation << "Going to end: " << Q_FUNC_INFO <<  " AHEAD";
          return;
       }
 
@@ -561,7 +561,7 @@ void TNxSpooler::prepareSharedFolder() const
 
       if (!isAccepted)
       {
-         qDebug() << TDebug::indentation << "Going to end: " << __PRETTY_FUNCTION__ <<  " AHEAD";
+         qDebug() << TDebug::indentation << "Going to end: " << Q_FUNC_INFO <<  " AHEAD";
          return;
       }
 

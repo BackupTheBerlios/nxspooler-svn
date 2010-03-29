@@ -37,7 +37,7 @@ public:
 
 /*!  Define a TDebug that writes in qDebug() information about the name of the current method. */
 #ifdef QT_DEBUG
-   #define QDEBUG_METHOD_NAME TDebug methodName(__PRETTY_FUNCTION__)
+   #define QDEBUG_METHOD_NAME TDebug methodName(Q_FUNC_INFO)
 #else
    #define QDEBUG_METHOD_NAME
 #endif
