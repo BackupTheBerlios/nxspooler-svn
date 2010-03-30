@@ -39,7 +39,7 @@
   !endif
 
   ;Name of the installer. 
-  OutFile ${PROG_NAME}-${VERSION}-${TARGET}.exe
+  OutFile ${PROG_NAME}-${VERSION}-${TARGET}-setup.exe
   
   ;Place where the Qt dlls are. This value is only used when compiling this script.
   !ifndef QT_DLL_FOLDER
