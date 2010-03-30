@@ -205,19 +205,16 @@ El administrador de este ordenador debería ver si esto es debido a un error del
     <message>
         <location filename="toptions.cpp" line="44"/>
         <source>2208092 - Internal error when connecting.</source>
-        <oldsource>2208092 - Internal error when connecting</oldsource>
         <translation>2208092 - Error interno al conectar.</translation>
     </message>
     <message>
         <location filename="toptions.cpp" line="54"/>
         <source>2208093 - Internal error when connecting.</source>
-        <oldsource>2208093 - Internal error when connecting</oldsource>
         <translation>2208093 - Error interno al conectar.</translation>
     </message>
     <message>
         <location filename="toptions.cpp" line="100"/>
         <source>2108091 - A problem was found and a row could not be deleted.</source>
-        <oldsource>2108091 - A problem was found and a row could not be deleted</oldsource>
         <translation>2108091 - Se encontró un problema y una fila no pudo ser borrada.</translation>
     </message>
     <message>
@@ -273,7 +270,6 @@ El administrador de este ordenador debería ver si esto es debido a un error del
     <message>
         <location filename="main.cpp" line="69"/>
         <source>NxSpooler was already running.</source>
-        <oldsource>NxSpooler was already running</oldsource>
         <translation>NxSpooler ya se estaba ejecutando.</translation>
     </message>
     <message>
@@ -1696,8 +1692,8 @@ Más precisamente: en el ordenador del usuario, NxSpooler monitoriza si archivos
     </message>
     <message>
         <location filename="helpDialog.ui" line="72"/>
-        <source>Appendix</source>
-        <translation>Apéndice</translation>
+        <source>Appendix 1</source>
+        <translation>Apéndice 1</translation>
     </message>
     <message>
         <location filename="helpDialog.ui" line="85"/>
@@ -1739,6 +1735,16 @@ Nota: para imprimir un informe, Bulmages 0.12 primero lo guarda (normalmente en 
       - Ha de tener NxSpooler ejecutándose en su ordenador, claro :-). 
 
 De esta forma: los informes que hace Bulmagés en el servidor se abrirán en el ordenador cliente, donde el usuario puede imprimirlos en la impresora que quiera, guardarlos, enviarlos por correo, etc.</translation>
+    </message>
+    <message>
+        <location filename="helpDialog.ui" line="119"/>
+        <source>Appendix 2</source>
+        <translation>Apéndice 2</translation>
+    </message>
+    <message>
+        <location filename="helpDialog.ui" line="138"/>
+        <source>The Windows installer of NxSpooler modifies &quot;ForegroundLockTimeout&quot; in the registry. This is to try to send to foreground the windows opened by NxSpooler, so that the user doesn&apos;t have to click on each one.</source>
+        <translation>El instalador de NxSpooler para Windows modifica &quot;ForegroundLockTimeout&quot; en el registro. Esto es así para enviar a primer plano las ventanas abiertas por NxSpooler, y así que el usuario no tenga que pulsar en cada una.</translation>
     </message>
 </context>
 <context>

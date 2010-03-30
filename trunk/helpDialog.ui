@@ -20,8 +20,8 @@
    <iconset resource="nxspooler.qrc">
     <normaloff>:/img/nxspooler.png</normaloff>:/img/nxspooler.png</iconset>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
     <widget class="QLabel" name="label_description">
      <property name="font">
       <font>
@@ -34,7 +34,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item>
     <widget class="QPlainTextEdit" name="m_description">
      <property name="minimumSize">
       <size>
@@ -60,8 +60,8 @@ More precisely: in the computer of the user, NxSpooler monitors if files with ce
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_appendix">
+   <item>
+    <widget class="QLabel" name="label_appendix_1">
      <property name="font">
       <font>
        <weight>75</weight>
@@ -69,12 +69,12 @@ More precisely: in the computer of the user, NxSpooler monitors if files with ce
       </font>
      </property>
      <property name="text">
-      <string>Appendix</string>
+      <string>Appendix 1</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
-    <widget class="QPlainTextEdit" name="m_appendix">
+   <item>
+    <widget class="QPlainTextEdit" name="m_appendix_1">
      <property name="minimumSize">
       <size>
        <width>400</width>
@@ -107,7 +107,42 @@ This way: the files of the reports that Bulmages makes in the server  will be op
      </property>
     </widget>
    </item>
-   <item row="4" column="0">
+   <item>
+    <widget class="QLabel" name="label_appendix_2">
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Appendix 2</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPlainTextEdit" name="m_appendix_2">
+     <property name="minimumSize">
+      <size>
+       <width>400</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>80</height>
+      </size>
+     </property>
+     <property name="plainText">
+      <string>The Windows installer of NxSpooler modifies &quot;ForegroundLockTimeout&quot; in the registry. This is to try to send to foreground the windows opened by NxSpooler, so that the user doesn't have to click on each one.</string>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -122,6 +157,12 @@ This way: the files of the reports that Bulmages makes in the server  will be op
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>m_description</tabstop>
+  <tabstop>m_appendix_1</tabstop>
+  <tabstop>m_appendix_2</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
  <resources>
   <include location="nxspooler.qrc"/>
  </resources>
