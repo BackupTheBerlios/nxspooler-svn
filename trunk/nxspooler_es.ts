@@ -307,7 +307,7 @@ El administrador de este ordenador debería ver si esto es debido a un error del
     <message>
         <location filename="aboutDialog.ui" line="66"/>
         <source>NxSpooler is a Qt utility used to help people to print in their printers when connected to a remote computer with sessions like the ones of FreeNX.</source>
-        <translation>NxSpooler es una utilidad Qt usada para ayudar a las personas a imprimir en sus impresoras cuando están conectados a un ordenador remoto usando sesiones como las de FreeNX.</translation>
+        <translation>NxSpooler es una utilidad Qt para ayudar a las personas a imprimir en sus impresoras cuando están conectados a un ordenador remoto usando sesiones como las de FreeNX.</translation>
     </message>
     <message>
         <location filename="aboutDialog.ui" line="120"/>
@@ -1685,10 +1685,12 @@ Public License instead of this License.  But first, please read
 
 More precisely: in the computer of the user, NxSpooler monitors if files with certain extensions (for example PDF) appear in a set shared resource. NxSpooler opens every new file that finds so that the user can see it on his screen and print it or save it; when the user closes the viewer application that shows the file, NxSpooler will delete the file if possible. NxSpooler is normally used together with a FreeNX session where a remote program (or sometimes the user) creates files and saves them in the shared resource for a later automatic opening by NxSpooler in the computer of the user (for example, to print the file).
 
-</source>
+For an advanced use: NxSpooler adds some very basic and easy client/server capabilities: if an application in the server creates a file with the extension &quot;nxspooler-open&quot; in the shared resource, NxSpooler will try to open this file, look inside and if there&apos;s a path written there, open this path in the client. The path can be a file, a folder, the address of a shared resource, etc. This is useful, for example, for an application in the server to: open the default file browser in the client to manage the contents of another concrete shared resource, so that the user can immediatly open those server files, save his files in the server, etc.</source>
         <translation>NxSpooler permite que determinados documentos creados en el servidor (normalmente por una aplicación y algunas veces por el usuario) puedan ser impresos en la impresora del usuario.
 
-Más precisamente: en el ordenador del usuario, NxSpooler monitoriza si archivos con ciertas extensiones (por ejemplo PDF) aparecen en determinado recurso compartido. Por cada archivo nuevo que encuentra NxSpooler: lo abre para que el usuario lo vea y pueda imprimirlo; cuando el usuario cierre la ventana del visor PDF, NxSpooler intentará borrar el archivo PDF. NxSpooler está pensado para ser usado conjuntamente con una sesión FreeNX donde un programa remoto (o a veces el usuario) crea archivos y los guarda en el recurso compartido para su posterior apertura automática por NxSpooler en el ordenador del usuario (por ejemplo, para imprimir el archivo).</translation>
+Más precisamente: en el ordenador del usuario, NxSpooler monitoriza si archivos con ciertas extensiones (por ejemplo PDF) aparecen en determinado recurso compartido. Por cada archivo nuevo que encuentra NxSpooler: lo abre para que el usuario lo vea y pueda imprimirlo; cuando el usuario cierre la ventana del visor PDF, NxSpooler intentará borrar el archivo PDF. NxSpooler está pensado para ser usado conjuntamente con una sesión FreeNX donde un programa remoto (o a veces el usuario) crea archivos y los guarda en el recurso compartido para su posterior apertura automática por NxSpooler en el ordenador del usuario (por ejemplo, para imprimir el archivo).
+
+Para un uso avanzado: NxSpooler añade capacidades cliente/servidor muy básicas y fáciles: si una aplicación del servidor crea un archivo con la extensión &quot;nxspooler-open&quot; en el recurso compartido, NxSpooler intentará abrir este archivo, mirar dentro y si allí hay escrita una ruta, abrir esta ruta en el cliente. La ruta puede ser un archivo, una carpeta, la dirección de un recurso compartido, etc. Esto es útil, por ejemplo, para que una aplicación en el servidor abra el explorador de archivos predeterminado en el ordenador cliente para gestionar el contenido de otro recurso compartido en concreto, y así que el usuario pueda inmediatamente abrir estos archivos del servidor, guardar sus archivos en el servidor, etc.</translation>
     </message>
     <message>
         <location filename="helpDialog.ui" line="72"/>

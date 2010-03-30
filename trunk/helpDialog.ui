@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>408</width>
+    <width>428</width>
     <height>998</height>
    </rect>
   </property>
@@ -45,7 +45,7 @@
      <property name="maximumSize">
       <size>
        <width>16777215</width>
-       <height>300</height>
+       <height>320</height>
       </size>
      </property>
      <property name="plainText">
@@ -53,7 +53,7 @@
 
 More precisely: in the computer of the user, NxSpooler monitors if files with certain extensions (for example PDF) appear in a set shared resource. NxSpooler opens every new file that finds so that the user can see it on his screen and print it or save it; when the user closes the viewer application that shows the file, NxSpooler will delete the file if possible. NxSpooler is normally used together with a FreeNX session where a remote program (or sometimes the user) creates files and saves them in the shared resource for a later automatic opening by NxSpooler in the computer of the user (for example, to print the file).
 
-</string>
+For an advanced use: NxSpooler adds some very basic and easy client/server capabilities: if an application in the server creates a file with the extension &quot;nxspooler-open&quot; in the shared resource, NxSpooler will try to open this file, look inside and if there's a path written there, open this path in the client. The path can be a file, a folder, the address of a shared resource, etc. This is useful, for example, for an application in the server to: open the default file browser in the client to manage the contents of another concrete shared resource, so that the user can immediatly open those server files, save his files in the server, etc.</string>
      </property>
      <property name="textInteractionFlags">
       <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -131,7 +131,7 @@ This way: the files of the reports that Bulmages makes in the server  will be op
      <property name="maximumSize">
       <size>
        <width>16777215</width>
-       <height>80</height>
+       <height>84</height>
       </size>
      </property>
      <property name="plainText">
