@@ -97,7 +97,7 @@
   ;Not needed because we have only one component to install: 
   ;!insertmacro MUI_PAGE_COMPONENTS
 
-  ; Select the folder where to install the program
+  ;Select the folder where to install the program
   !insertmacro MUI_PAGE_DIRECTORY
 
   ;Start Menu Folder Page Configuration
@@ -199,6 +199,19 @@ Section "Section Name 1" Section1
   WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Run" \
                  "${PROG_NAME}" "$INSTDIR\${PROG_NAME}.exe"
 
+  ;Backup the value of "ForegroundLockTimeout"
+  ClearErrors
+  ReadRegDWORD $1 HKEY_CURRENT_USER "Control Panel\Desktop" "ForegroundLockTimeout"
+  IfErrors NotFoundForegroundLockTimeout
+  WriteRegDWORD HKEY_CURRENT_USER "Software\${PATH_IN_REGISTRY}" "PriorValueOfForegroundLockTimeout" $1 
+  NotFoundForegroundLockTimeout:
+
+  ;Set the new value of "ForegroundLockTimeout"
+  !ifndef NEW_FOREGROUNDLOCKTIMEOUT
+    !define NEW_FOREGROUNDLOCKTIMEOUT 500
+  !endif
+  WriteRegDWORD HKEY_CURRENT_USER "Control Panel\Desktop" "ForegroundLockTimeout" ${NEW_FOREGROUNDLOCKTIMEOUT}
+
 SectionEnd
 
 ;Note: not needed because the user doesn't choose between components (there's only one component to install): 
@@ -208,14 +221,16 @@ SectionEnd
 ;--------------------------------
 ;Installer Functions
 
-LangString CloseProgramBeforeInstallation ${LANG_ENGLISH} "Please close ${PROG_NAME} before you continue with the (re)installation."
-LangString CloseProgramBeforeInstallation ${LANG_SPANISHINTERNATIONAL} "Por favor cierre ${PROG_NAME} para continuar con la (re)instalación."
+LangString CloseProgramBeforeInstallation ${LANG_ENGLISH} "Please close ${PROG_NAME} before you continue with the installation."
+LangString CloseProgramBeforeInstallation ${LANG_SPANISHINTERNATIONAL} "Por favor cierre ${PROG_NAME} para continuar con la instalación."
+LangString UninstallProgramBeforeInstallation ${LANG_ENGLISH} "${PROG_NAME} seems to be already installed. Please uninstall ${PROG_NAME} before you continue with the installation."
+LangString UninstallProgramBeforeInstallation ${LANG_SPANISHINTERNATIONAL} "${PROG_NAME} parece estar instalado ya. Por favor desinstale ${PROG_NAME} para continuar con la instalación."
 
 Function .onInit
 
   !insertmacro MUI_LANGDLL_DISPLAY
 
-  ; Try to detect if the program to install was running already.
+  ;Try to detect if the program to install was already running 
   CheckIfRunning:
       FindWindow $1 "" "${WINDOW_CAPTION_OF_THE_PROG}"
       StrCmp $1 0 ProgramNotFoundRunning
@@ -223,6 +238,15 @@ Function .onInit
       Quit 
   ProgramNotFoundRunning:
 
+  ;See if the program was already installed
+  CheckIfInstalled:
+      ClearErrors
+      ReadRegStr $1 HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${PROG_NAME}" "UninstallString"
+      IfErrors ProgramNotFoundInstalled
+      ;The program seems to be installed.	
+      MessageBox MB_RETRYCANCEL $(UninstallProgramBeforeInstallation) IDRETRY CheckIfInstalled
+      Quit
+  ProgramNotFoundInstalled:
 FunctionEnd
 
 ;--------------------------------
@@ -276,6 +300,13 @@ Section "Uninstall"
   Delete "$SMPROGRAMS\$StartMenuFolder\${PROG_NAME}.lnk"  
   RMDir "$SMPROGRAMS\$StartMenuFolder"
 
+  ;Restore the prior value of "ForegroundLockTimeout"
+  ClearErrors
+  ReadRegDWORD $1 HKEY_CURRENT_USER "Software\${PATH_IN_REGISTRY}" "PriorValueOfForegroundLockTimeout"
+  IfErrors NotFoundPriorValueOfForegroundLockTimeout
+  WriteRegDWORD HKEY_CURRENT_USER "Control Panel\Desktop" "ForegroundLockTimeout" $1 
+  NotFoundPriorValueOfForegroundLockTimeout:
+
   DeleteRegKey /ifempty HKCU "Software\${PATH_IN_REGISTRY}"
   DeleteRegKey /ifempty HKCU "Software\${PROGRAM_GROUP_IN_REGISTRY}"
 
@@ -284,7 +315,7 @@ Section "Uninstall"
 
   ;Remove entries from the "Add/Remove Programs" section in the Control Panel
   DeleteRegKey HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PROG_NAME}"
-
+  
 SectionEnd
 
 ;--------------------------------
@@ -297,7 +328,7 @@ Function un.onInit
 
   !insertmacro MUI_UNGETLANGUAGE
 
-  ; Try to detect if the program to install was running already.
+  ;Try to detect if the program to install was already running 
   CheckIfRunning:
       FindWindow $1 "" "${WINDOW_CAPTION_OF_THE_PROG}"
       StrCmp $1 0 ProgramNotFoundRunning
