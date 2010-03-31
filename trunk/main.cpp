@@ -52,8 +52,7 @@ int main(int argc, char *argv[])
 {
    try
    {
-      qDebug() << "/ main";
-      TDebug::indentation++;
+      QDEBUG_METHOD_NAME;
 
       QtSingleApplication a(argc, argv);
       a.setOrganizationName(QString::fromUtf8("Creación y Diseño Ibense"));
@@ -83,7 +82,7 @@ int main(int argc, char *argv[])
 
       int result = a.exec();
 
-      qDebug() << "\\ main. The result is:" << result; // Note: we put no space after the ":"
+      qDebug() << "The result of main(...) is:" << result; // Note: we put no space after the ":"
       return result;
    }
    catch(std::exception &excep)
