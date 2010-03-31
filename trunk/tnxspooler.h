@@ -44,6 +44,14 @@ class TNxSpooler : public QDialog, private Ui::NxSpooler
    Q_OBJECT
 
 public:
+
+   //! This enum describes different results of trying to open a file.
+   enum ResultOfOpening {
+         OpeningOk = 0, //!< There was no error found opening the file.
+         OpeningError, //!< There was an error opening the file.
+         OpeningNotShouldBeDone //!< The NxSpooler was configured so that the file should not be opened.
+         };
+
    TNxSpooler(QWidget * = 0);
    ~TNxSpooler();
 
@@ -63,8 +71,8 @@ private:
    void prepareTrayIconOrShowProgram();
    void prepareSharedFolder() const;
    void prepareTimer();
-   int openPath(QFileInfo &, const QString &);
-   int openPathWrittenInside(const QString &);
+   ResultOfOpening openPath(QFileInfo &, const QString &, bool = false);
+   ResultOfOpening openPathWrittenInside(const QString &);
    QString getDefaultProgram() const;
    QString getDefaultProgramInLinux() const;
 
@@ -72,8 +80,8 @@ private:
    TSysTrayIcon m_sys_tray_icon; //!< Object that manages the system tray icon.
    int m_default_interval; //!< Default quantity of seconds to wait.
    QString m_special_extension; //!< A dot followed by the special extension for text files that contain a path inside.
-   QStringList m_default_formats; //!< List of extensions that will have the files to detect.
-   QString m_default_resource; //!< Constant string of the name of the default resource.
+   QStringList m_default_formats; //!< The files to detect will have extensions; this is a list of default extensions to identify.
+   QString m_default_shared_resource; //!< Constant string of the name of the default shared resource.
    QString m_default_folder; //!< Constant string of the name of the default local folder to monitor.
    QTimer m_timer; //!< Every X seconds this object will try to detect new files and open them.
 

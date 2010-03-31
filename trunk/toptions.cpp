@@ -91,7 +91,9 @@ void TOptions::updateOptionsRows()
 
        QStringList exts = m_settings->value("exts").toStringList();
        QStringList apps = m_settings->value("apps").toStringList();
+       QVariantList onlyInsideContainer = m_settings->value("onlyInsideContainer").toList();
 
+       // Delete rows if they are found
        if (m_exts_apps->rowCount() > 0)
        {
           bool success = m_exts_apps->model()->removeRows(0, m_exts_apps->rowCount());
@@ -100,15 +102,22 @@ void TOptions::updateOptionsRows()
              QString message = tr("2108091 - A problem was found and a row could not be deleted.");
              throw runtime_error(message.toStdString());
           }
-      }
+       }
 
+       // Insert rows
        int quant_elements = exts.count();
        for(int i = 0; i < quant_elements; i++)
        {
           m_exts_apps->insertRow(m_exts_apps->rowCount());
           m_exts_apps->setItem(i, 0, new QTableWidgetItem(exts.value(i)));
+
+          qDebug() << TDebug::indentation << onlyInsideContainer.value(i).toBool();
+          QTableWidgetItem *checkboxOnlyInsideContainer = new QTableWidgetItem();
+          checkboxOnlyInsideContainer->setCheckState(onlyInsideContainer.value(i).toBool()?Qt::Checked:Qt::Unchecked);
+          m_exts_apps->setItem(i, 1, checkboxOnlyInsideContainer);
+
           qDebug() << TDebug::indentation << apps.value(i);
-          m_exts_apps->setItem(i, 1, new QTableWidgetItem(apps.value(i)));
+          m_exts_apps->setItem(i, 2, new QTableWidgetItem(apps.value(i)));
        }
 
        m_folder->setText(m_settings->value("folder").toString());
@@ -138,6 +147,8 @@ void TOptions::updateSettings()
 
        QStringList exts;
        QStringList apps;
+       // List of "booleans" that indicate if the extension must be opened only if found inside a container file, a ".nxspooler-open" file
+       QVariantList onlyInsideContainer;
 
        // Go through the rows of the table control to see the extensions and its related applications
        const int quant_rows = m_exts_apps->rowCount();
@@ -147,20 +158,24 @@ void TOptions::updateSettings()
           if(not m_exts_apps->item(i, 0)->text().isNull() && not m_exts_apps->item(i, 0)->text().isEmpty())
           {
              exts.append(m_exts_apps->item(i, 0)->text());
+             onlyInsideContainer.append(m_exts_apps->item(i, 1)->checkState() == Qt::Checked);
 
              // Avoid adding a null application path (it can be empty).
              // For example, this way we avoid the problem of having a user entering
              // letters in the extension cell of an empty row and then pushing "Ok"
-             if (m_exts_apps->item(i, 1) == NULL || m_exts_apps->item(i, 1)->text().isNull())
+             if (m_exts_apps->item(i, 2) == NULL || m_exts_apps->item(i, 2)->text().isNull())
                 apps.append("");
              else
-                apps.append(m_exts_apps->item(i, 1)->text());
+                apps.append(m_exts_apps->item(i, 2)->text());
           }
        }
 
        m_settings->remove("exts");
+       m_settings->remove("onlyInsideContainer");
        m_settings->remove("apps");
+
        m_settings->setValue("exts", exts);
+       m_settings->setValue("onlyInsideContainer", onlyInsideContainer);
        m_settings->setValue("apps", apps);
 
        m_settings->setValue("resource", m_shared->text());
@@ -197,6 +212,12 @@ void TOptions::on_m_new_ext_clicked()
 
        m_exts_apps->insertRow(m_exts_apps->rowCount());
        m_exts_apps->setCurrentCell(m_exts_apps->rowCount() - 1, 0);
+
+       // By default, set the value "false", so for the extension there's no restriction
+       // of being opened only inside a container file
+       QTableWidgetItem *checkboxOnlyInsideContainer = new QTableWidgetItem();
+       checkboxOnlyInsideContainer->setCheckState(Qt::Unchecked);
+       m_exts_apps->setItem(m_exts_apps->rowCount() - 1, 1, checkboxOnlyInsideContainer);
    }
    catch(std::exception &excep)
    {
@@ -216,7 +237,7 @@ void TOptions::on_m_delete_ext_clicked()
 {
    // As this is a slot that can be called by Qt code (in response to pushing the "Delete"
    // button in the options window, for example), we don't allow exceptions to go out
-   // from here. So we use a "try" block.
+   // from here. So we use a "try" block
    try
    {
        QDEBUG_METHOD_NAME;

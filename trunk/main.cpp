@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
 
       int result = a.exec();
 
-      qDebug() << "The result of main(...) is:" << result; // Note: we put no space after the ":"
+      qDebug() << TDebug::indentation << "The result of main(...) is:" << result; // Note: we put no space after the ":"
       return result;
    }
    catch(std::exception &excep)

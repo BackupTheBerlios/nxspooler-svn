@@ -17,6 +17,8 @@
 *  along with NxSpooler. If not, see http://www.gnu.org/copyleft/gpl.html.
 *****************************************************************************/
 
+#include "tnxspooler.h"
+
 /*!
    \class TNxSpooler
    \brief Regularly opens and deletes files with specific extensions that appear in a path.
@@ -29,7 +31,6 @@
    the computer of the user.
 */
 
-#include "tnxspooler.h"
 
 //! Builds a TNxSpooler object, attaching it to a parent.
 /*!
@@ -52,7 +53,7 @@ TNxSpooler::TNxSpooler(QWidget *qwidgetParent)
    m_default_formats.append("pdf");
    m_default_formats.append("ods");
    m_default_formats.append("sxc");
-   m_default_resource = "nxspooler$";
+   m_default_shared_resource = "nxspooler$";
    m_default_folder = QDir::toNativeSeparators(QDir::homePath().append(QDir::separator()).append(".nxspooler"));
 
    setupUi(this);
@@ -119,12 +120,14 @@ void TNxSpooler::detectFilesAndOpen()
          return;
       }
 
-      // Stores the result of some operations
-      int op_result = 0;
+      // Stores the result of the main opening operation. This will be the value to return
+      TNxSpooler::ResultOfOpening opResult = TNxSpooler::OpeningError; // It has this default value
 
-      // Boolean variables to know what could be done with the file
-      bool fileHasBeenOpened;
+      // To know if the file has been deleted or not
       bool fileHasBeenDeleted;
+
+      // Information (about the file) that will appear in list of opened and deleted files by NxSpooler
+      QString infoToAppearIntheList;
 
       QFileInfoList files = folder.entryInfoList();
 
@@ -132,35 +135,26 @@ void TNxSpooler::detectFilesAndOpen()
       foreach(QFileInfo file, files)
       {
          // Initialize variables
-         fileHasBeenOpened = false;
          fileHasBeenDeleted = false;
 
          if (file.suffix().prepend(".") == m_special_extension)
          {
-            op_result = openPathWrittenInside(file.absoluteFilePath());
-
-            if (op_result == 0)
-               fileHasBeenOpened = true;
-            else
-               fileHasBeenOpened = false;
+            opResult = openPathWrittenInside(file.absoluteFilePath());
          }
          else
          {
-            op_result = openPath(file, folder.absolutePath());
+            opResult = openPath(file, folder.absolutePath());
          }
 
          // See the result. The opening can fail, for example, if the user didn't specify a
          // valid application to open a file with that extension
-         if (op_result != 0)
+         if (opResult == TNxSpooler::OpeningError)
          {
             syst.showWarning(tr("The file \"%1\" could not be correctly processed. Sometimes this error happens because the system "
                                 "cannot find the program specified in the configuration of NxSpooler to open files "
                                 "with that extension. The file is going to be deleted when you close this dialog window.")
                                 .arg(QDir::toNativeSeparators(file.absoluteFilePath())));
-            fileHasBeenOpened = false;
          }
-         else
-            fileHasBeenOpened = true;
 
          // Try to delete the file
          fileHasBeenDeleted = folder.remove(file.fileName());
@@ -173,9 +167,16 @@ void TNxSpooler::detectFilesAndOpen()
             throw runtime_error(message.toStdString());
          }
 
-         // Add the file to the list of opened and deleted files by NxSpooler.
+         // Prepare the information (about the file) that will appear in list of opened and deleted files by NxSpooler
+         infoToAppearIntheList = file.fileName();
+         if (opResult == TNxSpooler::OpeningError)
+            infoToAppearIntheList += tr(" (errors when opening)");
+         else
+            if (opResult == TNxSpooler::OpeningNotShouldBeDone)
+               infoToAppearIntheList += tr(" (deleted though not shown)");
          // Note: if there were problems deleting the file, NxSpooler would have stopped to avoid more problems.
-         m_listFiles->addItem(fileHasBeenOpened?file.fileName():file.fileName()+tr(" (errors when opening)"));
+
+         m_listFiles->addItem(infoToAppearIntheList);
       }
    }
    catch(std::exception &excep)
@@ -364,6 +365,17 @@ void TNxSpooler::initializeSettings()
       m_settings.setValue("exts", m_default_formats);
    }
 
+   if (m_settings.value("onlyInsideContainer").isNull())
+   {
+      QVariantList onlyInsideContainer;
+      // By default, set the value "false", so for the extension there's no restriction
+      // of being opened only inside a container file
+      onlyInsideContainer.append(false);
+      onlyInsideContainer.append(false);
+      onlyInsideContainer.append(false);
+      m_settings.setValue("onlyInsideContainer", onlyInsideContainer);
+   }
+
    // Note: an option that refers to an application path can be an empty string. The
    // default applications are only added if the option is a null value
    if (m_settings.value("apps").isNull())
@@ -385,7 +397,7 @@ void TNxSpooler::initializeSettings()
 
    if (m_settings.value("resource").isNull() || m_settings.value("resource").toString().isEmpty())
    {
-      m_settings.setValue("resource", m_default_resource);
+      m_settings.setValue("resource", m_default_shared_resource);
    }
 }
 
@@ -612,9 +624,10 @@ void TNxSpooler::prepareTimer()
 /*!
   \param path The QFileInfo of the path to open (it can be a file, a folder, a symlink,...).
   \param source The place where the path was found.
-  \return Returns 0 if there was no error found.
+  \param sourceIsAContainerFile Indicates if "source" is a container file.
+  \return Returns a ResultOfOpening value indicating the result of the operation.
 */
-int TNxSpooler::openPath(QFileInfo &path, const QString &source)
+TNxSpooler::ResultOfOpening TNxSpooler::openPath(QFileInfo &path, const QString &source, bool sourceIsAContainerFile)
 {
    QDEBUG_METHOD_NAME;
 
@@ -625,10 +638,10 @@ int TNxSpooler::openPath(QFileInfo &path, const QString &source)
    QString app;
 
    // Stores the result of opening the path. This will be the value to return
-   int op_result = 0;
+   TNxSpooler::ResultOfOpening opResult = TNxSpooler::OpeningError; // It has this default value
 
-   // If it's something that seems to exist (there are many cases) and it's not a folder
-   if (path.exists() && !path.isDir())
+   // Folders and {paths that do not seem to exist (there are many cases)} are not managed in the next block
+   if (!path.isDir() && path.exists())
    {
       // Get the index of the file extension
       int i = m_settings.value("exts").toStringList().indexOf(path.suffix());
@@ -644,12 +657,16 @@ int TNxSpooler::openPath(QFileInfo &path, const QString &source)
                               .arg(QDir::toNativeSeparators(path.fileName()))
                               .arg(QDir::toNativeSeparators(source)));
 
-         // We return a value distinct from 0. Let's say "1" because we found 1 error
-         return 1;
+         return TNxSpooler::OpeningError;
       }
 
       app = m_settings.value("apps").toStringList().value(i);
       // There's no problem if app.isEmpty()
+
+      // Don't continue if a file like this must be opened only if referred from a container file
+      if (m_settings.value("onlyInsideContainer").toList().value(i).toBool() == true)
+         if (!sourceIsAContainerFile)
+            return TNxSpooler::OpeningNotShouldBeDone;
 
 #ifdef Q_WS_WIN
       arguments << "/C" << "start" << "/wait" << app;
@@ -659,7 +676,7 @@ int TNxSpooler::openPath(QFileInfo &path, const QString &source)
    // Note: this way it worked with paths like "smb://server/resource" in Linux
    arguments << QDir::toNativeSeparators(path.filePath());
 
-   // If it's something that seems to exist (there are many cases) and it's not a folder
+   // Folders and {paths that do not seem to exist (there are many cases)} are not managed in the next block
    if (path.exists() && !path.isDir())
    {
       // For avoiding the problem of having a file still being formed
@@ -683,17 +700,26 @@ int TNxSpooler::openPath(QFileInfo &path, const QString &source)
 
       // Try to open the file
 #ifdef Q_WS_WIN
-      op_result = syst.execute("cmd", arguments);
+      if (syst.execute("cmd", arguments) == 0)
+          opResult = TNxSpooler::OpeningOk;
+      else
+          opResult = TNxSpooler::OpeningError;
 #else
       // If the user is using Linux and he has not specified the name of the program to use,
       // execute the default program
       if (app.isEmpty())
       {
-         op_result = syst.execute(getDefaultProgramInLinux(), arguments);
+         if (syst.execute(getDefaultProgramInLinux(), arguments) == 0)
+            opResult = TNxSpooler::OpeningOk;
+         else
+            opResult = TNxSpooler::OpeningError;
       }
       else
       {
-         op_result = syst.execute(app, arguments);
+         if (syst.execute(app, arguments) == 0)
+            opResult = TNxSpooler::OpeningOk;
+         else
+            opResult = TNxSpooler::OpeningError;
       }
 #endif
    }
@@ -703,23 +729,29 @@ int TNxSpooler::openPath(QFileInfo &path, const QString &source)
 
 #ifdef Q_WS_WIN
       // Windows explorer has anti-standard behaviours: for example returning 1 if it could
-      // open a file and also returning the same value if it couldn't.
-      op_result = (syst.execute("explorer", arguments) != 1);
+      // open a file and also returning the same value in some cases that it couldn't
+      if (syst.execute("explorer", arguments) == 1)
+         opResult = TNxSpooler::OpeningOk;
+      else
+         opResult = TNxSpooler::OpeningError;
 #else
-      op_result = syst.execute("xdg-open", arguments);
+      if (syst.execute("xdg-open", arguments) == 0)
+         opResult = TNxSpooler::OpeningOk;
+      else
+         opResult = TNxSpooler::OpeningError;
 #endif
    }
 
-   return op_result;
+   return opResult;
 }
 
 
 //! Open the file (or folder) mentioned inside a file.
 /*!
   \param containerFile The path of the container file.
-  \return Returns 0 if there was no error found.
+  \return Returns a ResultOfOpening value indicating the result of the operation.
 */
-int TNxSpooler::openPathWrittenInside(const QString &containerFile)
+TNxSpooler::ResultOfOpening TNxSpooler::openPathWrittenInside(const QString &containerFile)
 {
    QDEBUG_METHOD_NAME;
 
@@ -751,7 +783,8 @@ int TNxSpooler::openPathWrittenInside(const QString &containerFile)
 
    QFileInfo aux(path);
 
-   return openPath(aux, containerFile);
+   // Note: we indicate that we found the path inside a container file
+   return openPath(aux, containerFile, true);
 }
 
 
@@ -825,16 +858,21 @@ void TNxSpooler::restoreSettings()
        m_settings.setValue("exts", m_default_formats);
 
        QStringList apps;
-       int quant_elements = m_default_formats.count();
+       QVariantList onlyInsideContainer;
 
-       for(int i = 0; i < quant_elements; i++)
+       int quant_elements = m_default_formats.count();
+       for (int i = 0; i < quant_elements; i++)
        {
           apps.append(getDefaultProgram());
+          onlyInsideContainer.append(false);
        }
        m_settings.remove("apps");
        m_settings.setValue("apps", apps);
 
-       m_settings.setValue("resource", m_default_resource);
+       m_settings.remove("onlyInsideContainer");
+       m_settings.setValue("onlyInsideContainer", onlyInsideContainer);
+
+       m_settings.setValue("resource", m_default_shared_resource);
        m_settings.setValue("folder", m_default_folder);
        m_settings.setValue("seconds", m_default_interval);
        emit settingsRestored();
