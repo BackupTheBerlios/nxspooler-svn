@@ -31,9 +31,9 @@
 #include <QTranslator>
 
 #include "tsystrayicon.h"
-#include "toptions.h"
 #include "tsystem.h"
 #include "tdebug.h"
+#include "toptions.h"
 
 #include "ui_aboutDialog.h"
 #include "ui_helpDialog.h"

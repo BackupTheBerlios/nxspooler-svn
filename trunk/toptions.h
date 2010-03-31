@@ -20,8 +20,8 @@
 #ifndef T_OPTIONS_H
 #define T_OPTIONS_H
 
-#include <QtGui/QDialog>
 #include <QtCore/QSettings>
+#include <QtGui/QDialog>
 #include <QtGui/QFileDialog>
 
 #include "tsystem.h"

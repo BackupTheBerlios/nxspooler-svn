@@ -34,8 +34,8 @@
 #include <QLibraryInfo>
 
 #include "qtsingleapplication/qtsingleapplication.h"
-#include "tnxspooler.h"
 #include "ttranslator.h"
+#include "tnxspooler.h"
 
 // Feel free to improve NxSpooler and visit http://developer.berlios.de/projects/nxspooler/
 
@@ -53,6 +53,7 @@ int main(int argc, char *argv[])
    try
    {
       qDebug() << "/ main";
+      TDebug::indentation++;
 
       QtSingleApplication a(argc, argv);
       a.setOrganizationName(QString::fromUtf8("Creación y Diseño Ibense"));
