@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>494</width>
+    <width>555</width>
     <height>449</height>
    </rect>
   </property>
@@ -226,7 +226,7 @@
              <string>Only if inside a .nxspooler-open</string>
             </property>
             <property name="toolTip">
-             <string extracomment="Open only a file of this kind if it's referred from another file with extension &quot;.nxspooler-open&quot;"/>
+             <string>Open only a file of this kind if it's referred from another file with extension &quot;.nxspooler-open&quot;</string>
             </property>
            </column>
            <column>

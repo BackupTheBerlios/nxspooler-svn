@@ -58,7 +58,13 @@ TOptions::TOptions(QSettings *settings, QWidget *qwidget_parent)
    // The option fields are updated with the actual NxSpooler options
    updateOptionsRows();
 
-   // The last column (the one with the application path) will occupy all the horizontal space that is left
+   // To avoid text duplication, we reuse the tooltip
+   m_exts_apps->horizontalHeaderItem(1)->setWhatsThis(m_exts_apps->horizontalHeaderItem(1)->toolTip());
+
+   // Adjust the with of this column
+   m_exts_apps->setColumnWidth(1, 235);
+
+   // The last column (the one with the application path) has to occupy all the horizontal space that is left
    m_exts_apps->horizontalHeader()->setStretchLastSection(true);
 
    // Place the cursor of the extensions table in its first element
@@ -109,11 +115,16 @@ void TOptions::updateOptionsRows()
        for(int i = 0; i < quant_elements; i++)
        {
           m_exts_apps->insertRow(m_exts_apps->rowCount());
+
           m_exts_apps->setItem(i, 0, new QTableWidgetItem(exts.value(i)));
+          qDebug() << TDebug::indentation << exts.value(i);
 
           qDebug() << TDebug::indentation << onlyInsideContainer.value(i).toBool();
           QTableWidgetItem *checkboxOnlyInsideContainer = new QTableWidgetItem();
           checkboxOnlyInsideContainer->setCheckState(onlyInsideContainer.value(i).toBool()?Qt::Checked:Qt::Unchecked);
+          // To avoid that the user can, for example, write text at the right to the checkbox
+          checkboxOnlyInsideContainer->setFlags(Qt::ItemFlags(checkboxOnlyInsideContainer->flags() - Qt::ItemIsEditable));
+          // Finally, we "put" the checkbox inside
           m_exts_apps->setItem(i, 1, checkboxOnlyInsideContainer);
 
           qDebug() << TDebug::indentation << apps.value(i);
