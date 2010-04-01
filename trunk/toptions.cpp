@@ -228,6 +228,9 @@ void TOptions::on_m_new_ext_clicked()
        // of being opened only inside a container file
        QTableWidgetItem *checkboxOnlyInsideContainer = new QTableWidgetItem();
        checkboxOnlyInsideContainer->setCheckState(Qt::Unchecked);
+       // To avoid that the user can, for example, write text at the right to the checkbox
+       checkboxOnlyInsideContainer->setFlags(Qt::ItemFlags(checkboxOnlyInsideContainer->flags() - Qt::ItemIsEditable));
+       // Finally, we "put" the checkbox inside
        m_exts_apps->setItem(m_exts_apps->rowCount() - 1, 1, checkboxOnlyInsideContainer);
    }
    catch(std::exception &excep)
@@ -292,7 +295,7 @@ void TOptions::on_m_find_app_clicked()
        if (file_dialog.exec() == QDialog::Accepted)
        {
           QTableWidgetItem *new_app_item = new
-              QTableWidgetItem(QDir::toNativeSeparators((file_dialog.selectedFiles().first())));
+          QTableWidgetItem(QDir::toNativeSeparators((file_dialog.selectedFiles().first())));
           m_exts_apps->setItem(m_exts_apps->currentRow(), 1, new_app_item);
        }
    }

@@ -218,27 +218,27 @@ El administrador de este ordenador debería ver si esto es debido a un error del
         <translation>2208093 - Error interno al conectar.</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="102"/>
+        <location filename="toptions.cpp" line="108"/>
         <source>2108091 - A problem was found and a row could not be deleted.</source>
         <translation>2108091 - Se encontró un problema y una fila no pudo ser borrada.</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="187"/>
+        <location filename="toptions.cpp" line="198"/>
         <source>The selected program can&apos;t be accessed. Please select another or set the default value.</source>
         <translation>No se puede acceder al programa indicado. Seleccione otro o deje el valor predeterminado.</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="245"/>
+        <location filename="toptions.cpp" line="259"/>
         <source>Are you sure that you want to delete the selected row?</source>
         <translation>¿Está seguro de que quiere borrar la fila seleccionada?</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="277"/>
+        <location filename="toptions.cpp" line="291"/>
         <source>Select the viewer program</source>
         <translation>Seleccione el programa visor</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="311"/>
+        <location filename="toptions.cpp" line="325"/>
         <source>Select the shared local folder</source>
         <translation>Seleccione la carpeta local compartida</translation>
     </message>
@@ -1876,6 +1876,11 @@ De esta forma: los informes que hace Bulmagés en el servidor se abrirán en el 
         <location filename="optionsDialog.ui" line="226"/>
         <source>Only if inside a .nxspooler-open</source>
         <translation>Sólo si dentro de .nxspooler-open</translation>
+    </message>
+    <message>
+        <location filename="optionsDialog.ui" line="229"/>
+        <source>Open a file of this kind only if it&apos;s referred from another file with extension &quot;.nxspooler-open&quot;</source>
+        <translation>Abrir un archivo de este tipo sólo si se refieren a él desde otro archivo con extensión &quot;.nxspooler-open&quot;</translation>
     </message>
     <message>
         <location filename="optionsDialog.ui" line="234"/>

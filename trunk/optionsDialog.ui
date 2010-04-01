@@ -226,7 +226,7 @@
              <string>Only if inside a .nxspooler-open</string>
             </property>
             <property name="toolTip">
-             <string>Open only a file of this kind if it's referred from another file with extension &quot;.nxspooler-open&quot;</string>
+             <string>Open a file of this kind only if it's referred from another file with extension &quot;.nxspooler-open&quot;</string>
             </property>
            </column>
            <column>
