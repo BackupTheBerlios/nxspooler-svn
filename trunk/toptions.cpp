@@ -17,12 +17,12 @@
 *  along with NxSpooler. If not, see http://www.gnu.org/copyleft/gpl.html.
 *****************************************************************************/
 
+#include "toptions.h"
+
 /*!
    \class TOptions
    \brief Manages the options dialog.
 */
-
-#include "toptions.h"
 
 //! Constructor.
 /*!

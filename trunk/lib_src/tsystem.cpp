@@ -17,13 +17,13 @@
 *  along with NxSpooler. If not, see http://www.gnu.org/copyleft/gpl.html.
 *****************************************************************************/
 
+#include "tsystem.h"
+
 /*!
    \class TSystem
    \brief Offers services that can be used from any object of the program,
           like methods, definitions, a class to manage errors, etc.
 */
-
-#include "tsystem.h"
 
 //! Constructor.
 /*!

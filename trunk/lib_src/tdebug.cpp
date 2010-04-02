@@ -17,6 +17,8 @@
 *  along with NxSpooler. If not, see http://www.gnu.org/copyleft/gpl.html.
 *****************************************************************************/
 
+#include "tdebug.h"
+
 /*!
    \class TDebug
    \brief To help developers to know when a method is started and finished, using debug messages.
@@ -24,8 +26,6 @@
    An object of the class TDebug uses qDebug() in its constructor to tell when a 
    method is started, and in its destructor to automatically tell when it is finished.
 */
-
-#include "tdebug.h"
 
 TDebugIndentation TDebug::indentation;
 

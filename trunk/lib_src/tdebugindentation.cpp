@@ -17,13 +17,12 @@
 *  along with NxSpooler. If not, see http://www.gnu.org/copyleft/gpl.html.
 *****************************************************************************/
 
+#include "tdebugindentation.h"
+
 /*!
    \class TDebugIndentation
    \brief Auxiliary class of TDebug, to keep levels of indentations.
 */
-
-#include "tdebugindentation.h"
-
 
 TDebugIndentation::TDebugIndentation() : indentationLevel (0)
 {
