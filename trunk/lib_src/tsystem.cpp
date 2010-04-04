@@ -25,6 +25,24 @@
           like methods, definitions, a class to manage errors, etc.
 */
 
+//! Show a message box when it's sure that there's a QApplication running. It's an auxiliary method to avoid duplicating code.
+/*!
+   \param message Warning message that is shown to the user.
+   \param windowTitle The title that has the message box.
+   \param icon The icon to show.
+*/
+void TSystem::showMsgBoxWhenHavingQApp(const QString &message, const QString &windowTitle, QMessageBox::Icon icon) const
+{
+   QDEBUG_METHOD_NAME;
+
+   QMessageBox msgBox;
+   msgBox.setText(message);
+   msgBox.setWindowTitle(windowTitle);
+   msgBox.setIcon(icon);
+   msgBox.exec();
+}
+
+
 //! Constructor.
 /*!
   It will be a global object.
@@ -41,24 +59,6 @@ TSystem::TSystem()
 TSystem::~TSystem()
 {
    QDEBUG_METHOD_NAME;
-}
-
-
-//! Show a message box when it's sure that there's a QApplication running. It's an auxiliary method to avoid duplicating code.
-/*!
-   \param message Warning message that is shown to the user.
-   \param windowTitle The title that has the message box.
-   \param icon The icon to show.
-*/
-void TSystem::showMsgBoxWhenHavingQApp(const QString &message, const QString &windowTitle, QMessageBox::Icon icon) const
-{
-   QDEBUG_METHOD_NAME;
-
-   QMessageBox msgBox;
-   msgBox.setText(message);
-   msgBox.setWindowTitle(windowTitle);
-   msgBox.setIcon(icon);
-   msgBox.exec();
 }
 
 
