@@ -58,10 +58,10 @@ public:
    void showError(const QString &, const QString & = "") const;
    int execute(const QString &) const;
    int execute(const QString &, const QStringList &) const;
-   void wait(int);
+   void wait(int) const;
 
    QString setApplicationName(const QString &);
-   QString applicationName();
+   QString applicationName() const;
 
    void exitBecauseException(std::exception &);
    void exitBecauseException();

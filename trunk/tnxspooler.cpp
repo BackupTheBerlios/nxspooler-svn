@@ -675,7 +675,7 @@ void TNxSpooler::prepareTimer()
   \param sourceIsAContainerFile Indicates if "source" is a container file.
   \return Returns a ResultOfOpening value indicating the result of the operation.
 */
-TNxSpooler::ResultOfOpening TNxSpooler::openPath(QFileInfo &path, const QString &source, bool sourceIsAContainerFile)
+TNxSpooler::ResultOfOpening TNxSpooler::openPath(QFileInfo &path, const QString &source, bool sourceIsAContainerFile) const
 {
    QDEBUG_METHOD_NAME;
 
@@ -804,7 +804,6 @@ TNxSpooler::ResultOfOpening TNxSpooler::openPathWrittenInside(const QString &con
    QDEBUG_METHOD_NAME;
 
    QStringList arguments;
-   QProcess process(this);
 
    // Read the path inside the file
    QFile container(containerFile);

@@ -71,7 +71,7 @@ private:
    void prepareTrayIconOrShowProgram();
    void prepareSharedFolder() const;
    void prepareTimer();
-   ResultOfOpening openPath(QFileInfo &, const QString &, bool = false);
+   ResultOfOpening openPath(QFileInfo &, const QString &, bool = false) const;
    ResultOfOpening openPathWrittenInside(const QString &);
    QString getDefaultProgram() const;
    QString getDefaultProgramInLinux() const;

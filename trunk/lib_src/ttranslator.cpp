@@ -29,7 +29,7 @@
 /*!
    \return The folder where the executable file of the program is.
 */
-QDir TTranslator::folderWhereTheExecutableIs()
+QDir TTranslator::folderWhereTheExecutableIs() const
 {
    QDEBUG_METHOD_NAME;
 

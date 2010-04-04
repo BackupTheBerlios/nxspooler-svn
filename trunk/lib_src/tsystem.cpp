@@ -251,7 +251,7 @@ int TSystem::execute(const QString &program, const QStringList &arguments) const
 /*!
    \param miliseconds The quantity of miliseconds to wait.
 */
-void TSystem::wait(int miliseconds)
+void TSystem::wait(int miliseconds) const
 {
    QDEBUG_METHOD_NAME;
 
@@ -286,7 +286,7 @@ QString TSystem::setApplicationName(const QString &application)
 //! Get the name of the program.
 /*!
 */
-QString TSystem::applicationName()
+QString TSystem::applicationName() const
 {
     QDEBUG_METHOD_NAME;
 
