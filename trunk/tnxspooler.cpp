@@ -669,7 +669,6 @@ void TNxSpooler::prepareTimer()
 /*!
   \param path The QFileInfo of the path to open (it can be a file, a folder, a symlink,...).
   \param source The place where the path was found.
-  \param sourceIsAContainerFile Indicates if "source" is a container file.
   \return Returns a ResultOfOpening value indicating the result of the operation.
 */
 TNxSpooler::ResultOfOpening TNxSpooler::openPath(QFileInfo &path, const QString &source, bool /* sourceIsAContainerFile (temporary unused parameter) */) const
