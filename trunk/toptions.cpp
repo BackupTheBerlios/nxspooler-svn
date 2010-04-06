@@ -296,7 +296,7 @@ void TOptions::on_m_find_app_clicked()
        {
           QTableWidgetItem *new_app_item = new
           QTableWidgetItem(QDir::toNativeSeparators((file_dialog.selectedFiles().first())));
-          m_exts_apps->setItem(m_exts_apps->currentRow(), 1, new_app_item);
+          m_exts_apps->setItem(m_exts_apps->currentRow(), 2, new_app_item);
        }
    }
    catch(std::exception &excep)

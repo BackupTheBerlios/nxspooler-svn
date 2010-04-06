@@ -166,37 +166,37 @@
         <translation>2208096 - Error interno al conectar.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="527"/>
+        <location filename="tnxspooler.cpp" line="575"/>
         <source>2805099 - The icon of the notification area could not be activated.</source>
         <translation>2805099 - No se pudo activar el icono del área de notificación.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="589"/>
+        <location filename="tnxspooler.cpp" line="637"/>
         <source>2805093 - The folder &quot;%1&quot; could not be created.</source>
         <translation>2805093 - No se pudo crear el directorio &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="615"/>
+        <location filename="tnxspooler.cpp" line="663"/>
         <source>2805094 - The timer could not be activated.</source>
         <translation>2805094 - No se pudo activar el temporizador.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="836"/>
+        <location filename="tnxspooler.cpp" line="883"/>
         <source>2805095 - A valid program to open the files could not be found.</source>
         <translation>2805095 - No se encontró un programa adecuado para abrir los ficheros.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="570"/>
+        <location filename="tnxspooler.cpp" line="618"/>
         <source>The folder &quot;%1&quot; does not exist. Do you want to create it?</source>
         <translation>El directorio &quot;%1&quot; no existe. ¿Quiere crearlo?</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="582"/>
+        <location filename="tnxspooler.cpp" line="630"/>
         <source>The folder &quot;%1&quot; was successfully created. Now it must be shared with the name &quot;%2&quot;.</source>
         <translation>La carpeta &quot;%1&quot; ha sido creada con éxito. Ahora debe compartirla con el nombre &quot;%2&quot;.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="652"/>
+        <location filename="tnxspooler.cpp" line="700"/>
         <source>2208097 - NxSpooler is not configured to launch an application to open files like &quot;%1&quot;, which was found inside &quot;%2&quot;.
 
 The administrator of this computer should see if this is due to a mistake of the program that created the file, an incorrect configuration of NxSpooler, etc.</source>
