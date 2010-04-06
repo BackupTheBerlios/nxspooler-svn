@@ -671,7 +671,7 @@ void TNxSpooler::prepareTimer()
   \param source The place where the path was found.
   \return Returns a ResultOfOpening value indicating the result of the operation.
 */
-TNxSpooler::ResultOfOpening TNxSpooler::openPath(QFileInfo &path, const QString &source, bool /* sourceIsAContainerFile (temporary unused parameter) */) const
+TNxSpooler::ResultOfOpening TNxSpooler::openPath(QFileInfo &path, const QString &source, bool /* sourceIsAContainerFile (temporary unused parameter) */ ) const
 {
    QDEBUG_METHOD_NAME;
 

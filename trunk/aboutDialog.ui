@@ -26,8 +26,8 @@
    <iconset resource="nxspooler.qrc">
     <normaloff>:/img/nxspooler.png</normaloff>:/img/nxspooler.png</iconset>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
     <widget class="QLabel" name="m_app_name_and_version">
      <property name="font">
       <font>
@@ -40,21 +40,21 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item>
     <widget class="QLabel" name="m_address">
      <property name="text">
       <string>http://nxspooler.berlios.de</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
+   <item>
     <widget class="QLabel" name="label_whitespace1">
      <property name="text">
       <string notr="true"/>
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
+   <item>
     <widget class="QLabel" name="m_description">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -63,7 +63,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>NxSpooler is a Qt utility used to help people to print in their printers when connected to a remote computer with sessions like the ones of FreeNX.</string>
+      <string>NxSpooler is a Qt utility used to help people to print in their printers when connected to a remote computer with sessions like the ones of FreeNX. It also adds some very basic and easy client/server capabilities.</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignJustify|Qt::AlignVCenter</set>
@@ -73,14 +73,14 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="0">
+   <item>
     <widget class="QLabel" name="label_whitespace2">
      <property name="text">
       <string notr="true"/>
      </property>
     </widget>
    </item>
-   <item row="5" column="0">
+   <item>
     <widget class="QLabel" name="m_copyright">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -93,7 +93,7 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="0">
+   <item>
     <widget class="QPlainTextEdit" name="m_license">
      <property name="sizePolicy">
       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
@@ -797,7 +797,7 @@ Public License instead of this License.  But first, please read
      </property>
     </widget>
    </item>
-   <item row="7" column="0">
+   <item>
     <widget class="QDialogButtonBox" name="m_buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
