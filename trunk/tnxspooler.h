@@ -48,8 +48,8 @@ public:
    //! This enum describes different results of trying to open a file.
    enum ResultOfOpening {
          OpeningOk = 0, //!< There was no error found opening the file.
-         OpeningError, //!< There was an error opening the file.
-         OpeningNotShouldBeDone //!< The NxSpooler was configured so that the file should not be opened.
+         OpeningError //!< There was an error opening the file.
+         // In the past it also was: OpeningNotShouldBeDone //!< The NxSpooler was configured so that the file should not be opened.
          };
 
    TNxSpooler(QWidget * = 0);
@@ -75,6 +75,7 @@ private:
    ResultOfOpening openPathWrittenInside(const QString &);
    QString getDefaultProgram() const;
    QString getDefaultProgramInLinux() const;
+   void removeExtensionsThatDoNotMustBeOpened(QStringList &extsToDetect) const;
 
    QSettings m_settings; //!< Object that manages (loads and saves automatically) the configuration of the program.
    TSysTrayIcon m_sys_tray_icon; //!< Object that manages the system tray icon.

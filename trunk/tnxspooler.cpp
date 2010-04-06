@@ -171,9 +171,6 @@ void TNxSpooler::detectFilesAndOpen()
          infoToAppearIntheList = file.fileName();
          if (opResult == TNxSpooler::OpeningError)
             infoToAppearIntheList += tr(" (errors when opening)");
-         else
-            if (opResult == TNxSpooler::OpeningNotShouldBeDone)
-               infoToAppearIntheList += tr(" (deleted though not shown)");
          // Note: if there were problems deleting the file, NxSpooler would have stopped to avoid more problems.
 
          m_listFiles->addItem(infoToAppearIntheList);
@@ -465,17 +462,17 @@ bool TNxSpooler::filterAndSortFolder(QDir &folder) const
 {
    QDEBUG_METHOD_NAME;
 
-   QStringList filters;
    QStringList exts = m_settings.value("exts").toStringList();
-   int quant_exts = exts.count();
 
-   // This is to avoid the case where the user goes to the options window
-   // of NxSpooler and deletes all the extensions listed and then
-   // NxSpooler would try to open everything
+   removeExtensionsThatDoNotMustBeOpened(exts);
+
+   int quant_exts = exts.count();
    if (quant_exts == 0)
    {
       return false;
    }
+
+   QStringList filters;
 
    for(int i = 0; i < quant_exts; i++)
    {
@@ -675,7 +672,7 @@ void TNxSpooler::prepareTimer()
   \param sourceIsAContainerFile Indicates if "source" is a container file.
   \return Returns a ResultOfOpening value indicating the result of the operation.
 */
-TNxSpooler::ResultOfOpening TNxSpooler::openPath(QFileInfo &path, const QString &source, bool sourceIsAContainerFile) const
+TNxSpooler::ResultOfOpening TNxSpooler::openPath(QFileInfo &path, const QString &source, bool /* sourceIsAContainerFile (temporary unused parameter) */) const
 {
    QDEBUG_METHOD_NAME;
 
@@ -710,11 +707,6 @@ TNxSpooler::ResultOfOpening TNxSpooler::openPath(QFileInfo &path, const QString 
 
       app = m_settings.value("apps").toStringList().value(i);
       // There's no problem if app.isEmpty()
-
-      // Don't continue if a file like this must be opened only if referred from a container file
-      if (m_settings.value("onlyInsideContainer").toList().value(i).toBool() == true)
-         if (!sourceIsAContainerFile)
-            return TNxSpooler::OpeningNotShouldBeDone;
 
 #ifdef Q_WS_WIN
       arguments << "/C" << "start" << "/wait" << app;
@@ -885,5 +877,31 @@ QString TNxSpooler::getDefaultProgramInLinux() const
    }
 
    return command;
+}
+
+
+//! From a list of extensions (that are initial candidates), remove the ones that must not be detected. It's an auxiliary method of detectFilesAndOpen(), to make the source code clearer.
+/*!
+   \param extsToDetect List of extensions to detect.
+*/
+void TNxSpooler::removeExtensionsThatDoNotMustBeOpened(QStringList &extsToDetect) const
+{
+   QDEBUG_METHOD_NAME;
+
+   // List of "booleans" that indicate if the extension must be opened only if found inside a container file, a ".nxspooler-open" file
+   QVariantList onlyInsideContainer = m_settings.value("onlyInsideContainer").toList();
+
+   int quant_exts = extsToDetect.size();
+   for (int i = 0; i < quant_exts && quant_exts > 0; i++)
+   {
+      if (onlyInsideContainer.value(i).toBool() == true)
+      {
+         extsToDetect.removeAt(i);
+         onlyInsideContainer.removeAt(i);
+         // We change the loop variables to get the correct next item
+         i--;
+         quant_exts--;
+      }
+   }
 }
 
