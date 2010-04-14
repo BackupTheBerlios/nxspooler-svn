@@ -19,7 +19,7 @@
   ;Define the default value of VERSION. Because of the "ifndef", if we didn't define VERSION in 
   ;this file, it could be defined in the compiler or in the command-line when compiling this script.
   !ifndef VERSION
-    !define VERSION "1.0"
+    !define VERSION "1.0.1"
   !endif
 
   Name "${PROG_NAME}"
