@@ -176,7 +176,7 @@
         <translation>2805094 - No se pudo activar el temporizador.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="875"/>
+        <location filename="tnxspooler.cpp" line="874"/>
         <source>2805095 - A valid program to open the files could not be found.</source>
         <translation>2805095 - No se encontró un programa adecuado para abrir los ficheros.</translation>
     </message>
@@ -191,7 +191,7 @@
         <translation>La carpeta &quot;%1&quot; ha sido creada con éxito. Ahora debe compartirla con el nombre &quot;%2&quot;.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="697"/>
+        <location filename="tnxspooler.cpp" line="696"/>
         <source>2208097 - NxSpooler is not configured to launch an application to open files like &quot;%1&quot;, which was found inside &quot;%2&quot;.
 
 The administrator of this computer should see if this is due to a mistake of the program that created the file, an incorrect configuration of NxSpooler, etc.</source>
@@ -306,8 +306,8 @@ El administrador de este ordenador debería ver si esto es debido a un error del
     </message>
     <message>
         <location filename="aboutDialog.ui" line="66"/>
-        <source>NxSpooler is a Qt utility used to help people to print in their printers when connected to a remote computer with sessions like the ones of FreeNX.</source>
-        <translation>NxSpooler es una utilidad Qt para ayudar a las personas a imprimir en sus impresoras cuando están conectados a un ordenador remoto usando sesiones como las de FreeNX.</translation>
+        <source>NxSpooler is a Qt utility used to help people to print in their printers when connected to a remote computer with sessions like the ones of FreeNX. It also adds some very basic and easy client/server capabilities.</source>
+        <translation>NxSpooler es una utilidad Qt para ayudar a las personas a imprimir en sus impresoras cuando están conectados a un ordenador remoto usando sesiones como las de FreeNX. También añade algunas capacidades cliente/servidor muy básicas y fáciles.</translation>
     </message>
     <message>
         <location filename="aboutDialog.ui" line="120"/>
@@ -1728,8 +1728,8 @@ Nota: para imprimir un informe, Bulmages 0.12 primero lo guarda (normalmente en 
       - Nota: el usuario que se va a conectar debe tener su propio $HOME en el servidor.
  
    + En el ordenador cliente:
-      - En Linux: compartir (usando Samba) la carpeta $HOME/.bulmages como &quot;nxspooler&quot;, utilizando un nombre de usuario y contraseña particulares.
-      - En Windows: compartir la carpeta %UserProfile%\.bulmages como &quot;nxspooler$&quot;, utilizando un nombre de usuario y contraseña particulares.
+      - En Linux: compartir (usando Samba) la carpeta $HOME/.nxspooler como &quot;nxspooler&quot;, utilizando un nombre de usuario y contraseña particulares.
+      - En Windows: compartir la carpeta %UserProfile%\.nxspooler como &quot;nxspooler$&quot;, utilizando un nombre de usuario y contraseña particulares.
       - Nota: al compartir, asegurarse de que el usuario particular que se usará para acceder al recurso compartido tiene permiso de escritura sobre el mismo.
       - Configurar el programa cliente Nx para que utilizando la conexión que se usa normalmente para acceder al servidor FreeNX éste pueda acceder al recurso compartido del que hablábamos. Por ejemplo, en el programa &quot;nx client&quot; para Linux se puede ir a una solapa &quot;Services&quot;, activar &quot;enable SMB printing and file sharing&quot; y pulsar en &quot;Add&quot; para añadir el recurso &quot;nxspooler&quot;, especificar que su montaje en el servidor se realice en ~/.bulmages para que Bulmagés lo use de forma natural en la sesión remota; especificar el usuario y contraseña particulares.
 
