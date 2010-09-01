@@ -137,7 +137,8 @@
     <name>TNxSpooler</name>
     <message>
         <location filename="tnxspooler.cpp" line="153"/>
-        <source>The file &quot;%1&quot; could not be correctly processed. Sometimes this error happens because the system cannot find the program specified in the configuration of NxSpooler to open files with that extension. The file is going to be deleted when you close this dialog window.</source>
+        <source>The file &quot;%1&quot; could not be correctly processed. Sometimes this error happens because the system cannot find the program specified in the configuration of NxSpooler to open files with the corresponding file extension. The file is going to be deleted when you close this dialog window.</source>
+        <oldsource>The file &quot;%1&quot; could not be correctly processed. Sometimes this error happens because the system cannot find the program specified in the configuration of NxSpooler to open files with that extension. The file is going to be deleted when you close this dialog window.</oldsource>
         <translation>El archivo &quot;%1&quot; no pudo ser correctamente procesado. Algunas veces este error sucede porque el sistema no puede encontrar el programa especificado en la configuración de NxSpooler para abrir archivos con esa extensión. El archivo va a ser borrado cuando usted cierre este cuadro de diálogo.</translation>
     </message>
     <message>
@@ -176,7 +177,17 @@
         <translation>2805094 - No se pudo activar el temporizador.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="874"/>
+        <location filename="tnxspooler.cpp" line="814"/>
+        <source>3108101 - NxSpooler could not open the file &quot;%1&quot;.</source>
+        <translation>3108101 - NxSpooler no pudo abrir el archivo &quot;%1&quot;.</translation>
+    </message>
+    <message>
+        <location filename="tnxspooler.cpp" line="825"/>
+        <source>3108102 - The file &quot;%1&quot; seems to be empty.</source>
+        <translation>3108102 - Parece que el archivo &quot;%1&quot; esté vacío.</translation>
+    </message>
+    <message>
+        <location filename="tnxspooler.cpp" line="907"/>
         <source>2805095 - A valid program to open the files could not be found.</source>
         <translation>2805095 - No se encontró un programa adecuado para abrir los ficheros.</translation>
     </message>
@@ -191,7 +202,7 @@
         <translation>La carpeta &quot;%1&quot; ha sido creada con éxito. Ahora debe compartirla con el nombre &quot;%2&quot;.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="696"/>
+        <location filename="tnxspooler.cpp" line="699"/>
         <source>2208097 - NxSpooler is not configured to launch an application to open files like &quot;%1&quot;, which was found inside &quot;%2&quot;.
 
 The administrator of this computer should see if this is due to a mistake of the program that created the file, an incorrect configuration of NxSpooler, etc.</source>
