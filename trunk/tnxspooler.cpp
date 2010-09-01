@@ -152,7 +152,7 @@ void TNxSpooler::detectFilesAndOpen()
          {
             syst.showWarning(tr("The file \"%1\" could not be correctly processed. Sometimes this error happens because the system "
                                 "cannot find the program specified in the configuration of NxSpooler to open files "
-                                "with that extension. The file is going to be deleted when you close this dialog window.")
+                                "with the corresponding file extension. The file is going to be deleted when you close this dialog window.")
                                 .arg(QDir::toNativeSeparators(file.absoluteFilePath())));
          }
 
@@ -687,8 +687,11 @@ TNxSpooler::ResultOfOpening TNxSpooler::openPath(QFileInfo &path, const QString 
    // Folders and {paths that do not seem to exist (there are many cases)} are not managed in the next block
    if (!path.isDir() && path.exists())
    {
+      // With this regular expression we represent the file extension and all the variations due to the case (upper or lower)
+      QRegExp fileExtension(path.suffix(),Qt::CaseInsensitive, QRegExp::FixedString);
+
       // Get the index of the file extension
-      int i = m_settings.value("exts").toStringList().indexOf(path.suffix());
+      int i = m_settings.value("exts").toStringList().indexOf(fileExtension);
 
       if (i == -1)
       {
@@ -796,11 +799,41 @@ TNxSpooler::ResultOfOpening TNxSpooler::openPathWrittenInside(const QString &con
 
    QStringList arguments;
 
-   // Read the path inside the file
-   QFile container(containerFile);
-   container.open(QIODevice::ReadOnly);
-   QString path = container.readLine().trimmed();
-   container.close();
+   // Path mentioned inside the file
+   QString path;
+
+   // Read the path inside the file.
+   // Note: the scope of those temporary objects is clarified because they are in a separated block of code
+   {
+      // Read the path inside the file
+      QFile container(containerFile);
+
+      if (!container.open(QIODevice::ReadOnly | QIODevice::Text))
+      {
+         // Maybe there's a problem with permissions or the file has been deleted meanwhile or...
+         syst.showError(tr("3108101 - NxSpooler could not open the file"
+                              " \"%1\".")
+                              .arg(QDir::toNativeSeparators(containerFile)));
+
+         return TNxSpooler::OpeningError;
+      }
+
+      QTextStream input(&container);
+
+      if (input.atEnd())
+      {
+         syst.showError(tr("3108102 - The file"
+                              " \"%1\" seems to be empty.")
+                              .arg(QDir::toNativeSeparators(containerFile)));
+
+         return TNxSpooler::OpeningError;
+      }
+
+      // Nowadays we only read the first line in the container file
+      path = input.readLine().trimmed();
+
+      container.close();
+   }
 
    // Try to adapt the path to the running system
 #ifdef Q_WS_WIN
@@ -808,10 +841,10 @@ TNxSpooler::ResultOfOpening TNxSpooler::openPathWrittenInside(const QString &con
    path.replace("/", QDir::separator());
 #else
    path.replace(QRegExp("^\\\\\\\\"), "smb://");
-   path.replace("\\", QDir::separator());
+   path.replace("\\", QDir::separator());  // Note: later, if we are not under Windows and we need to open a file with characters "\" inside its name, we can disable this code line and start to experiment
 #endif
 
-   // Note: we'll check later the existence of what "path" refers to
+   // Note: the variable "path" refers to a target, we'll check later the existence of that target
 
    // Try to activate the NxSpooler window (set the focus to its window) so that the
    // new opened window has the focus. Note: the operating system has to allow that.
