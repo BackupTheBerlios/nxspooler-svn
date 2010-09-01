@@ -669,11 +669,20 @@ void TNxSpooler::prepareTimer()
 /*!
   \param path The QFileInfo of the path to open (it can be a file, a folder, a symlink,...).
   \param source The place where the path was found.
+  \param situationOfThePath Note: for the moment, this parameter is not used
   \return Returns a ResultOfOpening value indicating the result of the operation.
 */
-TNxSpooler::ResultOfOpening TNxSpooler::openPath(QFileInfo &path, const QString &source, bool /* sourceIsAContainerFile (temporary unused parameter) */ ) const
+TNxSpooler::ResultOfOpening TNxSpooler::openPath(QFileInfo &path, const QString &source, 
+                                                 TNxSpooler::SituationOfAPathToOpen situationOfThePath) const
 {
    QDEBUG_METHOD_NAME;
+
+   // We indicate that that parameter was not used
+   Q_UNUSED(situationOfThePath);
+   // Note: to avoid the "warning" we could also have declared the method this way:
+   //    openPath(QFileInfo &path, const QString &source,
+   //             TNxSpooler::SituationOfAPathToOpen  /* situationOfThePath (temporary unused parameter) */ ) const
+   // but Doxygen 1.6.3 complained that "Warning: argument 'situationOfThePath' of command @param is not found in the argument list of TNxSpooler::openPath [...]"
 
    // Object to store the arguments to some callings
    QStringList arguments;
@@ -855,7 +864,7 @@ TNxSpooler::ResultOfOpening TNxSpooler::openPathWrittenInside(const QString &con
    QFileInfo aux(path);
 
    // Note: we indicate that we found the path inside a container file
-   return openPath(aux, containerFile, true);
+   return openPath(aux, containerFile, TNxSpooler::PathFoundInsideAContainerFile);
 }
 
 

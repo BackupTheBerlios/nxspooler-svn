@@ -52,6 +52,12 @@ public:
          // In the past it also was: OpeningNotShouldBeDone //!< The NxSpooler was configured so that the file should not be opened.
          };
 
+   //! This enum describes different situations where a "path" to open is found
+   enum SituationOfAPathToOpen {
+         PathFoundInsideAContainerFile = 0, //!< The path was found inside a container file.
+         PathNotFoundInsideAContainerFile //!< The path was not found inside a container file.
+         };
+
    TNxSpooler(QWidget * = 0);
    ~TNxSpooler();
 
@@ -71,7 +77,8 @@ private:
    void prepareTrayIconOrShowProgram();
    void prepareSharedFolder() const;
    void prepareTimer();
-   ResultOfOpening openPath(QFileInfo &, const QString &, bool = false) const;
+   ResultOfOpening openPath(QFileInfo &, const QString &,
+                            TNxSpooler::SituationOfAPathToOpen = PathNotFoundInsideAContainerFile) const;
    ResultOfOpening openPathWrittenInside(const QString &);
    QString getDefaultProgram() const;
    QString getDefaultProgramInLinux() const;
