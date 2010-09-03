@@ -35,9 +35,10 @@ public:
    TOptions(QSettings *, QWidget * = 0);
    ~TOptions();
 
+   bool checkAndSaveTheOptions();
+
 public slots:
    void updateOptionsRows();
-   void updateSettings();
 
 private slots:
    void on_m_new_ext_clicked();

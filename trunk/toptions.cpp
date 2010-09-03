@@ -45,16 +45,6 @@ TOptions::TOptions(QSettings *settings, QWidget *qwidget_parent)
          throw runtime_error(message.toStdString());
    }
 
-   // Establish that when the options dialog is accepted, the options have to be changed
-   isConnected = connect(this, SIGNAL(accepted()),
-           this, SLOT(updateSettings()));
-   if (!isConnected)
-   {
-         // If the connection could not be established, throw an exception
-         QString message = tr("2208093 - Internal error when connecting.");
-         throw runtime_error(message.toStdString());
-   }
-
    // The option fields are updated with the actual NxSpooler options
    updateOptionsRows();
 
@@ -78,6 +68,95 @@ TOptions::TOptions(QSettings *settings, QWidget *qwidget_parent)
 TOptions::~TOptions()
 {
     QDEBUG_METHOD_NAME;
+}
+
+
+//! Checks the options that the user has chosen in the form and if it finds no errors, it saves the options.
+/*!
+   \return If the options could be saved or not.
+*/
+bool TOptions::checkAndSaveTheOptions()
+{
+      QDEBUG_METHOD_NAME;
+
+      QStringList exts;
+      QStringList apps;
+      // List of "booleans" that indicate if the extension must be opened only if found inside a container file, a ".nxspooler-open" file
+      QVariantList onlyInsideContainer;
+
+      enum TableColumns { extensionColumn = 0, containedColumn = 1, programColumn = 2 };
+
+      // Go through the rows of the table control to see the extensions and its related applications
+      const int quant_rows = m_exts_apps->rowCount();
+      for (int i = 0; i < quant_rows; i++)
+      {
+          // Note: in this case if we use ".isEmpty()" we don't need to use ".isNull()". A previous "trimmed()" didn't afect this rule
+          bool extensionIsEmpty = m_exts_apps->item(i, extensionColumn) == NULL // This check is made "just in case"
+                                 || m_exts_apps->item(i, extensionColumn)->text().trimmed().isEmpty();
+
+          if (extensionIsEmpty)
+          {
+             // If the extension is empty but a program has been specified, then we consider that there is a mistake
+             if (!m_exts_apps->item(i, programColumn)->text().trimmed().isEmpty())
+             {
+                syst.showError(tr("0209101 - a program has been associated with an empty extension."));
+                return false;
+             }
+          }
+          else // If the extension is not empty, we add it to the list
+          {
+             exts.append(m_exts_apps->item(i, extensionColumn)->text());
+             onlyInsideContainer.append(m_exts_apps->item(i, containedColumn)->checkState() == Qt::Checked);
+
+             // Avoid adding a null application path (in this program it can be empty). For
+             // example, this way we avoid the problem of having a user entering letters
+             // in the extension cell of an empty row and then pushing "Ok"
+             if (m_exts_apps->item(i, programColumn) == NULL || m_exts_apps->item(i, programColumn)->text().isNull())
+                apps.append("");
+             else // if the application path is not null
+             {
+                apps.append(m_exts_apps->item(i, programColumn)->text());
+
+                if (!syst.existsProgram(m_exts_apps->item(i, programColumn)->text().trimmed()))
+                {
+                   // Warn the user that the specified program wasn't found (maybe it's because it's still not installed)
+                   // Note: if cell of the program is empty, this warning won't be shown
+                   syst.showWarning(tr("The program \"%1\" was not found.").arg(m_exts_apps->item(i, programColumn)->text()));
+                }
+             }
+          }
+
+          // Search for rows that correspond to the same extension
+          const QString nameOfTheExtension = m_exts_apps->item(i, extensionColumn)->text();
+          // Note: this search is case-insensitive
+          QList <QTableWidgetItem *> extensionAppearances = m_exts_apps->findItems(nameOfTheExtension, Qt::MatchFixedString);
+          // If more than one instance is found
+          if (extensionAppearances.size() > 1)
+          {
+             syst.showError(tr("0309101 - the \"%1\" extension appears in several rows.").arg(nameOfTheExtension));
+             return false;
+          }
+      }
+
+      m_settings->remove("exts");
+      m_settings->remove("onlyInsideContainer");
+      m_settings->remove("apps");
+
+      m_settings->setValue("exts", exts);
+      m_settings->setValue("onlyInsideContainer", onlyInsideContainer);
+      m_settings->setValue("apps", apps);
+
+      m_settings->setValue("resource", m_shared->text());
+      m_settings->setValue("folder", m_folder->text());
+      m_settings->setValue("seconds", m_seconds->value());
+
+      if(!syst.existsProgram(m_settings->value("app").toString()))
+      {
+         syst.showWarning(tr("The selected program can't be accessed. Please select another or set the default value."));
+      }
+
+      // The options have been saved
+      return true;
 }
 
 
@@ -133,70 +212,6 @@ void TOptions::updateOptionsRows()
 
        m_folder->setText(m_settings->value("folder").toString());
        m_shared->setText(m_settings->value("resource").toString());
-   }
-   catch(std::exception &excep)
-   {
-      syst.exitBecauseException(excep);
-   }
-   catch(...)
-   {
-      syst.exitBecauseException();
-   }
-}
-
-//! Copy the information of the options fields to the NxSpooler configuration variables.
-/*!
-*/
-void TOptions::updateSettings()
-{
-   // As this is a slot that can be called by Qt code (in response to pushing the "OK"
-   // button in the options window, for example), we don't allow exceptions to go out
-   // from here. So we use a "try" block.
-   try
-   {
-       QDEBUG_METHOD_NAME;
-
-       QStringList exts;
-       QStringList apps;
-       // List of "booleans" that indicate if the extension must be opened only if found inside a container file, a ".nxspooler-open" file
-       QVariantList onlyInsideContainer;
-
-       // Go through the rows of the table control to see the extensions and its related applications
-       const int quant_rows = m_exts_apps->rowCount();
-       for (int i = 0; i < quant_rows; i++)
-       {
-          // Avoid adding an empty or null extension
-          if(not m_exts_apps->item(i, 0)->text().isNull() && not m_exts_apps->item(i, 0)->text().isEmpty())
-          {
-             exts.append(m_exts_apps->item(i, 0)->text());
-             onlyInsideContainer.append(m_exts_apps->item(i, 1)->checkState() == Qt::Checked);
-
-             // Avoid adding a null application path (it can be empty).
-             // For example, this way we avoid the problem of having a user entering
-             // letters in the extension cell of an empty row and then pushing "Ok"
-             if (m_exts_apps->item(i, 2) == NULL || m_exts_apps->item(i, 2)->text().isNull())
-                apps.append("");
-             else
-                apps.append(m_exts_apps->item(i, 2)->text());
-          }
-       }
-
-       m_settings->remove("exts");
-       m_settings->remove("onlyInsideContainer");
-       m_settings->remove("apps");
-
-       m_settings->setValue("exts", exts);
-       m_settings->setValue("onlyInsideContainer", onlyInsideContainer);
-       m_settings->setValue("apps", apps);
-
-       m_settings->setValue("resource", m_shared->text());
-       m_settings->setValue("folder", m_folder->text());
-       m_settings->setValue("seconds", m_seconds->value());
-
-       if(!syst.existsProgram(m_settings->value("app").toString()))
-       {
-          syst.showWarning(tr("The selected program can't be accessed. Please select another or set the default value."));
-       }
    }
    catch(std::exception &excep)
    {
