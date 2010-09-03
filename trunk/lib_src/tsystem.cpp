@@ -316,7 +316,7 @@ TSystem::exitBecauseException()
 {
     QDEBUG_METHOD_NAME;
 
-    syst.showError(tr("An unidentified problem has happened and %1 must be closed.").arg(m_applicationName)
+    syst.showError(tr("Error 0309102: an unidentified problem has happened and %1 must be closed.").arg(m_applicationName)
                         , tr("Error") + " - " + m_applicationName);
 
     exit(EXIT_FAILURE);

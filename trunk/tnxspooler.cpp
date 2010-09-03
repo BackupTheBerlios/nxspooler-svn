@@ -714,7 +714,7 @@ TNxSpooler::ResultOfOpening TNxSpooler::openPath(QFileInfo &path, const QString 
       if (i == -1)
       {
          // This case can happen if the path to open was inside a container file
-         syst.showError(tr("2208097 - NxSpooler is not configured to launch an application to open files "
+         syst.showError(tr("Error 2208097: NxSpooler is not configured to launch an application to open files "
                               "like \"%1\", which was found inside \"%2\".\n\n"
                               "The administrator of this computer should see if this is due to a mistake "
                               "of the program that created the file, an incorrect configuration of "
@@ -829,7 +829,7 @@ TNxSpooler::ResultOfOpening TNxSpooler::openPathWrittenInside(const QString &con
       if (!container.open(QIODevice::ReadOnly | QIODevice::Text))
       {
          // Maybe there's a problem with permissions or the file has been deleted meanwhile or...
-         syst.showError(tr("3108101 - NxSpooler could not open the file"
+         syst.showError(tr("Error 3108101: NxSpooler could not open the file"
                               " \"%1\".")
                               .arg(QDir::toNativeSeparators(containerFile)));
 
@@ -840,7 +840,7 @@ TNxSpooler::ResultOfOpening TNxSpooler::openPathWrittenInside(const QString &con
 
       if (input.atEnd())
       {
-         syst.showError(tr("3108102 - The file"
+         syst.showError(tr("Error 3108102: the file"
                               " \"%1\" seems to be empty.")
                               .arg(QDir::toNativeSeparators(containerFile)));
 

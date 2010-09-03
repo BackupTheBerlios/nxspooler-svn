@@ -99,7 +99,7 @@ bool TOptions::checkAndSaveTheOptions()
              // If the extension is empty but a program has been specified, then we consider that there is a mistake
              if (!m_exts_apps->item(i, programColumn)->text().trimmed().isEmpty())
              {
-                syst.showError(tr("0209101 - a program has been associated with an empty extension."));
+                syst.showError(tr("Error 0209101: a program has been associated with an empty extension."));
                 return false;
              }
           }
@@ -133,7 +133,7 @@ bool TOptions::checkAndSaveTheOptions()
           // If more than one instance is found
           if (extensionAppearances.size() > 1)
           {
-             syst.showError(tr("0309101 - the \"%1\" extension appears in several rows.").arg(nameOfTheExtension));
+             syst.showError(tr("Error 0309101: the \"%1\" extension appears in several rows.").arg(nameOfTheExtension));
              return false;
           }
       }
