@@ -138,13 +138,12 @@
     <message>
         <location filename="tnxspooler.cpp" line="153"/>
         <source>The file &quot;%1&quot; could not be correctly processed. Sometimes this error happens because the system cannot find the program specified in the configuration of NxSpooler to open files with the corresponding file extension. The file is going to be deleted when you close this dialog window.</source>
-        <oldsource>The file &quot;%1&quot; could not be correctly processed. Sometimes this error happens because the system cannot find the program specified in the configuration of NxSpooler to open files with that extension. The file is going to be deleted when you close this dialog window.</oldsource>
         <translation>El archivo &quot;%1&quot; no pudo ser correctamente procesado. Algunas veces este error sucede porque el sistema no puede encontrar el programa especificado en la configuración de NxSpooler para abrir archivos con esa extensión. El archivo va a ser borrado cuando usted cierre este cuadro de diálogo.</translation>
     </message>
     <message>
         <location filename="tnxspooler.cpp" line="165"/>
-        <source>2805096 - The file &quot;%1&quot; could not be deleted.</source>
-        <translation>2805096 - No se pudo borrar el archivo &quot;%1&quot;.</translation>
+        <source>Error 2805096: The file &quot;%1&quot; could not be deleted.</source>
+        <translation>Error 2805096: No se pudo borrar el archivo &quot;%1&quot;.</translation>
     </message>
     <message>
         <location filename="tnxspooler.cpp" line="173"/>
@@ -153,98 +152,108 @@
     </message>
     <message>
         <location filename="tnxspooler.cpp" line="239"/>
-        <source>2208095 - Internal error when connecting.</source>
-        <translation>2208095 - Error interno al conectar.</translation>
+        <source>Error 2208095: Internal problem when connecting.</source>
+        <translation>Error 2208095: Problema interno al conectar.</translation>
     </message>
     <message>
         <location filename="tnxspooler.cpp" line="249"/>
-        <source>2208096 - Internal error when connecting.</source>
-        <translation>2208096 - Error interno al conectar.</translation>
+        <source>Error 2208096: Internal problem when connecting.</source>
+        <translation>Error 2208096: Problema interno al conectar.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="572"/>
-        <source>2805099 - The icon of the notification area could not be activated.</source>
-        <translation>2805099 - No se pudo activar el icono del área de notificación.</translation>
+        <location filename="tnxspooler.cpp" line="581"/>
+        <source>Error 2805099: The icon of the notification area could not be activated.</source>
+        <translation>Error 2805099: No se pudo activar el icono del área de notificación.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="634"/>
-        <source>2805093 - The folder &quot;%1&quot; could not be created.</source>
-        <translation>2805093 - No se pudo crear el directorio &quot;%1&quot;.</translation>
+        <location filename="tnxspooler.cpp" line="643"/>
+        <source>Error 2805093: The folder &quot;%1&quot; could not be created.</source>
+        <translation>Error 2805093: No se pudo crear el directorio &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="660"/>
-        <source>2805094 - The timer could not be activated.</source>
-        <translation>2805094 - No se pudo activar el temporizador.</translation>
+        <location filename="tnxspooler.cpp" line="669"/>
+        <source>Error 2805094: The timer could not be activated.</source>
+        <translation>Error 2805094: No se pudo activar el temporizador.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="814"/>
-        <source>3108101 - NxSpooler could not open the file &quot;%1&quot;.</source>
-        <translation>3108101 - NxSpooler no pudo abrir el archivo &quot;%1&quot;.</translation>
+        <location filename="tnxspooler.cpp" line="717"/>
+        <source>Error 2208097: NxSpooler is not configured to launch an application to open files like &quot;%1&quot;, which was found inside &quot;%2&quot;.
+
+The administrator of this computer should see if this is due to a mistake of the program that created the file, an incorrect configuration of NxSpooler, etc.</source>
+        <translation>Error 2208097 - NxSpooler no está configurado para ejecutar una aplicación que abra archivos como &quot;%1&quot;, que se encontró dentro de &quot;%2&quot;.
+
+El administrador de este ordenador debería ver si esto es debido a un error del programa que creó el archivo, una configuración incorrecta de NxSpooler, etc.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="825"/>
-        <source>3108102 - The file &quot;%1&quot; seems to be empty.</source>
-        <translation>3108102 - Parece que el archivo &quot;%1&quot; esté vacío.</translation>
+        <location filename="tnxspooler.cpp" line="832"/>
+        <source>Error 3108101: NxSpooler could not open the file &quot;%1&quot;.</source>
+        <translation>Error 3108101 - NxSpooler no pudo abrir el archivo &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="907"/>
-        <source>2805095 - A valid program to open the files could not be found.</source>
-        <translation>2805095 - No se encontró un programa adecuado para abrir los ficheros.</translation>
+        <location filename="tnxspooler.cpp" line="843"/>
+        <source>Error 3108102: The file &quot;%1&quot; seems to be empty.</source>
+        <translation>Error 3108102: Parece que el archivo &quot;%1&quot; esté vacío.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="615"/>
+        <location filename="tnxspooler.cpp" line="925"/>
+        <source>Error 2805095: A valid program to open the files could not be found.</source>
+        <translation>Error 2805095: No se encontró un programa adecuado para abrir los ficheros.</translation>
+    </message>
+    <message>
+        <location filename="tnxspooler.cpp" line="624"/>
         <source>The folder &quot;%1&quot; does not exist. Do you want to create it?</source>
         <translation>El directorio &quot;%1&quot; no existe. ¿Quiere crearlo?</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="627"/>
+        <location filename="tnxspooler.cpp" line="636"/>
         <source>The folder &quot;%1&quot; was successfully created. Now it must be shared with the name &quot;%2&quot;.</source>
         <translation>La carpeta &quot;%1&quot; ha sido creada con éxito. Ahora debe compartirla con el nombre &quot;%2&quot;.</translation>
-    </message>
-    <message>
-        <location filename="tnxspooler.cpp" line="699"/>
-        <source>2208097 - NxSpooler is not configured to launch an application to open files like &quot;%1&quot;, which was found inside &quot;%2&quot;.
-
-The administrator of this computer should see if this is due to a mistake of the program that created the file, an incorrect configuration of NxSpooler, etc.</source>
-        <translation>2208097 - NxSpooler no está configurado para ejecutar una aplicación que abra archivos como &quot;%1&quot;, que se encontró dentro de &quot;%2&quot;.
-
-El administrador de este ordenador debería ver si esto es debido a un error del programa que creó el archivo, una configuración incorrecta de NxSpooler, etc.</translation>
     </message>
 </context>
 <context>
     <name>TOptions</name>
     <message>
         <location filename="toptions.cpp" line="44"/>
-        <source>2208092 - Internal error when connecting.</source>
-        <translation>2208092 - Error interno al conectar.</translation>
+        <source>Error 2208092: Internal problem when connecting.</source>
+        <translation>Error 2208092: Problema interno al conectar.</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="54"/>
-        <source>2208093 - Internal error when connecting.</source>
-        <translation>2208093 - Error interno al conectar.</translation>
+        <location filename="toptions.cpp" line="187"/>
+        <source>Error 2108091: A problem was found and a row could not be deleted.</source>
+        <translation>Error 2108091: Se encontró un problema y una fila no pudo ser borrada.</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="108"/>
-        <source>2108091 - A problem was found and a row could not be deleted.</source>
-        <translation>2108091 - Se encontró un problema y una fila no pudo ser borrada.</translation>
-    </message>
-    <message>
-        <location filename="toptions.cpp" line="198"/>
+        <location filename="toptions.cpp" line="155"/>
         <source>The selected program can&apos;t be accessed. Please select another or set the default value.</source>
         <translation>No se puede acceder al programa indicado. Seleccione otro o deje el valor predeterminado.</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="259"/>
+        <location filename="toptions.cpp" line="102"/>
+        <source>Error 0209101: A program has been associated with an empty extension.</source>
+        <translation>Error 0209101: Un programa ha sido asociado con una extensión vacía.</translation>
+    </message>
+    <message>
+        <location filename="toptions.cpp" line="124"/>
+        <source>A program &quot;%1&quot; could not be accessed.</source>
+        <translation>No se pudo acceder a un programa &quot;%1&quot;.</translation>
+    </message>
+    <message>
+        <location filename="toptions.cpp" line="136"/>
+        <source>Error 0309101: The &quot;%1&quot; extension appears in several rows.</source>
+        <translation>Error 0309101: la extensión &quot;%1&quot; aparece en varias filas.</translation>
+    </message>
+    <message>
+        <location filename="toptions.cpp" line="274"/>
         <source>Are you sure that you want to delete the selected row?</source>
         <translation>¿Está seguro de que quiere borrar la fila seleccionada?</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="291"/>
+        <location filename="toptions.cpp" line="306"/>
         <source>Select the viewer program</source>
         <translation>Seleccione el programa visor</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="325"/>
+        <location filename="toptions.cpp" line="340"/>
         <source>Select the shared local folder</source>
         <translation>Seleccione la carpeta local compartida</translation>
     </message>
@@ -260,8 +269,8 @@ El administrador de este ordenador debería ver si esto es debido a un error del
     </message>
     <message>
         <location filename="lib_src/tsystem.cpp" line="319"/>
-        <source>An unidentified problem has happened and %1 must be closed.</source>
-        <translation>Ha ocurrido un error no identificado en %1 y debe cerrarse.</translation>
+        <source>Error 0309102: An unidentified problem has happened and %1 must be closed.</source>
+        <translation>Error 0309102: Ha ocurrido un error no identificado en %1 y debe cerrarse.</translation>
     </message>
     <message>
         <location filename="lib_src/tsystem.cpp" line="74"/>

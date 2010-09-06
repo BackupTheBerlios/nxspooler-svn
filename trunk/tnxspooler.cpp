@@ -162,7 +162,7 @@ void TNxSpooler::detectFilesAndOpen()
          {
             // If the file couldn't be deleted, there's an external problem and
             // NxSpooler stops trying to open and delete all the files in its folder.
-            QString message = tr("2805096 - The file \"%1\" could not be deleted.")
+            QString message = tr("Error 2805096: The file \"%1\" could not be deleted.")
                               .arg(QDir::toNativeSeparators(file.absoluteFilePath()));
             throw runtime_error(message.toStdString());
          }
@@ -236,7 +236,7 @@ void TNxSpooler::openOptions()
       if (!isConnected)
       {
             // If the connection could not be restored, throw an exception
-            QString message = tr("2208095 - Internal error when connecting.");
+            QString message = tr("Error 2208095: Internal problem when connecting.");
             throw runtime_error(message.toStdString());
       }
 
@@ -246,7 +246,7 @@ void TNxSpooler::openOptions()
       if (!isConnected)
       {
             // If the connection could not be restored, throw an exception
-            QString message = tr("2208096 - Internal error when connecting.");
+            QString message = tr("Error 2208096: Internal problem when connecting.");
             throw runtime_error(message.toStdString());
       }
 
@@ -578,7 +578,7 @@ void TNxSpooler::prepareTrayIconOrShowProgram()
       if (!isConnected)
       {
          // If the connection could not be restored, throw an exception
-         QString message = tr("2805099 - The icon of the notification area could not be activated.");
+         QString message = tr("Error 2805099: The icon of the notification area could not be activated.");
          throw runtime_error(message.toStdString());
       }
 
@@ -640,7 +640,7 @@ void TNxSpooler::prepareSharedFolder() const
       else
       {
          // If he folder could not be created, thrown an exception
-         QString message = tr("2805093 - The folder \"%1\" could not be created.").arg(m_settings.value("folder").toString());
+         QString message = tr("Error 2805093: The folder \"%1\" could not be created.").arg(m_settings.value("folder").toString());
          throw runtime_error(message.toStdString());
       }
    }
@@ -666,7 +666,7 @@ void TNxSpooler::prepareTimer()
    if (isConnected == false)
    {
       // If the connection could not be restored, throw an exception
-      QString message = tr("2805094 - The timer could not be activated.");
+      QString message = tr("Error 2805094: The timer could not be activated.");
       throw runtime_error(message.toStdString());
    }
 
@@ -840,7 +840,7 @@ TNxSpooler::ResultOfOpening TNxSpooler::openPathWrittenInside(const QString &con
 
       if (input.atEnd())
       {
-         syst.showError(tr("Error 3108102: the file"
+         syst.showError(tr("Error 3108102: The file"
                               " \"%1\" seems to be empty.")
                               .arg(QDir::toNativeSeparators(containerFile)));
 
@@ -922,7 +922,7 @@ QString TNxSpooler::getDefaultProgramInLinux() const
    // If there is no valid program found, throw an exception
    if (!syst.existsProgram(command))
    {
-      QString message = tr("2805095 - A valid program to open the files could not be found.");
+      QString message = tr("Error 2805095: A valid program to open the files could not be found.");
       throw runtime_error(message.toStdString());
    }
 

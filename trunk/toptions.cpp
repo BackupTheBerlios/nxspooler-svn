@@ -41,7 +41,7 @@ TOptions::TOptions(QSettings *settings, QWidget *qwidget_parent)
    if (!isConnected)
    {
          // If the connection could not be established, throw an exception
-         QString message = tr("2208092 - Internal error when connecting.");
+         QString message = tr("Error 2208092: Internal problem when connecting.");
          throw runtime_error(message.toStdString());
    }
 
@@ -99,7 +99,7 @@ bool TOptions::checkAndSaveTheOptions()
              // If the extension is empty but a program has been specified, then we consider that there is a mistake
              if (!m_exts_apps->item(i, programColumn)->text().trimmed().isEmpty())
              {
-                syst.showError(tr("Error 0209101: a program has been associated with an empty extension."));
+                syst.showError(tr("Error 0209101: A program has been associated with an empty extension."));
                 return false;
              }
           }
@@ -121,7 +121,7 @@ bool TOptions::checkAndSaveTheOptions()
                 {
                    // Warn the user that the specified program wasn't found (maybe it's because it's still not installed)
                    // Note: if cell of the program is empty, this warning won't be shown
-                   syst.showWarning(tr("The program \"%1\" was not found.").arg(m_exts_apps->item(i, programColumn)->text()));
+                   syst.showWarning(tr("A program \"%1\" could not be accessed.").arg(m_exts_apps->item(i, programColumn)->text()));
                 }
              }
           }
@@ -133,7 +133,7 @@ bool TOptions::checkAndSaveTheOptions()
           // If more than one instance is found
           if (extensionAppearances.size() > 1)
           {
-             syst.showError(tr("Error 0309101: the \"%1\" extension appears in several rows.").arg(nameOfTheExtension));
+             syst.showError(tr("Error 0309101: The \"%1\" extension appears in several rows.").arg(nameOfTheExtension));
              return false;
           }
       }
@@ -184,7 +184,7 @@ void TOptions::updateOptionsRows()
           bool success = m_exts_apps->model()->removeRows(0, m_exts_apps->rowCount());
           if (not success)
           {
-             QString message = tr("2108091 - A problem was found and a row could not be deleted.");
+             QString message = tr("Error 2108091: A problem was found and a row could not be deleted.");
              throw runtime_error(message.toStdString());
           }
        }
