@@ -250,19 +250,19 @@ void TNxSpooler::openOptions()
             throw runtime_error(message.toStdString());
       }
 
-      bool weHaveFinishedAskingOptions = false;
-      do
+      bool theUserHasToChooseOptions = true;
+      while (theUserHasToChooseOptions)
       {
           int dialogResult = options.exec();
 
           if (dialogResult == QDialog::Rejected)
-            weHaveFinishedAskingOptions = true;
+             theUserHasToChooseOptions = false;
           else
           {
              if (options.checkAndSaveTheOptions() == true)
-                weHaveFinishedAskingOptions = true; // The options were correct and then saved
+                theUserHasToChooseOptions = false; // The options were correct and then saved
           }
-       } while (!weHaveFinishedAskingOptions);
+       }
 
        prepareSharedFolder();
        prepareTimer();

@@ -97,15 +97,17 @@ bool TOptions::checkAndSaveTheOptions()
           if (extensionIsEmpty)
           {
              // If the extension is empty but a program has been specified, then we consider that there is a mistake
-             if (!m_exts_apps->item(i, programColumn)->text().trimmed().isEmpty())
-             {
-                syst.showError(tr("Error 0209101: A program has been associated with an empty extension."));
-                return false;
-             }
+             if (m_exts_apps->item(i, programColumn) != NULL
+                && !m_exts_apps->item(i, programColumn)->text().trimmed().isEmpty())
+                {
+                   syst.showError(tr("Error 0209101: A program has been associated with an empty extension."));
+                   return false;
+                }
           }
           else // If the extension is not empty, we add it to the list
           {
-             exts.append(m_exts_apps->item(i, extensionColumn)->text());
+             const QString nameOfTheExtension = m_exts_apps->item(i, extensionColumn)->text();
+             exts.append(nameOfTheExtension);
              onlyInsideContainer.append(m_exts_apps->item(i, containedColumn)->checkState() == Qt::Checked);
 
              // Avoid adding a null application path (in this program it can be empty). For
@@ -119,22 +121,21 @@ bool TOptions::checkAndSaveTheOptions()
 
                 if (!syst.existsProgram(m_exts_apps->item(i, programColumn)->text().trimmed()))
                 {
-                   // Warn the user that the specified program wasn't found (maybe it's because it's still not installed)
+                   // Warn the user that the specified program wasn't found (maybe it's because it's still not installed).
                    // Note: if cell of the program is empty, this warning won't be shown
                    syst.showWarning(tr("A program \"%1\" could not be accessed.").arg(m_exts_apps->item(i, programColumn)->text()));
                 }
              }
-          }
 
-          // Search for rows that correspond to the same extension
-          const QString nameOfTheExtension = m_exts_apps->item(i, extensionColumn)->text();
-          // Note: this search is case-insensitive
-          QList <QTableWidgetItem *> extensionAppearances = m_exts_apps->findItems(nameOfTheExtension, Qt::MatchFixedString);
-          // If more than one instance is found
-          if (extensionAppearances.size() > 1)
-          {
-             syst.showError(tr("Error 0309101: The \"%1\" extension appears in several rows.").arg(nameOfTheExtension));
-             return false;
+             // Search for rows that correspond to the same extension.
+             // Note: this search is case-insensitive
+             QList <QTableWidgetItem *> extensionAppearances = m_exts_apps->findItems(nameOfTheExtension, Qt::MatchFixedString);
+             // If more than one instance is found
+             if (extensionAppearances.size() > 1)
+             {
+                syst.showError(tr("Error 0309101: The \"%1\" extension appears in several rows.").arg(nameOfTheExtension));
+                return false;
+             }
           }
       }
 
