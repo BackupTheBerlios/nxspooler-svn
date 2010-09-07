@@ -151,11 +151,6 @@ bool TOptions::checkAndSaveTheOptions()
       m_settings->setValue("folder", m_folder->text());
       m_settings->setValue("seconds", m_seconds->value());
 
-      if(!syst.existsProgram(m_settings->value("app").toString()))
-      {
-         syst.showWarning(tr("The selected program can't be accessed. Please select another or set the default value."));
-      }
-
       // The options have been saved
       return true;
 }
