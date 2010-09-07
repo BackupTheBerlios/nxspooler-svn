@@ -73,7 +73,7 @@ TOptions::~TOptions()
 
 //! Checks the options that the user has chosen in the form and if it finds no errors, it saves the options.
 /*!
-   \return If the options could be saved or not.
+   \return A boolean that tells if the options could be saved.
 */
 bool TOptions::checkAndSaveTheOptions()
 {

@@ -608,7 +608,7 @@ void TNxSpooler::prepareTrayIconOrShowProgram()
 }
 
 
-//! Check if the shared folder exists and if not, try to create it.
+//! Check the existence of the folder that is going to be shared. If the folder doesn't exist, try to create it.
 /*!
 */
 void TNxSpooler::prepareSharedFolder() const
@@ -639,7 +639,7 @@ void TNxSpooler::prepareSharedFolder() const
       }
       else
       {
-         // If he folder could not be created, thrown an exception
+         // If he folder could not be created, throw an exception
          QString message = tr("Error 2805093: The folder \"%1\" could not be created.").arg(m_settings.value("folder").toString());
          throw runtime_error(message.toStdString());
       }
