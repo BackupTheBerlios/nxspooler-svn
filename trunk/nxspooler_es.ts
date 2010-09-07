@@ -218,22 +218,17 @@ El administrador de este ordenador debería ver si esto es debido a un error del
         <translation>Error 2208092: Problema interno al conectar.</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="187"/>
+        <location filename="toptions.cpp" line="183"/>
         <source>Error 2108091: A problem was found and a row could not be deleted.</source>
         <translation>Error 2108091: Se encontró un problema y una fila no pudo ser borrada.</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="155"/>
-        <source>The selected program can&apos;t be accessed. Please select another or set the default value.</source>
-        <translation>No se puede acceder al programa indicado. Seleccione otro o deje el valor predeterminado.</translation>
-    </message>
-    <message>
-        <location filename="toptions.cpp" line="102"/>
+        <location filename="toptions.cpp" line="103"/>
         <source>Error 0209101: A program has been associated with an empty extension.</source>
         <translation>Error 0209101: Un programa ha sido asociado con una extensión vacía.</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="124"/>
+        <location filename="toptions.cpp" line="126"/>
         <source>A program &quot;%1&quot; could not be accessed.</source>
         <translation>No se pudo acceder a un programa &quot;%1&quot;.</translation>
     </message>
@@ -243,17 +238,17 @@ El administrador de este ordenador debería ver si esto es debido a un error del
         <translation>Error 0309101: la extensión &quot;%1&quot; aparece en varias filas.</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="274"/>
+        <location filename="toptions.cpp" line="270"/>
         <source>Are you sure that you want to delete the selected row?</source>
         <translation>¿Está seguro de que quiere borrar la fila seleccionada?</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="306"/>
+        <location filename="toptions.cpp" line="302"/>
         <source>Select the viewer program</source>
         <translation>Seleccione el programa visor</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="340"/>
+        <location filename="toptions.cpp" line="336"/>
         <source>Select the shared local folder</source>
         <translation>Seleccione la carpeta local compartida</translation>
     </message>
