@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 {
    try
    {
-      QDEBUG_METHOD_NAME;
+      QDEBUG_METHOD_NAME
 
       QtSingleApplication a(argc, argv);
       a.setOrganizationName(QString::fromUtf8("Creación y Diseño Ibense"));

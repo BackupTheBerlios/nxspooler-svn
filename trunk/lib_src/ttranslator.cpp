@@ -31,7 +31,7 @@
 */
 QDir TTranslator::folderWhereTheExecutableIs() const
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    // If we use 'return "."', in the case of executing the program using a
    // symlink, then "." would be the folder of the symlink and we don't want that.
@@ -67,7 +67,7 @@ void TTranslator::searchAndLoadTranslation(QTranslator &translator,
                                            const QString &folderWithPriority4,
                                            const QString &folderWithPriority5)
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    if (!translator.load(baseName, folderWithPriority1))
       if (!translator.load(baseName, folderWithPriority2))
@@ -96,7 +96,7 @@ void TTranslator::searchAndLoadTranslation(QTranslator &translator,
 */
 TTranslator::TTranslator(QCoreApplication &program) : m_a(program)
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    // The language and country of this locale as a string of the form "language_country", where language is a
    // lowercase, two-letter ISO 639 language code, and country is an uppercase, two-letter ISO 3166 country code.
@@ -163,5 +163,5 @@ TTranslator::TTranslator(QCoreApplication &program) : m_a(program)
 */
 TTranslator::~TTranslator()
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 }

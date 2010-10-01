@@ -31,7 +31,7 @@ TOptions::TOptions(QSettings *settings, QWidget *qwidget_parent)
       : QDialog(qwidget_parent)
       , m_settings(settings)
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    setupUi(this);
 
@@ -67,7 +67,7 @@ TOptions::TOptions(QSettings *settings, QWidget *qwidget_parent)
 */
 TOptions::~TOptions()
 {
-    QDEBUG_METHOD_NAME;
+    QDEBUG_METHOD_NAME
 }
 
 
@@ -77,7 +77,7 @@ TOptions::~TOptions()
 */
 bool TOptions::checkAndSaveTheOptions()
 {
-      QDEBUG_METHOD_NAME;
+      QDEBUG_METHOD_NAME
 
       QStringList exts;
       QStringList apps;
@@ -166,7 +166,7 @@ void TOptions::updateOptionsRows()
    // out from here. So we use a "try" block
    try
    {
-       QDEBUG_METHOD_NAME;
+       QDEBUG_METHOD_NAME
 
        m_seconds->setValue(m_settings->value("seconds").toInt());
 
@@ -230,7 +230,7 @@ void TOptions::on_m_new_ext_clicked()
    // from here. So we use a "try" block.
    try
    {
-       QDEBUG_METHOD_NAME;
+       QDEBUG_METHOD_NAME
 
        m_exts_apps->insertRow(m_exts_apps->rowCount());
        m_exts_apps->setCurrentCell(m_exts_apps->rowCount() - 1, 0);
@@ -265,7 +265,7 @@ void TOptions::on_m_delete_ext_clicked()
    // from here. So we use a "try" block
    try
    {
-       QDEBUG_METHOD_NAME;
+       QDEBUG_METHOD_NAME
 
        QString question = tr("Are you sure that you want to delete the selected row?");
        bool isAccepted = syst.confirm(question);
@@ -297,7 +297,7 @@ void TOptions::on_m_find_app_clicked()
    // from here. So we use a "try" block.
    try
    {
-       QDEBUG_METHOD_NAME;
+       QDEBUG_METHOD_NAME
 
        QFileDialog file_dialog(this, tr("Select the viewer program"), "/");
        file_dialog.setFileMode(QFileDialog::ExistingFile);
@@ -331,7 +331,7 @@ void TOptions::on_m_find_path_clicked()
    // exceptions to go out from here. So we use a "try" block.
    try
    {
-       QDEBUG_METHOD_NAME;
+       QDEBUG_METHOD_NAME
 
        QFileDialog folder_dialog(this, tr("Select the shared local folder"));
 

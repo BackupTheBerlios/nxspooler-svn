@@ -32,7 +32,7 @@
 */
 TSysTrayIcon::TSysTrayIcon()
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 }
 
 
@@ -42,7 +42,7 @@ TSysTrayIcon::TSysTrayIcon()
 */
 TSysTrayIcon::~TSysTrayIcon()
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    if (isSystemTrayAvailable())
    {

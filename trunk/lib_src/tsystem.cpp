@@ -33,7 +33,7 @@
 */
 void TSystem::showMsgBoxWhenHavingQApp(const QString &message, const QString &windowTitle, QMessageBox::Icon icon) const
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    QMessageBox msgBox;
    msgBox.setText(message);
@@ -49,7 +49,7 @@ void TSystem::showMsgBoxWhenHavingQApp(const QString &message, const QString &wi
 */
 TSystem::TSystem()
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 }
 
 
@@ -58,7 +58,7 @@ TSystem::TSystem()
 */
 TSystem::~TSystem()
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 }
 
 
@@ -69,7 +69,7 @@ TSystem::~TSystem()
 */
 bool TSystem::confirm(const QString &message) const
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    QMessageBox msgBox(QMessageBox::Question, tr("Confirm"), message, QMessageBox::Ok|QMessageBox::Cancel);
 
@@ -91,7 +91,7 @@ bool TSystem::confirm(const QString &message) const
 */
 bool TSystem::existsProgram(const QString &name) const
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    if (name.isEmpty())
    {
@@ -127,7 +127,7 @@ bool TSystem::existsProgram(const QString &name) const
 */
 void TSystem::showMsgBox(const QString &message, const QString &windowTitle, QMessageBox::Icon icon) const
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    if (qApp == NULL)
    {
@@ -152,7 +152,7 @@ void TSystem::showMsgBox(const QString &message, const QString &windowTitle, QMe
 */
 void TSystem::showWarning(const QString &message, const QString &windowTitle) const
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    cerr << tr("Warning: ") << message << endl;
    showMsgBox(message, windowTitle == "" ? tr("Warning") : windowTitle, QMessageBox::Warning);
@@ -166,7 +166,7 @@ void TSystem::showWarning(const QString &message, const QString &windowTitle) co
 */
 void TSystem::showError(const QString &message, const QString &windowTitle) const
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    cerr << tr("Error: ") << message << endl;
    showMsgBox(message, windowTitle == "" ? tr("Error") : windowTitle, QMessageBox::Critical);
@@ -186,7 +186,7 @@ void TSystem::showError(const QString &message, const QString &windowTitle) cons
 */
 int TSystem::execute(const QString &program) const
 {
-    QDEBUG_METHOD_NAME;
+    QDEBUG_METHOD_NAME
 
     QProcess process;
 
@@ -224,7 +224,7 @@ int TSystem::execute(const QString &program) const
 */
 int TSystem::execute(const QString &program, const QStringList &arguments) const
 {
-    QDEBUG_METHOD_NAME;
+    QDEBUG_METHOD_NAME
 
     QProcess process;
 
@@ -253,7 +253,7 @@ int TSystem::execute(const QString &program, const QStringList &arguments) const
 */
 void TSystem::wait(int miliseconds) const
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    // Note: this code was extracted from the "qtlocalpeer.cpp" file
     // that came with the source code of NxSpooler.
@@ -277,7 +277,7 @@ void TSystem::wait(int miliseconds) const
 */
 QString TSystem::setApplicationName(const QString &application)
 {
-    QDEBUG_METHOD_NAME;
+    QDEBUG_METHOD_NAME
 
     return m_applicationName = application;
 }
@@ -288,7 +288,7 @@ QString TSystem::setApplicationName(const QString &application)
 */
 QString TSystem::applicationName() const
 {
-    QDEBUG_METHOD_NAME;
+    QDEBUG_METHOD_NAME
 
     return m_applicationName;
 }
@@ -300,7 +300,7 @@ QString TSystem::applicationName() const
 void
 TSystem::exitBecauseException(std::exception &excep)
 {
-    QDEBUG_METHOD_NAME;
+    QDEBUG_METHOD_NAME
 
     syst.showError(excep.what(), tr("Error") + " - " + m_applicationName);
 
@@ -314,7 +314,7 @@ TSystem::exitBecauseException(std::exception &excep)
 void
 TSystem::exitBecauseException()
 {
-    QDEBUG_METHOD_NAME;
+    QDEBUG_METHOD_NAME
 
     syst.showError(tr("Error 0309102: An unidentified problem has happened and %1 must be closed.").arg(m_applicationName)
                         , tr("Error") + " - " + m_applicationName);

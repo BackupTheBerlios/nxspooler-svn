@@ -40,7 +40,7 @@
 TNxSpooler::TNxSpooler(QWidget *qwidgetParent)
    : QDialog(qwidgetParent)
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    // "Adopt" member objects that need this
    m_settings.setParent(this);
@@ -89,7 +89,7 @@ TNxSpooler::TNxSpooler(QWidget *qwidgetParent)
 */
 TNxSpooler::~TNxSpooler()
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 }
 
 
@@ -104,7 +104,7 @@ void TNxSpooler::detectFilesAndOpen()
    // from here, so we use a "try" block.
    try
    {
-      QDEBUG_METHOD_NAME;
+      QDEBUG_METHOD_NAME
 
       // The spool folder
       QDir folder(m_settings.value("folder").toString());
@@ -196,7 +196,7 @@ void TNxSpooler::openAboutNxSpooler()
    // don't allow exceptions to go out from here. So we use a "try" block.
    try
    {
-       QDEBUG_METHOD_NAME;
+       QDEBUG_METHOD_NAME
 
        Ui::aboutDialog uiAbout;
        QDialog about(this);
@@ -225,7 +225,7 @@ void TNxSpooler::openOptions()
    // don't allow exceptions to go out from here. So we use a "try" block.
    try
    {
-      QDEBUG_METHOD_NAME;
+      QDEBUG_METHOD_NAME
 
       TOptions options(&m_settings, this);
 
@@ -287,7 +287,7 @@ void TNxSpooler::openHelp()
    // don't allow exceptions to go out from here. So we use a "try" block.
    try
    {
-       QDEBUG_METHOD_NAME;
+       QDEBUG_METHOD_NAME
 
        Ui::helpDialog uiHelp;
        QDialog help(this);
@@ -316,7 +316,7 @@ void TNxSpooler::show()
    // from here. So we use a "try" block.
    try
    {
-       QDEBUG_METHOD_NAME;
+       QDEBUG_METHOD_NAME
 
        // Avoid that NxSpooler finishes when the user closes dialogs with the main window hidden
        qApp->setQuitOnLastWindowClosed(true);
@@ -354,7 +354,7 @@ void TNxSpooler::showOrHide(QSystemTrayIcon::ActivationReason reason)
    // to go out from here. So we use a "try" block.
    try
    {
-       QDEBUG_METHOD_NAME;
+       QDEBUG_METHOD_NAME
        // If the user clicks on the system tray icon, hide or show the program
        if (reason == QSystemTrayIcon::Trigger)
        {
@@ -389,7 +389,7 @@ void TNxSpooler::hide()
    // go out from here. So we use a "try" block.
    try
    {
-       QDEBUG_METHOD_NAME;
+       QDEBUG_METHOD_NAME
 
        QDialog::hide();
 
@@ -424,7 +424,7 @@ void TNxSpooler::restoreSettings()
    // don't allow exceptions to go out from here. So we use a "try" block
    try
    {
-       QDEBUG_METHOD_NAME;
+       QDEBUG_METHOD_NAME
 
        m_settings.remove("exts");
        m_settings.setValue("exts", m_default_formats);
@@ -469,7 +469,7 @@ void TNxSpooler::restoreSettings()
 */
 bool TNxSpooler::filterAndSortFolder(QDir &folder) const
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    QStringList exts = m_settings.value("exts").toStringList();
 
@@ -513,7 +513,7 @@ bool TNxSpooler::filterAndSortFolder(QDir &folder) const
 */
 void TNxSpooler::initializeSettings()
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    if (m_settings.value("seconds").isNull())
    {
@@ -567,7 +567,7 @@ void TNxSpooler::initializeSettings()
 */
 void TNxSpooler::prepareTrayIconOrShowProgram()
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    if (QSystemTrayIcon::isSystemTrayAvailable())
    {
@@ -613,7 +613,7 @@ void TNxSpooler::prepareTrayIconOrShowProgram()
 */
 void TNxSpooler::prepareSharedFolder() const
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    // Create the manager of the path to check
    QDir folder(m_settings.value("folder").toString());
@@ -652,7 +652,7 @@ void TNxSpooler::prepareSharedFolder() const
 */
 void TNxSpooler::prepareTimer()
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    // Avoid that repeated callings to this method causes to try to open something
    // several times at the same moment.
@@ -684,7 +684,7 @@ void TNxSpooler::prepareTimer()
 TNxSpooler::ResultOfOpening TNxSpooler::openPath(QFileInfo &path, const QString &source, 
                                                  TNxSpooler::SituationOfAPathToOpen situationOfThePath) const
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    // We indicate that that parameter was not used
    Q_UNUSED(situationOfThePath);
@@ -813,7 +813,7 @@ TNxSpooler::ResultOfOpening TNxSpooler::openPath(QFileInfo &path, const QString 
 */
 TNxSpooler::ResultOfOpening TNxSpooler::openPathWrittenInside(const QString &containerFile)
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    QStringList arguments;
 
@@ -885,7 +885,7 @@ TNxSpooler::ResultOfOpening TNxSpooler::openPathWrittenInside(const QString &con
 */
 QString TNxSpooler::getDefaultProgram() const
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
 #ifdef Q_WS_WIN
    return "";
@@ -904,7 +904,7 @@ QString TNxSpooler::getDefaultProgram() const
 */
 QString TNxSpooler::getDefaultProgramInLinux() const
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    QString command;
    QStringList commands;
@@ -936,7 +936,7 @@ QString TNxSpooler::getDefaultProgramInLinux() const
 */
 void TNxSpooler::removeExtensionsThatDoNotMustBeOpened(QStringList &extsToDetect) const
 {
-   QDEBUG_METHOD_NAME;
+   QDEBUG_METHOD_NAME
 
    // List of "booleans" that indicate if the extension must be opened only if found inside a container file, a ".nxspooler-open" file
    QVariantList onlyInsideContainer = m_settings.value("onlyInsideContainer").toList();
