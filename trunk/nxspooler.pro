@@ -11,7 +11,7 @@ INCLUDEPATH += . \
 HEADERS += toptions.h \
     tnxspooler.h \
     lib_src/tsystem.h \
-    lib_src/tdebug.h \
+    lib_src/tdebugstartend.h \
     lib_src/tdebugindentation.h \
     lib_src/tsystrayicon.h \
     lib_src/ttranslator.h \
@@ -27,7 +27,7 @@ SOURCES += main.cpp \
     toptions.cpp \
     tnxspooler.cpp \
     lib_src/tsystem.cpp \
-    lib_src/tdebug.cpp \
+    lib_src/tdebugstartend.cpp \
     lib_src/tdebugindentation.cpp \
     lib_src/tsystrayicon.cpp \
     lib_src/ttranslator.cpp \

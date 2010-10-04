@@ -32,7 +32,7 @@
 
 #include "tsystrayicon.h"
 #include "tsystem.h"
-#include "tdebug.h"
+#include "tdebugstartend.h"
 #include "toptions.h"
 
 #include "ui_aboutDialog.h"
