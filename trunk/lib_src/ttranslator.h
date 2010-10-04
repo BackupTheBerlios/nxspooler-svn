@@ -24,7 +24,7 @@
 #include <QTranslator>
 #include <QCoreApplication>
 #include <QLibraryInfo>
-#include "tdebug.h"
+#include "tdebugstartend.h"
 
 class TTranslator : public QTranslator
 {

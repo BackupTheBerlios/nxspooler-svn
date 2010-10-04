@@ -32,7 +32,7 @@
    #include <QtCore/qt_windows.h>
 #endif
 
-#include "tdebug.h"
+#include "tdebugstartend.h"
 
 using std::runtime_error;
 
