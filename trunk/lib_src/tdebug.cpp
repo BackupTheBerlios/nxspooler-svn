@@ -20,25 +20,25 @@
 #include "tdebug.h"
 
 /*!
-   \class TDebug
-   \brief To help developers, using debug messages, to know when a method is started and finished, to keep the indentation level, etc.
+   \class TDebugStartEnd
+   \brief To tell, using debug messages, when a method is started and finished. To keep the debug indentation level, etc.
 
-   An object of the class TDebug uses qDebug() in its constructor to tell when a
+   An object of the class TDebugStartEnd uses qDebug() in its constructor to tell when a
    method is started, and in its destructor to automatically tell when the
    method is finished. Also the developer, when writing other messages to qDebug, can
-   use a consistent indentation level thanks to a TDebugIndentation object of the
-   TDebug class.
+   use a consistent indentation level thanks to a TDebugIndentation object in the
+   TDebugStartEnd class.
 */
 
 // Initialize this static object
-TDebugIndentation TDebug::indentation;
+TDebugIndentation TDebugStartEnd::indentation;
 
 
 //! Constructor. It must write debug information about the method it's going to be executed.
 /*!
   \param methodName The name of the (original) current method.
 */
-TDebug::TDebug(const char *methodName) : originalMethodName(methodName)
+TDebugStartEnd::TDebugStartEnd(const char *methodName) : originalMethodName(methodName)
 {
    qDebug() << indentation << "/ " << originalMethodName;
 
@@ -49,7 +49,7 @@ TDebug::TDebug(const char *methodName) : originalMethodName(methodName)
 //! Destructor. It must write debug information about the method that it's finishing.
 /*!
 */
-TDebug::~TDebug()
+TDebugStartEnd::~TDebugStartEnd()
 {
    indentation--;
 

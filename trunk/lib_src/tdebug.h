@@ -17,13 +17,13 @@
 *  along with NxSpooler. If not, see http://www.gnu.org/copyleft/gpl.html.
 *****************************************************************************/
 
-#ifndef T_DEBUG_H
-#define T_DEBUG_H
+#ifndef T_DEBUG_START_END_H
+#define T_DEBUG_START_END_H
 
 #include "tdebugindentation.h"
 
 
-class TDebug
+class TDebugStartEnd
 {
    const char *originalMethodName; //!< The name of the (original) current method.
 
@@ -31,13 +31,13 @@ public:
 
    static TDebugIndentation indentation; //!<  Object that knows the level of indentation that must be used in the debug messages.
 
-   TDebug(const char *);
-   ~TDebug();
+   TDebugStartEnd(const char *);
+   ~TDebugStartEnd();
 };
 
 #ifdef QT_DEBUG
-   /*!  Create a TDebug. This action also writes, in qDebug(), information about the name of the current method. */
-   #define QDEBUG_METHOD_NAME TDebug methodName(Q_FUNC_INFO);
+   /*!  Create a TDebugStartEnd. This action also writes, in qDebug(), information about the name of the current method. */
+   #define QDEBUG_METHOD_NAME TDebugStartEnd methodName(Q_FUNC_INFO);
 #else // We don't execute any statement
    #define QDEBUG_METHOD_NAME
 #endif

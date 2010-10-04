@@ -192,9 +192,9 @@ void TOptions::updateOptionsRows()
           m_exts_apps->insertRow(m_exts_apps->rowCount());
 
           m_exts_apps->setItem(i, 0, new QTableWidgetItem(exts.value(i)));
-          qDebug() << TDebug::indentation << exts.value(i);
+          qDebug() << TDebugStartEnd::indentation << exts.value(i);
 
-          qDebug() << TDebug::indentation << onlyInsideContainer.value(i).toBool();
+          qDebug() << TDebugStartEnd::indentation << onlyInsideContainer.value(i).toBool();
           QTableWidgetItem *checkboxOnlyInsideContainer = new QTableWidgetItem();
           checkboxOnlyInsideContainer->setCheckState(onlyInsideContainer.value(i).toBool()?Qt::Checked:Qt::Unchecked);
           // To avoid that the user can, for example, write text at the right to the checkbox
@@ -202,7 +202,7 @@ void TOptions::updateOptionsRows()
           // Finally, we "put" the checkbox inside
           m_exts_apps->setItem(i, 1, checkboxOnlyInsideContainer);
 
-          qDebug() << TDebug::indentation << apps.value(i);
+          qDebug() << TDebugStartEnd::indentation << apps.value(i);
           m_exts_apps->setItem(i, 2, new QTableWidgetItem(apps.value(i)));
        }
 

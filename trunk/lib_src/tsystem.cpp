@@ -95,7 +95,7 @@ bool TSystem::existsProgram(const QString &name) const
 
    if (name.isEmpty())
    {
-      qDebug() << TDebug::indentation << "Going to end: " << Q_FUNC_INFO <<  " AHEAD";
+      qDebug() << TDebugStartEnd::indentation << "Going to end: " << Q_FUNC_INFO <<  " AHEAD";
       return true;
    }
 
@@ -193,7 +193,7 @@ int TSystem::execute(const QString &program) const
     // As seen in http://jira.codehaus.org/browse/IZPACK-20 and http://labs.trolltech.com/forums/topic/156, the method
     // execute() from QProcess is not used.
 
-    qDebug() << TDebug::indentation << " Going to execute: " << program;
+    qDebug() << TDebugStartEnd::indentation << " Going to execute: " << program;
 
     process.setReadChannelMode(QProcess::ForwardedChannels);
     process.start(program);
@@ -231,7 +231,7 @@ int TSystem::execute(const QString &program, const QStringList &arguments) const
     // As seen in http://jira.codehaus.org/browse/IZPACK-20 and http://labs.trolltech.com/forums/topic/156, the method
     // execute() from QProcess is not used.
 
-    qDebug() << TDebug::indentation << "Going to execute: " << program << " with arguments: " << arguments;
+    qDebug() << TDebugStartEnd::indentation << "Going to execute: " << program << " with arguments: " << arguments;
 
     process.setReadChannelMode(QProcess::ForwardedChannels);
     process.start(program, arguments);

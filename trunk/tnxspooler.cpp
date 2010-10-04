@@ -116,7 +116,7 @@ void TNxSpooler::detectFilesAndOpen()
       // Exit from this function if nothing must be done
       if (folder.count() == 0)
       {
-         qDebug() << TDebug::indentation << "Going to end: " << Q_FUNC_INFO <<  " AHEAD";
+         qDebug() << TDebugStartEnd::indentation << "Going to end: " << Q_FUNC_INFO <<  " AHEAD";
          return;
       }
 
@@ -627,7 +627,7 @@ void TNxSpooler::prepareSharedFolder() const
 
       if (!isAccepted)
       {
-         qDebug() << TDebug::indentation << "Going to end: " << Q_FUNC_INFO <<  " AHEAD";
+         qDebug() << TDebugStartEnd::indentation << "Going to end: " << Q_FUNC_INFO <<  " AHEAD";
          return;
       }
 
@@ -868,7 +868,7 @@ TNxSpooler::ResultOfOpening TNxSpooler::openPathWrittenInside(const QString &con
    // new opened window has the focus. Note: the operating system has to allow that.
    activateWindow();
 
-   qDebug() << TDebug::indentation << "The path that must be opened is: " << path;
+   qDebug() << TDebugStartEnd::indentation << "The path that must be opened is: " << path;
 
    QFileInfo aux(path);
 
