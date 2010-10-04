@@ -21,12 +21,16 @@
 
 /*!
    \class TDebug
-   \brief To help developers to know when a method is started and finished, using debug messages.
+   \brief To help developers, using debug messages, to know when a method is started and finished, to keep the indentation level, etc.
 
-   An object of the class TDebug uses qDebug() in its constructor to tell when a 
-   method is started, and in its destructor to automatically tell when it is finished.
+   An object of the class TDebug uses qDebug() in its constructor to tell when a
+   method is started, and in its destructor to automatically tell when the
+   method is finished. Also the developer, when writing other messages to qDebug, can
+   use a consistent indentation level thanks to a TDebugIndentation object of the
+   TDebug class.
 */
 
+// Initialize this static object
 TDebugIndentation TDebug::indentation;
 
 
@@ -42,7 +46,7 @@ TDebug::TDebug(const char *methodName) : originalMethodName(methodName)
 }
 
 
-//! Destructor. It must write debug information about the method it's finishing.
+//! Destructor. It must write debug information about the method that it's finishing.
 /*!
 */
 TDebug::~TDebug()

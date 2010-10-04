@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
        syst.exitBecauseException();
    }
 
-   // MinGW wants this line
+   // MinGW wanted this line
    return 0;
 }
 

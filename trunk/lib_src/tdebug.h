@@ -35,8 +35,8 @@ public:
    ~TDebug();
 };
 
-/*!  Define a TDebug that writes in qDebug() information about the name of the current method. */
 #ifdef QT_DEBUG
+   /*!  Create a TDebug. This action also writes, in qDebug(), information about the name of the current method. */
    #define QDEBUG_METHOD_NAME TDebug methodName(Q_FUNC_INFO);
 #else // We don't execute any statement
    #define QDEBUG_METHOD_NAME
