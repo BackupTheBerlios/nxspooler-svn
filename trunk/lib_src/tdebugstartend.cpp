@@ -17,7 +17,7 @@
 *  along with NxSpooler. If not, see http://www.gnu.org/copyleft/gpl.html.
 *****************************************************************************/
 
-#include "tdebug.h"
+#include "tdebugstartend.h"
 
 /*!
    \class TDebugStartEnd
