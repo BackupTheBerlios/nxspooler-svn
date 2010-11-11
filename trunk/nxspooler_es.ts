@@ -278,19 +278,9 @@ El administrador de este ordenador debería ver si esto es debido a un error del
         <translation>Aviso</translation>
     </message>
     <message>
-        <location filename="lib_src/tsystem.cpp" line="171"/>
-        <source>Error: </source>
-        <translation>Error: </translation>
-    </message>
-    <message>
         <location filename="main.cpp" line="69"/>
         <source>NxSpooler was already running.</source>
         <translation>NxSpooler ya se estaba ejecutando.</translation>
-    </message>
-    <message>
-        <location filename="lib_src/tsystem.cpp" line="157"/>
-        <source>Warning: </source>
-        <translation>Aviso: </translation>
     </message>
     <message>
         <location filename="main.cpp" line="76"/>

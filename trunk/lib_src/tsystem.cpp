@@ -154,7 +154,7 @@ void TSystem::showWarning(const QString &message, const QString &windowTitle) co
 {
    QDEBUG_METHOD_NAME
 
-   cerr << tr("Warning: ") << message << endl;
+   cerr << message << endl;
    showMsgBox(message, windowTitle == "" ? tr("Warning") : windowTitle, QMessageBox::Warning);
 }
 
@@ -168,7 +168,7 @@ void TSystem::showError(const QString &message, const QString &windowTitle) cons
 {
    QDEBUG_METHOD_NAME
 
-   cerr << tr("Error: ") << message << endl;
+   cerr << message << endl;
    showMsgBox(message, windowTitle == "" ? tr("Error") : windowTitle, QMessageBox::Critical);
 }
 
