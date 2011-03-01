@@ -30,7 +30,6 @@
 #endif
 */
 
-#include <QTranslator>
 #include <QLibraryInfo>
 
 #include "qtsingleapplication/qtsingleapplication.h"
@@ -60,7 +59,7 @@ int main(int argc, char *argv[])
       a.setApplicationName(syst.setApplicationName("NxSpooler"));
       a.setApplicationVersion("1.0.2");
 
-      // Start a QTranslator to try to translate the next messages that the user sees
+      // Start a specialized QTranslator to try to translate the next messages that the user sees
       TTranslator translator(a);
 
       // Check if another NxSpooler instance was running

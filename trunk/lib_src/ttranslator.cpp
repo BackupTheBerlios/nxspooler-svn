@@ -69,6 +69,7 @@ void TTranslator::searchAndLoadTranslation(QTranslator &translator,
 {
    QDEBUG_METHOD_NAME
 
+   // Try to search (in a folder) the translation and load it, and if it fails, search it in the following folder
    if (!translator.load(baseName, folderWithPriority1))
       if (!translator.load(baseName, folderWithPriority2))
          if (!translator.load(baseName, folderWithPriority3))
@@ -98,6 +99,7 @@ TTranslator::TTranslator(QCoreApplication &program) : m_a(program)
 {
    QDEBUG_METHOD_NAME
 
+   // Inquire the "locale" and the current language
    // The language and country of this locale as a string of the form "language_country", where language is a
    // lowercase, two-letter ISO 639 language code, and country is an uppercase, two-letter ISO 3166 country code.
    QString locale = QLocale::system().name();
@@ -147,10 +149,10 @@ TTranslator::TTranslator(QCoreApplication &program) : m_a(program)
    program.installTranslator(this);
 
    // Now let's deal with the QTranslator for the case of already translated, standard
-   // items like "Restore defaults" buttons, "Cancel" buttons, etc.
+   // items like "Ok" buttons, "Restore defaults" buttons, "Cancel" buttons, etc.
 
    // Note: in development we have Qt installed, and we normally don't modify the Qt
-   // translations files so this case is simpler.
+   // translations files, so the Qt translation case is simpler than the NxSpooler translation case.
    QString qtTranslationsPath = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
    searchAndLoadTranslation(m_translatorStandardItems, "qt_" + locale, "Qt", currentLanguage, qtTranslationsPath, programFolder, ".", upProgramFolder, "..");
 
