@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>NxSpooler</class>
+ <widget class="QDialog" name="NxSpooler">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>405</width>
+    <height>265</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string notr="true">NxSpooler</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="nxspooler.qrc">
+    <normaloff>:/img/nxspooler.png</normaloff>:/img/nxspooler.png</iconset>
+  </property>
+  <property name="modal">
+   <bool>false</bool>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="m_label_2">
+     <property name="text">
+      <string>Files opened and deleted by NxSpooler</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QListWidget" name="m_listFiles">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Files that have been opened and deleted during the execution of NxSpooler</string>
+     </property>
+     <property name="whatsThis">
+      <string>Files that have been opened and deleted during the execution of NxSpooler</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="m_options">
+       <property name="toolTip">
+        <string>NxSpooler options</string>
+       </property>
+       <property name="whatsThis">
+        <string>See and modify the configuration of NxSpooler.</string>
+       </property>
+       <property name="text">
+        <string>&amp;Options</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="m_help">
+       <property name="whatsThis">
+        <string>Help.</string>
+       </property>
+       <property name="text">
+        <string>&amp;Help</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="m_about">
+       <property name="toolTip">
+        <string>About NxSpooler</string>
+       </property>
+       <property name="whatsThis">
+        <string>Information about NxSpooler and its license.</string>
+       </property>
+       <property name="text">
+        <string>&amp;About</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="m_hide">
+       <property name="toolTip">
+        <string>Hide this window</string>
+       </property>
+       <property name="whatsThis">
+        <string>Hide this window and set an icon in the notification area to let the user restore or quit NxSpooler.</string>
+       </property>
+       <property name="text">
+        <string>H&amp;ide</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="m_quit">
+       <property name="toolTip">
+        <string>Exit from NxSpooler</string>
+       </property>
+       <property name="whatsThis">
+        <string>Quit NxSpooler.</string>
+       </property>
+       <property name="text">
+        <string>&amp;Quit</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+  <action name="m_action_quit">
+   <property name="text">
+    <string>&amp;Quit NxSpooler</string>
+   </property>
+   <property name="toolTip">
+    <string>Exit from NxSpooler</string>
+   </property>
+  </action>
+  <action name="m_action_options">
+   <property name="text">
+    <string>&amp;Options</string>
+   </property>
+   <property name="toolTip">
+    <string>Open the options dialog</string>
+   </property>
+  </action>
+  <action name="m_action_about">
+   <property name="text">
+    <string>&amp;About NxSpooler</string>
+   </property>
+   <property name="toolTip">
+    <string>See information about NxSpooler</string>
+   </property>
+  </action>
+  <action name="m_action_hide">
+   <property name="text">
+    <string>H&amp;ide NxSpooler</string>
+   </property>
+   <property name="toolTip">
+    <string>Hide the window of NxSpooler</string>
+   </property>
+  </action>
+  <action name="m_action_show">
+   <property name="text">
+    <string>&amp;Restore NxSpooler</string>
+   </property>
+   <property name="toolTip">
+    <string>Makes visible the window of NxSpooler</string>
+   </property>
+  </action>
+  <action name="m_action_help">
+   <property name="text">
+    <string>&amp;Help</string>
+   </property>
+   <property name="toolTip">
+    <string>Help</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="nxspooler.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>m_hide</sender>
+   <signal>clicked()</signal>
+   <receiver>m_action_hide</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>341</x>
+     <y>259</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_options</sender>
+   <signal>clicked()</signal>
+   <receiver>m_action_options</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>140</x>
+     <y>259</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_about</sender>
+   <signal>clicked()</signal>
+   <receiver>m_action_about</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>274</x>
+     <y>242</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_quit</sender>
+   <signal>clicked()</signal>
+   <receiver>m_action_quit</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>399</x>
+     <y>259</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_action_quit</sender>
+   <signal>triggered()</signal>
+   <receiver>NxSpooler</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>242</x>
+     <y>56</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_action_about</sender>
+   <signal>triggered()</signal>
+   <receiver>NxSpooler</receiver>
+   <slot>openAboutNxSpooler()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>242</x>
+     <y>132</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_action_hide</sender>
+   <signal>triggered()</signal>
+   <receiver>NxSpooler</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>242</x>
+     <y>132</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_action_options</sender>
+   <signal>triggered()</signal>
+   <receiver>NxSpooler</receiver>
+   <slot>openOptions()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>242</x>
+     <y>132</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_action_show</sender>
+   <signal>triggered()</signal>
+   <receiver>NxSpooler</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>242</x>
+     <y>132</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_action_quit</sender>
+   <signal>triggered()</signal>
+   <receiver>NxSpooler</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>242</x>
+     <y>56</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_help</sender>
+   <signal>clicked()</signal>
+   <receiver>m_action_help</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>174</x>
+     <y>247</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_action_help</sender>
+   <signal>triggered()</signal>
+   <receiver>NxSpooler</receiver>
+   <slot>openHelp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>202</x>
+     <y>132</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>open()</slot>
+  <slot>openOptions()</slot>
+  <slot>openAboutNxSpooler()</slot>
+  <slot>show()</slot>
+  <slot>hide()</slot>
+  <slot>openHelp()</slot>
+ </slots>
+</ui>
