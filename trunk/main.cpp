@@ -1,7 +1,7 @@
 /*****************************************************************************
 *  This file is part of NxSpooler.
 *
-*  Copyright (C) 2009-2010 by Creación y Diseño Ibense S.L., Arón Galdón Ginés, Toni Asensi Esteve.
+*  Copyright (C) 2009-2011 by Creación y Diseño Ibense S.L., Arón Galdón Ginés, Toni Asensi Esteve.
 *
 *  NxSpooler is free software: you can redistribute it and/or modify
 *  it under the terms of the GNU General Public License as published by
@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
       a.setOrganizationName(QString::fromUtf8("Creación y Diseño Ibense"));
       a.setOrganizationDomain("cdi-ibense.com");
       a.setApplicationName(syst.setApplicationName("NxSpooler"));
-      a.setApplicationVersion("1.0.2");
+      a.setApplicationVersion("1.0.3");
 
       // Start a specialized QTranslator to try to translate the next messages that the user sees
       TTranslator translator(a);

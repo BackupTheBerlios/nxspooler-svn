@@ -1,7 +1,7 @@
 /*****************************************************************************
 *  This file is part of NxSpooler.
 *
-*  Copyright (C) 2009-2010 by Creación y Diseño Ibense S.L., Arón Galdón Ginés, Toni Asensi Esteve.
+*  Copyright (C) 2009-2011 by Creación y Diseño Ibense S.L., Arón Galdón Ginés, Toni Asensi Esteve.
 *
 *  NxSpooler is free software: you can redistribute it and/or modify
 *  it under the terms of the GNU General Public License as published by
