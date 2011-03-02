@@ -43,7 +43,7 @@
   
   ;Place where the Qt dlls are. This value is only used when compiling this script.
   !ifndef QT_DLL_FOLDER
-    !define QT_DLL_FOLDER "c:\Qt\2010.02.1\qt"
+    !define QT_DLL_FOLDER "c:\Qt\2010.05\qt"
   !endif
 
   ;Default installation folder.
@@ -147,7 +147,7 @@ Section "Section Name 1" Section1
   SetOutPath "$INSTDIR"
   
   ;Files to install
-  File ..\release\${PROG_NAME}.exe
+  File ..\..\nxspooler-build-desktop\release\${PROG_NAME}.exe
   File ..\${PROG_NAME}_es.qm
   File "${QT_DLL_FOLDER}\bin\mingwm10.dll"
   File "${QT_DLL_FOLDER}\bin\libgcc_s_dw2-1.dll"
@@ -155,12 +155,15 @@ Section "Section Name 1" Section1
   File "${QT_DLL_FOLDER}\bin\QtGui4.dll"
   File "${QT_DLL_FOLDER}\bin\QtNetwork4.dll"
   File "${QT_DLL_FOLDER}\translations\qt_ar.qm"
+  File "${QT_DLL_FOLDER}\translations\qt_cs.qm"
   File "${QT_DLL_FOLDER}\translations\qt_da.qm"
   File "${QT_DLL_FOLDER}\translations\qt_de.qm"
   File "${QT_DLL_FOLDER}\translations\qt_es.qm"
   File "${QT_DLL_FOLDER}\translations\qt_fr.qm"
-  File "${QT_DLL_FOLDER}\translations\qt_iw.qm"
-  File "${QT_DLL_FOLDER}\translations\qt_ja_JP.qm"
+  ;Note: it was not found in Qt 4.7.0: File "${QT_DLL_FOLDER}\translations\qt_iw.qm"
+  File "${QT_DLL_FOLDER}\translations\qt_he.qm"
+  File "${QT_DLL_FOLDER}\translations\qt_hu.qm"
+  File "${QT_DLL_FOLDER}\translations\qt_ja.qm"
   File "${QT_DLL_FOLDER}\translations\qt_pl.qm"
   File "${QT_DLL_FOLDER}\translations\qt_pt.qm"
   File "${QT_DLL_FOLDER}\translations\qt_ru.qm"
@@ -170,6 +173,7 @@ Section "Section Name 1" Section1
   File "${QT_DLL_FOLDER}\translations\qt_uk.qm"
   File "${QT_DLL_FOLDER}\translations\qt_zh_CN.qm"
   File "${QT_DLL_FOLDER}\translations\qt_zh_TW.qm"
+  ;Beware that if a file is added to that list, probably it must be added also to the list of files to uninstall 
   
   ;Store installation folder
   WriteRegStr HKCU "Software\${PATH_IN_REGISTRY}" "" $INSTDIR
@@ -272,12 +276,14 @@ Section "Uninstall"
   Delete "$INSTDIR\QtGui4.dll"
   Delete "$INSTDIR\QtNetwork4.dll"
   Delete "$INSTDIR\qt_ar.qm"
+  Delete "$INSTDIR\qt_cs.qm"
   Delete "$INSTDIR\qt_da.qm"
   Delete "$INSTDIR\qt_de.qm"
   Delete "$INSTDIR\qt_es.qm"
+  Delete "$INSTDIR\qt_he.qm"
+  Delete "$INSTDIR\qt_hu.qm"
   Delete "$INSTDIR\qt_fr.qm"
-  Delete "$INSTDIR\qt_iw.qm"
-  Delete "$INSTDIR\qt_ja_JP.qm"
+  Delete "$INSTDIR\qt_ja.qm"
   Delete "$INSTDIR\qt_pl.qm"
   Delete "$INSTDIR\qt_pt.qm"
   Delete "$INSTDIR\qt_ru.qm"
@@ -287,7 +293,7 @@ Section "Uninstall"
   Delete "$INSTDIR\qt_uk.qm"
   Delete "$INSTDIR\qt_zh_CN.qm"
   Delete "$INSTDIR\qt_zh_TW.qm"
-  
+
   ;That will not remove all the existing files inside the folder, because 
   ;some could be data files of the user.
   RMDir "$INSTDIR"

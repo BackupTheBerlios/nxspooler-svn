@@ -63,7 +63,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>NxSpooler is a Qt utility used to help people to print in their printers when connected to a remote computer with sessions like the ones of FreeNX. It also adds some very basic and easy client/server capabilities.</string>
+      <string>NxSpooler is a Qt utility used to help people to print in their printers when connected to a remote computer with sessions like the ones of x2go or FreeNX. It also adds some very basic and easy client/server capabilities.</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignJustify|Qt::AlignVCenter</set>

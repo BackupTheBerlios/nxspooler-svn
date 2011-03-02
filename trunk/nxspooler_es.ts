@@ -311,8 +311,8 @@ El administrador de este ordenador debería ver si esto es debido a un error del
     </message>
     <message>
         <location filename="aboutDialog.ui" line="66"/>
-        <source>NxSpooler is a Qt utility used to help people to print in their printers when connected to a remote computer with sessions like the ones of FreeNX. It also adds some very basic and easy client/server capabilities.</source>
-        <translation>NxSpooler es una utilidad Qt para ayudar a las personas a imprimir en sus impresoras cuando están conectados a un ordenador remoto usando sesiones como las de FreeNX. También añade algunas capacidades cliente/servidor muy básicas y fáciles.</translation>
+        <source>NxSpooler is a Qt utility used to help people to print in their printers when connected to a remote computer with sessions like the ones of x2go or FreeNX. It also adds some very basic and easy client/server capabilities.</source>
+        <translation>NxSpooler es una utilidad Qt para ayudar a las personas a imprimir en sus impresoras cuando están conectados a un ordenador remoto usando sesiones como las de x2go o FreeNX. También añade algunas capacidades cliente/servidor muy básicas y fáciles.</translation>
     </message>
     <message>
         <location filename="aboutDialog.ui" line="120"/>
@@ -1688,12 +1688,12 @@ Public License instead of this License.  But first, please read
         <location filename="helpDialog.ui" line="52"/>
         <source>NxSpooler allows that particular files created in the server (normally by an application and sometimes by the user) can be printed in the local printer of the user.
 
-More precisely: in the computer of the user, NxSpooler monitors if files with certain extensions (for example PDF) appear in a set shared resource. NxSpooler opens every new file that finds so that the user can see it on his screen and print it or save it; when the user closes the viewer application that shows the file, NxSpooler will delete the file if possible. NxSpooler is normally used together with a FreeNX session where a remote program (or sometimes the user) creates files and saves them in the shared resource for a later automatic opening by NxSpooler in the computer of the user (for example, to print the file).
+More precisely: in the computer of the user, NxSpooler monitors if files with certain extensions (for example PDF) appear in a set shared resource. NxSpooler opens every new file that finds so that the user can see it on his screen and print it or save it; when the user closes the viewer application that shows the file, NxSpooler will delete the file if possible. NxSpooler is normally used together with an x2go or FreeNX session where a remote program (or sometimes the user) creates files and saves them in the shared resource for a later automatic opening by NxSpooler in the computer of the user (for example, to print the file).
 
 For an advanced use: NxSpooler adds some very basic and easy client/server capabilities: if an application in the server creates a file with the extension &quot;nxspooler-open&quot; in the shared resource, NxSpooler will try to open this file, look inside and if there&apos;s a path written there, open this path in the client. The path can be a file, a folder, the address of a shared resource, etc. This is useful, for example, for an application in the server to: open the default file browser in the client to manage the contents of another concrete shared resource, so that the user can immediatly open those server files, save his files in the server, etc.</source>
         <translation>NxSpooler permite que determinados documentos creados en el servidor (normalmente por una aplicación y algunas veces por el usuario) puedan ser impresos en la impresora del usuario.
 
-Más precisamente: en el ordenador del usuario, NxSpooler monitoriza si archivos con ciertas extensiones (por ejemplo PDF) aparecen en determinado recurso compartido. Por cada archivo nuevo que encuentra NxSpooler: lo abre para que el usuario lo vea y pueda imprimirlo; cuando el usuario cierre la ventana del visor PDF, NxSpooler intentará borrar el archivo PDF. NxSpooler está pensado para ser usado conjuntamente con una sesión FreeNX donde un programa remoto (o a veces el usuario) crea archivos y los guarda en el recurso compartido para su posterior apertura automática por NxSpooler en el ordenador del usuario (por ejemplo, para imprimir el archivo).
+Más precisamente: en el ordenador del usuario, NxSpooler monitoriza si archivos con ciertas extensiones (por ejemplo PDF) aparecen en determinado recurso compartido. Por cada archivo nuevo que encuentra NxSpooler: lo abre para que el usuario lo vea y pueda imprimirlo; cuando el usuario cierre la ventana del visor PDF, NxSpooler intentará borrar el archivo PDF. NxSpooler está pensado para ser usado conjuntamente con una sesión x2go o FreeNX donde un programa remoto (o a veces el usuario) crea archivos y los guarda en el recurso compartido para su posterior apertura automática por NxSpooler en el ordenador del usuario (por ejemplo, para imprimir el archivo).
 
 Para un uso avanzado: NxSpooler añade capacidades cliente/servidor muy básicas y fáciles: si una aplicación del servidor crea un archivo con la extensión &quot;nxspooler-open&quot; en el recurso compartido, NxSpooler intentará abrir este archivo, mirar dentro y si allí hay escrita una ruta, abrir esta ruta en el cliente. La ruta puede ser un archivo, una carpeta, la dirección de un recurso compartido, etc. Esto es útil, por ejemplo, para que una aplicación en el servidor abra el explorador de archivos predeterminado en el ordenador cliente para gestionar el contenido de otro recurso compartido en concreto, y así que el usuario pueda inmediatamente abrir estos archivos del servidor, guardar sus archivos en el servidor, etc.</translation>
     </message>
@@ -1706,7 +1706,7 @@ Para un uso avanzado: NxSpooler añade capacidades cliente/servidor muy básicas
         <location filename="helpDialog.ui" line="85"/>
         <source>Example of configuration of the system for NxSpooler, in this case for working with a program called Bulmages that is executed on the server.
 
-Note: to print a report, Bulmages 0.12 first saves it (normally in PDF format) on a folder and then it asks the system that the file is opened; working with FreeNX we want that Bulmages saves the file but in the computer of the user, that Bulmages opens nothing and that NxSpooler opens the file but in the computer of the user.
+Note: to print a report, Bulmages 0.12 first saves it (normally in PDF format) on a folder and then it asks the system that the file is opened; working with x2go or FreeNX we want that Bulmages saves the file but in the computer of the user, that Bulmages opens nothing and that NxSpooler opens the file but in the computer of the user.
 
 * The first time:
    + In the server:
@@ -1717,15 +1717,15 @@ Note: to print a report, Bulmages 0.12 first saves it (normally in PDF format) o
       - In Linux: share (using Samba) the folder $HOME/.nxspooler as &quot;nxspooler&quot;, using a particular password and username.
       - In Windows: share the folder %UserProfile%\.nxspooler as &quot;nxspooler$&quot;, using a particular password and username.
       - Note: when sharing, you must be sure that the particular username that will be used to access to the shared resource has permissions to write on it.
-      - Configure the NX client program so that the connection normally used to access to the FreeNX server  grants the server access to the shared resource that we talked about. For example, in the Linux program called &quot;nx client&quot; you can go to a tab called &quot;Services&quot;, click on the checkbox &quot;enable SMB printing and file sharing&quot; and click on &quot;Add&quot; to add the resource &quot;nxspooler&quot;, configure that the mount point in the server is ~/.bulmages so that Bulmages uses it in a natural way in the remote session; enter the particular password and username.
+      - Configure the x2goclient or NX Client program so that the connection normally used to access to the x2go or FreeNX server  grants the server access to the shared resource that we talked about. For example, in the Linux program called &quot;NX Client&quot; you can go to a tab called &quot;Services&quot;, click on the checkbox &quot;enable SMB printing and file sharing&quot; and click on &quot;Add&quot; to add the resource &quot;nxspooler&quot;, configure that the mount point in the server is ~/.bulmages so that Bulmages uses it in a natural way in the remote session; enter the particular password and username.
 
-* Every time the user starts the FreeNX session:
+* Every time the user starts the x2go or FreeNX session:
       - NxSpooler has to be running in the computer of the user, of course :-).
  
 This way: the files of the reports that Bulmages makes in the server  will be opened in the client computer, where the user can print them, save them, send them by email, etc.</source>
         <translation>Ejemplo de configuración del sistema para NxSpooler, en este caso para trabajar con un programa llamado Bulmagés que se ejecuta en el servidor.
 
-Nota: para imprimir un informe, Bulmages 0.12 primero lo guarda (normalmente en formato PDF) en una carpeta y entonces pide al sistema que abra el archivo; trabajando con FreeNX queremos que Bulmages guarde el archivo pero en el ordenador del usuario, que Bulmages no abra nada y que NxSpooler abra el archivo pero en el ordenador del usuario.
+Nota: para imprimir un informe, Bulmagés 0.12 primero lo guarda (normalmente en formato PDF) en una carpeta y entonces pide al sistema que abra el archivo; trabajando con x2go o FreeNX queremos que Bulmagés guarde el archivo pero en el ordenador del usuario, que Bulmagés no abra nada y que NxSpooler abra el archivo pero en el ordenador del usuario.
 
 * La primera vez:
    + En el servidor:
@@ -1736,9 +1736,9 @@ Nota: para imprimir un informe, Bulmages 0.12 primero lo guarda (normalmente en 
       - En Linux: compartir (usando Samba) la carpeta $HOME/.nxspooler como &quot;nxspooler&quot;, utilizando un nombre de usuario y contraseña particulares.
       - En Windows: compartir la carpeta %UserProfile%\.nxspooler como &quot;nxspooler$&quot;, utilizando un nombre de usuario y contraseña particulares.
       - Nota: al compartir, asegurarse de que el usuario particular que se usará para acceder al recurso compartido tiene permiso de escritura sobre el mismo.
-      - Configurar el programa cliente Nx para que utilizando la conexión que se usa normalmente para acceder al servidor FreeNX éste pueda acceder al recurso compartido del que hablábamos. Por ejemplo, en el programa &quot;nx client&quot; para Linux se puede ir a una solapa &quot;Services&quot;, activar &quot;enable SMB printing and file sharing&quot; y pulsar en &quot;Add&quot; para añadir el recurso &quot;nxspooler&quot;, especificar que su montaje en el servidor se realice en ~/.bulmages para que Bulmagés lo use de forma natural en la sesión remota; especificar el usuario y contraseña particulares.
+      - Configurar el programa x2goclient o Nx Client para que utilizando la conexión que se usa normalmente para acceder al servidor x2go o FreeNX éste pueda acceder al recurso compartido del que hablábamos. Por ejemplo, en el programa &quot;NX Client&quot; para Linux se puede ir a una solapa &quot;Services&quot;, activar &quot;enable SMB printing and file sharing&quot; y pulsar en &quot;Add&quot; para añadir el recurso &quot;nxspooler&quot;, especificar que su montaje en el servidor se realice en ~/.bulmages para que Bulmagés lo use de forma natural en la sesión remota; especificar el usuario y contraseña particulares.
 
-* Cada vez que el usuario se conecte al FreeNX del servidor:
+* Cada vez que el usuario empiece una sesión x2go o FreeNX:
       - Ha de tener NxSpooler ejecutándose en su ordenador, claro :-). 
 
 De esta forma: los informes que hace Bulmagés en el servidor se abrirán en el ordenador cliente, donde el usuario puede imprimirlos en la impresora que quiera, guardarlos, enviarlos por correo, etc.</translation>
