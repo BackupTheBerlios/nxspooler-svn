@@ -278,12 +278,12 @@ El administrador de este ordenador debería ver si esto es debido a un error del
         <translation>Aviso</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="69"/>
+        <location filename="main.cpp" line="68"/>
         <source>NxSpooler was already running.</source>
         <translation>NxSpooler ya se estaba ejecutando.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="76"/>
+        <location filename="main.cpp" line="75"/>
         <source>NxSpooler does not expect parameters and has been provided with: </source>
         <translation>El programa NxSpooler no usa parámetros y se le han pasado: </translation>
     </message>
@@ -291,7 +291,7 @@ El administrador de este ordenador debería ver si esto es debido a un error del
 <context>
     <name>TTranslator</name>
     <message>
-        <location filename="lib_src/ttranslator.cpp" line="84"/>
+        <location filename="lib_src/ttranslator.cpp" line="85"/>
         <source>Warning: it has not been found a valid file of the %1 translation for the language of your system.</source>
         <translation>Aviso: no se ha encontrado el archivo de la traducción de %1 para su lenguaje.</translation>
     </message>
