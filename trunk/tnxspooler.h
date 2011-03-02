@@ -30,9 +30,9 @@
 
 #include <QTranslator>
 
-#include "tsystrayicon.h"
-#include "tsystem.h"
-#include "tdebugstartend.h"
+#include "lib_src/tsystrayicon.h"
+#include "lib_src/tsystem.h"
+#include "lib_src/tdebugstartend.h"
 #include "toptions.h"
 
 #include "ui_aboutDialog.h"

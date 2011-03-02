@@ -24,7 +24,7 @@
 #include <QtGui/QDialog>
 #include <QtGui/QFileDialog>
 
-#include "tsystem.h"
+#include "lib_src/tsystem.h"
 #include "ui_optionsDialog.h"
 
 class TOptions : public QDialog, private Ui::optionsDialog
