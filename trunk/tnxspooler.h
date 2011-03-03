@@ -84,14 +84,16 @@ private:
    QString getDefaultProgramInLinux() const;
    void removeExtensionsThatDoNotMustBeOpened(QStringList &extsToDetect) const;
 
-   QSettings m_settings; //!< Object that manages (loads and saves automatically) the configuration of the program.
    TSysTrayIcon m_sys_tray_icon; //!< Object that manages the system tray icon.
-   int m_default_interval; //!< Default quantity of seconds to wait.
-   QString m_special_extension; //!< A dot followed by the special extension for text files that contain a path inside.
-   QStringList m_default_formats; //!< The files to detect will have extensions; this is a list of default extensions to identify.
-   QString m_default_shared_resource; //!< Constant string of the name of the default shared resource.
-   QString m_default_folder; //!< Constant string of the name of the default local folder to monitor.
    QTimer m_timer; //!< Every X seconds this object will try to detect new files and open them.
+   const QString m_special_extension; //!< Is a dot followed by the special extension for  text files that contain a path inside to be opened by NxSpooler.
+   QSettings m_settings; //!< Object that manages (loads and saves automatically) the configuration of NxSpooler.
+
+   // The default values for the settings of NxSpooler
+   const int m_default_interval; //!< The default quantity of seconds to wait between examinations.
+   const QStringList m_default_formats; //!< The files to detect will have extensions; this is a list of default extensions to identify.
+   const QString m_default_shared_resource; //!< The name of the default shared resource.
+   const QString m_default_folder; //!< The name of the default local folder to monitor.
 
 signals:
    void settingsRestored();

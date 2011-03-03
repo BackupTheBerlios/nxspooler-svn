@@ -38,23 +38,19 @@
    \param qwidgetParent If "qwidgetParent" is not specified, the TNxSpooler will be an independent window.
 */
 TNxSpooler::TNxSpooler(QWidget *qwidgetParent)
-   : QDialog(qwidgetParent)
+   : QDialog(qwidgetParent),
+     m_special_extension(".nxspooler-open"),
+     m_default_interval(3),
+     m_default_formats(QStringList() << "pdf" << "ods" << "sxc"),
+     m_default_shared_resource("nxspooler$"),
+     m_default_folder(QDir::toNativeSeparators(QDir::homePath().append(QDir::separator()).append(".nxspooler")))
 {
    QDEBUG_METHOD_NAME
 
-   // "Adopt" member objects that need this
+   // "Adopt" member objects that need this object as a parent
    m_settings.setParent(this);
    m_sys_tray_icon.setParent(this);
    m_timer.setParent(this);
-
-   // Define constant values by default
-   m_default_interval = 3;
-   m_special_extension = ".nxspooler-open"; // A special extension for files that contain a path to be opened by NxSpooler
-   m_default_formats.append("pdf");
-   m_default_formats.append("ods");
-   m_default_formats.append("sxc");
-   m_default_shared_resource = "nxspooler$";
-   m_default_folder = QDir::toNativeSeparators(QDir::homePath().append(QDir::separator()).append(".nxspooler"));
 
    setupUi(this);
    prepareTrayIconOrShowProgram();
