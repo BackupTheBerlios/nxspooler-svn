@@ -19,7 +19,7 @@
 
 /*!
    \class TTranslator
-   \brief A QTranslator with some special features to save some work to the developer.
+   \brief A specialized QTranslator with some added features to save some work to the developer.
 */
 
 #include "ttranslator.h"
@@ -93,7 +93,7 @@ void TTranslator::searchAndLoadTranslation(QTranslator &translator,
 
 //! Constructor
 /*!
-     \param program Program that is going to work with the TTranslator.
+     \param program The program that is going to have its text translated using the TTranslator.
 */
 TTranslator::TTranslator(QCoreApplication &program) : m_a(program)
 {
@@ -148,15 +148,14 @@ TTranslator::TTranslator(QCoreApplication &program) : m_a(program)
 
    program.installTranslator(this);
 
-   // Now let's deal with the QTranslator for the case of already translated, standard
-   // items like "Ok" buttons, "Restore defaults" buttons, "Cancel" buttons, etc.
+   // Prepare and start the particular m_translatorStandardQtItems
 
    // Note: in development we have Qt installed, and we normally don't modify the Qt
    // translations files, so the Qt translation case is simpler than the NxSpooler translation case.
    QString qtTranslationsPath = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
-   searchAndLoadTranslation(m_translatorStandardItems, "qt_" + locale, "Qt", currentLanguage, qtTranslationsPath, programFolder, ".", upProgramFolder, "..");
+   searchAndLoadTranslation(m_translatorStandardQtItems, "qt_" + locale, "Qt", currentLanguage, qtTranslationsPath, programFolder, ".", upProgramFolder, "..");
 
-   program.installTranslator(&m_translatorStandardItems);
+   program.installTranslator(&m_translatorStandardQtItems);
 }
 
 

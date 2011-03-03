@@ -31,7 +31,7 @@ class TTranslator : public QTranslator
    Q_OBJECT
 
 private:
-   QTranslator m_translatorStandardItems; //!< A simple QTranslator for already translated, standard items like "Restore defaults" buttons, "Cancel" buttons, etc. It must not be destroyed in the constructor of this class.
+   QTranslator m_translatorStandardQtItems; //!< A simple, particular QTranslator for already translated, standard Qt items like "Restore defaults" buttons, "Cancel" buttons, etc. This particular QTranslator must not be destroyed in the constructor of this class.
    QCoreApplication &m_a;  //!< A reference to the main QCoreApplication, for a faster and somewhat clearer access to it.
 
    QDir folderWhereTheExecutableIs() const;
