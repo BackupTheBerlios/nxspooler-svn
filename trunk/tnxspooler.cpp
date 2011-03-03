@@ -39,7 +39,7 @@
 */
 TNxSpooler::TNxSpooler(QWidget *qwidgetParent)
    : QDialog(qwidgetParent),
-     m_special_extension(".nxspooler-open"),
+     m_special_extension("nxspooler-open"),
      m_default_interval(3),
      m_default_formats(QStringList() << "pdf" << "ods" << "sxc"),
      m_default_shared_resource("nxspooler$"),
@@ -133,7 +133,7 @@ void TNxSpooler::detectFilesAndOpen()
          // Initialize variables
          fileHasBeenDeleted = false;
 
-         if (file.suffix().prepend(".") == m_special_extension)
+         if (file.suffix() == m_special_extension)
          {
             opResult = openPathWrittenInside(file.absoluteFilePath());
          }
@@ -486,7 +486,7 @@ bool TNxSpooler::filterAndSortFolder(QDir &folder) const
 
    // An special extension will let us to open a path contained inside
    // a text file ended with the m_special_extension
-   filters << "*" + m_special_extension;
+   filters << "*." + m_special_extension;
 
    // We specify to open only files. This is to avoid cases where for example
    // the user creates a folder named "my .pdf"
