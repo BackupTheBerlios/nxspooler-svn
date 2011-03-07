@@ -113,39 +113,7 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_shared">
-        <property name="text">
-         <string>Shared &amp;resource:</string>
-        </property>
-        <property name="buddy">
-         <cstring>m_shared</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="m_shared">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>230</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Name of the shared resource</string>
-        </property>
-        <property name="whatsThis">
-         <string>Name of the shared resource that the NX client will mount in the server. NxSpooler doesn't check the existence of the shared resource because it's not necessary that the present user had access to it.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0" rowspan="2" colspan="3">
+      <item row="2" column="0" rowspan="2" colspan="3">
        <widget class="QGroupBox" name="groupBox_2">
         <property name="title">
          <string>Ex&amp;tensions to deal with and the application to view each one</string>
@@ -274,7 +242,6 @@
   <tabstop>m_seconds</tabstop>
   <tabstop>m_folder</tabstop>
   <tabstop>m_find_path</tabstop>
-  <tabstop>m_shared</tabstop>
   <tabstop>m_new_ext</tabstop>
   <tabstop>m_delete_ext</tabstop>
   <tabstop>m_find_app</tabstop>

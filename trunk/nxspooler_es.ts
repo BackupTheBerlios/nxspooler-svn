@@ -136,47 +136,52 @@
 <context>
     <name>TNxSpooler</name>
     <message>
-        <location filename="tnxspooler.cpp" line="153"/>
+        <location filename="tnxspooler.cpp" line="149"/>
         <source>The file &quot;%1&quot; could not be correctly processed. Sometimes this error happens because the system cannot find the program specified in the configuration of NxSpooler to open files with the corresponding file extension. The file is going to be deleted when you close this dialog window.</source>
         <translation>El archivo &quot;%1&quot; no pudo ser correctamente procesado. Algunas veces este error sucede porque el sistema no puede encontrar el programa especificado en la configuración de NxSpooler para abrir archivos con esa extensión. El archivo va a ser borrado cuando usted cierre este cuadro de diálogo.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="165"/>
+        <location filename="tnxspooler.cpp" line="161"/>
         <source>Error 2805096: The file &quot;%1&quot; could not be deleted.</source>
         <translation>Error 2805096: No se pudo borrar el archivo &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="173"/>
+        <location filename="tnxspooler.cpp" line="169"/>
         <source> (errors when opening)</source>
         <translation> (errores al intentar abrirlo)</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="239"/>
+        <location filename="tnxspooler.cpp" line="235"/>
         <source>Error 2208095: Internal problem when connecting.</source>
         <translation>Error 2208095: Problema interno al conectar.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="249"/>
+        <location filename="tnxspooler.cpp" line="245"/>
         <source>Error 2208096: Internal problem when connecting.</source>
         <translation>Error 2208096: Problema interno al conectar.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="581"/>
+        <location filename="tnxspooler.cpp" line="571"/>
         <source>Error 2805099: The icon of the notification area could not be activated.</source>
         <translation>Error 2805099: No se pudo activar el icono del área de notificación.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="643"/>
+        <location filename="tnxspooler.cpp" line="626"/>
+        <source>The folder &quot;%1&quot; was successfully created. Now it must be shared, for example with a name like &quot;%2&quot;.</source>
+        <translation>La carpeta &quot;%1&quot; ha sido creada con éxito. Ahora debe compartirla con un nombre como &quot;%2&quot;.</translation>
+    </message>
+    <message>
+        <location filename="tnxspooler.cpp" line="633"/>
         <source>Error 2805093: The folder &quot;%1&quot; could not be created.</source>
         <translation>Error 2805093: No se pudo crear el directorio &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="669"/>
+        <location filename="tnxspooler.cpp" line="659"/>
         <source>Error 2805094: The timer could not be activated.</source>
         <translation>Error 2805094: No se pudo activar el temporizador.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="717"/>
+        <location filename="tnxspooler.cpp" line="707"/>
         <source>Error 2208097: NxSpooler is not configured to launch an application to open files like &quot;%1&quot;, which was found inside &quot;%2&quot;.
 
 The administrator of this computer should see if this is due to a mistake of the program that created the file, an incorrect configuration of NxSpooler, etc.</source>
@@ -185,29 +190,24 @@ The administrator of this computer should see if this is due to a mistake of the
 El administrador de este ordenador debería ver si esto es debido a un error del programa que creó el archivo, una configuración incorrecta de NxSpooler, etc.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="832"/>
+        <location filename="tnxspooler.cpp" line="822"/>
         <source>Error 3108101: NxSpooler could not open the file &quot;%1&quot;.</source>
         <translation>Error 3108101 - NxSpooler no pudo abrir el archivo &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="843"/>
+        <location filename="tnxspooler.cpp" line="833"/>
         <source>Error 3108102: The file &quot;%1&quot; seems to be empty.</source>
         <translation>Error 3108102: Parece que el archivo &quot;%1&quot; esté vacío.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="925"/>
+        <location filename="tnxspooler.cpp" line="915"/>
         <source>Error 2805095: A valid program to open the files could not be found.</source>
         <translation>Error 2805095: No se encontró un programa adecuado para abrir los ficheros.</translation>
     </message>
     <message>
-        <location filename="tnxspooler.cpp" line="624"/>
+        <location filename="tnxspooler.cpp" line="614"/>
         <source>The folder &quot;%1&quot; does not exist. Do you want to create it?</source>
         <translation>El directorio &quot;%1&quot; no existe. ¿Quiere crearlo?</translation>
-    </message>
-    <message>
-        <location filename="tnxspooler.cpp" line="636"/>
-        <source>The folder &quot;%1&quot; was successfully created. Now it must be shared with the name &quot;%2&quot;.</source>
-        <translation>La carpeta &quot;%1&quot; ha sido creada con éxito. Ahora debe compartirla con el nombre &quot;%2&quot;.</translation>
     </message>
 </context>
 <context>
@@ -218,7 +218,7 @@ El administrador de este ordenador debería ver si esto es debido a un error del
         <translation>Error 2208092: Problema interno al conectar.</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="183"/>
+        <location filename="toptions.cpp" line="182"/>
         <source>Error 2108091: A problem was found and a row could not be deleted.</source>
         <translation>Error 2108091: Se encontró un problema y una fila no pudo ser borrada.</translation>
     </message>
@@ -238,17 +238,17 @@ El administrador de este ordenador debería ver si esto es debido a un error del
         <translation>Error 0309101: la extensión &quot;%1&quot; aparece en varias filas.</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="270"/>
+        <location filename="toptions.cpp" line="268"/>
         <source>Are you sure that you want to delete the selected row?</source>
         <translation>¿Está seguro de que quiere borrar la fila seleccionada?</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="302"/>
+        <location filename="toptions.cpp" line="300"/>
         <source>Select the viewer program</source>
         <translation>Seleccione el programa visor</translation>
     </message>
     <message>
-        <location filename="toptions.cpp" line="336"/>
+        <location filename="toptions.cpp" line="334"/>
         <source>Select the shared local folder</source>
         <translation>Seleccione la carpeta local compartida</translation>
     </message>
@@ -1788,22 +1788,17 @@ De esta forma: los informes que hace Bulmagés en el servidor se abrirán en el 
         <translation>C&amp;arpeta compartida:</translation>
     </message>
     <message>
-        <location filename="optionsDialog.ui" line="141"/>
-        <source>Name of the shared resource</source>
-        <translation>Nombre del recurso compartido</translation>
-    </message>
-    <message>
-        <location filename="optionsDialog.ui" line="170"/>
+        <location filename="optionsDialog.ui" line="138"/>
         <source>&amp;Delete</source>
         <translation>&amp;Eliminar</translation>
     </message>
     <message>
-        <location filename="optionsDialog.ui" line="183"/>
+        <location filename="optionsDialog.ui" line="151"/>
         <source>Select the application to view the files with this extension</source>
         <translation>Seleccionar la aplicación para ver los archivos con esta extensión</translation>
     </message>
     <message>
-        <location filename="optionsDialog.ui" line="189"/>
+        <location filename="optionsDialog.ui" line="157"/>
         <source>&amp;Browse</source>
         <translation>E&amp;xaminar</translation>
     </message>
@@ -1834,56 +1829,46 @@ De esta forma: los informes que hace Bulmagés en el servidor se abrirán en el 
     </message>
     <message>
         <location filename="optionsDialog.ui" line="119"/>
-        <source>Shared &amp;resource:</source>
-        <translation>Recurso &amp;compartido:</translation>
-    </message>
-    <message>
-        <location filename="optionsDialog.ui" line="144"/>
-        <source>Name of the shared resource that the NX client will mount in the server. NxSpooler doesn&apos;t check the existence of the shared resource because it&apos;s not necessary that the present user had access to it.</source>
-        <translation>Nombre del recurso compartido en red  que el cliente NX montará en el servidor. NxSpooler no comprueba la existencia del recurso compartido, ya que no es necesario que el usuario actual tenga permisos para acceder a él.</translation>
-    </message>
-    <message>
-        <location filename="optionsDialog.ui" line="151"/>
         <source>Ex&amp;tensions to deal with and the application to view each one</source>
         <translation>Ex&amp;tensiones a reconocer y la aplicación a utilizar con cada una</translation>
     </message>
     <message>
-        <location filename="optionsDialog.ui" line="157"/>
+        <location filename="optionsDialog.ui" line="125"/>
         <source>New extension</source>
         <translation>Nueva extensión</translation>
     </message>
     <message>
-        <location filename="optionsDialog.ui" line="160"/>
+        <location filename="optionsDialog.ui" line="128"/>
         <source>&amp;New</source>
         <translation>&amp;Nueva</translation>
     </message>
     <message>
-        <location filename="optionsDialog.ui" line="167"/>
+        <location filename="optionsDialog.ui" line="135"/>
         <source>Delete the selected extension</source>
         <translation>Eliminar la extensión seleccionada</translation>
     </message>
     <message>
-        <location filename="optionsDialog.ui" line="186"/>
+        <location filename="optionsDialog.ui" line="154"/>
         <source>Select an application.</source>
         <translation>Seleccionar una aplicación.</translation>
     </message>
     <message>
-        <location filename="optionsDialog.ui" line="221"/>
+        <location filename="optionsDialog.ui" line="189"/>
         <source>Extension</source>
         <translation>Extensión</translation>
     </message>
     <message>
-        <location filename="optionsDialog.ui" line="226"/>
+        <location filename="optionsDialog.ui" line="194"/>
         <source>Only if inside a .nxspooler-open</source>
         <translation>Sólo si dentro de .nxspooler-open</translation>
     </message>
     <message>
-        <location filename="optionsDialog.ui" line="229"/>
+        <location filename="optionsDialog.ui" line="197"/>
         <source>Open a file of this kind only if it&apos;s referred from another file with extension &quot;.nxspooler-open&quot;</source>
         <translation>Abrir un archivo de este tipo sólo si se refieren a él desde otro archivo con extensión &quot;.nxspooler-open&quot;</translation>
     </message>
     <message>
-        <location filename="optionsDialog.ui" line="234"/>
+        <location filename="optionsDialog.ui" line="202"/>
         <source>Open with</source>
         <translation>Abrir con</translation>
     </message>
