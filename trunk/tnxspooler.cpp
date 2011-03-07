@@ -40,9 +40,9 @@
 TNxSpooler::TNxSpooler(QWidget *qwidgetParent)
    : QDialog(qwidgetParent),
      m_special_extension("nxspooler-open"),
+     m_usual_shared_resource("nxspooler$"),
      m_default_interval(3),
      m_default_formats(QStringList() << "pdf" << "ods" << "sxc"),
-     m_default_shared_resource("nxspooler$"),
      m_default_folder(QDir::toNativeSeparators(QDir::homePath().append(QDir::separator()).append(".nxspooler")))
 {
    QDEBUG_METHOD_NAME
@@ -440,7 +440,6 @@ void TNxSpooler::restoreSettings()
        m_settings.remove("onlyInsideContainer");
        m_settings.setValue("onlyInsideContainer", onlyInsideContainer);
 
-       m_settings.setValue("resource", m_default_shared_resource);
        m_settings.setValue("folder", m_default_folder);
        m_settings.setValue("seconds", m_default_interval);
        emit settingsRestored();
@@ -550,11 +549,6 @@ void TNxSpooler::initializeSettings()
    {
       m_settings.setValue("folder", m_default_folder);
    }
-
-   if (m_settings.value("resource").isNull() || m_settings.value("resource").toString().isEmpty())
-   {
-      m_settings.setValue("resource", m_default_shared_resource);
-   }
 }
 
 
@@ -611,7 +605,7 @@ void TNxSpooler::prepareSharedFolder() const
 {
    QDEBUG_METHOD_NAME
 
-   // Create the manager of the path to check
+   // Create an object to manage the folder that is going to be shared
    QDir folder(m_settings.value("folder").toString());
 
    // Create the folder if it doesn't exist
@@ -629,8 +623,8 @@ void TNxSpooler::prepareSharedFolder() const
 
       if (folder.mkdir(folder.path()))
       {
-         QString warning = tr("The folder \"%1\" was successfully created. Now it must be shared with the name \"%2\".")
-                         .arg(m_settings.value("folder").toString(), m_settings.value("resource").toString());
+         QString warning = tr("The folder \"%1\" was successfully created. Now it must be shared, for example with a name like \"%2\".")
+                         .arg(m_settings.value("folder").toString(), m_usual_shared_resource);
          syst.showWarning(warning);
       }
       else

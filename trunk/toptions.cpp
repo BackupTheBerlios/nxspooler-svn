@@ -147,7 +147,6 @@ bool TOptions::checkAndSaveTheOptions()
       m_settings->setValue("onlyInsideContainer", onlyInsideContainer);
       m_settings->setValue("apps", apps);
 
-      m_settings->setValue("resource", m_shared->text());
       m_settings->setValue("folder", m_folder->text());
       m_settings->setValue("seconds", m_seconds->value());
 
@@ -207,7 +206,6 @@ void TOptions::updateOptionsRows()
        }
 
        m_folder->setText(m_settings->value("folder").toString());
-       m_shared->setText(m_settings->value("resource").toString());
    }
    catch(std::exception &excep)
    {

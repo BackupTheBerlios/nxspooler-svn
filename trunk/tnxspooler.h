@@ -87,12 +87,12 @@ private:
    TSysTrayIcon m_sys_tray_icon; //!< Object that manages the system tray icon.
    QTimer m_timer; //!< Every X seconds this object will try to detect new files and open them.
    const QString m_special_extension; //!< The special extension for  text files that contain a path inside to be opened by NxSpooler.
+   const QString m_usual_shared_resource; //!< The usual name of the shared resource in the client computer.
    QSettings m_settings; //!< Object that manages (loads and saves automatically) the configuration of NxSpooler.
 
    // The default values for the settings of NxSpooler
    const int m_default_interval; //!< The default quantity of seconds to wait between examinations.
    const QStringList m_default_formats; //!< The files to detect will have extensions; this is a list of default extensions to identify.
-   const QString m_default_shared_resource; //!< The name of the default shared resource.
    const QString m_default_folder; //!< The name of the default local folder to monitor.
 
 signals:
