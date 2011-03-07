@@ -43,6 +43,8 @@ private:
                                  const QString &,
                                  const QString &,
                                  const QString &,
+                                 const QString &,
+                                 const QString &,
                                  const QString & = "");
 
 public:

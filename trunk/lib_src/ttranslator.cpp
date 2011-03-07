@@ -56,6 +56,8 @@ QDir TTranslator::folderWhereTheExecutableIs() const
    \param folderWithPriority3 The path of the third folder where to search.
    \param folderWithPriority4 The path of the fourth folder where to search.
    \param folderWithPriority5 The path of the fifth folder where to search.
+   \param folderWithPriority6 The path of the sixth folder where to search.
+   \param folderWithPriority7 The path of the seventh folder where to search.
 */
 void TTranslator::searchAndLoadTranslation(QTranslator &translator,
                                            const QString &baseName,
@@ -65,7 +67,9 @@ void TTranslator::searchAndLoadTranslation(QTranslator &translator,
                                            const QString &folderWithPriority2,
                                            const QString &folderWithPriority3,
                                            const QString &folderWithPriority4,
-                                           const QString &folderWithPriority5)
+                                           const QString &folderWithPriority5,
+                                           const QString &folderWithPriority6,
+                                           const QString &folderWithPriority7)
 {
    QDEBUG_METHOD_NAME
 
@@ -74,8 +78,10 @@ void TTranslator::searchAndLoadTranslation(QTranslator &translator,
       if (!translator.load(baseName, folderWithPriority2))
          if (!translator.load(baseName, folderWithPriority3))
             if (!translator.load(baseName, folderWithPriority4))
-               if (folderWithPriority5 != "")
-                  translator.load(baseName, folderWithPriority5);
+                if (!translator.load(baseName, folderWithPriority5))
+                    if (!translator.load(baseName, folderWithPriority6))
+                       if (folderWithPriority7 != "")
+                          translator.load(baseName, folderWithPriority7);
 
    if (translator.isEmpty())
       if (currentLanguage != "en")
@@ -125,9 +131,9 @@ TTranslator::TTranslator(QCoreApplication &program) : m_a(program)
 
 #ifdef Q_WS_WIN
    #ifdef QT_NO_DEBUG
-         searchAndLoadTranslation(*this, programTranslationFile, programName, currentLanguage, programFolder, ".", upProgramFolder, "..");
-   #else // For example, to allow to execute "debug\program.exe" from the development folder (where the qm file is).
-         searchAndLoadTranslation(*this, programTranslationFile, programName, currentLanguage, ".", programFolder, upProgramFolder, "..");
+         searchAndLoadTranslation(*this, programTranslationFile, programName, currentLanguage, programFolder, ".", upProgramFolder, "..", "../trunk", "../../trunk");
+   #else // For example, to allow to execute "debug\program.exe" from the development folder (where the qm files could be).
+         searchAndLoadTranslation(*this, programTranslationFile, programName, currentLanguage, ".", programFolder, upProgramFolder, "..", "../trunk", "../../trunk");
    #endif
 
 #else
@@ -140,9 +146,9 @@ TTranslator::TTranslator(QCoreApplication &program) : m_a(program)
    QString releaseTranslationsFolder = QString(RELEASE_INSTALLATION_FOLDER"/share/")
                                        + programNameInSmallLetters + "/translations";
    #ifdef QT_NO_DEBUG
-      searchAndLoadTranslation(*this, programTranslationFile, programName, currentLanguage, releaseTranslationsFolder, programFolder, ".", upProgramFolder, "..");
+      searchAndLoadTranslation(*this, programTranslationFile, programName, currentLanguage, releaseTranslationsFolder, programFolder, ".", upProgramFolder, "..", "../trunk", "../../trunk");
    #else
-      searchAndLoadTranslation(*this, programTranslationFile, programName, currentLanguage, ".", programFolder, releaseTranslationsFolder, upProgramFolder, "..");
+      searchAndLoadTranslation(*this, programTranslationFile, programName, currentLanguage, ".", programFolder, releaseTranslationsFolder, upProgramFolder, "..", "../trunk", "../../trunk");
    #endif
 #endif
 
@@ -153,7 +159,7 @@ TTranslator::TTranslator(QCoreApplication &program) : m_a(program)
    // Note: in development we have Qt installed, and we normally don't modify the Qt
    // translations files, so the Qt translation case is simpler than the NxSpooler translation case.
    QString qtTranslationsPath = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
-   searchAndLoadTranslation(m_translatorStandardQtItems, "qt_" + locale, "Qt", currentLanguage, qtTranslationsPath, programFolder, ".", upProgramFolder, "..");
+   searchAndLoadTranslation(m_translatorStandardQtItems, "qt_" + locale, "Qt", currentLanguage, qtTranslationsPath, programFolder, ".", upProgramFolder, "..", "../trunk", "../../trunk");
 
    program.installTranslator(&m_translatorStandardQtItems);
 }
