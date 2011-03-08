@@ -291,7 +291,7 @@ El administrador de este ordenador debería ver si esto es debido a un error del
 <context>
     <name>TTranslator</name>
     <message>
-        <location filename="lib_src/ttranslator.cpp" line="85"/>
+        <location filename="lib_src/ttranslator.cpp" line="91"/>
         <source>Warning: it has not been found a valid file of the %1 translation for the language of your system.</source>
         <translation>Aviso: no se ha encontrado el archivo de la traducción de %1 para su lenguaje.</translation>
     </message>

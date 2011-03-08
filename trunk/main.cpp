@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
       a.setOrganizationName(QString::fromUtf8("Creación y Diseño Ibense"));
       a.setOrganizationDomain("cdi-ibense.com");
       a.setApplicationName(syst.setApplicationName("NxSpooler"));
-      a.setApplicationVersion("1.0.3");
+      a.setApplicationVersion("1.0.4");
 
       // Start a specialized QTranslator to try to translate the next messages that the user sees
       TTranslator translator(a);

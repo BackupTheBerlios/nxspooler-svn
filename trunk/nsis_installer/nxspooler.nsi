@@ -19,7 +19,7 @@
   ;Define the default value of VERSION. Because of the "ifndef", if we didn't define VERSION in 
   ;this file, it could be defined in the compiler or in the command-line when compiling this script.
   !ifndef VERSION
-    !define VERSION "1.0.3"
+    !define VERSION "1.0.4"
   !endif
 
   Name "${PROG_NAME}"
@@ -147,7 +147,7 @@ Section "Section Name 1" Section1
   SetOutPath "$INSTDIR"
   
   ;Files to install
-  File ..\..\nxspooler-build-desktop\release\${PROG_NAME}.exe
+  File ..\..\trunk-build-desktop\release\${PROG_NAME}.exe
   File ..\${PROG_NAME}_es.qm
   File "${QT_DLL_FOLDER}\bin\mingwm10.dll"
   File "${QT_DLL_FOLDER}\bin\libgcc_s_dw2-1.dll"
