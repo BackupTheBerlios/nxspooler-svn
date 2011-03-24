@@ -70,8 +70,7 @@ public:
 
 extern TSystem syst; //!< Extern object to achieve that any object that has access to this header can use the global object that will be created in the main.cpp file.
 
-extern QTextStream cin;  //!< Extern object to allow access to the "standard input" stream.
-extern QTextStream cout; //!< Extern object to allow access to the "standard output" stream.
-extern QTextStream cerr; //!< Extern object to allow access to the "standard error" stream.
+// Allow access to those external objects that deal with the standard input, output...
+extern QTextStream cin, cout, cerr;
 
 #endif
